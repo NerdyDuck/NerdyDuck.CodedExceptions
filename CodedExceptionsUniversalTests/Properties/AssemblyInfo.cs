@@ -16,10 +16,10 @@
  * limitations under the License.
  * </copyright>
  * <author name="Daniel Kopp" email="dak@nerdyduck.de" />
- * <assembly name="NerdyDuck.CodedExceptions">
- * Exceptions with custom HRESULTs for .NET
+ * <assembly name="NerdyDuck.Tests.CodedExceptions">
+ * Unit tests for NerdyDuck.CodedExceptions assembly.
  * </assembly>
- * <file name="AssemblyInfo.cs" date="2015-08-05">
+ * <file name="AssemblyInfo.cs" date="2015-08-10">
  * Contains assembly-level properties.
  * </file>
  ******************************************************************************/
@@ -33,8 +33,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General information
-[assembly: AssemblyTitle("NerdyDuck.CodedExceptions")]
-[assembly: AssemblyDescription("Exceptions with custom HRESULT values for .NET")]
+[assembly: AssemblyTitle("NerdyDuck.Tests.CodedExceptions")]
+[assembly: AssemblyDescription("Unit tests for NerdyDuck.CodedExceptions assembly.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NerdyDuck")]
 [assembly: AssemblyProduct("NerdyDuck Core Libraries")]
@@ -42,7 +42,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("Covered by Apache License 2.0")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en-US")]
-[assembly: InternalsVisibleTo("NerdyDuck.Tests.CodedExceptions, PublicKey=002400000480000094000000060200000024000052534131000400000100010027ea12fb39924671c562cc60e894c4b7d185a0d61c18a778022e8e5cf2688990c841e0d397904b8e6b3688f7e99966f7a7f0f4ead7e4abb3bc343f17d45ca05cdc3d86f72646be82c9640e1b2c79339e572699c47745cba4e6ae2e9106956a3da9577cb65add1e2c9d0df679baea4d9e4c6bf9494740ab8d05320083a812c2b0")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyFacilityIdentifier(0x0001)]
