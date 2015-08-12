@@ -29,7 +29,6 @@ using NerdyDuck.CodedExceptions;
 using System;
 using System.Reflection;
 using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General information
@@ -45,7 +44,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyFacilityIdentifier(0x0001)]
-#if WINDOWS_UAP
+#if WINDOWS_UWP
 [assembly: AssemblyMetadata("TargetPlatform", "UAP")]
 #endif
 #if WINDOWS_DESKTOP

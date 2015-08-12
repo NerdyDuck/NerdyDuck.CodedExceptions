@@ -60,12 +60,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
+                    //TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
-            
+
             Microsoft.VisualStudio.TestPlatform.TestExecutor.UnitTestClient.CreateDefaultUI();
 
             // Ensure the current window is active
@@ -94,6 +95,7 @@ namespace NerdyDuck.Tests.CodedExceptions
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
+            //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
     }
