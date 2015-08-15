@@ -84,11 +84,11 @@ namespace NerdyDuck.CodedExceptions
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false, Inherited = false)]
 	public sealed class AssemblyFacilityIdentifierAttribute : System.Attribute
 	{
-#region Private fields
+		#region Private fields
 		private int mFacilityId;
-#endregion
+		#endregion
 
-#region Properties
+		#region Properties
 		/// <summary>
 		/// Gets the identifier for the facility (= the attributed assembly).
 		/// </summary>
@@ -97,9 +97,9 @@ namespace NerdyDuck.CodedExceptions
 		{
 			get { return mFacilityId; }
 		}
-#endregion
+		#endregion
 
-#region Constructor
+		#region Constructor
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyFacilityIdentifierAttribute"/> with the specified facility id.
 		/// </summary>
@@ -111,10 +111,10 @@ namespace NerdyDuck.CodedExceptions
 				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x02), "facilityId", Properties.Resources.AssemblyFacilityIdentifierAttribute_ctor_OutOfRange);
 			mFacilityId = facilityId;
 		}
-#endregion
+		#endregion
 
-#region Public methods
-#region FromAssembly
+		#region Public methods
+		#region FromAssembly
 		/// <summary>
 		/// Gets an <see cref="AssemblyFacilityIdentifierAttribute"/> located in the specified assembly.
 		/// </summary>
@@ -128,9 +128,9 @@ namespace NerdyDuck.CodedExceptions
 
 			return assembly.GetCustomAttribute<AssemblyFacilityIdentifierAttribute>();
 		}
-#endregion
+		#endregion
 
-#region FromType
+		#region FromType
 		/// <summary>
 		/// Gets an <see cref="AssemblyFacilityIdentifierAttribute"/> located in the assembly that defines the specified type.
 		/// </summary>
@@ -144,9 +144,9 @@ namespace NerdyDuck.CodedExceptions
 
 			return FromAssembly(type.GetTypeInfo().Assembly);
 		}
-#endregion
+		#endregion
 
-#region TryGetOverride
+		#region TryGetOverride
 		/// <summary>
 		/// Attempts to get a facility identifier override for the specified assembly from the application configuration file.
 		/// </summary>
@@ -210,7 +210,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return TryGetOverride(type.GetTypeInfo().Assembly, out identifier);
 		}
-#endregion
-#endregion
+		#endregion
+		#endregion
 	}
 }

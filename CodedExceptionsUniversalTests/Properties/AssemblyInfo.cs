@@ -43,7 +43,7 @@ using System.Runtime.InteropServices;
 [assembly: NeutralResourcesLanguage("en-US")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyFacilityIdentifier(0x0001)]
+[assembly: AssemblyFacilityIdentifier(0x002a)]
 #if WINDOWS_UWP
 [assembly: AssemblyMetadata("TargetPlatform", "UAP")]
 #endif

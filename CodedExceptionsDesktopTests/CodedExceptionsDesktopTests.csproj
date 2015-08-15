@@ -71,12 +71,37 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CodedExceptionsUniversalTests\HResultHelperTest.cs">
-      <Link>HResultHelperTest.cs</Link>
+    <Compile Include="..\CodedExceptionsUniversalTests\Constants.cs">
+      <Link>Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\CustomAssert.cs">
+      <Link>CustomAssert.cs</Link>
     </Compile>
     <Compile Include="..\CodedExceptionsUniversalTests\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\AssemblyFacilityIdentifierAttributeTest.cs">
+      <Link>Tests\AssemblyFacilityIdentifierAttributeTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedAggregateExceptionTest.cs">
+      <Link>Tests\CodedAggregateExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentExceptionTest.cs">
+      <Link>Tests\CodedArgumentExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedExceptionTest.cs">
+      <Link>Tests\CodedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\ErrorsTest.cs">
+      <Link>Tests\ErrorsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\ExceptionExtensionsTest.cs">
+      <Link>Tests\ExceptionExtensionsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\HResultHelperTest.cs">
+      <Link>Tests\HResultHelperTest.cs</Link>
+    </Compile>
+    <Compile Include="SerializationHelper.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

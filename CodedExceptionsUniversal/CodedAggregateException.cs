@@ -48,14 +48,17 @@ namespace NerdyDuck.CodedExceptions
 		/// <summary>
 		/// Gets the count of inner exceptions for display in the debugger.
 		/// </summary>
+#if WINDOWS_DESKTOP
+		[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+#endif
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Used for DebuggerDisplay output")]
 		private int InnerExceptionsCount
 		{
 			get { return base.InnerExceptions.Count; }
 		}
-		#endregion
+#endregion
 
-		#region Constructors
+#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a system-supplied message that describes the error.
 		/// </summary>
@@ -249,9 +252,9 @@ namespace NerdyDuck.CodedExceptions
 		{
 			HResult = hresult;
 		}
-		#endregion
+#endregion
 
-		#region Public methods
+#region Public methods
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 		/// </summary>
@@ -266,6 +269,6 @@ namespace NerdyDuck.CodedExceptions
 			}
 			return HResultHelper.CreateToString(this, CustomText);
 		}
-		#endregion
+#endregion
 	}
 }
