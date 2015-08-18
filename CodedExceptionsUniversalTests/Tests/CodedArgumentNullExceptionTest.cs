@@ -1,6 +1,6 @@
 ﻿#region Copyright
 /*******************************************************************************
- * <copyright file="CodedArgumentExceptionTest.cs" owner="Daniel Kopp">
+ * <copyright file="CodedArgumentNullExceptionTest.cs" owner="Daniel Kopp">
  * Copyright 2015 Daniel Kopp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +19,9 @@
  * <assembly name="NerdyDuck.Tests.CodedExceptions">
  * Unit tests for NerdyDuck.CodedExceptions assembly.
  * </assembly>
- * <file name="CodedArgumentExceptionTest.cs" date="2015-08-13">
+ * <file name="CodedArgumentNullExceptionTest.cs" date="2015-08-17">
  * Contains test methods to test the
- * NerdyDuck.CodedExceptions.CodedArgumentException class.
+ * NerdyDuck.CodedExceptions.CodedArgumentNullException class.
  * </file>
  ******************************************************************************/
 #endregion
@@ -39,13 +39,13 @@ using System;
 namespace NerdyDuck.Tests.CodedExceptions
 {
 	/// <summary>
-	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedArgumentException class.
+	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedArgumentNullException class.
 	/// </summary>
 #if WINDOWS_DESKTOP
 	[ExcludeFromCodeCoverage]
 #endif
 	[TestClass]
-	public class CodedArgumentExceptionTest
+	public class CodedArgumentNullExceptionTest
 	{
 		#region Constructors
 		[TestMethod]
@@ -53,11 +53,11 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException();
+				throw new CodedArgumentNullException();
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_NULLREFERENCE, ex.HResult);
 				Assert.IsNull(ex.InnerException);
 				Assert.IsNull(ex.ParamName);
 			}
@@ -68,14 +68,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.TestMessage);
+				throw new CodedArgumentNullException(Constants.ParamName);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_NULLREFERENCE, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
 		}
 
@@ -90,12 +89,12 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.TestMessage, ex);
+					throw new CodedArgumentNullException(Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_NULLREFERENCE, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
 				Assert.IsNull(ex.ParamName);
@@ -107,35 +106,12 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName);
+				throw new CodedArgumentNullException(Constants.ParamName, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_NULLREFERENCE, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
-			}
-		}
-
-		[TestMethod]
-		public void Ctor_StringStringException_Success()
-		{
-			try
-			{
-				try
-				{
-					throw new FormatException();
-				}
-				catch (Exception ex)
-				{
-					throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName, ex);
-				}
-			}
-			catch (CodedArgumentException ex)
-			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
-				Assert.IsNotNull(ex.InnerException);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
@@ -146,9 +122,9 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult);
+				throw new CodedArgumentNullException(Constants.CustomHResult);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
@@ -161,14 +137,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage);
+				throw new CodedArgumentNullException(Constants.CustomHResult, Constants.ParamName);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
 		}
 
@@ -183,10 +158,10 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, ex);
+					throw new CodedArgumentNullException(Constants.CustomHResult, Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
@@ -200,35 +175,12 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
+				throw new CodedArgumentNullException(Constants.CustomHResult, Constants.ParamName, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
-			}
-		}
-
-		[TestMethod]
-		public void Ctor_IntStringStringException_Success()
-		{
-			try
-			{
-				try
-				{
-					throw new FormatException();
-				}
-				catch (Exception ex)
-				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
-				}
-			}
-			catch (CodedArgumentException ex)
-			{
-				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
-				Assert.IsNotNull(ex.InnerException);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
@@ -240,22 +192,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				try
-				{
-					throw new FormatException();
-				}
-				catch (Exception ex)
-				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
-				}
+				throw new CodedArgumentNullException(Constants.CustomHResult, Constants.ParamName, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentNullException ex)
 			{
 				System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
-				CodedArgumentException ex2 = SerializationHelper.Deserialize<CodedArgumentException>(Buffer);
+				CodedArgumentNullException ex2 = SerializationHelper.Deserialize<CodedArgumentNullException>(Buffer);
 
 				Assert.AreEqual(Constants.CustomHResult, ex2.HResult);
-				Assert.IsNotNull(ex2.InnerException);
+				Assert.IsNull(ex2.InnerException);
 				StringAssert.StartsWith(ex2.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex2.ParamName);
 			}
@@ -268,12 +213,12 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
+				throw new CodedArgumentNullException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
 			}
 			catch (Exception ex)
 			{
 				string str = HResultHelper.CreateToString(ex, null);
-				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedArgumentException).FullName, Constants.CustomHResultString, Constants.TestMessage));
+				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedArgumentNullException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
 				StringAssert.Contains(str, Constants.ParamName);
 			}

@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3EDCAE92-2FFA-47C8-AA12-2FC60DD18A84}"
 	ProjectSection(SolutionItems) = preProject
 		LICENCE.txt = LICENCE.txt
+		NerdyDuck.snk = NerdyDuck.snk
 		README.md = README.md
 		WE-Markdown.css = WE-Markdown.css
 	EndProjectSection

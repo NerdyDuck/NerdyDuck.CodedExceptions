@@ -81,7 +81,9 @@ namespace NerdyDuck.Tests.CodedExceptions
 		public void FromAssembly_Success()
 		{
 			Assembly assembly = typeof(AssemblyFacilityIdentifierAttributeTest).GetTypeInfo().Assembly;
-			Assert.AreEqual(42, AssemblyFacilityIdentifierAttribute.FromAssembly(assembly));
+			AssemblyFacilityIdentifierAttribute att = AssemblyFacilityIdentifierAttribute.FromAssembly(assembly);
+			Assert.IsNotNull(att);
+			Assert.AreEqual(42, att.FacilityId);
 		}
 
 		[TestMethod]
@@ -99,7 +101,9 @@ namespace NerdyDuck.Tests.CodedExceptions
 		public void FromType_Success()
 		{
 			Type type = typeof(AssemblyFacilityIdentifierAttributeTest);
-			Assert.AreEqual(42, AssemblyFacilityIdentifierAttribute.FromType(type));
+			AssemblyFacilityIdentifierAttribute att = AssemblyFacilityIdentifierAttribute.FromType(type);
+			Assert.IsNotNull(att);
+			Assert.AreEqual(42, att.FacilityId);
 		}
 
 		[TestMethod]

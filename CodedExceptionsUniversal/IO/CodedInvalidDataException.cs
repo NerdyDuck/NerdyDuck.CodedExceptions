@@ -41,7 +41,7 @@ namespace NerdyDuck.CodedExceptions.IO
 #endif
 	[CodedException]
 	[ComVisible(true)]
-	public class CodedInvalidDataException : CodedException
+	public class CodedInvalidDataException : CodedIOException
 	{
 		#region Constructors
 		/// <summary>

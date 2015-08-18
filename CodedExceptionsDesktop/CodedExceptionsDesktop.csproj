@@ -37,7 +37,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\..\Shared\NerdyDuck.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\NerdyDuck.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,10 +51,17 @@
     <None Include="..\..\..\Shared\NerdyDuck.snk">
       <Link>NerdyDuck.snk</Link>
     </None>
-    <EmbeddedResource Include="..\CodedExceptionsUniversal\Strings\en-US\Resources.resw">
-      <Link>Properties\Resources.resw</Link>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResWFiles Include="..\CodedExceptionsUniversal\Strings\en-US\Resources.resw">
+      <Link>Properties\en-US\Resources.resw</Link>
+      <Culture>
+      </Culture>
+    </ResWFiles>
+    <ResWFiles Include="..\CodedExceptionsUniversal\Strings\de-DE\Resources.resw">
+      <Link>Properties\de-DE\Resources.resw</Link>
+      <Culture>.de-DE</Culture>
+    </ResWFiles>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CodedExceptionsUniversal\AssemblyFacilityIdentifierAttribute.cs">
@@ -150,14 +157,29 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Strings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+    <!-- Need to copy/rename the *.resw files to *.resx, because GenerateResource does not recognize .resw files. Adding respective culture to output names. -->
+    <Copy SourceFiles="@(ResWFiles)" DestinationFiles="@(ResWFiles->'obj\$(ConfigurationName)\%(Filename)%(Culture).resx')" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true">
+      <Output TaskParameter="CopiedFiles" ItemName="ResXFiles" />
+    </Copy>
+    <!-- Generate resource files -->
+    <GenerateResource Sources="@(ResXFiles)" OutputResources="@(ResXFiles->'obj\$(ConfigurationName)\%(Filename).resources')">
+      <Output TaskParameter="OutputResources" ItemName="GeneratedResources" />
+    </GenerateResource>
+    <!-- Adding resource files to project as embedded resource.
+    Because the file names include the culture (e.g. NerdyDuck.CodedExceptions.Properties.Resources.de-DE.resources),
+    the appropriate satellite assemblies are generated automatically. The resource file without a culture (that is en-US)
+    is embedded into the main assembly. -->
+    <ItemGroup>
+      <EmbeddedResource Include="@(GeneratedResources)">
+        <LogicalName>NerdyDuck.CodedExceptions.Properties.Resources.resources</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
   </Target>
   -->

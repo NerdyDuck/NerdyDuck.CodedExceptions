@@ -36,10 +36,25 @@ namespace NerdyDuck.Tests.CodedExceptions
 	public static class Constants
 	{
 		public const int COR_E_EXCEPTION = unchecked((int)0x80131500);
+		public const int COR_E_ARGUMENT = unchecked((int)0x80070057);
+		public const int COR_E_ARGUMENTOUTOFRANGE = unchecked((int)0x80131502);
+		public const int COR_E_NULLREFERENCE = unchecked((int)0x80004003);
+		public const int COR_E_SYSTEM = unchecked((int)0x80131501);
+		public const int COR_E_FORMAT = unchecked((int)0x80131537);
+		public const int COR_E_INVALIDOPERATION = unchecked((int)0x80131509);
+		public const int COR_E_SERIALIZATION = unchecked((int)0x8013150C);
+		public const int COR_E_TIMEOUT = unchecked((int)0x80131505);
+		public const int COR_E_DIRECTORYNOTFOUND = unchecked((int)0x80070003);
+		public const int COR_E_IO = unchecked((int)0x80131620);
+		public const int COR_E_FILENOTFOUND = unchecked((int)0x80070002);
+		public const int DataHResult = unchecked((int)0x80131920);
+		public const int XmlHResult = unchecked((int)0x80131940);
 		public const int CustomHResult = unchecked((int)0xa7ff1234);
 		public const int MicrosoftHResult = unchecked((int)0x87ff1234);
 		public const string CustomHResultString = "0xa7ff1234";
-        public const string TestMessage = "[TestMessage]";
+		public const string TestMessage = "[TestMessage]";
 		public const string ParamName = "parameter1";
+		public const string DirectoryName = "c:\\temp";
+		public const string FileName = @"c:\temp\test.dat";
 	}
 }

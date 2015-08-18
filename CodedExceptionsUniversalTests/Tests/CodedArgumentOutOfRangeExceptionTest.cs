@@ -1,6 +1,6 @@
 ﻿#region Copyright
 /*******************************************************************************
- * <copyright file="CodedArgumentExceptionTest.cs" owner="Daniel Kopp">
+ * <copyright file="CodedArgumentOutOfRangeExceptionTest.cs" owner="Daniel Kopp">
  * Copyright 2015 Daniel Kopp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +19,9 @@
  * <assembly name="NerdyDuck.Tests.CodedExceptions">
  * Unit tests for NerdyDuck.CodedExceptions assembly.
  * </assembly>
- * <file name="CodedArgumentExceptionTest.cs" date="2015-08-13">
+ * <file name="CodedArgumentOutOfRangeExceptionTest.cs" date="2015-08-17">
  * Contains test methods to test the
- * NerdyDuck.CodedExceptions.CodedArgumentException class.
+ * NerdyDuck.CodedExceptions.CodedArgumentOutOfRangeException class.
  * </file>
  ******************************************************************************/
 #endregion
@@ -39,13 +39,13 @@ using System;
 namespace NerdyDuck.Tests.CodedExceptions
 {
 	/// <summary>
-	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedArgumentException class.
+	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedArgumentOutOfRangeException class.
 	/// </summary>
 #if WINDOWS_DESKTOP
 	[ExcludeFromCodeCoverage]
 #endif
 	[TestClass]
-	public class CodedArgumentExceptionTest
+	public class CodedArgumentOutOfRangeExceptionTest
 	{
 		#region Constructors
 		[TestMethod]
@@ -53,12 +53,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException();
+				throw new CodedArgumentOutOfRangeException();
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 				Assert.IsNull(ex.InnerException);
+				Assert.IsNull(ex.ActualValue);
 				Assert.IsNull(ex.ParamName);
 			}
 		}
@@ -68,14 +69,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.TestMessage);
+				throw new CodedArgumentOutOfRangeException(Constants.ParamName);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.ActualValue);
+				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
 		}
 
@@ -90,13 +91,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.TestMessage, ex);
+					throw new CodedArgumentOutOfRangeException(Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
+				Assert.IsNull(ex.ActualValue);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
 				Assert.IsNull(ex.ParamName);
 			}
@@ -107,35 +109,30 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName);
+				throw new CodedArgumentOutOfRangeException(Constants.ParamName, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 				Assert.IsNull(ex.InnerException);
+				Assert.IsNull(ex.ActualValue);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
 		}
 
 		[TestMethod]
-		public void Ctor_StringStringException_Success()
+		public void Ctor_StringObjectString_Success()
 		{
 			try
 			{
-				try
-				{
-					throw new FormatException();
-				}
-				catch (Exception ex)
-				{
-					throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName, ex);
-				}
+				throw new CodedArgumentOutOfRangeException(Constants.ParamName, 42, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
-				Assert.IsNotNull(ex.InnerException);
+				Assert.AreEqual(Constants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+				Assert.IsNull(ex.InnerException);
+				Assert.AreEqual(42, ex.ActualValue);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
@@ -146,12 +143,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult);
+				throw new CodedArgumentOutOfRangeException(Constants.CustomHResult);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
+				Assert.IsNull(ex.ActualValue);
 				Assert.IsNull(ex.ParamName);
 			}
 		}
@@ -161,14 +159,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage);
+				throw new CodedArgumentOutOfRangeException(Constants.CustomHResult, Constants.ParamName);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.ActualValue);
+				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
 		}
 
@@ -183,13 +181,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, ex);
+					throw new CodedArgumentOutOfRangeException(Constants.CustomHResult, Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
+				Assert.IsNull(ex.ActualValue);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
 				Assert.IsNull(ex.ParamName);
 			}
@@ -200,35 +199,30 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
+				throw new CodedArgumentOutOfRangeException(Constants.CustomHResult, Constants.ParamName, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
+				Assert.IsNull(ex.ActualValue);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
 		}
 
 		[TestMethod]
-		public void Ctor_IntStringStringException_Success()
+		public void Ctor_IntStringObjectString_Success()
 		{
 			try
 			{
-				try
-				{
-					throw new FormatException();
-				}
-				catch (Exception ex)
-				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
-				}
+				throw new CodedArgumentOutOfRangeException(Constants.CustomHResult, Constants.ParamName, 42, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
-				Assert.IsNotNull(ex.InnerException);
+				Assert.IsNull(ex.InnerException);
+				Assert.AreEqual(42, ex.ActualValue);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex.ParamName);
 			}
@@ -240,22 +234,16 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				try
-				{
-					throw new FormatException();
-				}
-				catch (Exception ex)
-				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
-				}
+				throw new CodedArgumentOutOfRangeException(Constants.CustomHResult, Constants.ParamName, 42, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedArgumentOutOfRangeException ex)
 			{
 				System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
-				CodedArgumentException ex2 = SerializationHelper.Deserialize<CodedArgumentException>(Buffer);
+				CodedArgumentOutOfRangeException ex2 = SerializationHelper.Deserialize<CodedArgumentOutOfRangeException>(Buffer);
 
 				Assert.AreEqual(Constants.CustomHResult, ex2.HResult);
-				Assert.IsNotNull(ex2.InnerException);
+				Assert.IsNull(ex2.InnerException);
+				Assert.AreEqual(42, ex2.ActualValue);
 				StringAssert.StartsWith(ex2.Message, Constants.TestMessage);
 				Assert.AreEqual(Constants.ParamName, ex2.ParamName);
 			}
@@ -268,7 +256,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
+				throw new CodedArgumentException(Constants.CustomHResult, Constants.ParamName, Constants.TestMessage);
 			}
 			catch (Exception ex)
 			{

@@ -192,10 +192,10 @@ namespace NerdyDuck.CodedExceptions.Properties
 			Windows.ApplicationModel.Resources.Core.ResourceContext context = Context;
 			if (context == null)
 			{
-				context = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView();
+				context = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForViewIndependentUse();
 			}
 
-			Windows.ApplicationModel.Resources.Core.ResourceCandidate resourceCandidate = ResourceMap.GetValue("Resources/" + name, context);
+			Windows.ApplicationModel.Resources.Core.ResourceCandidate resourceCandidate = ResourceMap.GetValue("NerdyDuck.CodedExceptions/Resources/" + name, context);
 
 			if (resourceCandidate == null)
 			{

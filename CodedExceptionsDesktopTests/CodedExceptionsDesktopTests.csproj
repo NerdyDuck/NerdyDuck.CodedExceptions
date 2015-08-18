@@ -39,10 +39,13 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\..\Shared\NerdyDuck.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\NerdyDuck.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -89,8 +92,41 @@
     <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentExceptionTest.cs">
       <Link>Tests\CodedArgumentExceptionTest.cs</Link>
     </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentNullExceptionTest.cs">
+      <Link>Tests\CodedArgumentNullExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentOutOfRangeExceptionTest.cs">
+      <Link>Tests\CodedArgumentOutOfRangeExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedCommunicationExceptionTest.cs">
+      <Link>Tests\CodedCommunicationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedDataExceptionTest.cs">
+      <Link>Tests\CodedDataExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedExceptionAttributeTest.cs">
+      <Link>Tests\CodedExceptionAttributeTest.cs</Link>
+    </Compile>
     <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedExceptionTest.cs">
       <Link>Tests\CodedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedFormatExceptionTest.cs">
+      <Link>Tests\CodedFormatExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedInvalidOperationExceptionTest.cs">
+      <Link>Tests\CodedInvalidOperationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedProtocolViolationExceptionTest.cs">
+      <Link>Tests\CodedProtocolViolationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedSerializationExceptionTest.cs">
+      <Link>Tests\CodedSerializationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedTimeoutExceptionTest.cs">
+      <Link>Tests\CodedTimeoutExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedXmlExceptionTest.cs">
+      <Link>Tests\CodedXmlExceptionTest.cs</Link>
     </Compile>
     <Compile Include="..\CodedExceptionsUniversalTests\Tests\ErrorsTest.cs">
       <Link>Tests\ErrorsTest.cs</Link>
@@ -100,6 +136,24 @@
     </Compile>
     <Compile Include="..\CodedExceptionsUniversalTests\Tests\HResultHelperTest.cs">
       <Link>Tests\HResultHelperTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedDirectoryNotFoundExceptionTest.cs">
+      <Link>Tests\IO\CodedDirectoryNotFoundExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedFileExistsExceptionTest.cs">
+      <Link>Tests\IO\CodedFileExistsExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedFileNotFoundExceptionTest.cs">
+      <Link>Tests\IO\CodedFileNotFoundExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedInvalidDataExceptionTest.cs">
+      <Link>Tests\IO\CodedInvalidDataExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedInvalidFileExceptionTest.cs">
+      <Link>Tests\IO\CodedInvalidFileExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedIOExceptionTest.cs">
+      <Link>Tests\IO\CodedIOExceptionTest.cs</Link>
     </Compile>
     <Compile Include="SerializationHelper.cs" />
   </ItemGroup>
@@ -123,7 +177,7 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

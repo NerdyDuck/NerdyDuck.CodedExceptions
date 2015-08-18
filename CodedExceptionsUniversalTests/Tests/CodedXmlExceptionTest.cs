@@ -1,6 +1,6 @@
 ﻿#region Copyright
 /*******************************************************************************
- * <copyright file="CodedArgumentExceptionTest.cs" owner="Daniel Kopp">
+ * <copyright file="CodedXmlExceptionTest.cs" owner="Daniel Kopp">
  * Copyright 2015 Daniel Kopp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +19,9 @@
  * <assembly name="NerdyDuck.Tests.CodedExceptions">
  * Unit tests for NerdyDuck.CodedExceptions assembly.
  * </assembly>
- * <file name="CodedArgumentExceptionTest.cs" date="2015-08-13">
+ * <file name="CodedXmlExceptionTest.cs" date="2015-08-17">
  * Contains test methods to test the
- * NerdyDuck.CodedExceptions.CodedArgumentException class.
+ * NerdyDuck.CodedExceptions.CodedXmlException class.
  * </file>
  ******************************************************************************/
 #endregion
@@ -39,13 +39,13 @@ using System;
 namespace NerdyDuck.Tests.CodedExceptions
 {
 	/// <summary>
-	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedArgumentException class.
+	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedXmlException class.
 	/// </summary>
 #if WINDOWS_DESKTOP
 	[ExcludeFromCodeCoverage]
 #endif
 	[TestClass]
-	public class CodedArgumentExceptionTest
+	public class CodedXmlExceptionTest
 	{
 		#region Constructors
 		[TestMethod]
@@ -53,13 +53,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException();
+				throw new CodedXmlException();
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.XmlHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(0, ex.LineNumber);
+				Assert.AreEqual(0, ex.LinePosition);
 			}
 		}
 
@@ -68,14 +69,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.TestMessage);
+				throw new CodedXmlException(Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.XmlHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(0, ex.LineNumber);
+				Assert.AreEqual(0, ex.LinePosition);
 			}
 		}
 
@@ -90,36 +92,21 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.TestMessage, ex);
+					throw new CodedXmlException(Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.XmlHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(0, ex.LineNumber);
+				Assert.AreEqual(0, ex.LinePosition);
 			}
 		}
 
 		[TestMethod]
-		public void Ctor_StringString_Success()
-		{
-			try
-			{
-				throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName);
-			}
-			catch (CodedArgumentException ex)
-			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
-				Assert.IsNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
-			}
-		}
-
-		[TestMethod]
-		public void Ctor_StringStringException_Success()
+		public void Ctor_StringExceptionInt32Int32_Success()
 		{
 			try
 			{
@@ -129,15 +116,16 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName, ex);
+					throw new CodedXmlException(Constants.TestMessage, ex, 2710, 42);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.XmlHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
+				Assert.AreEqual(2710, ex.LineNumber);
+				Assert.AreEqual(42, ex.LinePosition);
 			}
 		}
 
@@ -146,13 +134,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult);
+				throw new CodedXmlException(Constants.CustomHResult);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(0, ex.LineNumber);
+				Assert.AreEqual(0, ex.LinePosition);
 			}
 		}
 
@@ -161,14 +150,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage);
+				throw new CodedXmlException(Constants.CustomHResult, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(0, ex.LineNumber);
+				Assert.AreEqual(0, ex.LinePosition);
 			}
 		}
 
@@ -183,36 +173,21 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, ex);
+					throw new CodedXmlException(Constants.CustomHResult, Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.AreEqual(0, ex.LineNumber);
+				Assert.AreEqual(0, ex.LinePosition);
 			}
 		}
 
 		[TestMethod]
-		public void Ctor_IntStringString_Success()
-		{
-			try
-			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
-			}
-			catch (CodedArgumentException ex)
-			{
-				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
-				Assert.IsNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
-			}
-		}
-
-		[TestMethod]
-		public void Ctor_IntStringStringException_Success()
+		public void Ctor_IntStringExceptionInt32Int32_Success()
 		{
 			try
 			{
@@ -222,15 +197,16 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
+					throw new CodedXmlException(Constants.CustomHResult, Constants.TestMessage, ex, 2710, 42);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
+				Assert.AreEqual(2710, ex.LineNumber);
+				Assert.AreEqual(42, ex.LinePosition);
 			}
 		}
 
@@ -246,18 +222,19 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
+					throw new CodedXmlException(Constants.CustomHResult, Constants.TestMessage, ex, 2710, 42);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedXmlException ex)
 			{
 				System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
-				CodedArgumentException ex2 = SerializationHelper.Deserialize<CodedArgumentException>(Buffer);
+				CodedXmlException ex2 = SerializationHelper.Deserialize<CodedXmlException>(Buffer);
 
 				Assert.AreEqual(Constants.CustomHResult, ex2.HResult);
 				Assert.IsNotNull(ex2.InnerException);
 				StringAssert.StartsWith(ex2.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex2.ParamName);
+				Assert.AreEqual(2710, ex2.LineNumber);
+				Assert.AreEqual(42, ex2.LinePosition);
 			}
 		}
 #endif
@@ -268,14 +245,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
+				throw new CodedXmlException(Constants.CustomHResult, Constants.TestMessage, null, 2710, 42);
 			}
 			catch (Exception ex)
 			{
 				string str = HResultHelper.CreateToString(ex, null);
-				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedArgumentException).FullName, Constants.CustomHResultString, Constants.TestMessage));
+				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedXmlException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
-				StringAssert.Contains(str, Constants.ParamName);
+				StringAssert.Contains(str, "2710");
+				StringAssert.Contains(str, "42");
 			}
 		}
 		#endregion

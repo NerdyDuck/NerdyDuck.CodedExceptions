@@ -1,6 +1,6 @@
 ﻿#region Copyright
 /*******************************************************************************
- * <copyright file="CodedArgumentExceptionTest.cs" owner="Daniel Kopp">
+ * <copyright file="CodedFileNotFoundExceptionTest.cs" owner="Daniel Kopp">
  * Copyright 2015 Daniel Kopp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +19,9 @@
  * <assembly name="NerdyDuck.Tests.CodedExceptions">
  * Unit tests for NerdyDuck.CodedExceptions assembly.
  * </assembly>
- * <file name="CodedArgumentExceptionTest.cs" date="2015-08-13">
+ * <file name="CodedFileNotFoundExceptionTest.cs" date="2015-08-18">
  * Contains test methods to test the
- * NerdyDuck.CodedExceptions.CodedArgumentException class.
+ * NerdyDuck.CodedExceptions.IO.CodedFileNotFoundException class.
  * </file>
  ******************************************************************************/
 #endregion
@@ -34,18 +34,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 #endif
 using NerdyDuck.CodedExceptions;
+using NerdyDuck.CodedExceptions.IO;
 using System;
 
-namespace NerdyDuck.Tests.CodedExceptions
+namespace NerdyDuck.Tests.CodedExceptions.IO
 {
 	/// <summary>
-	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedArgumentException class.
+	/// Contains test methods to test the NerdyDuck.CodedExceptions.IO.CodedFileNotFoundException class.
 	/// </summary>
 #if WINDOWS_DESKTOP
 	[ExcludeFromCodeCoverage]
 #endif
 	[TestClass]
-	public class CodedArgumentExceptionTest
+	public class CodedFileNotFoundExceptionTest
 	{
 		#region Constructors
 		[TestMethod]
@@ -53,13 +54,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException();
+				throw new CodedFileNotFoundException();
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_FILENOTFOUND, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.FileName);
 			}
 		}
 
@@ -68,14 +69,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.TestMessage);
+				throw new CodedFileNotFoundException(Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_FILENOTFOUND, ex.HResult);
 				Assert.IsNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.FileName);
 			}
 		}
 
@@ -90,15 +91,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.TestMessage, ex);
+					throw new CodedFileNotFoundException(Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_FILENOTFOUND, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.FileName);
 			}
 		}
 
@@ -107,14 +108,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName);
+				throw new CodedFileNotFoundException(Constants.TestMessage, Constants.FileName);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_FILENOTFOUND, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
+				Assert.AreEqual(Constants.TestMessage, ex.Message);
+				Assert.AreEqual(Constants.FileName, ex.FileName);
 			}
 		}
 
@@ -129,15 +130,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.TestMessage, Constants.ParamName, ex);
+					throw new CodedFileNotFoundException(Constants.TestMessage, Constants.FileName, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
-				Assert.AreEqual(Constants.COR_E_ARGUMENT, ex.HResult);
+				Assert.AreEqual(Constants.COR_E_FILENOTFOUND, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
+				Assert.AreEqual(Constants.TestMessage, ex.Message);
+				Assert.AreEqual(Constants.FileName, ex.FileName);
 			}
 		}
 
@@ -146,13 +147,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult);
+				throw new CodedFileNotFoundException(Constants.CustomHResult);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.FileName);
 			}
 		}
 
@@ -161,14 +162,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage);
+				throw new CodedFileNotFoundException(Constants.CustomHResult, Constants.TestMessage);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.FileName);
 			}
 		}
 
@@ -183,15 +184,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, ex);
+					throw new CodedFileNotFoundException(Constants.CustomHResult, Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
-				Assert.IsNull(ex.ParamName);
+				Assert.IsNull(ex.FileName);
 			}
 		}
 
@@ -200,14 +201,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
+				throw new CodedFileNotFoundException(Constants.CustomHResult, Constants.TestMessage, Constants.FileName);
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
+				Assert.AreEqual(Constants.TestMessage, ex.Message);
+				Assert.AreEqual(Constants.FileName, ex.FileName);
 			}
 		}
 
@@ -222,15 +223,15 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
+					throw new CodedFileNotFoundException(Constants.CustomHResult, Constants.TestMessage, Constants.FileName, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex.ParamName);
+				Assert.AreEqual(Constants.TestMessage, ex.Message);
+				Assert.AreEqual(Constants.FileName, ex.FileName);
 			}
 		}
 
@@ -246,18 +247,18 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName, ex);
+					throw new CodedFileNotFoundException(Constants.CustomHResult, Constants.TestMessage, Constants.FileName, ex);
 				}
 			}
-			catch (CodedArgumentException ex)
+			catch (CodedFileNotFoundException ex)
 			{
 				System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
-				CodedArgumentException ex2 = SerializationHelper.Deserialize<CodedArgumentException>(Buffer);
+				CodedFileNotFoundException ex2 = SerializationHelper.Deserialize<CodedFileNotFoundException>(Buffer);
 
 				Assert.AreEqual(Constants.CustomHResult, ex2.HResult);
 				Assert.IsNotNull(ex2.InnerException);
-				StringAssert.StartsWith(ex2.Message, Constants.TestMessage);
-				Assert.AreEqual(Constants.ParamName, ex2.ParamName);
+				Assert.AreEqual(Constants.TestMessage, ex2.Message);
+				Assert.AreEqual(Constants.FileName, ex2.FileName);
 			}
 		}
 #endif
@@ -268,14 +269,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.TestMessage, Constants.ParamName);
+				throw new CodedFileNotFoundException(Constants.CustomHResult, Constants.TestMessage, Constants.FileName);
 			}
-			catch (Exception ex)
+			catch (CodedFileExistsException ex)
 			{
 				string str = HResultHelper.CreateToString(ex, null);
-				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedArgumentException).FullName, Constants.CustomHResultString, Constants.TestMessage));
+				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedFileNotFoundException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
-				StringAssert.Contains(str, Constants.ParamName);
+				StringAssert.Contains(str, ex.FileName);
 			}
 		}
 		#endregion
