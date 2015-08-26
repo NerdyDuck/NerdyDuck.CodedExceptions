@@ -108,7 +108,7 @@ namespace NerdyDuck.CodedExceptions
 		public AssemblyFacilityIdentifierAttribute(int facilityId)
 		{
 			if (facilityId < 0 || facilityId > 2047)
-				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x02), "facilityId", Properties.Resources.AssemblyFacilityIdentifierAttribute_ctor_OutOfRange);
+				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x02), "facilityId", Properties.Resources.Global_FacilityId_OutOfRange);
 			mFacilityId = facilityId;
 		}
 		#endregion
@@ -164,15 +164,7 @@ namespace NerdyDuck.CodedExceptions
 			List<FacilityOverride> Overrides = null;
 
 #if WINDOWS_DESKTOP
-			CodedExceptionsSection Config =
-				(CodedExceptionsSection)System.Configuration.ConfigurationManager.GetSection(CodedExceptionsSection.ConfigSectionName);
-
-			if (Config == null)
-			{
-				return false;
-			}
-
-			Overrides = Config.GetFacilityOverrides();
+			Overrides = CodedExceptionsSection.GetFacilityOverrides();
 #endif
 #if WINDOWS_UWP
 			Overrides = XmlFacilityOverrides.GetFacilityOverrides();

@@ -31,7 +31,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;WINDOWS_DESKTOP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.XML" />
@@ -65,6 +66,7 @@
     <None Include="..\..\..\Shared\NerdyDuck.snk">
       <Link>NerdyDuck.snk</Link>
     </None>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -128,6 +130,9 @@
     <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedXmlExceptionTest.cs">
       <Link>Tests\CodedXmlExceptionTest.cs</Link>
     </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\Configuration\FacilityOverrideTest.cs">
+      <Link>Tests\Configuration\FacilityOverrideTest.cs</Link>
+    </Compile>
     <Compile Include="..\CodedExceptionsUniversalTests\Tests\ErrorsTest.cs">
       <Link>Tests\ErrorsTest.cs</Link>
     </Compile>
@@ -156,6 +161,9 @@
       <Link>Tests\IO\CodedIOExceptionTest.cs</Link>
     </Compile>
     <Compile Include="SerializationHelper.cs" />
+    <Compile Include="Tests\Configuration\CodedExceptionsSectionTest.cs" />
+    <Compile Include="Tests\Configuration\FacilityOverrideCollectionTest.cs" />
+    <Compile Include="Tests\Configuration\FacilityOverrideElementTest.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

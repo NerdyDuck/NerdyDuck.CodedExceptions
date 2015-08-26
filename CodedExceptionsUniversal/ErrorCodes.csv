@@ -13,3 +13,4 @@
 0x000c;FacilityOverride.ctor(AssemblyName, int);assemblyName is null.
 0x000d;FacilityOverride.ctor(string, int);assemblyName is null.
 0x000e;XmlFacilityOverrides.GetFacilityOverrides: Cannot open file.
+0x000f;FacilityOverride.ctor;facilityId is less than 0 or greater than 2047.

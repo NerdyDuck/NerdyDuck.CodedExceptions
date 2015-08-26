@@ -83,7 +83,7 @@ namespace NerdyDuck.CodedExceptions
 		/// Combines the specified error identifier with the base HRESULT value for this assembly.
 		/// </summary>
 		/// <param name="errorId">The error identifier to add to the base HRESULT value.</param>
-		/// <returns></returns>
+		/// <returns>A custom HRESULT value, combined from <paramref name="errorId"/> and <see cref="HResultBase"/>.</returns>
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		internal static int CreateHResult(int errorId)

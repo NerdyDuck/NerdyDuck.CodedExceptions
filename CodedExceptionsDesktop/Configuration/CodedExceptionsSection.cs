@@ -103,7 +103,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// Converts the <see cref="CodedExceptionsSection.FacilityOverrides"/> collection into a list of <see cref="FacilityOverride"/> instances.
 		/// </summary>
 		/// <returns>A list of <see cref="FacilityOverride"/> instances, that can be easily compared to assemblies.</returns>
-		public List<FacilityOverride> GetFacilityOverrides()
+		public List<FacilityOverride> CreateFacilityOverrides()
 		{
 			if (FacilityOverrides != null && FacilityOverrides.Count != 0)
 			{
@@ -115,6 +115,35 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 
 			return null;
+		}
+		#endregion
+
+		#region Static methods
+		/// <summary>
+		/// Gets a list of <see cref="FacilityOverride"/>s from the default section in the application configuration file.
+		/// </summary>
+		/// <returns>A list of <see cref="FacilityOverride"/>s, or <see langword="null"/>, if the default section was not found in the application configuration file, or not configuration file exists.</returns>
+		internal static List<FacilityOverride> GetFacilityOverrides()
+		{
+			return GetFacilityOverrides(ConfigSectionName);
+		}
+
+		/// <summary>
+		/// Gets a list of <see cref="FacilityOverride"/>s from the specified section in the application configuration file.
+		/// </summary>
+		/// <param name="sectionName">The name of the configuration section containing the override list.</param>
+		/// <returns>A list of <see cref="FacilityOverride"/>s, or <see langword="null"/>, if the default section was not found in the application configuration file, or not configuration file exists.</returns>
+		internal static List<FacilityOverride> GetFacilityOverrides(string sectionName)
+		{
+			CodedExceptionsSection Config =
+				(CodedExceptionsSection)ConfigurationManager.GetSection(sectionName);
+
+			if (Config == null)
+			{
+				return null;
+			}
+
+			return Config.CreateFacilityOverrides();
 		}
 		#endregion
 	}

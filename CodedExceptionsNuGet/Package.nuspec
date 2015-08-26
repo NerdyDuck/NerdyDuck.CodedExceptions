@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>NerdyDuck.CodedExceptions</id>
+		<version>1.0.0</version>
+		<title>NerdyDuck CodedExceptions</title>
+		<authors>Daniel Kopp</authors>
+		<owners></owners>
+		<description>This library aims to provide a set of the most common exceptions, with constructors allowing to set the HResult property value. In addition, it provides tools to create standardized error codes, and to discover if an exception is able to provide custom error codes.</description>
+		<releaseNotes>v1.0.0+build.2 - Initial release</releaseNotes>
+		<summary>Exceptions with custom HRESULTs for .NET 4.5+ and UAP.</summary>
+		<language>en-US</language>
+		<projectUrl>https://www.nerdyduck.de/Projects/Libraries/CodedExceptions</projectUrl>
+		<iconUrl>http://static.nerdyduck.de/NuGet/NerdyDuck.CodedExceptions-50x50.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+		<copyright>Copyright Daniel Kopp 2015</copyright>
+		<dependencies></dependencies>
+		<references></references>
+		<tags>exception error hresult uap uwp desktop</tags>
+	</metadata>
+	<files>
+		<!-- Dummy file to to mark package usable for UAP also in VS package manager (actual targeting for UAP must be done using the ref and runtimes folders) -->
+		<file src="..\CodedExceptionsUniversal\bin\Release\NerdyDuck.CodedExceptions.xml" target="lib\uap10.0\" />
+
+		<!-- Simple Txm for .Net 4.5 desktop version-->
+		<file src="..\CodedExceptionsDesktop\bin\Release\NerdyDuck.CodedExceptions.dll" target="lib\net45\" />
+		<file src="..\CodedExceptionsDesktop\bin\Release\NerdyDuck.CodedExceptions.pdb" target="lib\net45\" />
+		<file src="..\CodedExceptionsDesktop\bin\Release\NerdyDuck.CodedExceptions.xml" target="lib\net45\" />
+		<file src="..\CodedExceptionsDesktop\bin\Release\de-DE\NerdyDuck.CodedExceptions.resources.dll" target="lib\net45\de-DE\" />
+
+		<!-- Reference files for UAP design-time -->
+		<file src="..\CodedExceptionsUniversal\bin\Release\NerdyDuck.CodedExceptions.dll" target="ref\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\Release\NerdyDuck.CodedExceptions.xml" target="ref\uap10.0\" />
+
+		<!-- Platform-specific files for UAP compile-time and run-time -->
+		<file src="..\CodedExceptionsUniversal\bin\ARM\Release\NerdyDuck.CodedExceptions\Properties\CodedExceptionsUniversal.rd.xml" target="runtimes\win10-arm\lib\uap10.0\NerdyDuck.CodedExceptions\Properties\" />
+		<file src="..\CodedExceptionsUniversal\bin\ARM\Release\NerdyDuck.CodedExceptions.dll" target="runtimes\win10-arm\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\ARM\Release\NerdyDuck.CodedExceptions.pdb" target="runtimes\win10-arm\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\ARM\Release\NerdyDuck.CodedExceptions.pri" target="runtimes\win10-arm\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\x86\Release\NerdyDuck.CodedExceptions\Properties\CodedExceptionsUniversal.rd.xml" target="runtimes\win10-x86\lib\uap10.0\NerdyDuck.CodedExceptions\Properties\" />
+		<file src="..\CodedExceptionsUniversal\bin\x86\Release\NerdyDuck.CodedExceptions.dll" target="runtimes\win10-x86\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\x86\Release\NerdyDuck.CodedExceptions.pdb" target="runtimes\win10-x86\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\x86\Release\NerdyDuck.CodedExceptions.pri" target="runtimes\win10-x86\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\x64\Release\NerdyDuck.CodedExceptions\Properties\CodedExceptionsUniversal.rd.xml" target="runtimes\win10-x64\lib\uap10.0\NerdyDuck.CodedExceptions\Properties\" />
+		<file src="..\CodedExceptionsUniversal\bin\x64\Release\NerdyDuck.CodedExceptions.dll" target="runtimes\win10-x64\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\x64\Release\NerdyDuck.CodedExceptions.pdb" target="runtimes\win10-x64\lib\uap10.0\" />
+		<file src="..\CodedExceptionsUniversal\bin\x64\Release\NerdyDuck.CodedExceptions.pri" target="runtimes\win10-x64\lib\uap10.0\" />
+	</files>
+</package>

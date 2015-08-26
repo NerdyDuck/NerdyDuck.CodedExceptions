@@ -84,12 +84,27 @@ namespace NerdyDuck.CodedExceptions.Configuration
 					XmlReader Reader = XmlReader.Create(SourceStream, settings);
 					Reader.ReadStartElement(RootNodeName);
 					ReturnValue = new List<FacilityOverride>();
-
+					string AssemblyString, IdentifierString;
+					int Identifier;
 					while (!(Reader.Name == RootNodeName && Reader.NodeType == XmlNodeType.EndElement))
 					{
 						if (Reader.Name == OverrideNodeName && Reader.NodeType == XmlNodeType.Element)
 						{
-							ReturnValue.Add(new FacilityOverride(Reader.GetAttribute(AssemblyNameKey), XmlConvert.ToInt32(Reader.GetAttribute(IdentifierKey))));
+							AssemblyString = Reader.GetAttribute(AssemblyNameKey);
+							if (string.IsNullOrWhiteSpace(AssemblyString))
+								throw new XmlException(string.Format(Properties.Resources.XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing, OverrideNodeName, AssemblyNameKey));
+							IdentifierString = Reader.GetAttribute(IdentifierKey);
+							if (string.IsNullOrWhiteSpace(IdentifierString))
+								throw new XmlException(string.Format(Properties.Resources.XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing, OverrideNodeName, IdentifierKey));
+							try
+							{
+								Identifier = XmlConvert.ToInt32(IdentifierString);
+							}
+							catch (FormatException ex)
+							{
+								throw new XmlException(string.Format(Properties.Resources.XmlFacilityOverrides_GetFacilityOverrides_IdentifierInvalid, AssemblyString), ex);
+							}
+							ReturnValue.Add(new FacilityOverride(AssemblyString, Identifier));
 							Reader.Skip();
 						}
 						else

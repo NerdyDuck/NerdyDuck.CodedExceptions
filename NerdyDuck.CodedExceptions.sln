@@ -3,21 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsDesktop", "CodedExceptionsDesktop\CodedExceptionsDesktop.csproj", "{C8BFD295-2998-4A46-B724-C49E7DA096D0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsUniversal", "CodedExceptionsUniversal\CodedExceptionsUniversal.csproj", "{CB2EA6C4-8DC4-42C1-A006-194785678345}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3EDCAE92-2FFA-47C8-AA12-2FC60DD18A84}"
 	ProjectSection(SolutionItems) = preProject
 		LICENCE.txt = LICENCE.txt
+		make_certs.bat = make_certs.bat
+		NerdyDuck.CodedExceptions-50x50.png = NerdyDuck.CodedExceptions-50x50.png
 		NerdyDuck.snk = NerdyDuck.snk
 		README.md = README.md
 		WE-Markdown.css = WE-Markdown.css
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsDesktop", "CodedExceptionsDesktop\CodedExceptionsDesktop.csproj", "{C8BFD295-2998-4A46-B724-C49E7DA096D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsUniversal", "CodedExceptionsUniversal\CodedExceptionsUniversal.csproj", "{CB2EA6C4-8DC4-42C1-A006-194785678345}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsDesktopTests", "CodedExceptionsDesktopTests\CodedExceptionsDesktopTests.csproj", "{065E9B2E-F886-47AD-8E55-65F69834F669}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsUniversalTests", "CodedExceptionsUniversalTests\CodedExceptionsUniversalTests.csproj", "{E3D971CB-9F9F-43B9-9728-062A45A80D10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsNuGet", "CodedExceptionsNuGet\CodedExceptionsNuGet.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C8BFD295-2998-4A46-B724-C49E7DA096D0} = {C8BFD295-2998-4A46-B724-C49E7DA096D0}
+		{CB2EA6C4-8DC4-42C1-A006-194785678345} = {CB2EA6C4-8DC4-42C1-A006-194785678345}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,11 +50,8 @@ Global
 		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|ARM.ActiveCfg = Release|Any CPU
-		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|ARM.Build.0 = Release|Any CPU
 		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|x64.ActiveCfg = Release|Any CPU
-		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|x64.Build.0 = Release|Any CPU
 		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|x86.ActiveCfg = Release|Any CPU
-		{C8BFD295-2998-4A46-B724-C49E7DA096D0}.Release|x86.Build.0 = Release|Any CPU
 		{CB2EA6C4-8DC4-42C1-A006-194785678345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB2EA6C4-8DC4-42C1-A006-194785678345}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB2EA6C4-8DC4-42C1-A006-194785678345}.Debug|ARM.ActiveCfg = Debug|ARM
@@ -72,13 +77,9 @@ Global
 		{065E9B2E-F886-47AD-8E55-65F69834F669}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{065E9B2E-F886-47AD-8E55-65F69834F669}.Debug|x86.Build.0 = Debug|Any CPU
 		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|Any CPU.Build.0 = Release|Any CPU
 		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|ARM.ActiveCfg = Release|Any CPU
-		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|ARM.Build.0 = Release|Any CPU
 		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|x64.ActiveCfg = Release|Any CPU
-		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|x64.Build.0 = Release|Any CPU
 		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|x86.ActiveCfg = Release|Any CPU
-		{065E9B2E-F886-47AD-8E55-65F69834F669}.Release|x86.Build.0 = Release|Any CPU
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Debug|ARM.ActiveCfg = Debug|ARM
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Debug|ARM.Build.0 = Debug|ARM
@@ -92,13 +93,25 @@ Global
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|Any CPU.ActiveCfg = Release|x86
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|ARM.ActiveCfg = Release|ARM
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|ARM.Build.0 = Release|ARM
-		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|ARM.Deploy.0 = Release|ARM
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|x64.ActiveCfg = Release|x64
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|x64.Build.0 = Release|x64
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|x64.Deploy.0 = Release|x64
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|x86.ActiveCfg = Release|x86
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|x86.Build.0 = Release|x86
 		{E3D971CB-9F9F-43B9-9728-062A45A80D10}.Release|x86.Deploy.0 = Release|x86
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|ARM.Build.0 = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x64.Build.0 = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x86.Build.0 = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|x64.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -38,9 +38,9 @@ namespace NerdyDuck.CodedExceptions.Properties
 		/// <summary>
 		/// Gets a lozalized string similar to "Facility id must range between 0 and 2047.".
 		/// </summary>
-		internal static string AssemblyFacilityIdentifierAttribute_ctor_OutOfRange
+		internal static string Global_FacilityId_OutOfRange
 		{
-			get { return GetResource("AssemblyFacilityIdentifierAttribute_ctor_OutOfRange"); }
+			get { return GetResource("Global_FacilityId_OutOfRange"); }
 		}
 
 		/// <summary>
@@ -145,6 +145,22 @@ namespace NerdyDuck.CodedExceptions.Properties
 		internal static string XmlFacilityOverrides_GetFacilityOverrides_FileInvalid
 		{
 			get { return GetResource("XmlFacilityOverrides_GetFacilityOverrides_FileInvalid"); }
+		}
+
+		/// <summary>
+		/// Gets a lozalized string similar to "Element '{0}' has no attribute '{1}'.".
+		/// </summary>
+		internal static string XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing
+		{
+			get { return GetResource("XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing"); }
+		}
+
+		/// <summary>
+		/// Gets a lozalized string similar to "Identifier override of assembly '{0}' is invalid.".
+		/// </summary>
+		internal static string XmlFacilityOverrides_GetFacilityOverrides_IdentifierInvalid
+		{
+			get { return GetResource("XmlFacilityOverrides_GetFacilityOverrides_IdentifierInvalid"); }
 		}
 		#endregion
 
