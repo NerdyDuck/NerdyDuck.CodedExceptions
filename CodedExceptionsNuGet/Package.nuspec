@@ -46,5 +46,9 @@
 		<file src="..\CodedExceptionsUniversal\bin\x64\Release\NerdyDuck.CodedExceptions.dll" target="runtimes\win10-x64\lib\uap10.0\" />
 		<file src="..\CodedExceptionsUniversal\bin\x64\Release\NerdyDuck.CodedExceptions.pdb" target="runtimes\win10-x64\lib\uap10.0\" />
 		<file src="..\CodedExceptionsUniversal\bin\x64\Release\NerdyDuck.CodedExceptions.pri" target="runtimes\win10-x64\lib\uap10.0\" />
+
+		<!-- Source files for the symbols package -->
+		<file src="..\CodedExceptionsDesktop\**\*.cs" exclude="..\CodedExceptionsDesktop\obj\**\*.cs" target="src\CodedExceptionsDesktop\" />
+		<file src="..\CodedExceptionsUniversal\**\*.cs" exclude="..\CodedExceptionsUniversal\obj\**\*.cs" target="src\CodedExceptionsUniversal\" />
 	</files>
 </package>

@@ -1,7 +1,8 @@
 # NerdyDuck.CodedExceptions
 #### Exceptions with custom HRESULTs for .NET 4.5+ and UAP
 
-This project provides a library of classes derived from [`System.Exception`](https://msdn.microsoft.com/en-us/library/System.Exception.aspx) that offer constructors to set the `HResult` property with a custom value. It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
+This project provides a library of classes derived from [`System.Exception`](https://msdn.microsoft.com/en-us/library/System.Exception.aspx) that offer constructors to set the `HResult` property with a custom value.
+It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
 
 #### Platforms
 - .NET 4.5 framework or newer for desktop applications
@@ -13,7 +14,7 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 #### How to get
 - Use the NuGet package from my [MyGet](https://www.myget.org) feed: [https://www.myget.org/F/nerdyduck-release/api/v2](https://www.myget.org/F/nerdyduck-release/api/v2])
 - Download the binaries from the [Releases](releases/) page.
-- You can clone the repositoy and compile the libraries yourself (see the [Wiki](wiki/) for requirements).
+- You can clone the repository and compile the libraries yourself (see the [Wiki](wiki/) for requirements).
 
 #### More information
 For examples and a complete class reference, please see the [Wiki](wiki/).
