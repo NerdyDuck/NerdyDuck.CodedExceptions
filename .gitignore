@@ -88,3 +88,8 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+###################
+## Project specific
+###################
+CodedExceptionsNuGet/NerdyDuck.CodedExceptions.*.nupkg
