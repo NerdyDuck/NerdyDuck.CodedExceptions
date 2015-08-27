@@ -12,11 +12,11 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 
 #### How to get
 - Use the NuGet package from my [MyGet](https://www.myget.org) feed: [https://www.myget.org/F/nerdyduck-release/api/v2](https://www.myget.org/F/nerdyduck-release/api/v2])
-- Download the binaries from the [Releases](releases/) page.
-- You can clone the repositoy and compile the libraries yourself (see the [Wiki](wiki/) for requirements).
+- Download the binaries from the [Releases](../../releases/) page.
+- You can clone the repositoy and compile the libraries yourself (see the [Wiki](../../wiki/) for requirements).
 
 #### More information
-For examples and a complete class reference, please see the [Wiki](wiki/).
+For examples and a complete class reference, please see the [Wiki](../../wiki/).
 
 #### History
 2015-08-27 / v.1.0.0+build.2 / DAK - Initial release. No class documentation yet.
