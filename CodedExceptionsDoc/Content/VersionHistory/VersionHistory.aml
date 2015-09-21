@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a6674c78-0cbf-4a8c-b30c-b50577859388" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>The topics in this section describe the various changes made to the NerdyDuck.CodedExceptions over the
+life of the project.</para>
+		</introduction>
+
+		<section>
+			<title>Version History</title>
+			<content>
+				<para>Select a version below to see a description of its changes.</para>
+
+				<list class="bullet">
+					<listItem>
+						<para>
+							<link xlink:href="2d45a25e-8710-470c-9715-50a111064f7a" />
+						</para>
+						<para>
+							<link xlink:href="6e6eae4c-e3bd-46ba-8ef1-7db33522a4f5" />
+						</para>
+					</listItem>
+				</list>
+
+			</content>
+		</section>
+
+		<relatedTopics>
+			<link xlink:href="ac58b188-80af-4c1c-b9f2-fd3fa31e9b68" />
+		</relatedTopics>
+
+	</developerConceptualDocument>
+</topic>

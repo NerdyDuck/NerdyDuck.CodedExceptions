@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="ac58b188-80af-4c1c-b9f2-fd3fa31e9b68" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>This wiki is thought to provide information on the purpose of the <legacyBold>NerdyDuck.CodedExceptions</legacyBold>
+      library, as well as a comprehensive guide of usage, including examples, and notes for contributors or other people who want to modify the project.
+    </para>
+		</introduction>
+
+		<section>
+			<title>Class reference</title>
+			<content>
+				<para>
+					<link xlink:href="7f419cca-ce2c-b479-4979-ebbfd63c0b3d" />
+				</para>
+			</content>
+		</section>
+
+		<relatedTopics>
+			<link xlink:href="a6674c78-0cbf-4a8c-b30c-b50577859388" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>
