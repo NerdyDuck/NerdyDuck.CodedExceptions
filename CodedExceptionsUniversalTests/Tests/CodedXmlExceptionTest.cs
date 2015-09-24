@@ -123,7 +123,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 			{
 				Assert.AreEqual(Constants.XmlHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
+				StringAssert.Contains(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(2710, ex.LineNumber);
 				Assert.AreEqual(42, ex.LinePosition);
 			}
@@ -204,7 +204,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
-				StringAssert.StartsWith(ex.Message, Constants.TestMessage);
+				StringAssert.Contains(ex.Message, Constants.TestMessage);
 				Assert.AreEqual(2710, ex.LineNumber);
 				Assert.AreEqual(42, ex.LinePosition);
 			}

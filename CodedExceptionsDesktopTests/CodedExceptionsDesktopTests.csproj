@@ -160,6 +160,9 @@
     <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedIOExceptionTest.cs">
       <Link>Tests\IO\CodedIOExceptionTest.cs</Link>
     </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Tests\LocalizationTest.cs">
+      <Link>Tests\LocalizationTest.cs</Link>
+    </Compile>
     <Compile Include="SerializationHelper.cs" />
     <Compile Include="Tests\Configuration\CodedExceptionsSectionTest.cs" />
     <Compile Include="Tests\Configuration\FacilityOverrideCollectionTest.cs" />

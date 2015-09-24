@@ -7,7 +7,7 @@
 		<authors>Daniel Kopp</authors>
 		<owners></owners>
 		<description>This library aims to provide a set of the most common exceptions, with constructors allowing to set the HResult property value. In addition, it provides tools to create standardized error codes, and to discover if an exception is able to provide custom error codes.</description>
-		<releaseNotes>v1.0.0+build.3 - Added examples and documentation. Changed NuGet project URL to point to GitHub.</releaseNotes>
+		<releaseNotes>v1.0.1+build.3 - Fixed bug in desktop library resource generation.</releaseNotes>
 		<summary>Exceptions with custom HRESULTs for .NET 4.5+ and UAP.</summary>
 		<language>en-US</language>
 		<projectUrl>https://github.com/NerdyDuck/NerdyDuck.CodedExceptions</projectUrl>

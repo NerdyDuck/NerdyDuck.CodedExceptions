@@ -20,4 +20,11 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 For examples and a complete class reference, please see the [Wiki](../../wiki/).
 
 #### History
-2015-08-27 / v.1.0.0+build.2 / DAK - Initial release. No class documentation yet.
+2015-09-24 / v1.0.1+build.3 / DAK
+- Fixed bug in desktop library resource generation.
+- Added documentation.
+- Added example projects.
+- Changed project URL in NuGet package to point to GitHub.
+
+2015-08-27 / v1.0.0+build.2 / DAK
+- Initial release. No class documentation yet.

@@ -3,7 +3,7 @@
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
 			<para>
-				Version 1.0.0+build3 was released on 2015-09-21.
+				Version 1.0.1+build.3 was released on 2015-09-24.
 			</para>
 		</introduction>
 
@@ -13,11 +13,18 @@
 
 				<list class="bullet">
 					<listItem>
-						<para>Added documentation. Changed project URL of NuGet to point to GitHub.</para>
+						<para>Fixed bug in desktop library resource generation.</para>
 					</listItem>
-
+					<listItem>
+						<para>Added documentation.</para>
+					</listItem>
+					<listItem>
+						<para>Added example projects.</para>
+					</listItem>
+					<listItem>
+						<para>Changed project URL in NuGet package to point to GitHub.</para>
+					</listItem>
 				</list>
-
 			</content>
 		</section>
 
