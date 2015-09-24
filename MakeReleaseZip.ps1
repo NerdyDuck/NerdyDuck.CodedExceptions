@@ -46,7 +46,7 @@ Get-Content $AssemblyInfoPath | ForEach-Object {
 	if ($_ -match "AssemblyInformationalVersion") {
 		$StartPos = $_.IndexOf("""") + 1
 		$Length = $_.IndexOf("""", $StartPos) - $StartPos
-		$OutputFile = $OutputPath + "NerdyDuck.CodedExceptions_" + $_.SubString($StartPos, $Length)
+		$OutputFile = $OutputPath + "NerdyDuck.CodedExceptions_" + $_.SubString($StartPos, $Length) + ".zip"
 	}
 }
 

@@ -130,3 +130,4 @@ $RECYCLE.BIN/
 ###################
 CodedExceptionsNuGet/NerdyDuck.CodedExceptions.*.nupkg
 CodedExceptionsDoc/Help/
+NuGet.exe
