@@ -5,7 +5,7 @@ This project provides a library of classes derived from [`System.Exception`](htt
 It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
 
 #### Platforms
-- .NET 4.5 framework or newer for desktop applications
+- .NET Framework 4.5 or newer for desktop applications
 - Universal App Platform (UAP) or Universal Windows Platform (UWP) 10.0 (Windows 10) or newer for Windows Store Apps and [Windows 10 IoT](https://dev.windows.com/en-us/iot)
 
 #### Languages

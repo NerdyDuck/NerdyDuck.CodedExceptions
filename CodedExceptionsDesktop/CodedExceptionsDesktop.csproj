@@ -51,6 +51,9 @@
     <None Include="..\..\..\Shared\NerdyDuck.snk">
       <Link>NerdyDuck.snk</Link>
     </None>
+    <None Include="..\CodedExceptionsUniversal\ErrorCodes.csv">
+      <Link>ErrorCodes.csv</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResWFiles Include="..\CodedExceptionsUniversal\Strings\en-US\Resources.resw">
@@ -156,7 +159,6 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
     <!-- Need to copy/rename the *.resw files to *.resx, because GenerateResource does not recognize the .resw file extension. Copied files are renamed to the full name of the resource. -->
