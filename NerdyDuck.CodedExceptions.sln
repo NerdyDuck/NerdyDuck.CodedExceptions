@@ -11,9 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NerdyDuck.CodedExceptions-50x50.png = NerdyDuck.CodedExceptions-50x50.png
 		NerdyDuck.snk = NerdyDuck.snk
 		README.md = README.md
+		sign_assemblies.bat = sign_assemblies.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsDesktop", "CodedExceptionsDesktop\CodedExceptionsDesktop.csproj", "{C8BFD295-2998-4A46-B724-C49E7DA096D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CB2EA6C4-8DC4-42C1-A006-194785678345} = {CB2EA6C4-8DC4-42C1-A006-194785678345}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptionsUniversal", "CodedExceptionsUniversal\CodedExceptionsUniversal.csproj", "{CB2EA6C4-8DC4-42C1-A006-194785678345}"
 EndProject

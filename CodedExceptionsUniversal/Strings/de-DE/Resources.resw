@@ -120,8 +120,14 @@
   <data name="CodedAggregateException_ToString" xml:space="preserve">
     <value>{0}{1}---&gt; (Interne Ausnahme #{2}) {3}&lt;---{1}</value>
   </data>
+  <data name="CodedArgumentNullOrEmptyException_Message" xml:space="preserve">
+    <value>Argument darf nicht null oder leer sein.</value>
+  </data>
+  <data name="CodedArgumentNullOrWhiteSpaceException_Message" xml:space="preserve">
+    <value>Argument darf nicht null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
+  </data>
   <data name="CodedDataException_Message" xml:space="preserve">
-    <value>Daten-Ausnahme.</value>
+    <value>Die Daten sind ungültig.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_Message" xml:space="preserve">
     <value>Das angegebene Verzeichnis wurde nicht gefunden.</value>
@@ -145,24 +151,24 @@
     <value>Ungültiges Facility-ID-Übersteuerungs-Element in der Anwendungs-Konfiguration. Assembly-Name: '{0}'.</value>
   </data>
   <data name="Global_DirectoryName" xml:space="preserve">
-    <value>Verzeichnis-Name: '{0}'</value>
+    <value>Verzeichnis-Name: '{0}'.</value>
   </data>
   <data name="Global_FacilityId_OutOfRange" xml:space="preserve">
     <value>Die Facility-ID muß zwischen 0 und 2047 liegen.</value>
   </data>
   <data name="Global_FileName" xml:space="preserve">
-    <value>Datei-Name: '{0}'</value>
+    <value>Datei-Name: '{0}'.</value>
   </data>
   <data name="XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing" xml:space="preserve">
-    <value>Element '{0}' hat kein Attribut '{1}'</value>
+    <value>Element '{0}' hat kein Attribut '{1}'.</value>
   </data>
   <data name="XmlFacilityOverrides_GetFacilityOverrides_FileInvalid" xml:space="preserve">
-    <value>Facility-ID-Übersteuerungs-Datei '{0}' ist ungültig</value>
+    <value>Facility-ID-Übersteuerungs-Datei '{0}' ist ungültig.</value>
   </data>
   <data name="XmlFacilityOverrides_GetFacilityOverrides_FileOpenFailed" xml:space="preserve">
     <value>Facility-ID-Übersteuerungs-Datei '{0}' kann nicht geöffnet werden.</value>
   </data>
   <data name="XmlFacilityOverrides_GetFacilityOverrides_IdentifierInvalid" xml:space="preserve">
-    <value>Facility Identifier für Assembly '{0}' is ungültig.</value>
+    <value>Facility Identifier für Assembly '{0}' ist ungültig.</value>
   </data>
 </root>

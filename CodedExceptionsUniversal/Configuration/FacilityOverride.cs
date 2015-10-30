@@ -68,9 +68,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		public FacilityOverride(AssemblyName assemblyName, int identifier)
 		{
 			if (assemblyName == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x0c), "assemblyName");
+				throw new CodedArgumentNullException(Errors.CreateHResult(0x0c), nameof(assemblyName));
 			if (identifier < 0 || identifier > 2047)
-				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x0f), "identifier", Properties.Resources.Global_FacilityId_OutOfRange);
+				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x0f), nameof(identifier), Properties.Resources.Global_FacilityId_OutOfRange);
 			mAssemblyName = assemblyName;
 			mIdentifier = identifier;
 		}
@@ -85,9 +85,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		public FacilityOverride(string assemblyName, int identifier)
 		{
 			if (string.IsNullOrWhiteSpace(assemblyName))
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x0d), "assemblyName");
+				throw new CodedArgumentNullException(Errors.CreateHResult(0x0d), nameof(assemblyName));
 			if (identifier < 0 || identifier > 2047)
-				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x0f), "identifier", Properties.Resources.Global_FacilityId_OutOfRange);
+				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x0f), nameof(identifier), Properties.Resources.Global_FacilityId_OutOfRange);
 			mAssemblyName = new AssemblyName(assemblyName);
 			mIdentifier = identifier;
 		}

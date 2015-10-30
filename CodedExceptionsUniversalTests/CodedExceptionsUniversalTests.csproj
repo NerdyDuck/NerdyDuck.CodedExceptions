@@ -106,6 +106,8 @@
     <Compile Include="Tests\CodedAggregateExceptionTest.cs" />
     <Compile Include="Tests\CodedArgumentExceptionTest.cs" />
     <Compile Include="Tests\CodedArgumentNullExceptionTest.cs" />
+    <Compile Include="Tests\CodedArgumentNullOrEmptyExceptionTest.cs" />
+    <Compile Include="Tests\CodedArgumentNullOrWhiteSpaceExceptionTest.cs" />
     <Compile Include="Tests\CodedArgumentOutOfRangeExceptionTest.cs" />
     <Compile Include="Tests\CodedCommunicationExceptionTest.cs" />
     <Compile Include="Tests\CodedDataExceptionTest.cs" />

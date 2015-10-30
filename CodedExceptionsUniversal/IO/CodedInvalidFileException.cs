@@ -42,10 +42,6 @@ namespace NerdyDuck.CodedExceptions.IO
 	[ComVisible(true)]
 	public class CodedInvalidFileException : System.IO.IOException
 	{
-		#region Constants
-		private const string FileNameId = "InvalidFile_Name";
-		#endregion
-
 		#region Private fields
 		private string mFileName;
 		#endregion
@@ -133,7 +129,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		protected CodedInvalidFileException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 			: base(info, context)
 		{
-			mFileName = info.GetString(FileNameId);
+			mFileName = info.GetString(nameof(FileName));
 		}
 #endif
 
@@ -239,7 +235,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			base.GetObjectData(info, context);
-			info.AddValue(FileNameId, mFileName);
+			info.AddValue(nameof(FileName), mFileName);
 		}
 #endif
 		#endregion

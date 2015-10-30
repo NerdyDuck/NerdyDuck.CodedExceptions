@@ -38,6 +38,7 @@ using System;
 using System.Reflection;
 using System.Globalization;
 using System.Threading;
+using System.Linq;
 
 namespace NerdyDuck.Tests.CodedExceptions
 {
@@ -89,23 +90,14 @@ namespace NerdyDuck.Tests.CodedExceptions
 		}
 #endif
 
-#if WINDOWS_UWP && DEBUG
+#if WINDOWS_UWP
 		/// <summary>
-		/// Switching language only works in debug.
+		/// You need to switch the default language in Package.appxmanifest to test the different languages
 		/// </summary>
 		[TestMethod]
 		public void TestLocalizationGermanEnglish()
 		{
-			string PrimaryOverride = Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride;
-			CultureInfo CurrentCulture = CultureInfo.DefaultThreadCurrentCulture;
-			CultureInfo CurrentUICulture = CultureInfo.DefaultThreadCurrentUICulture;
-
-			CultureInfo GermanCulture = new CultureInfo("de-DE");
-			CultureInfo EnglishCulture = new CultureInfo("en-US");
-
-			Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = GermanCulture.Name;
-			CultureInfo.DefaultThreadCurrentCulture = GermanCulture;
-			CultureInfo.DefaultThreadCurrentUICulture = GermanCulture;
+			string lang = Windows.Globalization.ApplicationLanguages.Languages.First();
 
 			try
 			{
@@ -113,26 +105,10 @@ namespace NerdyDuck.Tests.CodedExceptions
 			}
 			catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
 			{
-				StringAssert.Contains(ex.Message, "Die angegebene Datei existiert bereits.");
-			}
-
-			Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = EnglishCulture.Name;
-			CultureInfo.DefaultThreadCurrentCulture = EnglishCulture;
-			CultureInfo.DefaultThreadCurrentUICulture = EnglishCulture;
-
-			try
-			{
-				throw new NerdyDuck.CodedExceptions.IO.CodedFileExistsException();
-			}
-			catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
-			{
-				StringAssert.Contains(ex.Message, "The specified file already exists.");
-			}
-			finally
-			{
-				Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = PrimaryOverride;
-				CultureInfo.DefaultThreadCurrentCulture = CurrentCulture;
-				CultureInfo.DefaultThreadCurrentUICulture = CurrentUICulture;
+				if (lang == "de-DE")
+					StringAssert.Contains(ex.Message, "Die angegebene Datei existiert bereits.");
+				else
+					StringAssert.Contains(ex.Message, "The specified file already exists.");
 			}
 		}
 #endif

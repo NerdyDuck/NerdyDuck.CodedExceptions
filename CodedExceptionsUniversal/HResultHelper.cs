@@ -149,7 +149,7 @@ namespace NerdyDuck.CodedExceptions
 		internal static string CreateToString(Exception ex, string customText)
 		{
 			if (ex == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x07), "ex");
+				throw new CodedArgumentNullException(Errors.CreateHResult(0x07), nameof(ex));
 
 			string ReturnValue = string.Format(ExceptionBaseFormat, ex.GetType().FullName, ex.HResult, ex.Message);
 			if (!string.IsNullOrEmpty(customText))

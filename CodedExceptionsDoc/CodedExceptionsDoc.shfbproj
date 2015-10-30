@@ -61,8 +61,9 @@
     <NamespaceSummaries>
       <NamespaceSummaryItem name="NerdyDuck.CodedExceptions" isDocumented="True">The *NerdyDuck.CodedExceptions* namespace contains classes derived from `System.Exception` that expose constructors that you can use to set the `HResult` property. The simplest version is the `CodedException` class, but most common exceptions are present like the ArgumentException or FormatException.
 It also contains the `CodedExceptionAttribute` that you can use to signal that an exception may contain custom `HResult` values, when creating your own exception classes. The 'HResultHelper' class offers static methods to create standardized HRESULT values. If you want to set an assembly-wide facility identifier to use in your HRESULTs, use the `AssemblyFacilityIdentifierAttribute` to decorate the assembly, and it's static methods to retrieve the facility identifier value.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="NerdyDuck.CodedExceptions.IO" isDocumented="True">The *NerdyDuck.CodedExceptions.IO* namespace contains exceptions related to I/O errors.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="(global)" isDocumented="False" /></NamespaceSummaries>
+      <NamespaceSummaryItem name="NerdyDuck.CodedExceptions.IO" isDocumented="True">The *NerdyDuck.CodedExceptions.IO* namespace contains exceptions related to I/O errors.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="(global)" isDocumented="False" />
+    </NamespaceSummaries>
     <PlugInConfigurations>
     </PlugInConfigurations>
     <PostBuildEvent>powershell -ExecutionPolicy Bypass -Command ".\MoveToWiki.ps1"</PostBuildEvent>
@@ -95,6 +96,7 @@ It also contains the `CodedExceptionAttribute` that you can use to signal that a
   <ItemGroup>
     <None Include="Content\VersionHistory\v1.0.2.aml" />
     <None Include="Content\VersionHistory\v1.0.3.aml" />
+    <None Include="Content\VersionHistory\v1.1.0.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Home.aml" />
     <None Include="MoveToWiki.ps1" />

@@ -19,7 +19,7 @@
  * <assembly name="NerdyDuck.CodedExceptions">
  * Exceptions with custom HRESULTs for .NET
  * </assembly>
- * <file name="Resources.cs" date="2015-08-06">
+ * <file name="Resources.cs" date="2015-10-27">
  * Helper class to access localized string resources.
  * </file>
  ******************************************************************************/
@@ -36,15 +36,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 	{
 		#region String resource properties
 		/// <summary>
-		/// Gets a lozalized string similar to "Facility id must range between 0 and 2047.".
-		/// </summary>
-		internal static string Global_FacilityId_OutOfRange
-		{
-			get { return GetResource("Global_FacilityId_OutOfRange"); }
-		}
-
-		/// <summary>
-		/// Gets a lozalized string similar to "Facility id must range between 0 and 2047.".
+		/// Gets a lozalized string similar to "{0}{1}---&gt; (Inner exception #{2}) {3}&lt;---{1}".
 		/// </summary>
 		internal static string CodedAggregateException_ToString
 		{
@@ -52,19 +44,27 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Data exception.".
+		/// Gets a lozalized string similar to "Argument cannot be null or empty.".
+		/// </summary>
+		internal static string CodedArgumentNullOrEmptyException_Message
+		{
+			get { return GetResource("CodedArgumentNullOrEmptyException_Message"); }
+		}
+
+		/// <summary>
+		/// Gets a lozalized string similar to "Argument cannot be null or empty, or contains only white-space characters.".
+		/// </summary>
+		internal static string CodedArgumentNullOrWhiteSpaceException_Message
+		{
+			get { return GetResource("CodedArgumentNullOrWhiteSpaceException_Message"); }
+		}
+
+		/// <summary>
+		/// Gets a lozalized string similar to "The data is invalid.".
 		/// </summary>
 		internal static string CodedDataException_Message
 		{
 			get { return GetResource("CodedDataException_Message"); }
-		}
-
-		/// <summary>
-		/// Gets a lozalized string similar to "Directory name: '{0}'".
-		/// </summary>
-		internal static string Global_DirectoryName
-		{
-			get { return GetResource("Global_DirectoryName"); }
 		}
 
 		/// <summary>
@@ -84,15 +84,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "File name: '{0}'".
-		/// </summary>
-		internal static string Global_FileName
-		{
-			get { return GetResource("Global_FileName"); }
-		}
-
-		/// <summary>
-		/// Gets a lozalized string similar to "CodedFileExistsException_Message".
+		/// Gets a lozalized string similar to "The specified file already exists.".
 		/// </summary>
 		internal static string CodedFileExistsException_Message
 		{
@@ -132,11 +124,35 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Cannot open facility identifier overrides file '{0}'.".
+		/// Gets a lozalized string similar to "Directory name: '{0}'".
 		/// </summary>
-		internal static string XmlFacilityOverrides_GetFacilityOverrides_FileOpenFailed
+		internal static string Global_DirectoryName
 		{
-			get { return GetResource("XmlFacilityOverrides_GetFacilityOverrides_FileOpenFailed"); }
+			get { return GetResource("Global_DirectoryName"); }
+		}
+
+		/// <summary>
+		/// Gets a lozalized string similar to "Facility id must range between 0 and 2047.".
+		/// </summary>
+		internal static string Global_FacilityId_OutOfRange
+		{
+			get { return GetResource("Global_FacilityId_OutOfRange"); }
+		}
+
+		/// <summary>
+		/// Gets a lozalized string similar to "File name: '{0}'".
+		/// </summary>
+		internal static string Global_FileName
+		{
+			get { return GetResource("Global_FileName"); }
+		}
+
+		/// <summary>
+		/// Gets a lozalized string similar to "Element '{0}' has no attribute '{1}'.".
+		/// </summary>
+		internal static string XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing
+		{
+			get { return GetResource("XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing"); }
 		}
 
 		/// <summary>
@@ -148,11 +164,11 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Element '{0}' has no attribute '{1}'.".
+		/// Gets a lozalized string similar to "Cannot open facility identifier overrides file '{0}'.".
 		/// </summary>
-		internal static string XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing
+		internal static string XmlFacilityOverrides_GetFacilityOverrides_FileOpenFailed
 		{
-			get { return GetResource("XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing"); }
+			get { return GetResource("XmlFacilityOverrides_GetFacilityOverrides_FileOpenFailed"); }
 		}
 
 		/// <summary>
@@ -215,7 +231,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 
 			if (resourceCandidate == null)
 			{
-				throw new ArgumentOutOfRangeException("name");
+				throw new ArgumentOutOfRangeException(nameof(name));
 			}
 
 			return resourceCandidate.ValueAsString;

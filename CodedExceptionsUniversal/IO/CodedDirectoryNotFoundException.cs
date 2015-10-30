@@ -49,10 +49,6 @@ namespace NerdyDuck.CodedExceptions.IO
 		: System.IO.IOException
 #endif
 	{
-		#region Constants
-		private const string DirectoryNameId = "DirectoryNotFound_Name";
-		#endregion
-
 		#region Private fields
 		private string mDirectoryName;
 		#endregion
@@ -145,7 +141,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		protected CodedDirectoryNotFoundException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 			: base(info, context)
 		{
-			mDirectoryName = info.GetString(DirectoryNameId);
+			mDirectoryName = info.GetString(nameof(DirectoryName));
 		}
 #endif
 
@@ -252,7 +248,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 		{
 			base.GetObjectData(info, context);
-			info.AddValue(DirectoryNameId, mDirectoryName);
+			info.AddValue(nameof(DirectoryName), mDirectoryName);
 		}
 #endif
 		#endregion

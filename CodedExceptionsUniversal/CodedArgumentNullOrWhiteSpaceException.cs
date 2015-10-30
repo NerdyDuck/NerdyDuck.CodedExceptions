@@ -1,6 +1,6 @@
 ﻿#region Copyright
 /*******************************************************************************
- * <copyright file="CodedArgumentException.cs" owner="Daniel Kopp">
+ * <copyright file="CodedArgumentNullOrWhiteSpaceException.cs" owner="Daniel Kopp">
  * Copyright 2015 Daniel Kopp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,10 +19,10 @@
  * <assembly name="NerdyDuck.CodedExceptions">
  * Exceptions with custom HRESULTs for .NET
  * </assembly>
- * <file name="CodedArgumentException.cs" date="2015-08-06">
- * The exception that is thrown when one of the arguments provided to a method
- * is not valid. This exception provides constructors to set custom HResult
- * values.
+ * <file name="CodedArgumentNullOrWhiteSpaceException.cs" date="2015-10-23">
+ * The exception that is thrown when one of the string arguments provided to a
+ * method is null, empty, or contains only white-space characters.
+ * This exception provides constructors to set custom HResult values.
  * </file>
  ******************************************************************************/
 #endregion
@@ -33,116 +33,105 @@ using System.Runtime.InteropServices;
 namespace NerdyDuck.CodedExceptions
 {
 	/// <summary>
-	/// The exception that is thrown when one of the arguments provided to a method is not valid.
-	/// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
+	/// The exception that is thrown when one of the string arguments provided to a method is <see langword="null"/> (<b>Nothing</b> in Visual Basic), empty, or contains only white-space characters. This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 	/// </summary>
+	/// <remarks>This is the companion exception for <see cref="string.IsNullOrEmpty(string)"/>.</remarks>
 #if WINDOWS_DESKTOP
 	[Serializable]
 #endif
 	[CodedException]
 	[ComVisible(true)]
-	public class CodedArgumentException : System.ArgumentException
+	public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	{
 		#region Constructors
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class.
 		/// </summary>
-		/// <remarks>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "An invalid argument was specified." This message takes into account the current system culture.</remarks>
-		public CodedArgumentException()
-			: base()
+		/// <remarks>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null oe empty." This message takes into account the current system culture.</remarks>
+		public CodedArgumentNullOrWhiteSpaceException()
+			: base(Properties.Resources.CodedArgumentNullOrWhiteSpaceException_Message)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified error message.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with the name of the parameter that causes this exception.
 		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
-		/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/>.</remarks>
-		public CodedArgumentException(string message)
-			: base(message)
+		/// <param name="paramName">The name of the parameter that caused the exception.</param>
+		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null oe empty." This message takes into account the current system culture.</para>
+		/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using the <paramref name="paramName"/> parameter. The content of <paramref name="paramName"/> is intended to be understood by humans.</para></remarks>
+		public CodedArgumentNullOrWhiteSpaceException(string paramName)
+			: base(Properties.Resources.CodedArgumentNullOrWhiteSpaceException_Message, paramName)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <param name="message">The error message that explains the reason for the exception.</param>
 		/// <param name="innerException">The exception that is the cause of the current exception.</param>
 		/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</remarks>
-		public CodedArgumentException(string message, Exception innerException)
+		public CodedArgumentNullOrWhiteSpaceException(string message, Exception innerException)
 			: base(message, innerException)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified error message and the name of the parameter that causes this exception.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified error message and the name of the parameter that causes this exception.
 		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
 		/// <param name="paramName">The name of the parameter that caused the current exception.</param>
+		/// <param name="message">The error message that explains the reason for the exception.</param>
 		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 		/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using <paramref name="paramName"/>. The content of <paramref name="paramName"/> is intended to be understood by humans.</para></remarks>
-		public CodedArgumentException(string message, string paramName)
+		public CodedArgumentNullOrWhiteSpaceException(string paramName, string message)
 			: base(message, paramName)
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified error message, the parameter name, and a reference to the inner exception that is the cause of this exception.
-		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
-		/// <param name="paramName">The name of the parameter that caused the current exception.</param>
-		/// <param name="innerException">The exception that is the cause of the current exception.</param>
-		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-		/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using <paramref name="paramName"/>. The content of <paramref name="paramName"/> is intended to be understood by humans.</para></remarks>
-		public CodedArgumentException(string message, string paramName, Exception innerException)
-			: base(message, paramName, innerException)
 		{
 		}
 
 #if WINDOWS_DESKTOP
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with serialized data.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with serialized data.
 		/// </summary>
 		/// <param name="info">The object that holds the serialized object data.</param>
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="System.Runtime.Serialization.SerializationException">The exception could not be deserialized correctly.</exception>
-		protected CodedArgumentException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+		protected CodedArgumentNullOrWhiteSpaceException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
 			: base(info, context)
 		{
 		}
 #endif
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified HRESULT value and a system-supplied message that describes the error.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified HRESULT value and a system-supplied message that describes the error.
 		/// </summary>
 		/// <param name="hresult">The HRESULT that describes the error.</param>
 		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error,
-		/// such as "An invalid argument was specified." This message takes into account the current system culture.</para>
+		/// such as "Argument cannot be null." This message takes into account the current system culture.</para>
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
-		public CodedArgumentException(int hresult)
-			: base()
+		public CodedArgumentNullOrWhiteSpaceException(int hresult)
+			: base(Properties.Resources.CodedArgumentNullOrWhiteSpaceException_Message)
 		{
 			HResult = hresult;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified HRESULT value and an error message.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified HRESULT value and the name of the parameter that causes this exception.
 		/// </summary>
 		/// <param name="hresult">The HRESULT that describes the error.</param>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
-		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/>.</para>
+		/// <param name="paramName">The name of the parameter that caused the exception.</param>
+		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null oe empty." This message takes into account the current system culture.</para>
+		/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using the <paramref name="paramName"/> parameter. The content of <paramref name="paramName"/> is intended to be understood by humans.</para>
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
-		public CodedArgumentException(int hresult, string message)
-			: base(message)
+		public CodedArgumentNullOrWhiteSpaceException(int hresult, string paramName)
+			: base(Properties.Resources.CodedArgumentNullOrWhiteSpaceException_Message, paramName)
 		{
 			HResult = hresult;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified HRESULT value, an error message and a reference to the inner exception that is the cause of this exception.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified HRESULT value, an error message and a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <param name="hresult">The HRESULT that describes the error.</param>
 		/// <param name="message">The error message that explains the reason for the exception.</param>
@@ -150,41 +139,24 @@ namespace NerdyDuck.CodedExceptions
 		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
-		public CodedArgumentException(int hresult, string message, Exception innerException)
+		public CodedArgumentNullOrWhiteSpaceException(int hresult, string message, Exception innerException)
 			: base(message, innerException)
 		{
 			HResult = hresult;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified HRESULT value, an error message and the name of the parameter that causes this exception.
+		/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified HRESULT value, an error message and the name of the parameter that causes this exception.
 		/// </summary>
 		/// <param name="hresult">The HRESULT that describes the error.</param>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
 		/// <param name="paramName">The name of the parameter that caused the current exception.</param>
+		/// <param name="message">The error message that explains the reason for the exception.</param>
 		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 		/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using <paramref name="paramName"/>. The content of <paramref name="paramName"/> is intended to be understood by humans.</para>
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
-		public CodedArgumentException(int hresult, string message, string paramName)
+		public CodedArgumentNullOrWhiteSpaceException(int hresult, string paramName, string message)
 			: base(message, paramName)
-		{
-			HResult = hresult;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified HRESULT value, an error message, the parameter name, and a reference to the inner exception that is the cause of this exception.
-		/// </summary>
-		/// <param name="hresult">The HRESULT that describes the error.</param>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
-		/// <param name="paramName">The name of the parameter that caused the current exception.</param>
-		/// <param name="innerException">The exception that is the cause of the current exception.</param>
-		/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-		/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using <paramref name="paramName"/>. The content of <paramref name="paramName"/> is intended to be understood by humans.</para>
-		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
-		/// more information about the definition of HRESULT values.</para></remarks>
-		public CodedArgumentException(int hresult, string message, string paramName, Exception innerException)
-			: base(message, paramName, innerException)
 		{
 			HResult = hresult;
 		}

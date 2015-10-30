@@ -120,8 +120,14 @@
   <data name="CodedAggregateException_ToString" xml:space="preserve">
     <value>{0}{1}---&gt; (Inner exception #{2}) {3}&lt;---{1}</value>
   </data>
+  <data name="CodedArgumentNullOrEmptyException_Message" xml:space="preserve">
+    <value>Argument cannot be null or empty.</value>
+  </data>
+  <data name="CodedArgumentNullOrWhiteSpaceException_Message" xml:space="preserve">
+    <value>Argument cannot be null or empty, or contains only white-space characters.</value>
+  </data>
   <data name="CodedDataException_Message" xml:space="preserve">
-    <value>Data exception.</value>
+    <value>The data is invalid.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_Message" xml:space="preserve">
     <value>Could not find the specified directory.</value>

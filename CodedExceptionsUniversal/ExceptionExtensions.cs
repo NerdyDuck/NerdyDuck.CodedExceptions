@@ -49,7 +49,7 @@ namespace NerdyDuck.CodedExceptions
 		public static int GetErrorId(this Exception ex)
 		{
 			if (ex == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x08), "ex");
+				throw new CodedArgumentNullException(Errors.CreateHResult(0x08), nameof(ex));
 
 			return HResultHelper.GetErrorId(ex.HResult);
 		}
@@ -66,7 +66,7 @@ namespace NerdyDuck.CodedExceptions
 		public static int GetFacilityId(this Exception ex)
 		{
 			if (ex == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x09), "ex");
+				throw new CodedArgumentNullException(Errors.CreateHResult(0x09), nameof(ex));
 
 			return HResultHelper.GetFacilityId(ex.HResult);
 		}
@@ -84,7 +84,7 @@ namespace NerdyDuck.CodedExceptions
 		public static bool IsCodedException(this Exception ex)
 		{
 			if (ex == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x0a), "ex");
+				throw new CodedArgumentNullException(Errors.CreateHResult(0x0a), nameof(ex));
 
 			return CodedExceptionAttribute.IsCodedException(ex);
 		}
@@ -99,7 +99,7 @@ namespace NerdyDuck.CodedExceptions
 		public static bool IsCustomHResult(this Exception ex)
 		{
 			if (ex == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x0b), "ex");
+				throw new CodedArgumentNullException(Errors.CreateHResult(0x0b), nameof(ex));
 
 			return HResultHelper.IsCustomHResult(ex.HResult);
 		}
