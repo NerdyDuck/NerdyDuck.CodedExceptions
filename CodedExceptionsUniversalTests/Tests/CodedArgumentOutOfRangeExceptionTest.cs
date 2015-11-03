@@ -252,16 +252,17 @@ namespace NerdyDuck.Tests.CodedExceptions
 		#endregion
 
 		#region ToString
+		[TestMethod]
 		public void ToString_Success()
 		{
 			try
 			{
-				throw new CodedArgumentException(Constants.CustomHResult, Constants.ParamName, Constants.TestMessage);
+				throw new CodedArgumentOutOfRangeException(Constants.CustomHResult, Constants.ParamName, 42, Constants.TestMessage);
 			}
 			catch (Exception ex)
 			{
-				string str = HResultHelper.CreateToString(ex, null);
-				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedArgumentException).FullName, Constants.CustomHResultString, Constants.TestMessage));
+				string str = ex.ToString();
+				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedArgumentOutOfRangeException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
 				StringAssert.Contains(str, Constants.ParamName);
 			}

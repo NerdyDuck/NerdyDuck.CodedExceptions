@@ -19,7 +19,7 @@
  * <assembly name="NerdyDuck.CodedExceptions">
  * Exceptions with custom HRESULTs for .NET
  * </assembly>
- * <file name="Resources.cs" date="2015-10-27">
+ * <file name="Resources.cs" date="2015-11-03">
  * Helper class to access localized string resources.
  * </file>
  ******************************************************************************/
@@ -36,7 +36,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 	{
 		#region String resource properties
 		/// <summary>
-		/// Gets a lozalized string similar to "{0}{1}---&gt; (Inner exception #{2}) {3}&lt;---{1}".
+		/// Gets a localized string similar to "{0}{1}---&gt; (Inner exception #{2}) {3}&lt;---{1}".
 		/// </summary>
 		internal static string CodedAggregateException_ToString
 		{
@@ -44,7 +44,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Argument cannot be null or empty.".
+		/// Gets a localized string similar to "Argument cannot be null or empty.".
 		/// </summary>
 		internal static string CodedArgumentNullOrEmptyException_Message
 		{
@@ -52,7 +52,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Argument cannot be null or empty, or contains only white-space characters.".
+		/// Gets a localized string similar to "Argument cannot be null or empty, or contains only white-space characters.".
 		/// </summary>
 		internal static string CodedArgumentNullOrWhiteSpaceException_Message
 		{
@@ -60,7 +60,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "The data is invalid.".
+		/// Gets a localized string similar to "The data is invalid.".
 		/// </summary>
 		internal static string CodedDataException_Message
 		{
@@ -68,7 +68,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Could not find the specified directory.".
+		/// Gets a localized string similar to "Could not find the specified directory.".
 		/// </summary>
 		internal static string CodedDirectoryNotFoundException_Message
 		{
@@ -76,7 +76,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Could not find directory '{0}'.".
+		/// Gets a localized string similar to "Could not find directory '{0}'.".
 		/// </summary>
 		internal static string CodedDirectoryNotFoundException_MessageDirectory
 		{
@@ -84,7 +84,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "The specified file already exists.".
+		/// Gets a localized string similar to "The specified file already exists.".
 		/// </summary>
 		internal static string CodedFileExistsException_Message
 		{
@@ -92,7 +92,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "File '{0}' already exists.".
+		/// Gets a localized string similar to "File '{0}' already exists.".
 		/// </summary>
 		internal static string CodedFileExistsException_MessageFile
 		{
@@ -100,7 +100,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "The specified file is invalid".
+		/// Gets a localized string similar to "The specified file is invalid".
 		/// </summary>
 		internal static string CodedInvalidFileException_Message
 		{
@@ -108,7 +108,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "File '{0}' is invalid.".
+		/// Gets a localized string similar to "File '{0}' is invalid.".
 		/// </summary>
 		internal static string CodedInvalidFileException_MessageFile
 		{
@@ -116,7 +116,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Invalid facility identifier override element in application configuration. Assembly name: '{0}'.".
+		/// Gets a localized string similar to "Invalid facility identifier override element in application configuration. Assembly name: '{0}'.".
 		/// </summary>
 		internal static string FacilityOverrideElement_ToOverride_Invalid
 		{
@@ -124,7 +124,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Directory name: '{0}'".
+		/// Gets a localized string similar to "Directory name: '{0}'".
 		/// </summary>
 		internal static string Global_DirectoryName
 		{
@@ -132,7 +132,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Facility id must range between 0 and 2047.".
+		/// Gets a localized string similar to "Facility id must range between 0 and 2047.".
 		/// </summary>
 		internal static string Global_FacilityId_OutOfRange
 		{
@@ -140,7 +140,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "File name: '{0}'".
+		/// Gets a localized string similar to "File name: '{0}'".
 		/// </summary>
 		internal static string Global_FileName
 		{
@@ -148,7 +148,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Element '{0}' has no attribute '{1}'.".
+		/// Gets a localized string similar to "Element '{0}' has no attribute '{1}'.".
 		/// </summary>
 		internal static string XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing
 		{
@@ -156,7 +156,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Facility identifier overrides file '{0}' is invalid.".
+		/// Gets a localized string similar to "Facility identifier overrides file '{0}' is invalid.".
 		/// </summary>
 		internal static string XmlFacilityOverrides_GetFacilityOverrides_FileInvalid
 		{
@@ -164,7 +164,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Cannot open facility identifier overrides file '{0}'.".
+		/// Gets a localized string similar to "Cannot open facility identifier overrides file '{0}'.".
 		/// </summary>
 		internal static string XmlFacilityOverrides_GetFacilityOverrides_FileOpenFailed
 		{
@@ -172,7 +172,7 @@ namespace NerdyDuck.CodedExceptions.Properties
 		}
 
 		/// <summary>
-		/// Gets a lozalized string similar to "Identifier override of assembly '{0}' is invalid.".
+		/// Gets a localized string similar to "Identifier override of assembly '{0}' is invalid.".
 		/// </summary>
 		internal static string XmlFacilityOverrides_GetFacilityOverrides_IdentifierInvalid
 		{

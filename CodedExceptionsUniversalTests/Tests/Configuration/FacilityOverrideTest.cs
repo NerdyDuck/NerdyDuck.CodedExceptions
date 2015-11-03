@@ -59,6 +59,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			Assert.AreEqual(42, fo.Identifier);
 		}
 
+		[TestMethod]
 		public void Ctor_AssemblyNameNull_Throw()
 		{
 			CustomAssert.ThrowsException<CodedArgumentNullException>(() =>
@@ -97,6 +98,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			Assert.AreEqual(42, fo.Identifier);
 		}
 
+		[TestMethod]
 		public void Ctor_StringNull_Throw()
 		{
 			CustomAssert.ThrowsException<CodedArgumentNullException>(() =>

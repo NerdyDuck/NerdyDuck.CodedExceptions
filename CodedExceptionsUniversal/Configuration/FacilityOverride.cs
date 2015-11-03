@@ -50,7 +50,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		}
 
 		/// <summary>
-		/// Gets the overriden identifier value.
+		/// Gets the overridden identifier value.
 		/// </summary>
 		public int Identifier
 		{
@@ -63,7 +63,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// Initializes a new instance of the <see cref="FacilityOverride"/> class with the specified assembly name and facility identifier.
 		/// </summary>
 		/// <param name="assemblyName">The name of the assembly that the identifier override is configured for.</param>
-		/// <param name="identifier">The overriden identifier value.</param>
+		/// <param name="identifier">The overridden identifier value.</param>
 		/// <exception cref="CodedArgumentNullException"><paramref name="assemblyName"/> is null.</exception>
 		public FacilityOverride(AssemblyName assemblyName, int identifier)
 		{
@@ -79,7 +79,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// Initializes a new instance of the <see cref="FacilityOverride"/> class with the specified assembly name and facility identifier.
 		/// </summary>
 		/// <param name="assemblyName">The name of the assembly that the identifier override is configured for.</param>
-		/// <param name="identifier">The overriden identifier value.</param>
+		/// <param name="identifier">The overridden identifier value.</param>
 		/// <exception cref="CodedArgumentNullException"><paramref name="assemblyName"/> is null or empty.</exception>
 		/// <exception cref="System.IO.FileLoadException"><paramref name="assemblyName"/> is not a valid assembly name (full or partially qualified).</exception>
 		public FacilityOverride(string assemblyName, int identifier)

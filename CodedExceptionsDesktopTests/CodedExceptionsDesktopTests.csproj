@@ -171,6 +171,7 @@
       <Link>Tests\LocalizationTest.cs</Link>
     </Compile>
     <Compile Include="SerializationHelper.cs" />
+    <Compile Include="Tests\CodedNotSupportedExceptionTest.cs" />
     <Compile Include="Tests\Configuration\CodedExceptionsSectionTest.cs" />
     <Compile Include="Tests\Configuration\FacilityOverrideCollectionTest.cs" />
     <Compile Include="Tests\Configuration\FacilityOverrideElementTest.cs" />

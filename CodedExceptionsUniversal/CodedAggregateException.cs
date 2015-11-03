@@ -264,7 +264,7 @@ namespace NerdyDuck.CodedExceptions
 			for (int i = 0; i < base.InnerExceptions.Count; i++)
 			{
 				CustomText = string.Format(System.Globalization.CultureInfo.InvariantCulture, Properties.Resources.CodedAggregateException_ToString,
-					CustomText, Environment.NewLine, i, base.InnerExceptions[i].ToString());
+					CustomText, Environment.NewLine, i, InnerExceptions[i].ToString());
 			}
 			return HResultHelper.CreateToString(this, CustomText);
 		}

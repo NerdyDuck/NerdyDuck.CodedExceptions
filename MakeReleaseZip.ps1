@@ -43,10 +43,11 @@ Copy-Item -Path $DesktopPath -Destination ($TempPath + "net45\") -Recurse
 
 $OutputFile = $OutputPath + "test.zip"
 Get-Content $AssemblyInfoPath | ForEach-Object {
-	if ($_ -match "AssemblyInformationalVersion") {
+	if ($_ -match "AssemblyVersion") {
 		$StartPos = $_.IndexOf("""") + 1
 		$Length = $_.IndexOf("""", $StartPos) - $StartPos
-		$OutputFile = $OutputPath + "NerdyDuck.CodedExceptions_" + $_.SubString($StartPos, $Length) + ".zip"
+		$FileVer = [System.Version]::new($_.SubString($StartPos, $Length))
+		$OutputFile = $OutputPath + "NerdyDuck.CodedExceptions_" + $FileVer.ToString(3) + ".zip"
 	}
 }
 

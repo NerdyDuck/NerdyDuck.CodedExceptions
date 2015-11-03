@@ -69,11 +69,20 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			Assert.AreEqual(2, ovrds.Count);
 		}
 
+		[TestMethod]
+		public void CreateFacilityOverrides_Null_Success()
+		{
+			CodedExceptionsSection section = new CodedExceptionsSection();
+
+			List<FacilityOverride> ovrds = section.CreateFacilityOverrides();
+			Assert.IsNull(ovrds);
+		}
+
 		#region GetFacilityOverrides
 		[TestMethod]
 		public void GetFacilityOverrides_Void_Null()
 		{
-			Assert.IsNull(CodedExceptionsSection.GetFacilityOverrides());
+			Assert.IsNull(CodedExceptionsSection.GetFacilityOverrides("NoSuchSection"));
 		}
 
 		[TestMethod]

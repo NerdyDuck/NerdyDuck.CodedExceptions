@@ -3,7 +3,7 @@
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
 			<para>
-				Version 1.1.0 was released on TBD.
+				Version 1.1.0 was released on 2015-11-03.
 			</para>
 		</introduction>
 
@@ -35,6 +35,9 @@
 					</listItem>
 					<listItem>
 						<para>Fixed localization errors.</para>
+					</listItem>
+					<listItem>
+						<para>Added unit tests. Test coverage &gt; 98%.</para>
 					</listItem>
 				</list>
 			</content>

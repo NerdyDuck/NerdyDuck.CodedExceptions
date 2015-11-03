@@ -128,6 +128,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 		#endregion
 
 		#region ToString
+		[TestMethod]
 		public void ToString_Success()
 		{
 			try
@@ -136,7 +137,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 			}
 			catch (Exception ex)
 			{
-				string str = HResultHelper.CreateToString(ex, null);
+				string str = ex.ToString();
 				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedProtocolViolationException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
 			}

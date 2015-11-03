@@ -129,5 +129,6 @@ $RECYCLE.BIN/
 ## Project specific
 ###################
 CodedExceptionsNuGet/NerdyDuck.CodedExceptions.*.nupkg
+CodedExceptionsNuGet/NerdyDuck.CodedExceptions.*.nupkg.bak
 CodedExceptionsDoc/Help/
 NuGet.exe

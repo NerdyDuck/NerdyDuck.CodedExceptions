@@ -178,5 +178,22 @@ namespace NerdyDuck.Tests.CodedExceptions.IO
 		}
 #endif
 		#endregion
+
+		#region ToString
+		[TestMethod]
+		public void ToString_Success()
+		{
+			try
+			{
+				throw new CodedInvalidDataException(Constants.CustomHResult, Constants.TestMessage);
+			}
+			catch (Exception ex)
+			{
+				string str = ex.ToString();
+				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedInvalidDataException).FullName, Constants.CustomHResultString, Constants.TestMessage));
+				StringAssert.Contains(str, "ToString_Success");
+			}
+		}
+		#endregion
 	}
 }

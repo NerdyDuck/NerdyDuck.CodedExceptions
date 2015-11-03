@@ -265,15 +265,16 @@ namespace NerdyDuck.Tests.CodedExceptions.IO
 		#endregion
 
 		#region ToString
+		[TestMethod]
 		public void ToString_Success()
 		{
 			try
 			{
 				throw new CodedFileNotFoundException(Constants.CustomHResult, Constants.TestMessage, Constants.FileName);
 			}
-			catch (CodedFileExistsException ex)
+			catch (CodedFileNotFoundException ex)
 			{
-				string str = HResultHelper.CreateToString(ex, null);
+				string str = ex.ToString();
 				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedFileNotFoundException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
 				StringAssert.Contains(str, ex.FileName);

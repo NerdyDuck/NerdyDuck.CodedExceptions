@@ -39,6 +39,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 		public const int COR_E_ARGUMENT = unchecked((int)0x80070057);
 		public const int COR_E_ARGUMENTOUTOFRANGE = unchecked((int)0x80131502);
 		public const int COR_E_NULLREFERENCE = unchecked((int)0x80004003);
+		public const int COR_E_NOTSUPPORTED = unchecked((int)0x80131515);
 		public const int COR_E_SYSTEM = unchecked((int)0x80131501);
 		public const int COR_E_FORMAT = unchecked((int)0x80131537);
 		public const int COR_E_INVALIDOPERATION = unchecked((int)0x80131509);

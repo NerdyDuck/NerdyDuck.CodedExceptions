@@ -1,6 +1,6 @@
 ﻿#region Copyright
 /*******************************************************************************
- * <copyright file="CodedCommunicationExceptionTest.cs" owner="Daniel Kopp">
+ * <copyright file="CodedNotSupportedExceptionTest.cs" owner="Daniel Kopp">
  * Copyright 2015 Daniel Kopp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +19,9 @@
  * <assembly name="NerdyDuck.Tests.CodedExceptions">
  * Unit tests for NerdyDuck.CodedExceptions assembly.
  * </assembly>
- * <file name="CodedCommunicationExceptionTest.cs" date="2015-08-17">
+ * <file name="CodedNotSupportedExceptionTest.cs" date="2015-08-17">
  * Contains test methods to test the
- * NerdyDuck.CodedExceptions.CodedCommunicationException class.
+ * NerdyDuck.CodedExceptions.CodedNotSupportedException class.
  * </file>
  ******************************************************************************/
 #endregion
@@ -39,13 +39,13 @@ using System;
 namespace NerdyDuck.Tests.CodedExceptions
 {
 	/// <summary>
-	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedCommunicationException class.
+	/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedNotSupportedException class.
 	/// </summary>
 #if WINDOWS_DESKTOP
 	[ExcludeFromCodeCoverage]
 #endif
 	[TestClass]
-	public class CodedCommunicationExceptionTest
+	public class CodedNotSupportedExceptionTest
 	{
 		#region Constructors
 		[TestMethod]
@@ -53,16 +53,11 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedCommunicationException();
+				throw new CodedNotSupportedException();
 			}
-			catch (CodedCommunicationException ex)
+			catch (CodedNotSupportedException ex)
 			{
-#if WINDOWS_DESKTOP
-				Assert.AreEqual(Constants.COR_E_SYSTEM, ex.HResult);
-#endif
-#if WINDOWS_UWP
-				Assert.AreEqual(Constants.COR_E_EXCEPTION, ex.HResult);
-#endif
+				Assert.AreEqual(Constants.COR_E_NOTSUPPORTED, ex.HResult);
 				Assert.IsNull(ex.InnerException);
 			}
 		}
@@ -72,16 +67,11 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedCommunicationException(Constants.TestMessage);
+				throw new CodedNotSupportedException(Constants.TestMessage);
 			}
-			catch (CodedCommunicationException ex)
+			catch (CodedNotSupportedException ex)
 			{
-#if WINDOWS_DESKTOP
-				Assert.AreEqual(Constants.COR_E_SYSTEM, ex.HResult);
-#endif
-#if WINDOWS_UWP
-				Assert.AreEqual(Constants.COR_E_EXCEPTION, ex.HResult);
-#endif
+				Assert.AreEqual(Constants.COR_E_NOTSUPPORTED, ex.HResult);
 				Assert.IsNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
 			}
@@ -98,17 +88,12 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedCommunicationException(Constants.TestMessage, ex);
+					throw new CodedNotSupportedException(Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedCommunicationException ex)
+			catch (CodedNotSupportedException ex)
 			{
-#if WINDOWS_DESKTOP
-				Assert.AreEqual(Constants.COR_E_SYSTEM, ex.HResult);
-#endif
-#if WINDOWS_UWP
-				Assert.AreEqual(Constants.COR_E_EXCEPTION, ex.HResult);
-#endif
+				Assert.AreEqual(Constants.COR_E_NOTSUPPORTED, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
 			}
@@ -119,9 +104,9 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedCommunicationException(Constants.CustomHResult);
+				throw new CodedNotSupportedException(Constants.CustomHResult);
 			}
-			catch (CodedCommunicationException ex)
+			catch (CodedNotSupportedException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
@@ -133,9 +118,9 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedCommunicationException(Constants.CustomHResult, Constants.TestMessage);
+				throw new CodedNotSupportedException(Constants.CustomHResult, Constants.TestMessage);
 			}
-			catch (CodedCommunicationException ex)
+			catch (CodedNotSupportedException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNull(ex.InnerException);
@@ -154,10 +139,10 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedCommunicationException(Constants.CustomHResult, Constants.TestMessage, ex);
+					throw new CodedNotSupportedException(Constants.CustomHResult, Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedCommunicationException ex)
+			catch (CodedNotSupportedException ex)
 			{
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
@@ -177,13 +162,13 @@ namespace NerdyDuck.Tests.CodedExceptions
 				}
 				catch (Exception ex)
 				{
-					throw new CodedCommunicationException(Constants.CustomHResult, Constants.TestMessage, ex);
+					throw new CodedNotSupportedException(Constants.CustomHResult, Constants.TestMessage, ex);
 				}
 			}
-			catch (CodedCommunicationException ex)
+			catch (CodedNotSupportedException ex)
 			{
 				System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
-				CodedCommunicationException ex2 = SerializationHelper.Deserialize<CodedCommunicationException>(Buffer);
+				CodedNotSupportedException ex2 = SerializationHelper.Deserialize<CodedNotSupportedException>(Buffer);
 
 				Assert.AreEqual(Constants.CustomHResult, ex2.HResult);
 				Assert.IsNotNull(ex2.InnerException);
@@ -199,12 +184,12 @@ namespace NerdyDuck.Tests.CodedExceptions
 		{
 			try
 			{
-				throw new CodedCommunicationException(Constants.CustomHResult, Constants.TestMessage);
+				throw new CodedNotSupportedException(Constants.CustomHResult, Constants.TestMessage);
 			}
 			catch (Exception ex)
 			{
 				string str = ex.ToString();
-				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedCommunicationException).FullName, Constants.CustomHResultString, Constants.TestMessage));
+				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedNotSupportedException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
 			}
 		}

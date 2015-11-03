@@ -116,13 +116,21 @@ namespace NerdyDuck.Tests.CodedExceptions
 		}
 		#endregion
 
-		#region FromType
+		#region TryGetOverride
 		[TestMethod]
 		public void TryGetOverride_Assembly_False()
 		{
 			Assembly assembly = typeof(AssemblyFacilityIdentifierAttributeTest).GetTypeInfo().Assembly;
 			int i;
 			Assert.IsFalse(AssemblyFacilityIdentifierAttribute.TryGetOverride(assembly, out i));
+		}
+
+		[TestMethod]
+		public void TryGetOverride_Assembly_True()
+		{
+			Assembly assembly = typeof(int).GetTypeInfo().Assembly;
+			int i;
+			Assert.IsTrue(AssemblyFacilityIdentifierAttribute.TryGetOverride(assembly, out i));
 		}
 
 		[TestMethod]

@@ -35,7 +35,7 @@ namespace NerdyDuck.CodedExceptions
 	internal static class Errors
 	{
 		#region Private fields
-		// Load the facility id lazy and threadsafe.
+		// Load the facility id lazy and thread-safe.
 		private static readonly Lazy<int> mFacilityId = new Lazy<int>(() =>
 		{
 			int Identifier = 0;

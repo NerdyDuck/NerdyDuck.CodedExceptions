@@ -88,6 +88,26 @@ namespace NerdyDuck.Tests.CodedExceptions
 		}
 
 		[TestMethod]
+		public void Ctor_String_MsgNull_Success()
+		{
+			try
+			{
+				throw new CodedDataException((string)null);
+			}
+			catch (CodedDataException ex)
+			{
+#if WINDOWS_UWP
+				Assert.AreEqual(Constants.COR_E_EXCEPTION, ex.HResult);
+#endif
+#if WINDOWS_DESKTOP
+				Assert.AreEqual(Constants.DataHResult, ex.HResult);
+#endif
+				Assert.IsNull(ex.InnerException);
+				Assert.IsNotNull(ex.Message);
+			}
+		}
+
+		[TestMethod]
 		public void Ctor_StringException_Success()
 		{
 			try
@@ -111,6 +131,33 @@ namespace NerdyDuck.Tests.CodedExceptions
 #endif
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
+			}
+		}
+
+		[TestMethod]
+		public void Ctor_StringException_MsgNull_Success()
+		{
+			try
+			{
+				try
+				{
+					throw new FormatException();
+				}
+				catch (Exception ex)
+				{
+					throw new CodedDataException(null, ex);
+				}
+			}
+			catch (CodedDataException ex)
+			{
+#if WINDOWS_UWP
+				Assert.AreEqual(Constants.COR_E_EXCEPTION, ex.HResult);
+#endif
+#if WINDOWS_DESKTOP
+				Assert.AreEqual(Constants.COR_E_SYSTEM, ex.HResult);
+#endif
+				Assert.IsNotNull(ex.InnerException);
+				Assert.IsNotNull(ex.Message);
 			}
 		}
 
@@ -144,6 +191,21 @@ namespace NerdyDuck.Tests.CodedExceptions
 		}
 
 		[TestMethod]
+		public void Ctor_IntString_MsgNull_Success()
+		{
+			try
+			{
+				throw new CodedDataException(Constants.CustomHResult, null);
+			}
+			catch (CodedDataException ex)
+			{
+				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
+				Assert.IsNull(ex.InnerException);
+				Assert.IsNotNull(ex.Message);
+			}
+		}
+
+		[TestMethod]
 		public void Ctor_IntStringException_Success()
 		{
 			try
@@ -162,6 +224,27 @@ namespace NerdyDuck.Tests.CodedExceptions
 				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
 				Assert.IsNotNull(ex.InnerException);
 				Assert.AreEqual(Constants.TestMessage, ex.Message);
+			}
+		}
+		[TestMethod]
+		public void Ctor_IntStringException_MsgNull_Success()
+		{
+			try
+			{
+				try
+				{
+					throw new FormatException();
+				}
+				catch (Exception ex)
+				{
+					throw new CodedDataException(Constants.CustomHResult, null, ex);
+				}
+			}
+			catch (CodedDataException ex)
+			{
+				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
+				Assert.IsNotNull(ex.InnerException);
+				Assert.IsNotNull(ex.Message);
 			}
 		}
 
@@ -191,9 +274,10 @@ namespace NerdyDuck.Tests.CodedExceptions
 			}
 		}
 #endif
-#endregion
+		#endregion
 
-#region ToString
+		#region ToString
+		[TestMethod]
 		public void ToString_Success()
 		{
 			try
@@ -202,7 +286,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 			}
 			catch (Exception ex)
 			{
-				string str = HResultHelper.CreateToString(ex, null);
+				string str = ex.ToString();
 				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedDataException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
 			}

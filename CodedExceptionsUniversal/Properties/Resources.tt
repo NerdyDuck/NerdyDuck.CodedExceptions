@@ -296,7 +296,7 @@ private string GetResourceNamespace(string projectDirectory, string templateDire
 	// Check that project and template are in the same folder structure at all, and that the template is not in the base project directory
 	if (templateDirectory.StartsWith(projectDirectory) && templateDirectory.Length > projectDirectory.Length)
 	{
-		// Extrace the relative path of the template directory, remove leading and trailing \s
+		// Extract the relative path of the template directory, remove leading and trailing \s
 		string TempPath = templateDirectory.Substring(projectDirectory.Length, templateDirectory.Length - projectDirectory.Length).Trim();
 		while (TempPath.StartsWith("\\"))
 		{
@@ -404,7 +404,7 @@ private List<ResourceEntry> GetResourceEntries(string fileName)
 		if (entry.Comment == null)
 		{
 			// Create a default comment
-			entry.Comment = string.Format("Gets a lozalized string similar to \"{0}\".", entry.Value);
+			entry.Comment = string.Format("Gets a localized string similar to \"{0}\".", entry.Value);
 		}
 
 		ReturnValue.Add(entry);
@@ -416,7 +416,7 @@ private List<ResourceEntry> GetResourceEntries(string fileName)
 // Modifies a resource entry name so it is a valid C# property name
 private string CheckIdentifier(string name)
 {
-	// Step one: only Ascii letters, numbers, dash, dot and underscore allowed
+	// Step one: only ASCII letters, numbers, dash, dot and underscore allowed
 	string ReturnValue = Regex.Replace(name, @"[^A-Za-z0-9-._]", "_");
 	// Step two: property name may not begin with numbers, slashes and dots, so prefix a underscore
 	if (Regex.IsMatch(ReturnValue, @"^[0-9-.]"))

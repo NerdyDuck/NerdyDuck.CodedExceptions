@@ -213,6 +213,22 @@ namespace NerdyDuck.Tests.CodedExceptions.IO
 		}
 
 		[TestMethod]
+		public void Ctor_IntStringString_MsgNull_Success()
+		{
+			try
+			{
+				throw new CodedInvalidFileException(Constants.CustomHResult, null, Constants.FileName);
+			}
+			catch (CodedInvalidFileException ex)
+			{
+				Assert.AreEqual(Constants.CustomHResult, ex.HResult);
+				Assert.IsNull(ex.InnerException);
+				StringAssert.Contains(ex.Message, Constants.FileName);
+				Assert.AreEqual(Constants.FileName, ex.FileName);
+			}
+		}
+
+		[TestMethod]
 		public void Ctor_IntStringStringException_Success()
 		{
 			try
@@ -265,6 +281,7 @@ namespace NerdyDuck.Tests.CodedExceptions.IO
 		#endregion
 
 		#region ToString
+		[TestMethod]
 		public void ToString_Success()
 		{
 			try
@@ -273,7 +290,7 @@ namespace NerdyDuck.Tests.CodedExceptions.IO
 			}
 			catch (CodedInvalidFileException ex)
 			{
-				string str = HResultHelper.CreateToString(ex, null);
+				string str = ex.ToString();
 				StringAssert.StartsWith(str, string.Format("{0}: ({1}) {2}", typeof(CodedInvalidFileException).FullName, Constants.CustomHResultString, Constants.TestMessage));
 				StringAssert.Contains(str, "ToString_Success");
 				StringAssert.Contains(str, ex.FileName);
