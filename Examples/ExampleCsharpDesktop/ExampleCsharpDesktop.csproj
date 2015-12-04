@@ -45,7 +45,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CodedExceptionsDesktop\CodedExceptionsDesktop.csproj">
+    <ProjectReference Include="..\..\src\CodedExceptionsDesktop\CodedExceptionsDesktop.csproj">
       <Project>{c8bfd295-2998-4a46-b724-c49e7da096d0}</Project>
       <Name>CodedExceptionsDesktop</Name>
     </ProjectReference>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<facilityIdentifierOverrides>
+	<override assemblyName="Assembly1, Version=1.0.0.0" identifier="1" />
+	<override assemblyName="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" identifier="3" />
+</facilityIdentifierOverrides>
