@@ -53,10 +53,10 @@
     <FeedbackEMailAddress>dak%40nerdyduck.de</FeedbackEMailAddress>
     <CopyrightText>Copyright %28c%29 Daniel Kopp 2015</CopyrightText>
     <CopyrightHref>https://www.nerdyduck.de</CopyrightHref>
-    <ProjectSummary>The NerdyDuck.CodedExceptions library contains 3 namespaces. The %2aNerdyDuck.CodedExceptions%2a namespace contains modified versions of the most commonly used exceptions, e.g. the `CodedException`, that ist derived from the `System.Exception` class. It also contains attributes and helper classes to facilitate the generation of standardized HRESULT values. The %2aNerdyDuck.CodedExceptions.IO%2a namespace contains exceptions related to I/O errors. %2aNerdyDuck.CodedExceptions.Configuration%2a namespace contains classes to override facility identifiers via application configuration.</ProjectSummary>
+    <ProjectSummary>The NerdyDuck.CodedExceptions library contains 3 namespaces. The %2aNerdyDuck.CodedExceptions%2a namespace contains modified versions of the most commonly used exceptions, e.g. the `CodedException`, that is derived from the `System.Exception` class. It also contains attributes and helper classes to facilitate the generation of standardized HRESULT values. The %2aNerdyDuck.CodedExceptions.IO%2a namespace contains exceptions related to I/O errors. %2aNerdyDuck.CodedExceptions.Configuration%2a namespace contains classes to override facility identifiers via application configuration.</ProjectSummary>
     <VisibleItems>Attributes, ExplicitInterfaceImplementations, InheritedMembers, InheritedFrameworkMembers, Protected, ProtectedInternalAsProtected</VisibleItems>
     <MissingTags>Summary, Parameter, Returns, Value, AutoDocumentCtors, Namespace, TypeParameter, AutoDocumentDispose</MissingTags>
-    <HelpFileVersion>1.0.0.0</HelpFileVersion>
+    <HelpFileVersion>1.0.1</HelpFileVersion>
     <FeedbackEMailLinkText>Daniel Kopp</FeedbackEMailLinkText>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="NerdyDuck.CodedExceptions" isDocumented="True">The *NerdyDuck.CodedExceptions* namespace contains classes derived from `System.Exception` that expose constructors that you can use to set the `HResult` property. The simplest version is the `CodedException` class, but most common exceptions are present like the ArgumentException or FormatException.

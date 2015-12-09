@@ -2,7 +2,7 @@
 <topic id="a6674c78-0cbf-4a8c-b30c-b50577859388" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>The topics in this section describe the various changes made to the NerdyDuck.CodedExceptions over the
+			<para>The topics in this section describe the various changes made to the NerdyDuck.CodedExceptions library over the
 life of the project.</para>
 		</introduction>
 
