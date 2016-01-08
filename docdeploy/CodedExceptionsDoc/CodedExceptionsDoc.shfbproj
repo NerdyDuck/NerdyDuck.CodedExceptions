@@ -94,6 +94,7 @@ It also contains the `CodedExceptionAttribute` that you can use to signal that a
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\VersionHistory\v1.1.2.aml" />
     <None Include="Content\VersionHistory\v1.0.2.aml" />
     <None Include="Content\VersionHistory\v1.0.3.aml" />
     <None Include="Content\VersionHistory\v1.1.0.aml" />

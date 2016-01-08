@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata minClientVersion="3.2">
 		<id>NerdyDuck.CodedExceptions</id>
-		<version>1.1.1</version>
+		<version>1.1.2</version>
 		<title>NerdyDuck CodedExceptions</title>
 		<authors>Daniel Kopp</authors>
 		<description>This library aims to provide a set of the most common exceptions, with constructors allowing to set the HResult property value. In addition, it provides tools to create standardized error codes, and to discover if an exception is able to provide custom error codes.</description>
 		<releaseNotes>
-			v1.1.1: Fixed a bug in NuGet package that prevented adding the PRI file to a UWP project deployment.
+			v1.1.2: Changed target version for UWP library to Windows 10 build 10586; minimum version remains build 10240.
 		</releaseNotes>
 		<summary>Exceptions with custom HRESULTs for .NET 4.6+ and UWP.</summary>
 		<language>en-US</language>

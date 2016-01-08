@@ -20,6 +20,10 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 For examples and a complete class reference, please see the [Wiki](../../wiki/).
 
 #### History
+#####2016-01-08 / v1.1.2 / DAK
+- Changed target version for UWP library to Windows 10 build 10586; minimum version remains build 10240.
+- Changed automatic signing of assemblies from post-compiler batch script to msbuild task.
+
 #####2015-12-04 / v1.1.1 / DAK
 - Restructured solution into separate folders for sources, tests, examples and deployment/documentation.
 - Fixed bug in NuGet package that prevented the PRI file to be deployed by a UWP project referencing the package.
