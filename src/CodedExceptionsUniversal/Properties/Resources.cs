@@ -19,7 +19,7 @@
  * <assembly name="NerdyDuck.CodedExceptions">
  * Exceptions with custom HRESULTs for .NET
  * </assembly>
- * <file name="Resources.cs" date="2016-01-08">
+ * <file name="Resources.cs" date="2016-02-15">
  * Helper class to access localized string resources.
  * </file>
  ******************************************************************************/
@@ -32,6 +32,8 @@ namespace NerdyDuck.CodedExceptions.Properties
 	/// <summary>
 	/// Helper class to access localized string resources.
 	/// </summary>
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Resources.tt", "1.0.0.0")]
+	[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
 	internal static class Resources
 	{
 		#region String resource properties
