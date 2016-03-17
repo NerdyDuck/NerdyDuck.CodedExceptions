@@ -1,7 +1,7 @@
 ﻿<#
 /*******************************************************************************
  * <copyright file="Resources.tt" owner="Daniel Kopp">
- * Copyright 2015 Daniel Kopp
+ * Copyright 2015-2016 Daniel Kopp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,6 +131,7 @@ ResourceEntries = GetResourceEntries(ResourcePath);
 #endregion
 
 using System;
+using System.Globalization;
 
 namespace <#= ResourceNamespace #>
 {
@@ -160,7 +161,8 @@ namespace <#= ResourceNamespace #>
 		}
 <#
 		}
-#>		#endregion
+#>
+		#endregion
 
 #if WINDOWS_UWP
 		#region Private fields
@@ -195,13 +197,13 @@ namespace <#= ResourceNamespace #>
 		}
 		#endregion
 
-		#region Private methods
+		#region Methods
 		/// <summary>
 		/// Retrieves a string resource using the resource map.
 		/// </summary>
 		/// <param name="name">The name of the string resource.</param>
 		/// <returns>A localized string.</returns>
-		private static string GetResource(string name)
+		internal static string GetResource(string name)
 		{
 			Windows.ApplicationModel.Resources.Core.ResourceContext context = Context;
 			if (context == null)
@@ -210,6 +212,39 @@ namespace <#= ResourceNamespace #>
 			}
 
 			Windows.ApplicationModel.Resources.Core.ResourceCandidate resourceCandidate = ResourceMap.GetValue("<#= RootNamespace #>/<#= TemplateName #>/" + name, context);
+
+			if (resourceCandidate == null)
+			{
+				throw new ArgumentOutOfRangeException(nameof(name));
+			}
+
+			return resourceCandidate.ValueAsString;
+		}
+
+		/// <summary>
+		/// Retrieves a string resource for the specified culture using the resource map.
+		/// </summary>
+		/// <param name="name">The name of the string resource.</param>
+		/// <param name="culture">The culture to retrieve a matching string for. May be <see langword="null"/>.</param>
+		/// <returns>A localized string.</returns>
+		internal static string GetResource(string name, CultureInfo culture)
+		{
+			Windows.ApplicationModel.Resources.Core.ResourceContext context;
+			if (culture == null || culture.IsNeutralCulture)
+			{
+				context = Context;
+				if (context == null)
+				{
+					context = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForViewIndependentUse();
+				}
+			}
+			else
+			{
+				context = new Windows.ApplicationModel.Resources.Core.ResourceContext();
+				context.Languages = new string[] { culture.TwoLetterISOLanguageName };
+			}
+
+			Windows.ApplicationModel.Resources.Core.ResourceCandidate resourceCandidate = ResourceMap.GetValue("NerdyDuck.Logging/Resources/" + name, context);
 
 			if (resourceCandidate == null)
 			{
@@ -256,15 +291,26 @@ namespace <#= ResourceNamespace #>
 		}
 		#endregion
 
-		#region Private methods
+		#region Methods
 		/// <summary>
 		/// Retrieves a string resource using the resource manager.
 		/// </summary>
 		/// <param name="name">The name of the string resource.</param>
 		/// <returns>A localized string.</returns>
-		private static string GetResource(string name)
+		internal static string GetResource(string name)
 		{
 			return ResourceManager.GetString(name, mResourceCulture);
+		}
+
+		/// <summary>
+		/// Retrieves a string resource for the specified culture using the resource manager.
+		/// </summary>
+		/// <param name="name">The name of the string resource.</param>
+		/// <param name="culture">The culture to retrieve a matching string for. May be <see langword="null"/>.</param>
+		/// <returns>A localized string.</returns>
+		internal static string GetResource(string name, CultureInfo culture)
+		{
+			return ResourceManager.GetString(name, culture);
 		}
 		#endregion
 #endif
@@ -418,7 +464,7 @@ private List<ResourceEntry> GetResourceEntries(string fileName)
 // Modifies a resource entry name so it is a valid C# property name
 private string CheckIdentifier(string name)
 {
-	// Step one: only ASCII letters, numbers, dash, dot and underscore allowed
+	// Step one: only Ascii letters, numbers, dash, dot and underscore allowed
 	string ReturnValue = Regex.Replace(name, @"[^A-Za-z0-9-._]", "_");
 	// Step two: property name may not begin with numbers, slashes and dots, so prefix a underscore
 	if (Regex.IsMatch(ReturnValue, @"^[0-9-.]"))

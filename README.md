@@ -19,7 +19,17 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 #### More information
 For examples and a complete class reference, please see the [Wiki](../../wiki/).
 
+#### Licence
+The project is licensed under the [Apache License, Version 2.0](LICENCE.txt).
+
 #### History
+#####TBD / vNext / DAK
+- Added deployment project to compile all projects and create/push the NuGet package in one go. Removed separate NuGet project. Removes also dependency on NuGet Packager Template.
+- Extracted file signing into its own reusable MSBuild target file.
+- Extracted resource generation for desktop project into its own reusable MSBuild target file.
+- Created a MSBuild target for automatic T4 transformations on build. Removes dependency on Visual Studio Modeling SDK.
+- Fixed bug in Package.tt so content files are included into NuGet package.
+
 #####2016-01-08 / v1.1.2 / DAK
 - Changed target version for UWP library to Windows 10 build 10586; minimum version remains build 10240.
 - Changed automatic signing of assemblies from post-compiler batch script to msbuild task.
