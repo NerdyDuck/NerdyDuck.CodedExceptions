@@ -38,7 +38,7 @@ DirectoryInfo UniversalProjectFolder = new FileInfo(Host.ResolveParameterValue("
 DirectoryInfo FileSourceFolder = new DirectoryInfo(RemoveTrailingSlash(Host.ResolveParameterValue("", "", "FileSourceFolder")));
 string ContentFilesString = Host.ResolveParameterValue("", "", "ContentFilesSourceFolder");
 DirectoryInfo ContentFilesSourceFolder = null;
-if (!string.IsNullOrEmpty(ContentFilesString))
+if (!string.IsNullOrWhiteSpace(ContentFilesString))
 	ContentFilesSourceFolder = new DirectoryInfo(RemoveTrailingSlash(ContentFilesString));
 string MetaFileName = Host.ResolveParameterValue("", "", "MetaFileName");
 string PackageName = Host.ResolveParameterValue("", "", "PackageName");

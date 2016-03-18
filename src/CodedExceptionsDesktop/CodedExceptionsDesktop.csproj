@@ -35,9 +35,10 @@
     <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <IncludeFrameworkReferencesFromNuGet>false</IncludeFrameworkReferencesFromNuGet>
   </PropertyGroup>
   <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\NerdyDuck.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
@@ -49,14 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\NerdyDuck.snk">
-      <Link>NerdyDuck.snk</Link>
-    </None>
-    <None Include="..\CodedExceptionsUniversal\ErrorCodes.csv">
-      <Link>ErrorCodes.csv</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ResWFiles Include="..\CodedExceptionsUniversal\Strings\en-US\Resources.resw">
       <Link>Properties\en-US\Resources.resw</Link>
       <ResourceName>NerdyDuck.CodedExceptions.Properties.Resources</ResourceName>
@@ -65,6 +58,22 @@
       <Link>Properties\de-DE\Resources.resw</Link>
       <ResourceName>NerdyDuck.CodedExceptions.Properties.Resources.de-DE</ResourceName>
     </ResWFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\NerdyDuck.snk">
+      <Link>NerdyDuck.snk</Link>
+    </None>
+    <None Include="..\CodedExceptionsUniversal\ErrorCodes.csv">
+      <Link>ErrorCodes.csv</Link>
+    </None>
+    <None Include="..\CodedExceptionsUniversal\Properties\Resources.tt">
+      <Link>Properties\Resources.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resources.cs</LastGenOutput>
+    </None>
+    <CodeAnalysisDictionary Include="..\CodedExceptionsUniversal\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CodedExceptionsUniversal\AssemblyFacilityIdentifierAttribute.cs">
@@ -163,18 +172,6 @@
     <Compile Include="Configuration\CodedExceptionsSection.cs" />
     <Compile Include="Configuration\FacilityOverrideCollection.cs" />
     <Compile Include="Configuration\FacilityOverrideElement.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CodedExceptionsUniversal\CustomDictionary.xml">
-      <Link>CustomDictionary.xml</Link>
-    </CodeAnalysisDictionary>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\CodedExceptionsUniversal\Properties\Resources.tt">
-      <Link>Properties\Resources.tt</Link>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Resources.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

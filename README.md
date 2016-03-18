@@ -20,7 +20,7 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 For examples and a complete class reference, please see the [Wiki](../../wiki/).
 
 #### Licence
-The project is licensed under the [Apache License, Version 2.0](LICENCE.txt).
+The project is licensed under the [Apache License, Version 2.0](LICENSE).
 
 #### History
 #####TBD / vNext / DAK
