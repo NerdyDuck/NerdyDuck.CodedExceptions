@@ -66,7 +66,7 @@ It also contains the `CodedExceptionAttribute` that you can use to signal that a
     </NamespaceSummaries>
     <PlugInConfigurations>
     </PlugInConfigurations>
-    <PostBuildEvent>powershell -ExecutionPolicy Bypass -Command ".\MoveToWiki.ps1"</PostBuildEvent>
+    <PostBuildEvent>rem powershell -ExecutionPolicy Bypass -Command ".\MoveToWiki.ps1"</PostBuildEvent>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
@@ -99,6 +99,7 @@ It also contains the `CodedExceptionAttribute` that you can use to signal that a
     <None Include="Content\VersionHistory\v1.0.3.aml" />
     <None Include="Content\VersionHistory\v1.1.0.aml" />
     <None Include="Content\VersionHistory\v1.1.1.aml" />
+    <None Include="Content\VersionHistory\v1.2.0.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Home.aml" />
     <None Include="MoveToWiki.ps1" />

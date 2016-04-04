@@ -48,6 +48,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 		public const int COR_E_DIRECTORYNOTFOUND = unchecked((int)0x80070003);
 		public const int COR_E_IO = unchecked((int)0x80131620);
 		public const int COR_E_FILENOTFOUND = unchecked((int)0x80070002);
+		public const int COR_E_TYPELOAD = unchecked((int)0x80131522);
 		public const int DataHResult = unchecked((int)0x80131920);
 		public const int XmlHResult = unchecked((int)0x80131940);
 		public const int CustomHResult = unchecked((int)0xa7ff1234);

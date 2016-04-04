@@ -14,6 +14,8 @@
 			  <list class="bullet">
 				  <listItem>
 					  <para>Changed target version for UWP library to Windows 10 build 10586; minimum version remains build 10240.</para>
+				  </listItem>
+				  <listItem>
 					  <para>Changed automatic signing of assemblies from post-compiler batch script to msbuild task.</para>
 				  </listItem>
 			  </list>

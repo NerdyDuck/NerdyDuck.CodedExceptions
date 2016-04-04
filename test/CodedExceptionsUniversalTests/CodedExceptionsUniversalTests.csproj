@@ -121,6 +121,7 @@
     <Compile Include="Tests\CodedProtocolViolationExceptionTest.cs" />
     <Compile Include="Tests\CodedSerializationExceptionTest.cs" />
     <Compile Include="Tests\CodedTimeoutExceptionTest.cs" />
+    <Compile Include="Tests\CodedTypeLoadExceptionTest.cs" />
     <Compile Include="Tests\CodedXmlExceptionTest.cs" />
     <Compile Include="Tests\Configuration\FacilityOverrideTest.cs" />
     <Compile Include="Tests\Configuration\XmlFacilityOverridesTest.cs" />

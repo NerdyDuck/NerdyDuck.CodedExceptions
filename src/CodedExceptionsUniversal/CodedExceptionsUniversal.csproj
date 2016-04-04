@@ -162,6 +162,7 @@
     <Compile Include="CodedProtocolViolationException.cs" />
     <Compile Include="CodedSerializationException.cs" />
     <Compile Include="CodedTimeoutException.cs" />
+    <Compile Include="CodedTypeLoadException.cs" />
     <Compile Include="CodedXmlException.cs" />
     <Compile Include="Configuration\FacilityOverride.cs" />
     <Compile Include="Configuration\XmlFacilityOverrides.cs" />
@@ -191,6 +192,6 @@
     <SignAssemblies>true</SignAssemblies>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\..\tools\TransformT4OnBuild.targets"/>
-  <Import Project="..\..\tools\SignAssembly.targets"/>
+  <Import Project="..\..\tools\TransformT4OnBuild.targets" />
+  <Import Project="..\..\tools\SignAssembly.targets" />
 </Project>

@@ -124,7 +124,7 @@
 		</Task>
 	</UsingTask>
 
-	<!-- Get the first 3 parts of an AssemblyVersionAttribute from an AssemblyInfo file -->
+	<!-- Gets either the AssemblyInformationalVersionAttribute or the first 3 parts of an AssemblyVersionAttribute from an AssemblyInfo file -->
 	<UsingTask TaskName="GetAssemblyVersion" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
 		<ParameterGroup>
 			<FilePath ParameterType="System.String" Required="true" />
@@ -139,18 +139,37 @@
 					VersionString = "0.0.0";
 
 					string[] Content = File.ReadAllLines(FilePath, System.Text.Encoding.UTF8);
+					bool VersionFound = false;
 					foreach (string line in Content)
 					{
-						if (line.Contains("AssemblyVersion"))
+						if (line.Contains("AssemblyInformationalVersion"))
 						{
 							int StartPos = line.IndexOf('"') + 1;
 							int Length = line.IndexOf('"', StartPos + 1) - StartPos;
-							Version AssemblyVersion = new Version(line.Substring(StartPos, Length));
-							VersionString = AssemblyVersion.ToString(3);
+							VersionString = line.Substring(StartPos, Length);
+							VersionFound = true;
 							break;
 						}
 					}
-					Log.LogMessage(MessageImportance.High, "Package version number: " + VersionString);
+					if (!VersionFound)
+					{
+						foreach (string line in Content)
+						{
+							if (line.Contains("AssemblyVersion"))
+							{
+								int StartPos = line.IndexOf('"') + 1;
+								int Length = line.IndexOf('"', StartPos + 1) - StartPos;
+								Version AssemblyVersion = new Version(line.Substring(StartPos, Length));
+								VersionString = AssemblyVersion.ToString(3);
+								VersionFound = true;
+								break;
+							}
+						}
+					}
+					if (VersionFound)
+						Log.LogMessage(MessageImportance.High, "Package version number: " + VersionString);
+					else
+						Log.LogMessage(MessageImportance.High, "No assembly version found!");
 				]]>
 			</Code>
 		</Task>
