@@ -59,7 +59,6 @@
       <FilesToDelete Include=".\NuGet.log" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
-    <RemoveDir Directories="$(IntermediateOutputPath)\" />
     <!-- Build the projects -->
     <MSBuild Projects="@(ProjectsToBuild)" Targets="Build" />
     <!-- Get version number for .zip and .nupkg from AssemblyInfo.cs, then create zip files from contents of obj directory structure -->
@@ -95,6 +94,7 @@
       <FilesToDelete Include=".\NuGet.log" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
+    <RemoveDir Directories="$(IntermediateOutputPath)\" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
   <!-- Download a file via HTTP -->
