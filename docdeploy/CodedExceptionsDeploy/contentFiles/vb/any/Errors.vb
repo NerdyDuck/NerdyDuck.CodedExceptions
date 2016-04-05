@@ -16,9 +16,6 @@
 ' limitations under the License.
 ' </copyright>
 ' <author name="Daniel Kopp" email="dak@nerdyduck.de" />
-' <assembly name="' TODO: add assembly name">
-' ' TODO: add assembly description
-' </assembly>
 ' <file name="Errors.cs" date="2015-08-06">
 ' Provides easy access to the assembly's facility id and base HRESULT code.
 ' </file>
