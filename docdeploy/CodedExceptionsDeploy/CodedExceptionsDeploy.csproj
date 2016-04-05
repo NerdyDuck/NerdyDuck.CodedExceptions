@@ -56,7 +56,6 @@
 
 		<!-- Cleanup before build -->
 		<ItemGroup>
-			<FilesToDelete Include="$(IntermediateOutputPath)\**\*" />
 			<FilesToDelete Include="$(OutputPath)\**\*.nupkg" />
 			<FilesToDelete Include="$(OutputPath)\**\*.zip" />
 			<FilesToDelete Include=".\NuGet.log" />
@@ -96,7 +95,7 @@
 	<Target Name="Clean">
 		<MSBuild Projects="@(ProjectsToBuild)" Targets="Clean" />
 		<ItemGroup>
-			<FilesToDelete Include="$(TempPath)\**\*" />
+			<FilesToDelete Include="$(IntermediateOutputPath)\**\*" />
 			<FilesToDelete Include="$(OutputPath)\**\*.nupkg" />
 			<FilesToDelete Include="$(OutputPath)\**\*.zip" />
 			<FilesToDelete Include=".\NuGet.log" />

@@ -19,7 +19,7 @@
  * <assembly name="NerdyDuck.CodedExceptions">
  * Exceptions with custom HRESULTs for .NET
  * </assembly>
- * <file name="Resources.cs" date="2016-04-04">
+ * <file name="Resources.cs" date="2016-04-05">
  * Helper class to access localized string resources.
  * </file>
  ******************************************************************************/
