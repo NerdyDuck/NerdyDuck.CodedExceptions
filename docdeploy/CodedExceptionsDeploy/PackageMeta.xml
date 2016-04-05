@@ -42,7 +42,7 @@
 		<iconUrl>http://static.nerdyduck.de/NuGet/NerdyDuck.CodedExceptions-50x50.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
-		<copyright>Copyright Daniel Kopp 2015</copyright>
+		<copyright>Copyright Daniel Kopp 2015-2016</copyright>
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="System.Configuration" targetFramework="net46" />
 			<frameworkAssembly assemblyName="System.Data" targetFramework="net46" />
