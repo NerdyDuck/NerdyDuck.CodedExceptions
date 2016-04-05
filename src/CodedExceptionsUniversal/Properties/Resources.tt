@@ -121,9 +121,6 @@ ResourceEntries = GetResourceEntries(ResourcePath);
  * limitations under the License.
  * </copyright>
  * <author name="Daniel Kopp" email="dak@nerdyduck.de" />
- * <assembly name="NerdyDuck.CodedExceptions">
- * Exceptions with custom HRESULTs for .NET
- * </assembly>
  * <file name="<#= TemplateName #>.cs" date="<#= DateTime.Now.ToString("yyyy-MM-dd") #>">
  * Helper class to access localized string resources.
  * </file>
