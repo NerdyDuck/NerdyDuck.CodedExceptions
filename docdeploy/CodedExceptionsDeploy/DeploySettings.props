@@ -62,6 +62,7 @@
 	</PropertyGroup>
 	<!-- Optional Properties
 	<PropertyGroup>
+		<ExcludedOutputs>**\AnyDependency*.dll</ExcludedOutputs>
 		<CreateSymbolPackage>true</CreateSymbolPackage>
 		<NuGetExeDownloadUrl></NuGetExeDownloadUrl>
 		<NuSpecFileBase>Package</NuSpecFileBase>
