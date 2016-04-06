@@ -68,7 +68,7 @@
     <ItemGroup>
       <OutputsToDelete Include="%(OutputsToDeleteString.Identity)" />
     </ItemGroup>
-    <Delete Condition=" '$(OutputsToDelete)'!='' " Files="@(OutputsToDelete)" />
+    <Delete Condition=" '@(OutputsToDelete)'!='' " Files="@(OutputsToDelete)" />
     <RemoveDir Directories="$(MSBuildProjectDirectory)\$(IntermediateOutputPath)\TempPE" />
     <!-- Get version number for .zip and .nupkg from AssemblyInfo.cs, then create zip files from contents of obj directory structure -->
     <GetAssemblyVersion FilePath="$(AssemblyInfoFile)">
