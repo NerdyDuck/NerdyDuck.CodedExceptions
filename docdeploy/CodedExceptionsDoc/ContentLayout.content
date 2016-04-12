@@ -5,7 +5,12 @@
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="863d99b3-87f9-4b23-839e-2920d27fd1e2" visible="True" isSelected="true" title="Version 1.2.0">
+    <Topic id="2c32ffdc-9c04-46f7-8089-879aaaec49c0" visible="True" isSelected="true" title="Version 1.2.1">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.2.1" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="863d99b3-87f9-4b23-839e-2920d27fd1e2" visible="True" title="Version 1.2.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.2.0" />
       </HelpKeywords>

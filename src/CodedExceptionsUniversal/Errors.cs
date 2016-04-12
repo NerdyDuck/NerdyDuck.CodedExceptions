@@ -90,6 +90,20 @@ namespace NerdyDuck.CodedExceptions
 		{
 			return mHResultBase.Value | errorId;
 		}
+
+		/// <summary>
+		/// Combines the specified error identifier, represented by an enumeration, with the base HRESULT value for this assembly.
+		/// </summary>
+		/// <param name="errorId">The error identifier to add to the base HRESULT value.</param>
+		/// <returns>A custom HRESULT value, combined from <paramref name="errorId"/> and <see cref="HResultBase"/>.</returns>
+		/// <remarks><para>This method can only be used for enumerations based on <see cref="System.Int32"/>.</para>
+		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+		/// more information about the definition of HRESULT values.</para></remarks>
+		/// <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
+		internal static int CreateHResult(Enum errorId)
+		{
+			return mHResultBase.Value | HResultHelper.GetEnumInt32Value(errorId);
+		}
 		#endregion
 	}
 }

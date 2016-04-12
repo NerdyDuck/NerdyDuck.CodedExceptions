@@ -16,7 +16,7 @@
  * limitations under the License.
  * </copyright>
  * <author name="Daniel Kopp" email="dak@nerdyduck.de" />
- * <file name="Resources.cs" date="2016-04-05">
+ * <file name="Resources.cs" date="2016-04-12">
  * Helper class to access localized string resources.
  * </file>
  ******************************************************************************/
@@ -145,6 +145,30 @@ namespace NerdyDuck.CodedExceptions.Properties
 		internal static string Global_FileName
 		{
 			get { return GetResource("Global_FileName"); }
+		}
+
+		/// <summary>
+		/// Gets a localized string similar to "Enumeration is not based on Int32 data type.".
+		/// </summary>
+		internal static string HResultHelper_GetEnumInt32Value_NotInt32
+		{
+			get { return GetResource("HResultHelper_GetEnumInt32Value_NotInt32"); }
+		}
+
+		/// <summary>
+		/// Gets a localized string similar to "The Enum type should contain one and only one instance field.".
+		/// </summary>
+		internal static string HResultHelper_GetEnumUnderlyingType_EnumInvalid
+		{
+			get { return GetResource("HResultHelper_GetEnumUnderlyingType_EnumInvalid"); }
+		}
+
+		/// <summary>
+		/// Gets a localized string similar to "The provided Type must be Enum.".
+		/// </summary>
+		internal static string HResultHelper_GetEnumUnderlyingType_MustBeEnum
+		{
+			get { return GetResource("HResultHelper_GetEnumUnderlyingType_MustBeEnum"); }
 		}
 
 		/// <summary>

@@ -83,6 +83,9 @@
     <Compile Include="..\CodedExceptionsUniversalTests\CustomAssert.cs">
       <Link>CustomAssert.cs</Link>
     </Compile>
+    <Compile Include="..\CodedExceptionsUniversalTests\Enums.cs">
+      <Link>Enums.cs</Link>
+    </Compile>
     <Compile Include="..\CodedExceptionsUniversalTests\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

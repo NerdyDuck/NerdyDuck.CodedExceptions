@@ -100,6 +100,7 @@ It also contains the `CodedExceptionAttribute` that you can use to signal that a
     <None Include="Content\VersionHistory\v1.1.0.aml" />
     <None Include="Content\VersionHistory\v1.1.1.aml" />
     <None Include="Content\VersionHistory\v1.2.0.aml" />
+    <None Include="Content\VersionHistory\v1.2.1.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Home.aml" />
     <None Include="MoveToWiki.ps1" />

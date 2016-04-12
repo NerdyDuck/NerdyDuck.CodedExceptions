@@ -26,6 +26,7 @@
 #endregion
 
 using System;
+using System.Reflection;
 
 namespace NerdyDuck.CodedExceptions
 {
@@ -135,9 +136,56 @@ namespace NerdyDuck.CodedExceptions
 			return (hresult & CustomHResultMask) > 0;
 		}
 		#endregion
+
+		#region GetEnumInt32Value
+		/// <summary>
+		/// Returns the integer value of an enumeration value.
+		/// </summary>
+		/// <param name="enumValue">The enumeration value to get the integer value of.</param>
+		/// <returns>An integer that represents <paramref name="enumValue"/>.</returns>
+		/// <remarks>This method only works for enumerations based on <see cref="System.Int32"/>.</remarks>
+		/// <exception cref="CodedArgumentException"><paramref name="enumValue"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
+		public static int GetEnumInt32Value(Enum enumValue)
+		{
+			if (GetEnumUnderlyingType(enumValue.GetType()) != typeof(int))
+			{
+				throw new CodedArgumentException(Errors.CreateHResult(ErrorCodes.HResultHelper_GetEnumInt32Value_NotInt32), Properties.Resources.HResultHelper_GetEnumInt32Value_NotInt32, nameof(enumValue));
+			}
+
+			return (int)((object)enumValue);
+		}
 		#endregion
 
-		#region Internal methods
+		#region GetEnumUnderlyingType
+		/// <summary>
+		/// Returns the underlying type of the current enumeration type.
+		/// </summary>
+		/// <param name="enumType">The enumeration type to get the underlying type of.</param>
+		/// <returns>The underlying type of the current enumeration.</returns>
+		/// <exception cref="CodedArgumentNullException"><paramref name="enumType"/> is <see langword="null"/>.</exception>
+		/// <exception cref="CodedArgumentException"><paramref name="enumType"/> is not an enumeration or the enumeration type is not valid, because it contains more than one instance field.</exception>
+		/// <remarks>This method is a reimplementation of the GetEnumUnderlyingType method of the <see cref="Type"/> class, which does not exist on the Universal Windows platform.</remarks>
+		public static Type GetEnumUnderlyingType(Type enumType)
+		{
+			if (enumType == null)
+			{
+				throw new CodedArgumentNullException(Errors.CreateHResult(ErrorCodes.HResultHelper_GetEnumUnderlyingType_ArgNull), nameof(enumType));
+			}
+			TypeInfo enumTypeInfo = enumType.GetTypeInfo();
+			if (!enumTypeInfo.IsEnum)
+			{
+				throw new CodedArgumentException(Errors.CreateHResult(ErrorCodes.HResultHelper_GetEnumUnderlyingType_MustBeEnum), Properties.Resources.HResultHelper_GetEnumUnderlyingType_MustBeEnum, nameof(enumType));
+			}
+			FieldInfo[] fields = enumType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+			if ((fields == null) || (fields.Length != 1))
+			{
+				throw new CodedArgumentException(Errors.CreateHResult(ErrorCodes.HResultHelper_GetEnumUnderlyingType_EnumInvalid), Properties.Resources.HResultHelper_GetEnumUnderlyingType_EnumInvalid, nameof(enumType));
+			}
+			return fields[0].FieldType;
+		}
+		#endregion
+
+		#region CreateToString
 		/// <summary>
 		/// Creates the default ToString implementation for CodedExceptions, with the optional addition of custom text.
 		/// </summary>
@@ -146,10 +194,10 @@ namespace NerdyDuck.CodedExceptions
 		/// <remarks>Unlike the default implementation, this implementation inserts the HResult between class name and message.</remarks>
 		/// <returns>A string representing the specified exception.</returns>
 		/// <exception cref="CodedArgumentNullException">ex is null.</exception>
-		internal static string CreateToString(Exception ex, string customText)
+		public static string CreateToString(Exception ex, string customText)
 		{
 			if (ex == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x07), nameof(ex));
+				throw new CodedArgumentNullException(Errors.CreateHResult(ErrorCodes.HResultHelper_CreateToString_ExNull), nameof(ex));
 
 			string ReturnValue = string.Format(ExceptionBaseFormat, ex.GetType().FullName, ex.HResult, ex.Message);
 			if (!string.IsNullOrEmpty(customText))
@@ -167,6 +215,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return ReturnValue;
 		}
+		#endregion
 		#endregion
 	}
 }

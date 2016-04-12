@@ -23,6 +23,11 @@ For examples and a complete class reference, please see the [Wiki](../../wiki/).
 The project is licensed under the [Apache License, Version 2.0](LICENSE).
 
 #### History
+#####2016-04-012 / 1.2.1 / DAK
+- Added `HResultHelper.GetEnumInt32Value(Enum)` and `HResultHelper.GetEnumUnderlyingType(Type)` to facilitate new method in Errors.cs: `Errors.CreateHResult(Enum)`.
+- Switched internal error codes from integers to `ErrorCodes` enumeration.
+- Universal project compiled against Microsoft.NETCore.UniversalWindowsPlatform 5.1.0 .
+
 #####2016-04-06 / 1.2.0 / DAK
 - Added `CodedTypeLoadException`.
 - Added deployment project to compile all projects and create/push the NuGet package in one go. Removed separate NuGet project. Removes also dependency on NuGet Packager Template.

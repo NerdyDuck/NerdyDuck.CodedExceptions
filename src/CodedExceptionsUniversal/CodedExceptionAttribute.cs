@@ -77,7 +77,7 @@ namespace NerdyDuck.CodedExceptions
 		public static bool IsCodedException(Exception ex)
 		{
 			if (ex == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x01), nameof(ex));
+				throw new CodedArgumentNullException(Errors.CreateHResult(ErrorCodes.CodedExceptionAttribute_IsCodedException_ArgNull), nameof(ex));
 
 			return (ex.GetType().GetTypeInfo().GetCustomAttribute<CodedExceptionAttribute>(true) != null);
 		}

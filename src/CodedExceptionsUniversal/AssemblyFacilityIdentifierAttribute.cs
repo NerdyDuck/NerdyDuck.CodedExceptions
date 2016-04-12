@@ -108,7 +108,7 @@ namespace NerdyDuck.CodedExceptions
 		public AssemblyFacilityIdentifierAttribute(int facilityId)
 		{
 			if (facilityId < 0 || facilityId > 2047)
-				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x02), nameof(facilityId), Properties.Resources.Global_FacilityId_OutOfRange);
+				throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(ErrorCodes.AssemblyFacilityIdentifierAttribute_ctor_OutOfRangeRange), nameof(facilityId), Properties.Resources.Global_FacilityId_OutOfRange);
 			mFacilityId = facilityId;
 		}
 		#endregion
@@ -124,7 +124,7 @@ namespace NerdyDuck.CodedExceptions
 		public static AssemblyFacilityIdentifierAttribute FromAssembly(Assembly assembly)
 		{
 			if (assembly == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x03), nameof(assembly));
+				throw new CodedArgumentNullException(Errors.CreateHResult(ErrorCodes.AssemblyFacilityIdentifierAttribute_FromAssembly_AssemblyNull), nameof(assembly));
 
 			return assembly.GetCustomAttribute<AssemblyFacilityIdentifierAttribute>();
 		}
@@ -140,7 +140,7 @@ namespace NerdyDuck.CodedExceptions
 		public static AssemblyFacilityIdentifierAttribute FromType(Type type)
 		{
 			if (type == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x04), nameof(type));
+				throw new CodedArgumentNullException(Errors.CreateHResult(ErrorCodes.AssemblyFacilityIdentifierAttribute_FromAssembly_TypeNull), nameof(type));
 
 			return FromAssembly(type.GetTypeInfo().Assembly);
 		}
@@ -157,7 +157,7 @@ namespace NerdyDuck.CodedExceptions
 		public static bool TryGetOverride(Assembly assembly, out int identifier)
 		{
 			if (assembly == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x05), nameof(assembly));
+				throw new CodedArgumentNullException(Errors.CreateHResult(ErrorCodes.AssemblyFacilityIdentifierAttribute_TryGetOverride_AssemblyNull), nameof(assembly));
 
 			identifier = 0;
 			bool ReturnValue = false;
@@ -198,7 +198,7 @@ namespace NerdyDuck.CodedExceptions
 		public static bool TryGetOverride(Type type, out int identifier)
 		{
 			if (type == null)
-				throw new CodedArgumentNullException(Errors.CreateHResult(0x06), nameof(type));
+				throw new CodedArgumentNullException(Errors.CreateHResult(ErrorCodes.AssemblyFacilityIdentifierAttribute_TryGetOverride_TypeNull), nameof(type));
 
 			return TryGetOverride(type.GetTypeInfo().Assembly, out identifier);
 		}

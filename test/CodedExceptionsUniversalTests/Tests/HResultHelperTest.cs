@@ -152,5 +152,50 @@ namespace NerdyDuck.Tests.CodedExceptions
 			});
 		}
 		#endregion
+
+		#region GetEnumInt32Value
+		[TestMethod]
+		public void GetEnumInt32Value_Success()
+		{
+			int i = HResultHelper.GetEnumInt32Value(Int32Enum.One);
+			Assert.AreEqual(1, i);
+		}
+
+		[TestMethod]
+		public void GetEnumInt32Value_NotInt32_Throw()
+		{
+			CustomAssert.ThrowsException<CodedArgumentException>(() =>
+			{
+				int i = HResultHelper.GetEnumInt32Value(ByteEnum.One);
+			});
+		}
+		#endregion
+
+		#region GetEnumUnderlyingType
+		[TestMethod]
+		public void GetEnumUnderlyingType_Success()
+		{
+			Type t = HResultHelper.GetEnumUnderlyingType(typeof(Int32Enum));
+			Assert.AreEqual(typeof(int), t);
+		}
+
+		[TestMethod]
+		public void GetEnumUnderlyingType_Null_Throw()
+		{
+			CustomAssert.ThrowsException<CodedArgumentNullException>(() =>
+			{
+				Type t = HResultHelper.GetEnumUnderlyingType(null);
+			});
+		}
+
+		[TestMethod]
+		public void GetEnumUnderlyingType_NotEnum_Throw()
+		{
+			CustomAssert.ThrowsException<CodedArgumentException>(() =>
+			{
+				Type t = HResultHelper.GetEnumUnderlyingType(typeof(System.EventArgs));
+			});
+		}
+		#endregion
 	}
 }

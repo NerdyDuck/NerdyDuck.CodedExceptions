@@ -131,7 +131,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFormatException(Errors.CreateHResult(0x0c), string.Format(CodedExceptions.Properties.Resources.FacilityOverrideElement_ToOverride_Invalid, AssemblyName), ex);
+				throw new CodedFormatException(Errors.CreateHResult(ErrorCodes.FacilityOverrideElement_ToOverride_Invalid), string.Format(CodedExceptions.Properties.Resources.FacilityOverrideElement_ToOverride_Invalid, AssemblyName), ex);
 			}
 		}
 		#endregion

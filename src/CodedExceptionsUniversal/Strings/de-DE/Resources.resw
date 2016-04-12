@@ -159,6 +159,15 @@
   <data name="Global_FileName" xml:space="preserve">
     <value>Datei-Name: '{0}'.</value>
   </data>
+  <data name="HResultHelper_GetEnumInt32Value_NotInt32" xml:space="preserve">
+    <value>Enumeration basiert nicht auf Datentyp Int32.</value>
+  </data>
+  <data name="HResultHelper_GetEnumUnderlyingType_EnumInvalid" xml:space="preserve">
+    <value>Der Enum-Typ sollte ein und genau ein Instanz-Feld enthalten.</value>
+  </data>
+  <data name="HResultHelper_GetEnumUnderlyingType_MustBeEnum" xml:space="preserve">
+    <value>Der angegebene Typ muss ein Enum sein.</value>
+  </data>
   <data name="XmlFacilityOverrides_GetFacilityOverrides_AttributeMissing" xml:space="preserve">
     <value>Element '{0}' hat kein Attribut '{1}'.</value>
   </data>
