@@ -100,7 +100,7 @@ namespace $rootnamespace$
 		/// <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
 		internal static int CreateHResult(Enum errorId)
 		{
-			return mHResultBase.Value | HResultHelper.GetEnumUnderlyingInt32Value(errorId);
+			return mHResultBase.Value | HResultHelper.GetEnumInt32Value(errorId);
 		}
 		#endregion
 	}

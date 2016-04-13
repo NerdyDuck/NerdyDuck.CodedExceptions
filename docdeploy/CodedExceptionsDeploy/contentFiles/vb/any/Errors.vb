@@ -78,7 +78,7 @@ Friend Module Errors
 	''' more information about the definition of HRESULT values.</para></remarks>
 	''' <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
 	Friend Function CreateHResult(errorId As System.Enum) As Integer
-		Return mHResultBase.Value Or HResultHelper.GetEnumUnderlyingInt32Value(errorId)
+		Return mHResultBase.Value Or HResultHelper.GetEnumInt32Value(errorId)
 	End Function
 #End Region
 
