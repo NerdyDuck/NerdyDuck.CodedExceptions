@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\NerdyDuck.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\NerdyDuck.CodedExceptions.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -64,8 +64,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <None Include="..\..\NerdyDuck.snk">
-      <Link>NerdyDuck.snk</Link>
+    <None Include="..\..\NerdyDuck.CodedExceptions.snk">
+      <Link>NerdyDuck.CodedExceptions.snk</Link>
     </None>
     <None Include="App.config" />
   </ItemGroup>
@@ -77,106 +77,115 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CodedExceptionsUniversalTests\Constants.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Constants.cs">
       <Link>Constants.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\CustomAssert.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\CustomAssert.cs">
       <Link>CustomAssert.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Enums.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Enums.cs">
       <Link>Enums.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Properties\AssemblyInfo.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\AssemblyFacilityIdentifierAttributeTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\AssemblyFacilityIdentifierAttributeTest.cs">
       <Link>Tests\AssemblyFacilityIdentifierAttributeTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedAggregateExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedAggregateExceptionTest.cs">
       <Link>Tests\CodedAggregateExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentExceptionTest.cs">
       <Link>Tests\CodedArgumentExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentNullExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentNullExceptionTest.cs">
       <Link>Tests\CodedArgumentNullExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentNullOrEmptyExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentNullOrEmptyExceptionTest.cs">
       <Link>Tests\CodedArgumentNullOrEmptyExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentNullOrWhiteSpaceExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentNullOrWhiteSpaceExceptionTest.cs">
       <Link>Tests\CodedArgumentNullOrWhiteSpaceExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedArgumentOutOfRangeExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentOutOfRangeExceptionTest.cs">
       <Link>Tests\CodedArgumentOutOfRangeExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedCommunicationExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedCommunicationExceptionTest.cs">
       <Link>Tests\CodedCommunicationExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedDataExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedDataExceptionTest.cs">
       <Link>Tests\CodedDataExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedExceptionAttributeTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedExceptionAttributeTest.cs">
       <Link>Tests\CodedExceptionAttributeTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedExceptionTest.cs">
       <Link>Tests\CodedExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedFormatExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedFormatExceptionTest.cs">
       <Link>Tests\CodedFormatExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedInvalidOperationExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedInvalidCastExceptionTest.cs">
+      <Link>Tests\CodedInvalidCastExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedInvalidOperationExceptionTest.cs">
       <Link>Tests\CodedInvalidOperationExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedProtocolViolationExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedProtocolViolationExceptionTest.cs">
       <Link>Tests\CodedProtocolViolationExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedSerializationExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedSerializationExceptionTest.cs">
       <Link>Tests\CodedSerializationExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedTimeoutExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedSocketExceptionTest.cs">
+      <Link>Tests\CodedSocketExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedTimeoutExceptionTest.cs">
       <Link>Tests\CodedTimeoutExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedTypeLoadExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedTypeLoadExceptionTest.cs">
       <Link>Tests\CodedTypeLoadExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedXmlExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedXmlExceptionTest.cs">
       <Link>Tests\CodedXmlExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\Configuration\FacilityOverrideTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\Configuration\FacilityOverrideTest.cs">
       <Link>Tests\Configuration\FacilityOverrideTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\ErrorsTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\ErrorsTest.cs">
       <Link>Tests\ErrorsTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\ExceptionExtensionsTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\ExceptionExtensionsTest.cs">
       <Link>Tests\ExceptionExtensionsTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\HResultHelperTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\HResultHelperTest.cs">
       <Link>Tests\HResultHelperTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedDirectoryNotFoundExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedDirectoryNotFoundExceptionTest.cs">
       <Link>Tests\IO\CodedDirectoryNotFoundExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedFileExistsExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedFileExistsExceptionTest.cs">
       <Link>Tests\IO\CodedFileExistsExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedFileNotFoundExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedFileNotFoundExceptionTest.cs">
       <Link>Tests\IO\CodedFileNotFoundExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedInvalidDataExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedInvalidDataExceptionTest.cs">
       <Link>Tests\IO\CodedInvalidDataExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedInvalidFileExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedInvalidFileExceptionTest.cs">
       <Link>Tests\IO\CodedInvalidFileExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\IO\CodedIOExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedIOExceptionTest.cs">
       <Link>Tests\IO\CodedIOExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\LocalizationTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\InsufficientStorageSpaceExceptionTest.cs">
+      <Link>Tests\IO\InsufficientStorageSpaceExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\LocalizationTest.cs">
       <Link>Tests\LocalizationTest.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversalTests\Tests\CodedNotSupportedExceptionTest.cs">
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedNotSupportedExceptionTest.cs">
       <Link>Tests\CodedNotSupportedExceptionTest.cs</Link>
     </Compile>
     <Compile Include="SerializationHelper.cs" />

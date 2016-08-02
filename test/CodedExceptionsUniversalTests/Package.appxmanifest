@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="NerdyDuck.Tests.CodedExceptions" Publisher="E=dak@nerdyduck.de, CN=Daniel Kopp, L=Erding, S=Bayern, C=DE" Version="1.1.1.0" />
+  <Identity Name="NerdyDuck.Tests.CodedExceptions" Publisher="CN=NerdyDuck" Version="1.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="3f470e8b-4481-4ce0-96cb-72fddc751bca" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>CodedExceptions</DisplayName>

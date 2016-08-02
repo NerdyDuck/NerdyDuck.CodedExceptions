@@ -1,5 +1,5 @@
 # NerdyDuck.CodedExceptions
-#### Exceptions with custom HRESULTs for .NET 4.6+ and UWP
+#### Exceptions with custom HRESULTs for .NET 4.6+, UWP and .NET Core 1.0
 
 This project provides a library of classes derived from [`System.Exception`](https://msdn.microsoft.com/en-us/library/System.Exception.aspx) that offer constructors to set the `HResult` property with a custom value.
 It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
@@ -7,6 +7,7 @@ It also includes helper classes to create standardized HRESULT values compliant 
 #### Platforms
 - .NET Framework 4.6 or newer for desktop applications
 - Universal Windows Platform (UWP) 10.0 (Windows 10) or newer for Windows Store Apps and [Windows 10 IoT](https://dev.windows.com/en-us/iot)
+- .NET Core 1.0 (netstandard1.6).
 
 #### Languages
 The neutral resource language for all texts is English (en-US). Currently, the only localization available is German (de-DE). If you like to add other languages, feel free to send a pull request with the translated resources!
@@ -23,7 +24,16 @@ For examples and a complete class reference, please see the [Wiki](../../wiki/).
 The project is licensed under the [Apache License, Version 2.0](LICENSE).
 
 #### History
-#####2016-04-012 / 1.2.1 / DAK
+#####2016-08-02 / 1.3.0 / DAK
+- Added new target platform .NET Core 1.0. Compiled against netstandard1.6 .
+- Added new exceptions: `CodedInvalidCastException`, `CodedSocketException`, `InSufficientStorageSpaceException`.
+- New project *CodedExceptionsCore* and unit test project *CodedExceptionsCoreTests*. New compilation symbol `NETCORE` used to for platform-specific code.
+- All code files (except platform-specific files) moved to *CodedExceptionsCore* and *CodedExceptionsCoreTests* projects, because .xproj project type does not support links.
+- Handling of resource files has changed. Source are now .resx files, that are copied and renamed to .resw to be used in the UWP project.
+- Strong name key file `NerdyDuck.CodedExceptions.snk` and certificate `NerdyDuck.CodedExceptions.pfx` are now included in the project to make it easier to clone and compile.
+- Signing of output assemblies with SPC certificate has moved from the library projects to the deploy project *CodedExceptionsDeploy*. Libraries will only be signed when the NuGet package is created and pushed (compiled as Release).
+
+#####2016-04-12 / 1.2.1 / DAK
 - Added `HResultHelper.GetEnumInt32Value(Enum)` and `HResultHelper.GetEnumUnderlyingType(Type)` to facilitate new method in Errors.cs: `Errors.CreateHResult(Enum)`.
 - Switched internal error codes from integers to `ErrorCodes` enumeration.
 - Universal project compiled against Microsoft.NETCore.UniversalWindowsPlatform 5.1.0 .

@@ -37,10 +37,6 @@
   <PropertyGroup>
     <IncludeFrameworkReferencesFromNuGet>false</IncludeFrameworkReferencesFromNuGet>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\NerdyDuck.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -50,127 +46,123 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ResWFiles Include="..\CodedExceptionsUniversal\Strings\en-US\Resources.resw">
-      <Link>Properties\en-US\Resources.resw</Link>
-      <ResourceName>NerdyDuck.CodedExceptions.Properties.Resources</ResourceName>
-    </ResWFiles>
-    <ResWFiles Include="..\CodedExceptionsUniversal\Strings\de-DE\Resources.resw">
-      <Link>Properties\de-DE\Resources.resw</Link>
-      <ResourceName>NerdyDuck.CodedExceptions.Properties.Resources.de-DE</ResourceName>
-    </ResWFiles>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\NerdyDuck.snk">
-      <Link>NerdyDuck.snk</Link>
-    </None>
-    <None Include="..\CodedExceptionsUniversal\Properties\Resources.tt">
-      <Link>Properties\Resources.tt</Link>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Resources.cs</LastGenOutput>
-    </None>
-    <CodeAnalysisDictionary Include="..\CodedExceptionsUniversal\CustomDictionary.xml">
+    <CodeAnalysisDictionary Include="..\CodedExceptionsCore\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
+    <Content Include="..\CodedExceptionsCore\Properties\Resources.Designer.tt">
+      <Link>Properties\Resources.Designer.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CodedExceptionsUniversal\AssemblyFacilityIdentifierAttribute.cs">
+    <Compile Include="..\CodedExceptionsCore\AssemblyFacilityIdentifierAttribute.cs">
       <Link>AssemblyFacilityIdentifierAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedAggregateException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedAggregateException.cs">
       <Link>CodedAggregateException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedArgumentException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedArgumentException.cs">
       <Link>CodedArgumentException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedArgumentNullException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedArgumentNullException.cs">
       <Link>CodedArgumentNullException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedArgumentNullOrEmptyException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedArgumentNullOrEmptyException.cs">
       <Link>CodedArgumentNullOrEmptyException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedArgumentNullOrWhiteSpaceException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedArgumentNullOrWhiteSpaceException.cs">
       <Link>CodedArgumentNullOrWhiteSpaceException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedArgumentOutOfRangeException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedArgumentOutOfRangeException.cs">
       <Link>CodedArgumentOutOfRangeException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedCommunicationException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedCommunicationException.cs">
       <Link>CodedCommunicationException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedDataException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedDataException.cs">
       <Link>CodedDataException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedException.cs">
       <Link>CodedException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedExceptionAttribute.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedExceptionAttribute.cs">
       <Link>CodedExceptionAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedFormatException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedFormatException.cs">
       <Link>CodedFormatException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedInvalidOperationException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedInvalidCastException.cs">
+      <Link>CodedInvalidCastException.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCore\CodedInvalidOperationException.cs">
       <Link>CodedInvalidOperationException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedNotSupportedException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedNotSupportedException.cs">
       <Link>CodedNotSupportedException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedProtocolViolationException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedProtocolViolationException.cs">
       <Link>CodedProtocolViolationException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedSerializationException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedSerializationException.cs">
       <Link>CodedSerializationException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedTimeoutException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedSocketException.cs">
+      <Link>CodedSocketException.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCore\CodedTimeoutException.cs">
       <Link>CodedTimeoutException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedTypeLoadException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedTypeLoadException.cs">
       <Link>CodedTypeLoadException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\CodedXmlException.cs">
+    <Compile Include="..\CodedExceptionsCore\CodedXmlException.cs">
       <Link>CodedXmlException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\Configuration\FacilityOverride.cs">
+    <Compile Include="..\CodedExceptionsCore\Configuration\FacilityOverride.cs">
       <Link>Configuration\FacilityOverride.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\ErrorCodes.cs">
+    <Compile Include="..\CodedExceptionsCore\ErrorCodes.cs">
       <Link>ErrorCodes.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\Errors.cs">
+    <Compile Include="..\CodedExceptionsCore\Errors.cs">
       <Link>Errors.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\ExceptionExtensions.cs">
+    <Compile Include="..\CodedExceptionsCore\ExceptionExtensions.cs">
       <Link>ExceptionExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\HResultHelper.cs">
+    <Compile Include="..\CodedExceptionsCore\HResultHelper.cs">
       <Link>HResultHelper.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\IO\CodedDirectoryNotFoundException.cs">
+    <Compile Include="..\CodedExceptionsCore\IO\CodedDirectoryNotFoundException.cs">
       <Link>IO\CodedDirectoryNotFoundException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\IO\CodedFileExistsException.cs">
+    <Compile Include="..\CodedExceptionsCore\IO\CodedFileExistsException.cs">
       <Link>IO\CodedFileExistsException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\IO\CodedFileNotFoundException.cs">
+    <Compile Include="..\CodedExceptionsCore\IO\CodedFileNotFoundException.cs">
       <Link>IO\CodedFileNotFoundException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\IO\CodedInvalidDataException.cs">
+    <Compile Include="..\CodedExceptionsCore\IO\CodedInvalidDataException.cs">
       <Link>IO\CodedInvalidDataException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\IO\CodedInvalidFileException.cs">
+    <Compile Include="..\CodedExceptionsCore\IO\CodedInvalidFileException.cs">
       <Link>IO\CodedInvalidFileException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\IO\CodedIOException.cs">
+    <Compile Include="..\CodedExceptionsCore\IO\CodedIOException.cs">
       <Link>IO\CodedIOException.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\Properties\AssemblyInfo.cs">
+    <Compile Include="..\CodedExceptionsCore\IO\InsufficientStorageSpaceException.cs">
+      <Link>IO\InsufficientStorageSpaceException.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCore\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\CodedExceptionsUniversal\Properties\Resources.cs">
-      <Link>Properties\Resources.cs</Link>
+    <Compile Include="..\CodedExceptionsCore\Properties\Resources.Designer.cs">
+      <Link>Properties\Resources.Designer.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.tt</DependentUpon>
+      <DependentUpon>Resources.Designer.tt</DependentUpon>
     </Compile>
     <Compile Include="Configuration\CodedExceptionsSection.cs" />
     <Compile Include="Configuration\FacilityOverrideCollection.cs" />
@@ -179,14 +171,28 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\CodedExceptionsCore\Properties\Resources.de-DE.resx">
+      <Link>Properties\Resources.de-DE.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CodedExceptionsCore\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\NerdyDuck.CodedExceptions.snk">
+      <Link>NerdyDuck.CodedExceptions.snk</Link>
+    </None>
+  </ItemGroup>
   <PropertyGroup>
     <TransformT4OnBuild>true</TransformT4OnBuild>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <SignAssemblies>true</SignAssemblies>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\NerdyDuck.CodedExceptions.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\tools\TransformT4OnBuild.targets" />
-  <Import Project="..\..\tools\TransformResW2X.targets" />
-  <Import Project="..\..\tools\SignAssembly.targets" />
 </Project>

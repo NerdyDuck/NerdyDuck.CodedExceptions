@@ -16,11 +16,10 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>TestKey.pfx</PackageCertificateKeyFile>
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">14.0</UnitTestPlatformVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
-    <PackageCertificateThumbprint>57B37D51DA7C70E9671C7C4AFDACC9EF66458225</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>3AD256278EA5FB82994E1BE246A981F553C35163</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -93,49 +92,129 @@
   </PropertyGroup>
   <ItemGroup>
     <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
-    <None Include="..\..\NerdyDuck.snk">
-      <Link>NerdyDuck.snk</Link>
+    <None Include="..\..\NerdyDuck.CodedExceptions.snk">
+      <Link>NerdyDuck.CodedExceptions.snk</Link>
     </None>
+    <None Include="TestKey.pfx" />
     <None Include="project.json" />
     <SDKReference Include="MSTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
-    <Compile Include="CustomAssert.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="Tests\AssemblyFacilityIdentifierAttributeTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\CodedAggregateExceptionTest.cs" />
-    <Compile Include="Tests\CodedArgumentExceptionTest.cs" />
-    <Compile Include="Tests\CodedArgumentNullExceptionTest.cs" />
-    <Compile Include="Tests\CodedArgumentNullOrEmptyExceptionTest.cs" />
-    <Compile Include="Tests\CodedArgumentNullOrWhiteSpaceExceptionTest.cs" />
-    <Compile Include="Tests\CodedArgumentOutOfRangeExceptionTest.cs" />
-    <Compile Include="Tests\CodedCommunicationExceptionTest.cs" />
-    <Compile Include="Tests\CodedDataExceptionTest.cs" />
-    <Compile Include="Tests\CodedExceptionAttributeTest.cs" />
-    <Compile Include="Tests\CodedExceptionTest.cs" />
-    <Compile Include="Tests\CodedFormatExceptionTest.cs" />
-    <Compile Include="Tests\CodedInvalidOperationExceptionTest.cs" />
-    <Compile Include="Tests\CodedNotSupportedExceptionTest.cs" />
-    <Compile Include="Tests\CodedProtocolViolationExceptionTest.cs" />
-    <Compile Include="Tests\CodedSerializationExceptionTest.cs" />
-    <Compile Include="Tests\CodedTimeoutExceptionTest.cs" />
-    <Compile Include="Tests\CodedTypeLoadExceptionTest.cs" />
-    <Compile Include="Tests\CodedXmlExceptionTest.cs" />
-    <Compile Include="Tests\Configuration\FacilityOverrideTest.cs" />
-    <Compile Include="Tests\Configuration\XmlFacilityOverridesTest.cs" />
-    <Compile Include="Tests\ErrorsTest.cs" />
-    <Compile Include="Tests\ExceptionExtensionsTest.cs" />
-    <Compile Include="Tests\HResultHelperTest.cs" />
-    <Compile Include="Tests\IO\CodedDirectoryNotFoundExceptionTest.cs" />
-    <Compile Include="Tests\IO\CodedFileExistsExceptionTest.cs" />
-    <Compile Include="Tests\IO\CodedFileNotFoundExceptionTest.cs" />
-    <Compile Include="Tests\IO\CodedInvalidDataExceptionTest.cs" />
-    <Compile Include="Tests\IO\CodedInvalidFileExceptionTest.cs" />
-    <Compile Include="Tests\IO\CodedIOExceptionTest.cs" />
-    <Compile Include="Tests\LocalizationTest.cs" />
+    <Compile Include="..\CodedExceptionsCoreTests\Constants.cs">
+      <Link>Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\CustomAssert.cs">
+      <Link>CustomAssert.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Enums.cs">
+      <Link>Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\AssemblyFacilityIdentifierAttributeTest.cs">
+      <Link>Tests\AssemblyFacilityIdentifierAttributeTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedAggregateExceptionTest.cs">
+      <Link>Tests\CodedAggregateExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentExceptionTest.cs">
+      <Link>Tests\CodedArgumentExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentNullExceptionTest.cs">
+      <Link>Tests\CodedArgumentNullExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentNullOrEmptyExceptionTest.cs">
+      <Link>Tests\CodedArgumentNullOrEmptyExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentNullOrWhiteSpaceExceptionTest.cs">
+      <Link>Tests\CodedArgumentNullOrWhiteSpaceExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedArgumentOutOfRangeExceptionTest.cs">
+      <Link>Tests\CodedArgumentOutOfRangeExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedCommunicationExceptionTest.cs">
+      <Link>Tests\CodedCommunicationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedDataExceptionTest.cs">
+      <Link>Tests\CodedDataExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedExceptionAttributeTest.cs">
+      <Link>Tests\CodedExceptionAttributeTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedExceptionTest.cs">
+      <Link>Tests\CodedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedFormatExceptionTest.cs">
+      <Link>Tests\CodedFormatExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedInvalidCastExceptionTest.cs">
+      <Link>Tests\CodedInvalidCastExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedInvalidOperationExceptionTest.cs">
+      <Link>Tests\CodedInvalidOperationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedNotSupportedExceptionTest.cs">
+      <Link>Tests\CodedNotSupportedExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedProtocolViolationExceptionTest.cs">
+      <Link>Tests\CodedProtocolViolationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedSerializationExceptionTest.cs">
+      <Link>Tests\CodedSerializationExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedSocketExceptionTest.cs">
+      <Link>Tests\CodedSocketExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedTimeoutExceptionTest.cs">
+      <Link>Tests\CodedTimeoutExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedTypeLoadExceptionTest.cs">
+      <Link>Tests\CodedTypeLoadExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\CodedXmlExceptionTest.cs">
+      <Link>Tests\CodedXmlExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\Configuration\FacilityOverrideTest.cs">
+      <Link>Tests\Configuration\FacilityOverrideTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\Configuration\XmlFacilityOverridesTest.cs">
+      <Link>Tests\Configuration\XmlFacilityOverridesTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\ErrorsTest.cs">
+      <Link>Tests\ErrorsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\ExceptionExtensionsTest.cs">
+      <Link>Tests\ExceptionExtensionsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\HResultHelperTest.cs">
+      <Link>Tests\HResultHelperTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedDirectoryNotFoundExceptionTest.cs">
+      <Link>Tests\IO\CodedDirectoryNotFoundExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedFileExistsExceptionTest.cs">
+      <Link>Tests\IO\CodedFileExistsExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedFileNotFoundExceptionTest.cs">
+      <Link>Tests\IO\CodedFileNotFoundExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedInvalidDataExceptionTest.cs">
+      <Link>Tests\IO\CodedInvalidDataExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedInvalidFileExceptionTest.cs">
+      <Link>Tests\IO\CodedInvalidFileExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\CodedIOExceptionTest.cs">
+      <Link>Tests\IO\CodedIOExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\IO\InsufficientStorageSpaceExceptionTest.cs">
+      <Link>Tests\IO\InsufficientStorageSpaceExceptionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\CodedExceptionsCoreTests\Tests\LocalizationTest.cs">
+      <Link>Tests\LocalizationTest.cs</Link>
+    </Compile>
     <Compile Include="UnitTestApp.xaml.cs">
       <DependentUpon>UnitTestApp.xaml</DependentUpon>
     </Compile>
@@ -152,16 +231,20 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FacilityIdentifierOverrides.xml">
+    <Content Include="..\CodedExceptionsCoreTests\FacilityIdentifierOverrides.xml">
+      <Link>FacilityIdentifierOverrides.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="InvalidIdentifier.xml">
+    <Content Include="..\CodedExceptionsCoreTests\InvalidIdentifier.xml">
+      <Link>InvalidIdentifier.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="InvalidXml.xml">
+    <Content Include="..\CodedExceptionsCoreTests\InvalidXml.xml">
+      <Link>InvalidXml.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WrongXml.xml">
+    <Content Include="..\CodedExceptionsCoreTests\WrongXml.xml">
+      <Link>WrongXml.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Properties\UnitTestApp.rd.xml" />
@@ -190,7 +273,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\NerdyDuck.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\NerdyDuck.CodedExceptions.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
