@@ -24,9 +24,12 @@ For examples and a complete class reference, please see the [Wiki](../../wiki/).
 The project is licensed under the [Apache License, Version 2.0](LICENSE).
 
 #### History
+#####2016-08-04 / 1.3.1 / DAK
+- Universal project compiled against Microsoft.NETCore.UniversalWindowsPlatform 5.2.2 .
+
 #####2016-08-02 / 1.3.0 / DAK
 - Added new target platform .NET Core 1.0. Compiled against netstandard1.6 .
-- Added new exceptions: `CodedInvalidCastException`, `CodedSocketException`, `InSufficientStorageSpaceException`.
+- Added new exceptions: `CodedInvalidCastException`, `CodedSocketException`, `InsufficientStorageSpaceException`.
 - New project *CodedExceptionsCore* and unit test project *CodedExceptionsCoreTests*. New compilation symbol `NETCORE` used to for platform-specific code.
 - All code files (except platform-specific files) moved to *CodedExceptionsCore* and *CodedExceptionsCoreTests* projects, because .xproj project type does not support links.
 - Handling of resource files has changed. Source are now .resx files, that are copied and renamed to .resw to be used in the UWP project.

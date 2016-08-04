@@ -16,7 +16,7 @@
  * limitations under the License.
  * </copyright>
  * <author name="Daniel Kopp" email="dak@nerdyduck.de" />
- * <file name="Resources.Designer.cs" date="2016-08-02">
+ * <file name="Resources.Designer.cs" date="2016-08-04">
  * Helper class to access localized string resources.
  * </file>
  ******************************************************************************/
