@@ -1,0 +1,4 @@
+﻿# C# files
+[*.cs]
+# Expression-bodied members
+csharp_style_expression_bodied_methods = false:none

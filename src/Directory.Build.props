@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <PropertyGroup Label="Compilation">
+    <IsTestProject>false</IsTestProject>
+    <OutputType>Library</OutputType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DefineTrace>true</DefineTrace>
+    <DeployPath>$(SolutionDir)deploy\$(Configuration)\</DeployPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Assembly Signing">
+    <CertificateThumbPrint>cfdbc0e88804856b8e157abf3ba2471a5a9fc940</CertificateThumbPrint>
+    <CertificateSubjectName>Open Source Developer, Daniel Kopp</CertificateSubjectName>
+    <TimestampUrl>http://time.certum.pl</TimestampUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
+    <CreateGitHubZip>false</CreateGitHubZip>
+    <DefineDebug>true</DefineDebug>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembliesAndPackage>true</SignAssembliesAndPackage>
+    <CreateGitHubZip>true</CreateGitHubZip>
+    <DefineDebug>false</DefineDebug>
+    <DebugType>Portable</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Label="NuGet package settings">
+    <IsPackable>true</IsPackable>
+    <PackageOutputPath>$(DeployPath)NuGet\</PackageOutputPath>
+    <MinClientVersion>4.6</MinClientVersion>
+    <Authors>Daniel Kopp</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>NerdyDuck.CodedExceptions-64x64.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/NerdyDuck/NerdyDuck.CodedExceptions</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+  <PropertyGroup Label="Github Release Zips">
+    <ZipOutputPath>$(DeployPath)Zip\</ZipOutputPath>
+  </PropertyGroup>
+  <ItemGroup Label="NuGet package icon">
+    <None Include="$(SolutionDir)media\NerdyDuck.CodedExceptions-64x64.png" Pack="true" PackagePath="\">
+      <Link>NerdyDuck.CodedExceptions-64x64.png</Link>
+    </None>
+  </ItemGroup>
+</Project>
