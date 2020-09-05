@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project InitialTargets="GetGitBranchInfo" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
   <Target Name="SignOutputAssemblies" AfterTargets="Build" DependsOnTargets="Build" Condition=" '$(SignAssembliesAndPackage)' == 'true' And '$(IsCrossTargetingBuild)' != 'true' ">
     <CreateItem Include="$(OutputPath)**\$(AssemblyName)*.exe;$(OutputPath)**\$(TargetName)*.dll" Condition="'$(OutputType)' != 'Library'">
       <Output TaskParameter="Include" ItemName="FilesToSign"/>
@@ -27,6 +28,7 @@
     </ItemGroup>
     <Delete Files="@(_ZipToDelete)"/>
   </Target>
+  -->
   <Target Name="GetGitBranchInfo" Condition=" '$(PublishRepositoryUrl)' == 'true' ">
     <Exec Command="git ls-remote --get-url" ConsoleToMsBuild="true" EchoOff="true" StandardOutputImportance="low">
       <Output TaskParameter="ConsoleOutput" PropertyName="RepositoryUrl" />
