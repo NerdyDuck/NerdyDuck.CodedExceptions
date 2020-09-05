@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<facilityIdentifierOverrides>
+    <override assemblyName="NerdyDuck.CodedExceptions, Culture=fr-fr" identifier="39" />
+    <override assemblyName="NerdyDuck.CodedExceptions, Version=9.9.9.9" identifier="40" />
+    <override assemblyName="NerdyDuck.CodedExceptions, PublicKeyToken=a1b2d3e4f567890c" identifier="41" />
+    <override assemblyName="NerdyDuck.CodedExceptions" identifier="42" />
+    <override assemblyName="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" identifier="17" />
+    <override assemblyName="System.Data, Version=4.0.0.1, Culture=neutral, PublicKeyToken=b77a5c561934e089" identifier="71" />
+    <override assemblyName="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" identifier="72" />
+</facilityIdentifierOverrides>

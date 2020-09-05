@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<debugModes>
+    <debugMode assemblyName="NerdyDuck.CodedExceptions, Culture=fr-fr" isEnabled="foo" />
+</debugModes>

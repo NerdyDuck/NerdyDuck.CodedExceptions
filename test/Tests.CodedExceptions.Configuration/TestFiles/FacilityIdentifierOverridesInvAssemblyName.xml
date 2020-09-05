@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<facilityIdentifierOverrides>
+    <override assemblyName="NerdyDuck.CodedExceptions, Version=9.0.x.x" identifier="42" />
+</facilityIdentifierOverrides>
