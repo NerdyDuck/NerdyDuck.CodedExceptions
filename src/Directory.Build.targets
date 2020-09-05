@@ -47,13 +47,14 @@
     </CreateProperty>
   </Target>
   <Target Name="UpdateInformationalVersions" BeforeTargets="GetAssemblyVersion" Condition=" '$(RepositoryCommitShort)' != '' ">
-    <CreateProperty Value="$(Version)+$(RepositoryCommitShort)">
+    <CreateProperty Value="$(Version)$(PrereleaseVersion)+$(RepositoryCommitShort)">
       <Output TaskParameter="Value" PropertyName="InformationalVersion"/>
     </CreateProperty>
   </Target>
   <Target Name="UpdatePackageVersions" BeforeTargets="GenerateNuspec" Condition=" '$(RepositoryCommitShort)' != '' ">
-    <CreateProperty Value="$(Version)+$(RepositoryCommitShort)">
+    <CreateProperty Value="$(Version)$(PrereleaseVersion)+$(RepositoryCommitShort)">
       <Output TaskParameter="Value" PropertyName="PackageVersion"/>
     </CreateProperty>
+    <Message Text="PackageVersion: $(PackageVersion)" Importance="high" />
   </Target>
 </Project>

@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="16.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="16.0">
   <PropertyGroup Label="Compilation">
-    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net5.0;net472</TargetFrameworks>
     <RootNamespace>NerdyDuck.CodedExceptions.Configuration</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
   </PropertyGroup>
@@ -14,6 +14,9 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <DefineConstants>$(DefineConstants);NET50</DefineConstants>
     <NullableReferenceTypes>enable</NullableReferenceTypes>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net472'">
+    <DefineConstants>$(DefineConstants);NET472</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
@@ -35,6 +38,20 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.7" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Json" Version="4.7.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <Reference Include="System.Configuration" />
+    <PackageReference Include="System.Json" Version="4.7.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0-preview.8.20407.11" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0-preview.8.20407.11" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodedExceptions\CodedExceptions.csproj">

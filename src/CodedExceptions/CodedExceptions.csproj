@@ -23,7 +23,7 @@
       - Configuration of facility identifier overrides is now in a separate package.
     </PackageReleaseNotes>
     <PackageTags>Exception HRESULT</PackageTags>
-    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>
+    <!--<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>-->
     <NoWarn>NU5118,NU5105</NoWarn>
   </PropertyGroup>
   <ItemGroup>
