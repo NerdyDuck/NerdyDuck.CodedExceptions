@@ -5,8 +5,8 @@ This project provides a library of classes derived from [`System.Exception`](htt
 It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
 
 #### Platforms
-- .NET Standard 2.0 (netstandard2.0), both NerdyDuck.CodedExceptions and NerdyDuck.CodedExceptions.Configuration package.
-- .NET Framework 4.6.1 (net461) and up, NerdyDuck.CodedExceptions.Configuration package only.
+- .NET Standard 2.0 (netstandard2.0), to support .NET Framework (4.6.1 and up), .NET Core (2.0 and up), Mono (5.4 and up), and the Xamarin and UWP platforms.
+- .NET 5.0 (net5.0) and up.
 #### Languages
 The neutral resource language for all texts is English (en-US). Currently, the only localization available is German (de-DE). If you like to add other languages, feel free to send a pull request with the translated resources!
 
@@ -25,7 +25,7 @@ The project is licensed under the [MIT License](LICENSE).
 
 #### History
 ##### TBD / 2.0.0 / DAK
-- Upgraded platform to .NET Standard 2.0
+- Upgraded platform to .NET Standard 2.0 and .NET 5.0
 - Split Configuration namespace into its own library
 - New configuration sources: JSON and [IConfiguration](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfiguration)
 - Removed separate binaries for UWP (use .NET Standard 2.0 instead)
