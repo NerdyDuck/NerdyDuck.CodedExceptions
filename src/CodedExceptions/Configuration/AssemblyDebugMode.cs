@@ -129,7 +129,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="other">The <see cref="AssemblyDebugMode" /> to compare with the current instance.</param>
 		/// <returns><see langword="true" /> if the specified <see cref="AssemblyDebugMode" /> is equal to the current instance; otherwise, <see langword="false" />. </returns>
-		public bool Equals(AssemblyDebugMode other)
+		public bool Equals(AssemblyDebugMode? other)
 		{
 			if (other is null)
 			{

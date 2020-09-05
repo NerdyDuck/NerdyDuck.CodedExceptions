@@ -142,7 +142,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="other">The <see cref="AssemblyFacilityOverride" /> to compare with the current instance.</param>
 		/// <returns><see langword="true" /> if the specified <see cref="AssemblyFacilityOverride" /> is equal to the current instance; otherwise, <see langword="false" />. </returns>
-		public bool Equals(AssemblyFacilityOverride other)
+		public bool Equals(AssemblyFacilityOverride? other)
 		{
 			if (other is null)
 			{
