@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="16.0">
+  <PropertyGroup Label="Compilation">
+    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <RootNamespace>NerdyDuck.CodedExceptions</RootNamespace>
+    <AssemblyName>$(RootNamespace)</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Label="Assembly info">
+    <AssemblyTitle>NerdyDuck CodedExceptions</AssemblyTitle>
+    <Description>Exceptions with custom HRESULTs to identify the origins of errors.</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>$(DefineConstants);NETSTD20</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <DefineConstants>$(DefineConstants);NET50</DefineConstants>
+    <NullableReferenceTypes>enable</NullableReferenceTypes>
+  </PropertyGroup>
+  <PropertyGroup Label="NuGet package settings">
+    <PackageReleaseNotes>
+      - Upgraded platforms to .NET Standard 2.0 and .NET 5.0
+      - Removed separate binaries for UWP (use .NET Standard 2.0 instead).
+      - Switched license from Apache 2.0 to MIT.
+      - Configuration of facility identifier overrides is now in a separate package.
+    </PackageReleaseNotes>
+    <PackageTags>Exception HRESULT</PackageTags>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>
+    <NoWarn>NU5118,NU5105</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
