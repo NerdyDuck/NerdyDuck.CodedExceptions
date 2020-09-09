@@ -4,7 +4,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SolutionDir)shared\NerdyDuck.CodedExceptions.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
   </PropertyGroup>
