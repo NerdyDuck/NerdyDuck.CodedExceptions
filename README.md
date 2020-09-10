@@ -7,6 +7,7 @@ It also includes helper classes to create standardized HRESULT values compliant 
 #### Platforms
 - .NET Standard 2.0 (netstandard2.0), to support .NET Framework (4.6.1 and up), .NET Core (2.0 and up), Mono (5.4 and up), and the Xamarin and UWP platforms.
 - .NET 5.0 (net5.0) and up.
+- .NET Framework 4.7.2 (net472): only `NerdyDuck.CodedExceptions.Configuration`; to support the ConfigurationManager class integrated into the framework, without the [System.Configuration.ConfigurationManager](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiQgqq-rt7rAhVOzKQKHWtOADgQFjABegQIARAB&url=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FSystem.Configuration.ConfigurationManager%2F&usg=AOvVaw3QJEgGSRhEc4o3yYfrKf4q) Nuget package.
 #### Languages
 The neutral resource language for all texts is English (en-US). Currently, the only localization available is German (de-DE). If you like to add other languages, feel free to send a pull request with the translated resources!
 
