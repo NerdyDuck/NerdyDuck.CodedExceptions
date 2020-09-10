@@ -29,7 +29,6 @@
  ******************************************************************************/
 #endregion
 
-#nullable enable
 using System;
 using System.Globalization;
 using System.Net.Sockets;

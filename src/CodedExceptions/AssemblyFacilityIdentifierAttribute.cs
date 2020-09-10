@@ -29,7 +29,9 @@
  ******************************************************************************/
 #endregion
 
-#nullable enable
+#if !NET50
+#pragma warning disable CS8632
+#endif
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;

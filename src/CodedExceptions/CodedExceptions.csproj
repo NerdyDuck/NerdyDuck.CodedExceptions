@@ -10,10 +10,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>$(DefineConstants);NETSTD20</DefineConstants>
+    <NoWarn>8632</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <DefineConstants>$(DefineConstants);NET50</DefineConstants>
-    <NullableReferenceTypes>enable</NullableReferenceTypes>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>

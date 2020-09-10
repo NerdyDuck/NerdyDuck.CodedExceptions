@@ -10,13 +10,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>$(DefineConstants);NETSTD20</DefineConstants>
+    <NoWarn>8632</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <DefineConstants>$(DefineConstants);NET50</DefineConstants>
-    <NullableReferenceTypes>enable</NullableReferenceTypes>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net472'">
     <DefineConstants>$(DefineConstants);NET472</DefineConstants>
+    <NoWarn>8632</NoWarn>
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
@@ -58,4 +60,22 @@
       <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="TextResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TextResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="TextResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+    </ItemGroup>
+  </Target>
 </Project>

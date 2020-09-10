@@ -29,7 +29,6 @@
  ******************************************************************************/
 #endregion
 
-#nullable enable
 using System;
 
 namespace NerdyDuck.CodedExceptions.IO

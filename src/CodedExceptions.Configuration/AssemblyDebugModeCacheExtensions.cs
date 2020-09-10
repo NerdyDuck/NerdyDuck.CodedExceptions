@@ -29,6 +29,9 @@
  ******************************************************************************/
 #endregion
 
+#if !NET50
+#pragma warning disable CS8632
+#endif
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +72,11 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		public static void FromApplicationConfiguration(this AssemblyDebugModeCache debugModeCache)
 		{
 			AssertCache(debugModeCache);
-			debugModeCache.AddRange(CodedExceptionsSection.GetDebugModes());
+			List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes();
+			if (adm is not null)
+			{
+				debugModeCache.AddRange(adm);
+			}
 		}
 
 		/// <summary>
@@ -84,7 +91,11 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				throw new ArgumentException(TextResources.Global_FromApplicationConfiguration_NoSection, nameof(sectionName));
 			}
-			debugModeCache.AddRange(CodedExceptionsSection.GetDebugModes(sectionName));
+			List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes(sectionName);
+			if (adm is not null)
+			{
+				debugModeCache.AddRange(adm);
+			}
 		}
 		#endregion
 
