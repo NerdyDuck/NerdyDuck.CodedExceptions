@@ -373,7 +373,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			AssemblyName assemblyName = other.GetName();
 
-			if (Name != null && string.Compare(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase) != 0)
+			if (!string.IsNullOrEmpty(Name) && string.Compare(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase) != 0)
 			{
 				return false;
 			}
@@ -457,7 +457,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			bool noCheck = true;
 			AssemblyName assemblyName = assembly.GetName();
 
-			if (Name != null)
+			if (!string.IsNullOrEmpty(Name))
 			{
 				noCheck = false;
 				if (string.Compare(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase) == 0)
@@ -575,7 +575,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		}
 #endregion
 
-#region Operators
+		#region Operators
 		/// <summary>
 		/// Determines whether two instances of <see cref="AssemblyIdentity"/> are equal.
 		/// </summary>
@@ -605,9 +605,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 			return !identity1.Equals(identity2);
 		}
-#endregion
+		#endregion
 
-#region ISerializable implementation
+		#region ISerializable implementation
 		/// <summary>
 		/// Sets the <see cref="SerializationInfo"/> with information about the exception.
 		/// </summary>
@@ -624,9 +624,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			info.AddValue(PublicKeyTokenName, _publicKeyToken);
 			info.AddValue(nameof(Version), Version);
 		}
-#endregion
+		#endregion
 
-#region Private methods
+		#region Private methods
 		/// <summary>
 		/// Compares the specified byte array to PublicKeyToken.
 		/// </summary>
@@ -658,9 +658,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 			return true;
 		}
-#endregion
+		#endregion
 
-#region Enumerations
+		#region Enumerations
 		/// <summary>
 		/// Specifies the elements of a fully-qualified assembly name that are to be respected when creating an <see cref="AssemblyIdentity"/>.
 		/// </summary>
@@ -702,6 +702,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			/// </summary>
 			NoVersion = Name | Culture | PublicKeyToken
 		}
-#endregion
+		#endregion
 	}
 }

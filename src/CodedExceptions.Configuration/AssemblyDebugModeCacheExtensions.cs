@@ -34,19 +34,18 @@
 #endif
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-#if NETSTD20 || NET472
-using System.Json;
-#else
-using System.Text.Json;
-#endif
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security;
-using System.Threading;
 using System.Xml;
+#if NET50
+using System.Text.Json;
+#else
+using System.Json;
+#endif
 #if !NET472
 using Microsoft.Extensions.Configuration;
 #endif
@@ -63,13 +62,13 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		private const string DefaultFileName = "AssemblyDebugModes";
 		#endregion
 
-		#region FromApplicationConfiguration
+		#region ApplicationConfiguration
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the application configuration file (app.config / web.config) and adds them to the cache.
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <remarks>The settings are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
-		public static void FromApplicationConfiguration(this AssemblyDebugModeCache debugModeCache)
+		public static void LoadApplicationConfiguration(this AssemblyDebugModeCache debugModeCache)
 		{
 			AssertCache(debugModeCache);
 			List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes();
@@ -84,7 +83,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="sectionName">The name of the section in the application configuration file.</param>
-		public static void FromApplicationConfiguration(this AssemblyDebugModeCache debugModeCache, string sectionName)
+		public static void LoadApplicationConfiguration(this AssemblyDebugModeCache debugModeCache, string sectionName)
 		{
 			AssertCache(debugModeCache);
 			if (string.IsNullOrWhiteSpace(sectionName))
@@ -99,16 +98,16 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		}
 		#endregion
 
-		#region FromXml
+		#region Xml
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the default XML file and adds them to the cache.
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <remarks>The default file is named 'AssemblyDebugModes.xml' and must reside in the working directory of the application.</remarks>
-		public static void FromXml(this AssemblyDebugModeCache debugModeCache)
+		public static void LoadXml(this AssemblyDebugModeCache debugModeCache)
 		{
 			AssertCache(debugModeCache);
-			FromXml(debugModeCache, DefaultFileName + ".xml");
+			LoadXml(debugModeCache, DefaultFileName + ".xml");
 		}
 
 		/// <summary>
@@ -116,7 +115,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="path">The path to the XML file containing the settings.</param>
-		public static void FromXml(this AssemblyDebugModeCache debugModeCache, string path)
+		public static void LoadXml(this AssemblyDebugModeCache debugModeCache, string path)
 		{
 			AssertCache(debugModeCache);
 			if (string.IsNullOrWhiteSpace(path))
@@ -136,7 +135,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			try
 			{
-				FromXml(debugModeCache, stream);
+				LoadXml(debugModeCache, stream);
 			}
 			finally
 			{
@@ -149,7 +148,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="stream">A stream containing XML-formatted data representing debug mode settings.</param>
-		public static void FromXml(this AssemblyDebugModeCache debugModeCache, Stream stream)
+		public static void LoadXml(this AssemblyDebugModeCache debugModeCache, Stream stream)
 		{
 			AssertCache(debugModeCache);
 			if (stream == null)
@@ -169,13 +168,30 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing XML-formatted data representing debug mode settings.</param>
-		public static void FromXml(this AssemblyDebugModeCache debugModeCache, TextReader reader)
+		public static void LoadXml(this AssemblyDebugModeCache debugModeCache, TextReader reader)
 		{
 			AssertCache(debugModeCache);
 			if (reader == null)
 			{
 				throw new ArgumentNullException(nameof(reader));
 			}
+			using XmlReader xreader = XmlReader.Create(reader, Globals.SecureSettings);
+			FromXml(debugModeCache, xreader);
+		}
+
+		/// <summary>
+		/// Parses a list of assembly debug mode settings from the specified string containing XML data, and adds them to the cache.
+		/// </summary>
+		/// <param name="debugModeCache">The cache to add the settings to.</param>
+		/// <param name="content">A string containing XML-formatted data representing debug mode settings.</param>
+		public static void ParseXml(this AssemblyDebugModeCache debugModeCache, string content)
+		{
+			AssertCache(debugModeCache);
+			if (string.IsNullOrEmpty(content))
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
+			using StringReader reader = new StringReader(content);
 			using XmlReader xreader = XmlReader.Create(reader, Globals.SecureSettings);
 			FromXml(debugModeCache, xreader);
 		}
@@ -250,15 +266,16 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		}
 		#endregion
 
+		#region Json
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the default JSON file and adds them to the cache.
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <remarks>The default file is named 'AssemblyDebugModes.json' and must reside in the working directory of the application.</remarks>
-		public static void FromJson(this AssemblyDebugModeCache debugModeCache)
+		public static void LoadJson(this AssemblyDebugModeCache debugModeCache)
 		{
 			AssertCache(debugModeCache);
-			FromJson(debugModeCache, DefaultFileName + ".json");
+			LoadJson(debugModeCache, DefaultFileName + ".json");
 		}
 
 		/// <summary>
@@ -266,7 +283,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="path">The path to the JSON file containing the settings.</param>
-		public static void FromJson(this AssemblyDebugModeCache debugModeCache, string path)
+		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, string path)
 		{
 			AssertCache(debugModeCache);
 			if (string.IsNullOrWhiteSpace(path))
@@ -286,21 +303,146 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			try
 			{
-				FromJson(debugModeCache, stream);
+				LoadJson(debugModeCache, stream);
 			}
-			finally
+			finally 
 			{
-				stream.Close();
+				stream.Close(); 
 			}
 		}
 
-#if NETSTD20 || NET472
+#if NET50
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the specified stream containing JSON data, and adds them to the cache.
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing debug mode settings.</param>
-		public static void FromJson(this AssemblyDebugModeCache debugModeCache, Stream stream)
+		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, Stream stream)
+		{
+			AssertCache(debugModeCache);
+			if (stream == null)
+			{
+				throw new ArgumentNullException(nameof(stream));
+			}
+			if (!stream.CanRead)
+			{
+				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
+			}
+
+			try
+			{
+				using JsonDocument jsonDocument = JsonDocument.Parse(stream, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+				FromJson(debugModeCache, jsonDocument.RootElement);
+			}
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
+			{
+				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			}
+		}
+
+		/// <summary>
+		/// Loads a list of assembly debug mode settings from the specified TextReader containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="debugModeCache">The cache to add the settings to.</param>
+		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
+		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, TextReader reader)
+		{
+			AssertCache(debugModeCache);
+			if (reader == null)
+			{
+				throw new ArgumentNullException(nameof(reader));
+			}
+
+			try
+			{
+				using JsonDocument jsonDocument = JsonDocument.Parse(reader.ReadToEnd(), new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+				FromJson(debugModeCache, jsonDocument.RootElement);
+			}
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
+			{
+				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			}
+		}
+
+		/// <summary>
+		/// Loads a list of assembly debug mode settings from the specified string containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="debugModeCache">The cache to add the settings to.</param>
+		/// <param name="json">A string containing JSON-formatted data representing debug mode settings.</param>
+		public static void ParseJson(this AssemblyDebugModeCache debugModeCache, string json)
+		{
+			AssertCache(debugModeCache);
+			if (string.IsNullOrEmpty(json))
+			{
+				throw new ArgumentNullException(nameof(json));
+			}
+
+			try
+			{
+				using JsonDocument jsonDocument = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+				FromJson(debugModeCache, jsonDocument.RootElement);
+			}
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
+			{
+				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			}
+		}
+
+		/// <summary>
+		/// Loads a list of assembly debug mode settings from the specified JSON object, and adds them to the cache.
+		/// </summary>
+		/// <param name="debugModeCache">The cache to add the settings to.</param>
+		/// <param name="jsonElement">The <see cref="JsonElement"/> containing debug mode settings.</param>
+		public static void FromJson(this AssemblyDebugModeCache debugModeCache, JsonElement jsonElement)
+		{
+			AssertCache(debugModeCache);
+			if (jsonElement.ValueKind != JsonValueKind.Object)
+			{
+				throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonElement));
+			}
+
+			if (jsonElement.EnumerateObject().Count() == 1)
+			{
+				JsonElement jsonTemp = jsonElement.EnumerateObject().First().Value;
+				if (jsonTemp.ValueKind == JsonValueKind.Object)
+				{
+					jsonElement = jsonTemp;
+				}
+			}
+
+			List<AssemblyDebugMode> debugModes = new List<AssemblyDebugMode>();
+			AssemblyIdentity assemblyName;
+			bool isEnabled;
+
+			foreach (JsonProperty jsonProperty in jsonElement.EnumerateObject())
+			{
+				try
+				{
+					assemblyName = new AssemblyIdentity(jsonProperty.Name);
+				}
+				catch (FormatException ex)
+				{
+					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, jsonProperty.Name), ex);
+				}
+
+				if (jsonProperty.Value.ValueKind != JsonValueKind.True && jsonProperty.Value.ValueKind != JsonValueKind.False)
+				{
+					throw new FormatException(TextResources.Global_FromJson_NotABool);
+				}
+				isEnabled = jsonProperty.Value.GetBoolean();
+
+				debugModes.Add(new AssemblyDebugMode(assemblyName, isEnabled));
+			}
+
+			debugModeCache.AddRange(debugModes);
+		}
+#else
+		/// <summary>
+		/// Loads a list of assembly debug mode settings from the specified stream containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="debugModeCache">The cache to add the settings to.</param>
+		/// <param name="stream">A stream containing JSON-formatted data representing debug mode settings.</param>
+		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, Stream stream)
 		{
 			AssertCache(debugModeCache);
 			if (stream == null)
@@ -316,12 +458,12 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			try
 			{
 				jsonValue = JsonValue.Load(stream);
+				FromJson(debugModeCache, jsonValue);
 			}
-			catch (ArgumentException ex)
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
 			{
 				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 			}
-			FromJson(debugModeCache, jsonValue);
 		}
 
 		/// <summary>
@@ -329,7 +471,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing debug mode settings.</param>
-		public static void FromJson(this AssemblyDebugModeCache debugModeCache, TextReader reader)
+		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, TextReader reader)
 		{
 			AssertCache(debugModeCache);
 			if (reader == null)
@@ -341,12 +483,37 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			try
 			{
 				jsonValue = JsonValue.Load(reader);
+				FromJson(debugModeCache, jsonValue);
 			}
-			catch (ArgumentException ex)
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
 			{
 				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 			}
-			FromJson(debugModeCache, jsonValue);
+		}
+
+		/// <summary>
+		/// Parses a list of assembly debug mode settingsfrom the specified string containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="debugModeCache">The cache to add the settings to.</param>
+		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
+		public static void ParseJson(this AssemblyDebugModeCache debugModeCache, string content)
+		{
+			AssertCache(debugModeCache);
+			if (string.IsNullOrEmpty(content))
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
+
+			JsonValue jsonValue;
+			try
+			{
+				jsonValue = JsonValue.Parse(content);
+				FromJson(debugModeCache, jsonValue);
+			}
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
+			{
+				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			}
 		}
 
 		/// <summary>
@@ -397,130 +564,11 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			debugModeCache.AddRange(debugModes);
 		}
-#else
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified stream containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="debugModeCache">The cache to add the settings to.</param>
-		/// <param name="stream">A stream containing JSON-formatted data representing debug mode settings.</param>
-		public static void FromJson(this AssemblyDebugModeCache debugModeCache, Stream stream)
-		{
-			AssertCache(debugModeCache);
-			if (stream == null)
-			{
-				throw new ArgumentNullException(nameof(stream));
-			}
-			if (!stream.CanRead)
-			{
-				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-			}
-
-			try
-			{
-				using (JsonDocument jsonDocument = JsonDocument.Parse(stream))
-				{
-					FromJson(debugModeCache, jsonDocument);
-				}
-			}
-			catch (ArgumentException ex)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
-		}
-
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified TextReader containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="debugModeCache">The cache to add the settings to.</param>
-		/// <param name="json">A string containing JSON-formatted data representing debug mode settings.</param>
-		public static void FromJsonString(this AssemblyDebugModeCache debugModeCache, string json)
-		{
-			AssertCache(debugModeCache);
-			if (string.IsNullOrEmpty(json))
-			{
-				throw new ArgumentNullException(nameof(json));
-			}
-
-			try
-			{
-				using (JsonDocument jsonDocument = JsonDocument.Parse(json))
-				{
-					FromJson(debugModeCache, jsonDocument);
-				}
-			}
-			catch (ArgumentException ex)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
-		}
-
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified JSON object, and adds them to the cache.
-		/// </summary>
-		/// <param name="debugModeCache">The cache to add the settings to.</param>
-		/// <param name="jsonDocument">A <see cref="JsonDocument"/> containing debug mode settings.</param>
-		public static void FromJson(this AssemblyDebugModeCache debugModeCache, JsonDocument jsonDocument)
-		{
-			AssertCache(debugModeCache);
-			if (jsonDocument == null)
-			{
-				throw new ArgumentNullException(nameof(jsonDocument));
-			}
-
-			
-			if (jsonDocument.RootElement.ValueKind != JsonValueKind.Object)
-			{
-				throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonDocument));
-			}
-
-			List<AssemblyDebugMode> debugModes = new List<AssemblyDebugMode>();
-			bool isFirst = true;
-
-			foreach (JsonProperty jsonProperty in jsonDocument.RootElement.EnumerateObject())
-			{
-				if (isFirst)
-				{
-					if (jsonProperty.Value.ValueKind == JsonValueKind.Object)
-					{
-						foreach (JsonProperty jsonProperty2 in jsonProperty.Value.EnumerateObject())
-						{
-							CreateDebugMode(jsonProperty2);
-						}
-						return;
-					}
-					isFirst = false;
-				}
-				else
-				{
-					debugModes.Add(CreateDebugMode(jsonProperty));
-				}
-			}
-
-			debugModeCache.AddRange(debugModes);
-		}
-
-		private static AssemblyDebugMode CreateDebugMode(JsonProperty jsonProperty)
-		{
-			if (jsonProperty.Value.ValueKind != JsonValueKind.True && jsonProperty.Value.ValueKind != JsonValueKind.False)
-			{
-				throw new FormatException(TextResources.Global_FromJson_NotABool);
-			}
-			AssemblyIdentity assemblyName;
-			try
-			{
-				assemblyName = new AssemblyIdentity(jsonProperty.Name);
-			}
-			catch (FormatException ex)
-			{
-				throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, jsonProperty.Name), ex);
-			}
-
-			return new AssemblyDebugMode(assemblyName, jsonProperty.Value.GetBoolean());
-		}
 #endif
+		#endregion
 
 #if !NET472
-		#region FromConfigurationSection
+		#region ConfigurationSection
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the specified <see cref="IConfiguration"/>, and adds them to the cache.
 		/// </summary>
@@ -528,7 +576,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="configuration">A <see cref="IConfiguration"/> containing debug mode settings.</param>
 		/// <remarks>The section must be keyed by the assembly names (deserializable into an <see cref="AssemblyIdentity"/>), while the values specify the whether the debug mode is enabled or not (true/false).</remarks>
 		[CLSCompliant(false)]
-		public static void FromConfigurationSection(this AssemblyDebugModeCache debugModeCache, IConfiguration configuration)
+		public static void LoadConfigurationSection(this AssemblyDebugModeCache debugModeCache, IConfiguration configuration)
 		{
 			AssertCache(debugModeCache);
 			if (configuration == null)
@@ -569,7 +617,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			debugModeCache.AddRange(debugModes);
 		}
-#endregion
+		#endregion
 #endif
 
 		#region Private methods

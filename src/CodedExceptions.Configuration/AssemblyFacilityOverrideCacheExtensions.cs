@@ -40,7 +40,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security;
-using System.Threading;
 using System.Xml;
 #if NET50
 using System.Text.Json;
@@ -63,13 +62,13 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		private const string DefaultFileName = "FacilityIdentifierOverrides";
 		#endregion
 
-		#region FromApplicationConfiguration
+		#region ApplicationConfiguration
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the application configuration file (app.config / web.config) and adds them to the cache.
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <remarks>The overrides are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
-		public static void FromApplicationConfiguration(this AssemblyFacilityOverrideCache overrideCache)
+		public static void LoadApplicationConfiguration(this AssemblyFacilityOverrideCache overrideCache)
 		{
 			AssertCache(overrideCache);
 			List<AssemblyFacilityOverride>? afc = CodedExceptionsSection.GetFacilityOverrides();
@@ -84,7 +83,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="sectionName">The name of the section in the application configuration file.</param>
-		public static void FromApplicationConfiguration(this AssemblyFacilityOverrideCache overrideCache, string sectionName)
+		public static void LoadApplicationConfiguration(this AssemblyFacilityOverrideCache overrideCache, string sectionName)
 		{
 			AssertCache(overrideCache);
 			if (string.IsNullOrWhiteSpace(sectionName))
@@ -99,16 +98,16 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		}
 		#endregion
 
-		#region FromXml
+		#region Xml
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the default XML file and adds them to the cache.
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <remarks>The default file is named 'FacilityIdentifierOverrides.xml' and must reside in the working directory of the application.</remarks>
-		public static void FromXml(this AssemblyFacilityOverrideCache overrideCache)
+		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache)
 		{
 			AssertCache(overrideCache);
-			FromXml(overrideCache, DefaultFileName + ".xml");
+			LoadXml(overrideCache, DefaultFileName + ".xml");
 		}
 
 		/// <summary>
@@ -116,7 +115,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="path">The path to the XML file containing the overrides.</param>
-		public static void FromXml(this AssemblyFacilityOverrideCache overrideCache, string path)
+		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache, string path)
 		{
 			AssertCache(overrideCache);
 			if (string.IsNullOrWhiteSpace(path))
@@ -136,7 +135,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			try
 			{
-				FromXml(overrideCache, stream);
+				LoadXml(overrideCache, stream);
 			}
 			finally
 			{
@@ -149,7 +148,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="stream">A stream containing XML-formatted data representing overrides.</param>
-		public static void FromXml(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
+		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
 		{
 			AssertCache(overrideCache);
 			if (stream == null)
@@ -169,13 +168,30 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing XML-formatted data representing overrides.</param>
-		public static void FromXml(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
+		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
 		{
 			AssertCache(overrideCache);
 			if (reader == null)
 			{
 				throw new ArgumentNullException(nameof(reader));
 			}
+			using XmlReader xreader = XmlReader.Create(reader, Globals.SecureSettings);
+			FromXml(overrideCache, xreader);
+		}
+
+		/// <summary>
+		/// Parses a list of facility identifier overrides from the specified string containing XML data, and adds them to the cache.
+		/// </summary>
+		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="content">A string containing XML-formatted data representing overrides.</param>
+		public static void ParseXml(this AssemblyFacilityOverrideCache overrideCache, string content)
+		{
+			AssertCache(overrideCache);
+			if (string.IsNullOrEmpty(content))
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
+			using StringReader reader = new StringReader(content);
 			using XmlReader xreader = XmlReader.Create(reader, Globals.SecureSettings);
 			FromXml(overrideCache, xreader);
 		}
@@ -247,16 +263,16 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		}
 		#endregion
 
-		#region FromJson
+		#region Json
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the default JSON file and adds them to the cache.
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <remarks>The default file is named 'FacilityIdentifierOverrides.json' and must reside in the working directory of the application.</remarks>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache)
+		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache)
 		{
 			AssertCache(overrideCache);
-			FromJson(overrideCache, DefaultFileName + ".json");
+			LoadJson(overrideCache, DefaultFileName + ".json");
 		}
 
 		/// <summary>
@@ -264,7 +280,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="path">The path to the JSON file containing the overrides.</param>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache, string path)
+		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, string path)
 		{
 			AssertCache(overrideCache);
 			if (string.IsNullOrWhiteSpace(path))
@@ -284,7 +300,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			try
 			{
-				FromJson(overrideCache, stream);
+				LoadJson(overrideCache, stream);
 			}
 			finally
 			{
@@ -298,7 +314,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing overrides.</param>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
+		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
 		{
 			AssertCache(overrideCache);
 			if (stream == null)
@@ -310,22 +326,14 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
 			}
 
-			JsonDocument jsonDocument;
 			try
 			{
-				jsonDocument = JsonDocument.Parse(stream, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-			}
-			catch (Exception ex) when (ex is ArgumentException || ex is JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
-			try
-			{
+				using JsonDocument jsonDocument = JsonDocument.Parse(stream, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
 				FromJson(overrideCache, jsonDocument.RootElement);
 			}
-			finally
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
 			{
-				jsonDocument.Dispose();
+				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 			}
 		}
 
@@ -334,7 +342,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
+		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
 		{
 			AssertCache(overrideCache);
 			if (reader == null)
@@ -342,22 +350,38 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				throw new ArgumentNullException(nameof(reader));
 			}
 
-			JsonDocument jsonDocument;
 			try
 			{
-				jsonDocument = JsonDocument.Parse(reader.ReadToEnd(), new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+				using JsonDocument jsonDocument = JsonDocument.Parse(reader.ReadToEnd(), new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+				FromJson(overrideCache, jsonDocument.RootElement);
 			}
-			catch (Exception ex) when (ex is ArgumentException || ex is JsonException)
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
 			{
 				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 			}
+		}
+
+		/// <summary>
+		/// Parses a list of facility identifier overrides from the specified string containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
+		public static void ParseJson(this AssemblyFacilityOverrideCache overrideCache, string content)
+		{
+			AssertCache(overrideCache);
+			if (string.IsNullOrEmpty(content))
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
+
 			try
 			{
+				using JsonDocument jsonDocument = JsonDocument.Parse(content, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
 				FromJson(overrideCache, jsonDocument.RootElement);
 			}
-			finally
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
 			{
-				jsonDocument.Dispose();
+				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 			}
 		}
 
@@ -370,7 +394,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			AssertCache(overrideCache);
 
-			if (!(jsonElement.ValueKind != JsonValueKind.Object))
+			if (jsonElement.ValueKind != JsonValueKind.Object)
 			{
 				throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonElement));
 			}
@@ -416,7 +440,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing overrides.</param>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
+		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
 		{
 			AssertCache(overrideCache);
 			if (stream == null)
@@ -432,12 +456,12 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			try
 			{
 				jsonValue = JsonValue.Load(stream);
+				FromJson(overrideCache, jsonValue);
 			}
-			catch (ArgumentException ex)
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
 			{
 				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 			}
-			FromJson(overrideCache, jsonValue);
 		}
 
 		/// <summary>
@@ -445,7 +469,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="overrideCache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
+		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
 		{
 			AssertCache(overrideCache);
 			if (reader == null)
@@ -457,12 +481,37 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			try
 			{
 				jsonValue = JsonValue.Load(reader);
+				FromJson(overrideCache, jsonValue);
 			}
-			catch (ArgumentException ex)
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
 			{
 				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 			}
-			FromJson(overrideCache, jsonValue);
+		}
+
+		/// <summary>
+		/// Parses a list of facility identifier overrides from the specified string containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
+		public static void ParseJson(this AssemblyFacilityOverrideCache overrideCache, string content)
+		{
+			AssertCache(overrideCache);
+			if (string.IsNullOrEmpty(content))
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
+
+			JsonValue jsonValue;
+			try
+			{
+				jsonValue = JsonValue.Parse(content);
+				FromJson(overrideCache, jsonValue);
+			}
+			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
+			{
+				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			}
 		}
 
 		/// <summary>
@@ -517,7 +566,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		#endregion
 
 #if !NET472
-		#region FromConfigurationSection
+		#region ConfigurationSection
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified <see cref="IConfiguration"/>, and adds them to the cache.
 		/// </summary>
@@ -525,7 +574,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="configuration">A <see cref="IConfiguration"/> containing overrides.</param>
 		/// <remarks>The section must be keyed by the assembly names (deserializable into an <see cref="AssemblyIdentity"/>), while the values specify the identifier overrides.</remarks>
 		[CLSCompliant(false)]
-		public static void FromConfigurationSection(this AssemblyFacilityOverrideCache overrideCache, IConfiguration configuration)
+		public static void LoadConfigurationSection(this AssemblyFacilityOverrideCache overrideCache, IConfiguration configuration)
 		{
 			AssertCache(overrideCache);
 			if (configuration == null)
@@ -566,8 +615,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			overrideCache.AddRange(facilityOverrides);
 		}
-#endregion
-		#endif
+		#endregion
+#endif
 
 		#region Private methods
 		/// <summary>
