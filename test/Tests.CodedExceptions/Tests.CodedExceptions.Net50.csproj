@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
-    <DefineConstants>$(DefineConstants);NETCORE50</DefineConstants>
+    <DefineConstants>$(DefineConstants);NET50</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Description>Unit test for NerdyDuck.CodedExceptions library</Description>
