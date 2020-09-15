@@ -272,6 +272,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <remarks>The default file is named 'AssemblyDebugModes.json' and must reside in the working directory of the application.</remarks>
+		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="IOException">The file could not be opened or read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache debugModeCache)
 		{
 			AssertCache(debugModeCache);
@@ -283,6 +285,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="path">The path to the JSON file containing the settings.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentException"><paramref name="path"/> is <see langword="null"/> or white-space.</exception>
+		/// <exception cref="IOException">The file could not be opened or read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, string path)
 		{
 			AssertCache(debugModeCache);
@@ -317,6 +322,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing debug mode settings.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> or <paramref name="stream"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentException"><paramref name="stream"/> is is not readable.</exception>
+		/// <exception cref="IOException">The stream data could not be read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, Stream stream)
 		{
 			AssertCache(debugModeCache);
@@ -345,6 +353,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> or <paramref name="reader"/> is <see langword="null"/>.</exception>
+		/// <exception cref="IOException">The stream data could not be read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache debugModeCache, TextReader reader)
 		{
 			AssertCache(debugModeCache);
@@ -369,6 +379,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="json">A string containing JSON-formatted data representing debug mode settings.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/> or <paramref name="json"/> is <see langword="null"/> or empty.</exception>
+		/// <exception cref="IOException">The stream data could not be read.</exception>
 		public static void ParseJson(this AssemblyDebugModeCache debugModeCache, string json)
 		{
 			AssertCache(debugModeCache);
@@ -393,6 +405,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="debugModeCache">The cache to add the settings to.</param>
 		/// <param name="jsonElement">The <see cref="JsonElement"/> containing debug mode settings.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentException"><paramref name="jsonElement"/> is not a JSON object.</exception>
+		/// <exception cref="FormatException">The JSON data is invalid.</exception>
 		public static void FromJson(this AssemblyDebugModeCache debugModeCache, JsonElement jsonElement)
 		{
 			AssertCache(debugModeCache);
