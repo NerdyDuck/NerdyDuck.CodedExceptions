@@ -25,9 +25,9 @@ For examples and a complete class reference, please see the [Documentation](http
 The project is licensed under the [MIT License](LICENSE).
 
 #### History
-##### TBD / 2.0.0 / DAK
+##### TBD / 2.0.0-rc.1 / DAK
 - Upgraded platform to .NET Standard 2.0 and .NET 5.0
-- Split Configuration namespace into its own library
+- Split Configuration namespace into its own library, with additional platform .NET Framework 4.7.2
 - New configuration sources: JSON and [IConfiguration](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfiguration)
 - Removed separate binaries for UWP (use .NET Standard 2.0 instead)
 - Changed German resources from de-DE to just de.
