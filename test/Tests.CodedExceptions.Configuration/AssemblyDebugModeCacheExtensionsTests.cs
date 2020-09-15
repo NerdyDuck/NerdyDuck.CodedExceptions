@@ -197,12 +197,31 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			}
 
 			[TestMethod]
+			public void ParseXml_String_Success()
+			{
+				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+				string xml = File.ReadAllText("AssemblyDebugModes.xml");
+				cache.ParseXml(xml);
+				Assert.AreEqual(7, cache.Count);
+			}
+
+			[TestMethod]
 			public void FromXml_XmlReaderNull_Throw()
 			{
 				Assert.ThrowsException<ArgumentNullException>(() =>
 				{
 					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
 					cache.FromXml((XmlReader)null);
+				});
+			}
+
+			[TestMethod]
+			public void ParseXml_StringNull_Throw()
+			{
+				Assert.ThrowsException<ArgumentNullException>(() =>
+				{
+					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+					cache.ParseXml(null);
 				});
 			}
 
@@ -383,6 +402,36 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 				{
 					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
 					cache.LoadJson(@"TestFiles\AssemblyDebugModesNotBool.json");
+				});
+			}
+
+			[TestMethod]
+			public void ParseJson_String_Success()
+			{
+				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+				string json = File.ReadAllText("AssemblyDebugModes.json");
+				cache.ParseJson(json);
+				Assert.AreEqual(7, cache.Count);
+			}
+
+			[TestMethod]
+			public void ParseJson_StringNull_Throw()
+			{
+				Assert.ThrowsException<ArgumentNullException>(() =>
+				{
+					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+					cache.ParseJson(null);
+				});
+			}
+
+			[TestMethod]
+			public void ParseJson_StringInvIsEnabled_Throw()
+			{
+				Assert.ThrowsException<IOException>(() =>
+				{
+					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+					string json = File.ReadAllText(@"TestFiles\AssemblyDebugModesInvIsEnabled.json");
+					cache.ParseJson(json);
 				});
 			}
 

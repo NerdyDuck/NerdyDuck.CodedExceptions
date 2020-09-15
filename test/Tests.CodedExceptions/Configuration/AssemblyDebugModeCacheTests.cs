@@ -114,6 +114,45 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			}
 			#endregion
 
+			#region BeginEndUpdate
+			[TestMethod]
+			public void BeginEndUpdate_Success()
+			{
+				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+				bool hasUpdate = false;
+				cache.CollectionChanged += Cache_CollectionChanged;
+				cache.BeginUpdate();
+				cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
+				Assert.IsFalse(hasUpdate);
+				cache.Add(new AssemblyDebugMode(s_otherAssemblyIdentity, false));
+				Assert.IsFalse(hasUpdate);
+				cache.EndUpdate();
+
+				Assert.IsTrue(hasUpdate);
+
+				void Cache_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+				{
+					hasUpdate = true;
+				}
+			}
+
+			[TestMethod]
+			public void BeginEndUpdateNoChange_Success()
+			{
+				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+				bool hasUpdate = false;
+				cache.CollectionChanged += Cache_CollectionChanged;
+				cache.BeginUpdate();
+				cache.EndUpdate();
+				Assert.IsFalse(hasUpdate);
+
+				void Cache_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+				{
+					hasUpdate = true;
+				}
+			}
+			#endregion
+
 			#region Add
 			[TestMethod]
 			public void Add_Various_Success()
@@ -171,6 +210,32 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 
 				cache.Clear();
 				Assert.IsFalse(cache.IsDebugModeEnabled(Globals.ThisAssembly), "this cleared");
+			}
+			#endregion
+
+			#region Remove
+			[TestMethod]
+			public void Remove_Success()
+			{
+				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+				cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
+
+				Assert.IsTrue(cache.IsDebugModeEnabled(Globals.ThisAssembly));
+				cache.Remove(s_thisAssemblyIdentity);
+				Assert.IsFalse(cache.IsDebugModeEnabled(Globals.ThisAssembly));
+			}
+
+			[TestMethod]
+			public void Remove_ArgNull_Throw()
+			{
+				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
+				cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
+				cache.Add(new AssemblyDebugMode(s_otherAssemblyIdentity, false));
+
+				Assert.ThrowsException<ArgumentNullException>(() =>
+				{
+					cache.Remove(null);
+				});
 			}
 			#endregion
 

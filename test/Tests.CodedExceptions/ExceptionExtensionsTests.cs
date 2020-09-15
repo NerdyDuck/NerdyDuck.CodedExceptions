@@ -56,7 +56,6 @@ namespace NerdyDuck.Tests.CodedExceptions
 		[TestClass]
 		public class ExceptionExtensionsTests
 		{
-
 			#region GetErrorId
 			[TestMethod]
 			public void GetErrorId_Success()

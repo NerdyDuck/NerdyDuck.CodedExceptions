@@ -204,6 +204,25 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			}
 
 			[TestMethod]
+			public void ParseXml_String_Success()
+			{
+				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
+				string xml = File.ReadAllText("FacilityIdentifierOverrides.xml");
+				cache.ParseXml(xml);
+				Assert.AreEqual(7, cache.Count);
+			}
+
+			[TestMethod]
+			public void ParseXml_StringNull_Throw()
+			{
+				Assert.ThrowsException<ArgumentNullException>(() =>
+				{
+					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
+					cache.ParseXml(null);
+				});
+			}
+
+			[TestMethod]
 			public void LoadXml_InvAssemblyName_Throw()
 			{
 				Assert.ThrowsException<XmlException>(() =>
@@ -389,6 +408,36 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 				{
 					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
 					cache.LoadJson(@"TestFiles\FacilityIdentifierOverridesNotInt.json");
+				});
+			}
+
+			[TestMethod]
+			public void ParseJson_String_Success()
+			{
+				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
+				string json = File.ReadAllText("FacilityIdentifierOverrides.json");
+				cache.ParseJson(json);
+				Assert.AreEqual(7, cache.Count);
+			}
+
+			[TestMethod]
+			public void ParseJson_StringNull_Throw()
+			{
+				Assert.ThrowsException<ArgumentNullException>(() =>
+				{
+					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
+					cache.ParseJson(null);
+				});
+			}
+
+			[TestMethod]
+			public void ParseJson_InvAssemblyName_Throw()
+			{
+				Assert.ThrowsException<IOException>(() =>
+				{
+					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
+					string json = File.ReadAllText(@"TestFiles\FacilityIdentifierOverridesInvAssemblyName.json");
+					cache.ParseJson(json);
 				});
 			}
 
