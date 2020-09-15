@@ -95,7 +95,7 @@ namespace Test
 						{
 							_isDebugModeEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly);
 							_isDebugModeInitialized = true;
-							global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.CollectionChanged += Global_CollectionChanged;
+							global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.CacheChanged += Global_CacheChanged;
 						}
 					}
 				}
@@ -133,7 +133,7 @@ namespace Test
 		/// </summary>
 		/// <param name="sender">The cache that raised the event.</param>
 		/// <param name="e">The event arguments.</param>
-		private static void Global_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		private static void Global_CacheChanged(object? sender, global::System.EventArgs e)
 		{
 			_isDebugModeEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly);
 		}

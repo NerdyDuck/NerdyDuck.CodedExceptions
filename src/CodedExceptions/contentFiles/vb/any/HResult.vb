@@ -86,7 +86,7 @@ Friend Module HResult
                     If Not _isDebugModeInitialized Then
                         _isDebugModeEnabled = Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(GetType(HResult).Assembly)
                         _isDebugModeInitialized = True
-                        AddHandler Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global, AddressOf (Global_CollectionChanged())
+                        AddHandler Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.CacheChanged, AddressOf (Global_CacheChanged())
                     End If
                 End SyncLock
             End If
@@ -142,7 +142,7 @@ Friend Module HResult
     ''' </summary>
     ''' <param name="sender">The cache that raised the event.</param>
     ''' <param name="e">The event arguments.</param>
-    Private Sub Global_CollectionChanged(sender As Object, e As Global.System.Collections.Specialized.NotifyCollectionChangedEventArgs)
+    Private Sub Global_CacheChanged(sender As Object, e As Global.System.EventArgs)
         _isDebugModeEnabled = Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(GetType(HResult).Assembly)
     End Sub
 #End Region

@@ -120,7 +120,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
 				bool hasUpdate = false;
-				cache.CollectionChanged += Cache_CollectionChanged;
+				cache.CacheChanged += Cache_CacheChanged;
 				cache.BeginUpdate();
 				cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
 				Assert.IsFalse(hasUpdate);
@@ -130,7 +130,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 
 				Assert.IsTrue(hasUpdate);
 
-				void Cache_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+				void Cache_CacheChanged(object sender, EventArgs e)
 				{
 					hasUpdate = true;
 				}
@@ -141,12 +141,12 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
 				bool hasUpdate = false;
-				cache.CollectionChanged += Cache_CollectionChanged;
+				cache.CacheChanged += Cache_CacheChanged;
 				cache.BeginUpdate();
 				cache.EndUpdate();
 				Assert.IsFalse(hasUpdate);
 
-				void Cache_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+				void Cache_CacheChanged(object sender, EventArgs e)
 				{
 					hasUpdate = true;
 				}

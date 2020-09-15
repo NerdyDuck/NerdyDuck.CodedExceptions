@@ -211,7 +211,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			reader.ReadStartElement(Globals.OverridesNode);
 			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
-			string assemblyString, identifierString;
+			string? assemblyString, identifierString;
 			AssemblyIdentity assembly;
 			int identifier;
 

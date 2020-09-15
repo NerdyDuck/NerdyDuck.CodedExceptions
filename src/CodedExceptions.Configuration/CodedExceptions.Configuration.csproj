@@ -51,9 +51,9 @@
     <PackageReference Include="System.Json" Version="4.7.1" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0-preview.8.20407.11" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0-preview.8.20407.11" />
-    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0-rc.1.20451.14" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0-rc.1.20451.14" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0-rc.1.20451.14" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodedExceptions\CodedExceptions.csproj">

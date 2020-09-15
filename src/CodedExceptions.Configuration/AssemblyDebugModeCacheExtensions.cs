@@ -211,7 +211,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			reader.ReadStartElement(Globals.DebugModesNode);
 			List<AssemblyDebugMode> debugModes = new List<AssemblyDebugMode>();
-			string assemblyString, isEnabledString;
+			string? assemblyString, isEnabledString;
 			AssemblyIdentity assembly;
 			bool isEnabled;
 

@@ -46,7 +46,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// Manages an easily queryable list of assembly debug mode flags.
 	/// </summary>
 	[ComVisible(false)]
-	public sealed class AssemblyDebugModeCache : IDisposable, INotifyCollectionChanged
+	public sealed class AssemblyDebugModeCache : IDisposable
 	{
 		#region Private fields
 		private static readonly Lazy<AssemblyDebugModeCache> s_global = new Lazy<AssemblyDebugModeCache>(() => new AssemblyDebugModeCache());
@@ -59,9 +59,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 		#region Events
 		/// <summary>
-		/// Notifies listeners of dynamic changes, such as when an item is added and removed or the whole list is cleared.
+		/// Notifies listeners of dynamic changes, such as when an item is added and removed or the whole cache is cleared.
 		/// </summary>
-		public event NotifyCollectionChangedEventHandler? CollectionChanged;
+		public event EventHandler? CacheChanged;
 		#endregion
 
 		#region Properties
@@ -105,19 +105,20 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 		#region Public methods
 		/// <summary>
-		/// Disables raising of the <see cref="CollectionChanged" /> event when the cache is updated.
+		/// Disables raising of the <see cref="CacheChanged" /> event when the cache is updated.
 		/// </summary>
 		public void BeginUpdate() => _canNotifyChange = false;
 
 		/// <summary>
-		/// Enables raising of the <see cref="CollectionChanged" /> event when the cache is updated, and raises the event if any changes happened since the last time <see cref="BeginUpdate" /> was called.
+		/// Enables raising of the <see cref="CacheChanged" /> event when the cache is updated, and raises the event if any changes happened since the last time <see cref="BeginUpdate" /> was called.
 		/// </summary>
 		public void EndUpdate()
 		{
 			_canNotifyChange = true;
 			if (_hasChanges)
 			{
-				OnCollectionChanged(NotifyCollectionChangedAction.Add);
+				_hasChanges = false;
+				OnCollectionChanged();
 			}
 		}
 
@@ -197,7 +198,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 
 			bool raiseEvent = false;
-			NotifyCollectionChangedAction action = NotifyCollectionChangedAction.Add;
 			_listLock.EnterWriteLock();
 			try
 			{
@@ -207,13 +207,11 @@ namespace NerdyDuck.CodedExceptions.Configuration
 					{
 						_debugModes[i] = debugMode;
 						raiseEvent = true;
-						action = NotifyCollectionChangedAction.Replace;
 						return;
 					}
 				}
 				_debugModes.Add(debugMode);
 				raiseEvent = true;
-				action = NotifyCollectionChangedAction.Add;
 			}
 			finally
 			{
@@ -222,7 +220,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			if (raiseEvent)
 			{
-				OnCollectionChanged(action);
+				OnCollectionChanged();
 			}
 		}
 
@@ -250,7 +248,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 
 			bool raiseEvent = false;
-			NotifyCollectionChangedAction action = NotifyCollectionChangedAction.Add;
 			_listLock.EnterWriteLock();
 			try
 			{
@@ -265,7 +262,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 							_debugModes[i] = debugMode;
 							alreadyExists = true;
 							raiseEvent = true;
-							action = NotifyCollectionChangedAction.Replace;
 							break;
 						}
 					}
@@ -273,7 +269,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 					{
 						_debugModes.Add(debugMode);
 						raiseEvent = true;
-						action = NotifyCollectionChangedAction.Add;
 					}
 				}
 			}
@@ -284,7 +279,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			if (raiseEvent)
 			{
-				OnCollectionChanged(action);
+				OnCollectionChanged();
 			}
 		}
 
@@ -304,7 +299,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				_listLock.ExitWriteLock();
 			}
-			OnCollectionChanged(NotifyCollectionChangedAction.Reset);
+			OnCollectionChanged();
 		}
 
 		/// <summary>
@@ -342,7 +337,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			if (raiseEvent)
 			{
-				OnCollectionChanged(NotifyCollectionChangedAction.Remove);
+				OnCollectionChanged();
 			}
 		}
 		#endregion
@@ -362,14 +357,13 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		}
 
 		/// <summary>
-		/// Raises the <see cref="CollectionChanged" /> event with the specified action.
+		/// Raises the <see cref="CacheChanged" />.
 		/// </summary>
-		/// <param name="action">The action that has been done to the list.</param>
-		private void OnCollectionChanged(NotifyCollectionChangedAction action)
+		private void OnCollectionChanged()
 		{
 			if (_canNotifyChange)
 			{
-				CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(action));
+				CacheChanged?.Invoke(this, EventArgs.Empty);
 			}
 			else
 			{
