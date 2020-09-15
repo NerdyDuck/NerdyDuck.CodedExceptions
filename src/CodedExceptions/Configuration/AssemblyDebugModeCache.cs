@@ -29,8 +29,12 @@
  ******************************************************************************/
 #endregion
 
+#if !NET50
+#pragma warning disable CS8632
+#endif
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -42,13 +46,22 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// Manages an easily queryable list of assembly debug mode flags.
 	/// </summary>
 	[ComVisible(false)]
-	public sealed class AssemblyDebugModeCache : IDisposable
+	public sealed class AssemblyDebugModeCache : IDisposable, INotifyCollectionChanged
 	{
 		#region Private fields
 		private static readonly Lazy<AssemblyDebugModeCache> s_global = new Lazy<AssemblyDebugModeCache>(() => new AssemblyDebugModeCache());
 		private List<AssemblyDebugMode> _debugModes;
 		private ReaderWriterLockSlim _listLock;
 		private int _isDisposed;
+		private bool _canNotifyChange;
+		private bool _hasChanges;
+		#endregion
+
+		#region Events
+		/// <summary>
+		/// Notifies listeners of dynamic changes, such as when an item is added and removed or the whole list is cleared.
+		/// </summary>
+		public event NotifyCollectionChangedEventHandler? CollectionChanged;
 		#endregion
 
 		#region Properties
@@ -75,6 +88,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			_debugModes = new List<AssemblyDebugMode>();
 			_listLock = new ReaderWriterLockSlim();
 			_isDisposed = 0;
+			_canNotifyChange = true;
+			_hasChanges = false;
 		}
 		#endregion
 
@@ -89,6 +104,23 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		#endregion
 
 		#region Public methods
+		/// <summary>
+		/// Disables raising of the <see cref="CollectionChanged" /> event when the cache is updated.
+		/// </summary>
+		public void BeginUpdate() => _canNotifyChange = false;
+
+		/// <summary>
+		/// Enables raising of the <see cref="CollectionChanged" /> event when the cache is updated, and raises the event if any changes happened since the last time <see cref="BeginUpdate" /> was called.
+		/// </summary>
+		public void EndUpdate()
+		{
+			_canNotifyChange = true;
+			if (_hasChanges)
+			{
+				OnCollectionChanged(NotifyCollectionChangedAction.Add);
+			}
+		}
+
 		/// <summary>
 		/// Attempts to find the debug mode setting with the best match for the specified assembly.
 		/// </summary>
@@ -164,6 +196,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				throw new ArgumentNullException(nameof(debugMode));
 			}
 
+			bool raiseEvent = false;
+			NotifyCollectionChangedAction action = NotifyCollectionChangedAction.Add;
 			_listLock.EnterWriteLock();
 			try
 			{
@@ -172,14 +206,23 @@ namespace NerdyDuck.CodedExceptions.Configuration
 					if (debugMode.AssemblyName.Equals(_debugModes[i].AssemblyName))
 					{
 						_debugModes[i] = debugMode;
+						raiseEvent = true;
+						action = NotifyCollectionChangedAction.Replace;
 						return;
 					}
 				}
 				_debugModes.Add(debugMode);
+				raiseEvent = true;
+				action = NotifyCollectionChangedAction.Add;
 			}
 			finally
 			{
 				_listLock.ExitWriteLock();
+			}
+
+			if (raiseEvent)
+			{
+				OnCollectionChanged(action);
 			}
 		}
 
@@ -206,6 +249,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				return;
 			}
 
+			bool raiseEvent = false;
+			NotifyCollectionChangedAction action = NotifyCollectionChangedAction.Add;
 			_listLock.EnterWriteLock();
 			try
 			{
@@ -219,18 +264,27 @@ namespace NerdyDuck.CodedExceptions.Configuration
 						{
 							_debugModes[i] = debugMode;
 							alreadyExists = true;
+							raiseEvent = true;
+							action = NotifyCollectionChangedAction.Replace;
 							break;
 						}
 					}
 					if (!alreadyExists)
 					{
 						_debugModes.Add(debugMode);
+						raiseEvent = true;
+						action = NotifyCollectionChangedAction.Add;
 					}
 				}
 			}
 			finally
 			{
 				_listLock.ExitWriteLock();
+			}
+
+			if (raiseEvent)
+			{
+				OnCollectionChanged(action);
 			}
 		}
 
@@ -250,6 +304,46 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				_listLock.ExitWriteLock();
 			}
+			OnCollectionChanged(NotifyCollectionChangedAction.Reset);
+		}
+
+		/// <summary>
+		/// Removes the debug mode information for the assembly with the specified identity from the cache.
+		/// </summary>
+		/// <param name="identity">The identity of the assembly to remove from the cache.</param>
+		/// <exception cref="ObjectDisposedException">The current object is already disposed.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="identity"/> is <see langword="null"/>.</exception>
+		public void Remove(AssemblyIdentity identity)
+		{
+			AssertDisposed();
+			if (identity == null)
+			{
+				throw new ArgumentNullException(nameof(identity));
+			}
+
+			bool raiseEvent = false;
+			_listLock.EnterWriteLock();
+			try
+			{
+				for (int i = 0; i < _debugModes.Count; i++)
+				{
+					if (identity.Equals(_debugModes[i].AssemblyName))
+					{
+						_debugModes.RemoveAt(i);
+						raiseEvent = true;
+						break;
+					}
+				}
+			}
+			finally
+			{
+				_listLock.ExitWriteLock();
+			}
+
+			if (raiseEvent)
+			{
+				OnCollectionChanged(NotifyCollectionChangedAction.Remove);
+			}
 		}
 		#endregion
 
@@ -264,6 +358,22 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			if (_isDisposed == 1)
 			{
 				throw new ObjectDisposedException(GetType().Name);
+			}
+		}
+
+		/// <summary>
+		/// Raises the <see cref="CollectionChanged" /> event with the specified action.
+		/// </summary>
+		/// <param name="action">The action that has been done to the list.</param>
+		private void OnCollectionChanged(NotifyCollectionChangedAction action)
+		{
+			if (_canNotifyChange)
+			{
+				CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(action));
+			}
+			else
+			{
+				_hasChanges = true;
 			}
 		}
 		#endregion
@@ -291,6 +401,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			if (disposing)
 			{
+				_canNotifyChange = false;
 				_debugModes?.Clear();
 				_listLock?.Dispose();
 			}
