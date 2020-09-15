@@ -42,8 +42,9 @@ Friend Module HResult
     Private ReadOnly _hResultBase As Global.System.Lazy(Of Integer) =
         New Global.System.Lazy(Of Integer)(Function() Global.NerdyDuck.CodedExceptions.HResultHelper.GetBaseHResult(_facilityId.Value))
 
-    Private ReadOnly _isDebugModeEnabled As Global.System.Lazy(Of Integer) =
-        New Global.System.Lazy(Of Integer)(Function() Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(GetType(HResult).Assembly))
+    Private _isDebugModeInitialized As Boolean = False
+    Private _isDebugModeEnabled As Boolean = False
+
 #End Region
 
 #Region "Properties"
@@ -78,7 +79,19 @@ Friend Module HResult
     ''' <remarks>Use this value to determine if extra log output, additional checks etc. are required.</remarks>
     Friend ReadOnly Property IsDebugModeEnabled() As Boolean
         Get
-            Return _isDebugModeEnabled.Value
+            ' First check without lock to avoid locking as far as possible
+            If Not _isDebugModeInitialized Then
+                SyncLock _hResultBase
+                    ' Double check in locked section to call code only once
+                    If Not _isDebugModeInitialized Then
+                        _isDebugModeEnabled = Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(GetType(HResult).Assembly)
+                        _isDebugModeInitialized = True
+                        AddHandler Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global, AddressOf (Global_CollectionChanged())
+                    End If
+                End SyncLock
+            End If
+
+            Return _isDebugModeEnabled
         End Get
     End Property
 #End Region
@@ -123,5 +136,14 @@ Friend Module HResult
         ' Try to get identifier from assembly attribute
         Return If(Global.NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute.FromAssembly(GetType(HResult).Assembly)?.FacilityId, 0)
     End Function
+
+    ''' <summary>
+    ''' Reloads the value of <see cref="IsDebugModeEnabled" /> from the default cache, after the cache has raised an event to notify a change in the cache.
+    ''' </summary>
+    ''' <param name="sender">The cache that raised the event.</param>
+    ''' <param name="e">The event arguments.</param>
+    Private Sub Global_CollectionChanged(sender As Object, e As Global.System.Collections.Specialized.NotifyCollectionChangedEventArgs)
+        _isDebugModeEnabled = Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(GetType(HResult).Assembly)
+    End Sub
 #End Region
 End Module

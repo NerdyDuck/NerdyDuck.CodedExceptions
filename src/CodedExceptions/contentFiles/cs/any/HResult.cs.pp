@@ -29,9 +29,8 @@
  ******************************************************************************/
 #endregion
 
-#nullable enable
-
 namespace $rootnamespace$
+namespace Test
 {
 	/// <summary>
 	/// Provides easy access to the assembly's facility id and base HRESULT code.
@@ -56,14 +55,15 @@ namespace $rootnamespace$
 
 		private static readonly global::System.Lazy<int> _hResultBase = new global::System.Lazy<int>(() => global::NerdyDuck.CodedExceptions.HResultHelper.GetBaseHResult(_facilityId.Value));
 
-		private static readonly global::System.Lazy<bool> _isDebugModeEnabled = new global::System.Lazy<bool>(() => global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly));
+		private static bool _isDebugModeInitialized = false;
+		private static bool _isDebugModeEnabled = false;
 		#endregion
 
 		#region Properties
 		/// <summary>
 		/// Gets the facility identifier of the current assembly.
 		/// </summary>
-		/// <value>The facility identifier, or 0, if no <see cref="AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
+		/// <value>The facility identifier, or 0, if no <see cref="NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		internal static int FacilityId => _facilityId.Value;
@@ -71,7 +71,7 @@ namespace $rootnamespace$
 		/// <summary>
 		/// Gets the base HRESULT value of the current assembly.
 		/// </summary>
-		/// <value>The base HRESULT value, or 0xa0000000, if no <see cref="AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
+		/// <value>The base HRESULT value, or 0xa0000000, if no <see cref="NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		internal static int HResultBase => _hResultBase.Value;
@@ -81,7 +81,28 @@ namespace $rootnamespace$
 		/// </summary>
 		/// <value><see langword="true"/>, if the assembly is running in debug mode; otherwise, <see langword="false"/>.</value>
 		/// <remarks>Use this value to determine if extra log output, additional checks etc. are required.</remarks>
-		internal static bool IsDebugModeEnabled => _isDebugModeEnabled.Value;
+		internal static bool IsDebugModeEnabled
+		{
+			get
+			{
+				// First check without lock to avoid locking as far as possible
+				if (!_isDebugModeInitialized)
+				{
+					lock (_hResultBase)
+					{
+						// Double check in locked section to call code only once
+						if (!_isDebugModeInitialized)
+						{
+							_isDebugModeEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly);
+							_isDebugModeInitialized = true;
+							global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.CollectionChanged += Global_CollectionChanged;
+						}
+					}
+				}
+
+				return _isDebugModeEnabled;
+			}
+		}
 		#endregion
 
 		#region Internal methods
@@ -104,6 +125,18 @@ namespace $rootnamespace$
 		/// more information about the definition of HRESULT values.</para></remarks>
 		/// <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
 		internal static int Create(global::System.Enum errorId) => _hResultBase.Value | global::NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId);
+		#endregion
+
+		#region Private methods
+		/// <summary>
+		/// Reloads the value of <see cref="IsDebugModeEnabled" /> from the default cache, after the cache has raised an event to notify a change in the cache.
+		/// </summary>
+		/// <param name="sender">The cache that raised the event.</param>
+		/// <param name="e">The event arguments.</param>
+		private static void Global_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			_isDebugModeEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly);
+		}
 		#endregion
 	}
 }
