@@ -153,6 +153,9 @@
   <data name="Global_IsEnabledInvalid" xml:space="preserve">
     <value>IsEnabled setting of assembly '{0}' is invalid.</value>
   </data>
+  <data name="Global_NoContent" xml:space="preserve">
+    <value>Content may not be null, empty or white-space only.</value>
+  </data>
   <data name="Global_NoPath" xml:space="preserve">
     <value>Path may not be null, empty or white-space only.</value>
   </data>

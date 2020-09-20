@@ -43,6 +43,7 @@ using System.Security;
 using System.Xml;
 #if NET50
 using System.Text.Json;
+using System.Buffers;
 #else
 using System.Json;
 #endif
@@ -58,157 +59,111 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class AssemblyFacilityOverrideCacheExtensions
 	{
-		#region Constants
 		private const string DefaultFileName = "FacilityIdentifierOverrides";
-		#endregion
 
-		#region ApplicationConfiguration
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the application configuration file (app.config / web.config) and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <remarks>The overrides are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
-		public static void LoadApplicationConfiguration(this AssemblyFacilityOverrideCache overrideCache)
+		public static void LoadApplicationConfiguration(this AssemblyFacilityOverrideCache cache)
 		{
-			AssertCache(overrideCache);
+			ExtensionHelper.AssertCache(cache);
 			List<AssemblyFacilityOverride>? afc = CodedExceptionsSection.GetFacilityOverrides();
 			if (afc is not null)
 			{
-				overrideCache.AddRange(afc);
+				cache.AddRange(afc);
 			}
 		}
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified section of the application configuration file (app.config / web.config) and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="sectionName">The name of the section in the application configuration file.</param>
-		public static void LoadApplicationConfiguration(this AssemblyFacilityOverrideCache overrideCache, string sectionName)
+		public static void LoadApplicationConfiguration(this AssemblyFacilityOverrideCache cache, string sectionName)
 		{
-			AssertCache(overrideCache);
-			if (string.IsNullOrWhiteSpace(sectionName))
-			{
-				throw new ArgumentException(TextResources.Global_FromApplicationConfiguration_NoSection, nameof(sectionName));
-			}
+			ExtensionHelper.AssertCache(cache);
+			ExtensionHelper.AssertSectionName(sectionName);
 			List<AssemblyFacilityOverride>? afc = CodedExceptionsSection.GetFacilityOverrides(sectionName);
 			if (afc is not null)
 			{
-				overrideCache.AddRange(afc);
+				cache.AddRange(afc);
 			}
 		}
-		#endregion
 
-		#region Xml
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the default XML file and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <remarks>The default file is named 'FacilityIdentifierOverrides.xml' and must reside in the working directory of the application.</remarks>
-		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache)
-		{
-			AssertCache(overrideCache);
-			LoadXml(overrideCache, DefaultFileName + ".xml");
-		}
+		public static void LoadXml(this AssemblyFacilityOverrideCache cache) => ExtensionHelper.LoadXml(cache, DefaultFileName + ".xml", (cache, reader) => FromXmlInternal(cache, reader));
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the XML file at the specified path and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="path">The path to the XML file containing the overrides.</param>
-		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache, string path)
-		{
-			AssertCache(overrideCache);
-			if (string.IsNullOrWhiteSpace(path))
-			{
-				throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
-			}
-
-			FileStream stream;
-			try
-			{
-				stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-			}
-			catch (Exception ex) when (ex is IOException || ex is ArgumentException || ex is NotSupportedException || ex is SecurityException || ex is UnauthorizedAccessException)
-			{
-				throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
-			}
-
-			try
-			{
-				LoadXml(overrideCache, stream);
-			}
-			finally
-			{
-				stream.Close();
-			}
-		}
+		public static void LoadXml(this AssemblyFacilityOverrideCache cache, string path) => ExtensionHelper.LoadXml(cache, path, (cache, reader) => FromXmlInternal(cache, reader));
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified stream containing XML data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="stream">A stream containing XML-formatted data representing overrides.</param>
-		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
-		{
-			AssertCache(overrideCache);
-			if (stream == null)
-			{
-				throw new ArgumentNullException(nameof(stream));
-			}
-			if (!stream.CanRead)
-			{
-				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-			}
-			using XmlReader reader = XmlReader.Create(stream, Globals.SecureSettings);
-			FromXml(overrideCache, reader);
-		}
+		public static void LoadXml(this AssemblyFacilityOverrideCache cache, Stream stream) => ExtensionHelper.LoadXml(cache, stream, (cache, reader) => FromXmlInternal(cache, reader));
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified TextReader containing XML data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing XML-formatted data representing overrides.</param>
-		public static void LoadXml(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
-		{
-			AssertCache(overrideCache);
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
-			using XmlReader xreader = XmlReader.Create(reader, Globals.SecureSettings);
-			FromXml(overrideCache, xreader);
-		}
+		public static void LoadXml(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadXml(cache, reader, (cache, reader) => FromXmlInternal(cache, reader));
 
+#if NET50
+		/// <summary>
+		/// Loads a list of facility identifier overrides from the specified sequence of bytes containing XML data, and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing overrides.</param>
+		public static void LoadXml(this AssemblyFacilityOverrideCache cache, ReadOnlySequence<byte> utf8Json) => ExtensionHelper.LoadXml(cache, utf8Json, (cache, reader) => FromXmlInternal(cache, reader));
+
+		/// <summary>
+		/// Loads a list of facility identifier overrides from the specified sequence of bytes containing XML data, and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing overrides.</param>
+		public static void LoadXml(this AssemblyFacilityOverrideCache cache, ReadOnlyMemory<byte> utf8Json) => ExtensionHelper.LoadXml(cache, utf8Json, (cache, reader) => FromXmlInternal(cache, reader));
+
+#endif
 		/// <summary>
 		/// Parses a list of facility identifier overrides from the specified string containing XML data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="content">A string containing XML-formatted data representing overrides.</param>
-		public static void ParseXml(this AssemblyFacilityOverrideCache overrideCache, string content)
-		{
-			AssertCache(overrideCache);
-			if (string.IsNullOrEmpty(content))
-			{
-				throw new ArgumentNullException(nameof(content));
-			}
-			using StringReader reader = new StringReader(content);
-			using XmlReader xreader = XmlReader.Create(reader, Globals.SecureSettings);
-			FromXml(overrideCache, xreader);
-		}
+		public static void ParseXml(this AssemblyFacilityOverrideCache cache, string content) => ExtensionHelper.ParseXml(cache, content, (cache, reader) => FromXmlInternal(cache, reader));
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified XmlReader, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="XmlReader"/> containing overrides.</param>
-		public static void FromXml(this AssemblyFacilityOverrideCache overrideCache, XmlReader reader)
+		public static void FromXml(this AssemblyFacilityOverrideCache cache, XmlReader reader)
 		{
-			AssertCache(overrideCache);
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
+			ExtensionHelper.AssertCache(cache);
+			ExtensionHelper.AssertXmlReader(reader);
 
+			FromXmlInternal(cache, reader);
+		}
+
+
+		/// <summary>
+		/// Loads a list of facility identifier overrides from the specified XmlReader, and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="reader">A <see cref="XmlReader"/> containing overrides.</param>
+		private static void FromXmlInternal(AssemblyFacilityOverrideCache cache, XmlReader reader)
+		{
 			reader.ReadStartElement(Globals.OverridesNode);
 			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
 			string? assemblyString, identifierString;
@@ -222,15 +177,16 @@ namespace NerdyDuck.CodedExceptions.Configuration
 					assemblyString = reader.GetAttribute(Globals.AssemblyNameKey);
 					if (assemblyString == null)
 					{
-						throw new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, Globals.OverrideNode, Globals.AssemblyNameKey));
+						throw ExtensionHelper.AssemblyNameAttributeMissingException(Globals.OverrideNode);
 					}
+
 					try
 					{
 						assembly = new AssemblyIdentity(assemblyString);
 					}
 					catch (FormatException ex)
 					{
-						throw new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyString), ex);
+						throw ExtensionHelper.InvalidAssemblyNameException(assemblyString, ex);
 					}
 
 					identifierString = reader.GetAttribute(Globals.IdentifierKey);
@@ -244,7 +200,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 					}
 					catch (FormatException ex)
 					{
-						throw new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyString), ex);
+						throw IdentifierInvalidException(assemblyString, ex);
 					}
 
 					facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
@@ -259,154 +215,84 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 			}
 
-			overrideCache.AddRange(facilityOverrides);
-		}
-		#endregion
-
-		#region Json
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the default JSON file and adds them to the cache.
-		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
-		/// <remarks>The default file is named 'FacilityIdentifierOverrides.json' and must reside in the working directory of the application.</remarks>
-		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache)
-		{
-			AssertCache(overrideCache);
-			LoadJson(overrideCache, DefaultFileName + ".json");
-		}
-
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the JSON file at the specified path and adds them to the cache.
-		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
-		/// <param name="path">The path to the JSON file containing the overrides.</param>
-		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, string path)
-		{
-			AssertCache(overrideCache);
-			if (string.IsNullOrWhiteSpace(path))
-			{
-				throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
-			}
-
-			FileStream stream;
-			try
-			{
-				stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-			}
-			catch (Exception ex) when (ex is IOException || ex is ArgumentException || ex is NotSupportedException || ex is SecurityException || ex is UnauthorizedAccessException)
-			{
-				throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
-			}
-
-			try
-			{
-				LoadJson(overrideCache, stream);
-			}
-			finally
-			{
-				stream.Close();
-			}
+			cache.AddRange(facilityOverrides);
 		}
 
 #if NET50
 		/// <summary>
+		/// Loads a list of facility identifier overrides from the default JSON file and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <remarks>The default file is named 'FacilityIdentifierOverrides.json' and must reside in the working directory of the application.</remarks>
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache) => ExtensionHelper.LoadJson(cache, DefaultFileName + ".json", (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
+
+		/// <summary>
+		/// Loads a list of facility identifier overrides from the JSON file at the specified path and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="path">The path to the JSON file containing the overrides.</param>
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, string path) => ExtensionHelper.LoadJson(cache, path, (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
+
+		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified stream containing JSON data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing overrides.</param>
-		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
-		{
-			AssertCache(overrideCache);
-			if (stream == null)
-			{
-				throw new ArgumentNullException(nameof(stream));
-			}
-			if (!stream.CanRead)
-			{
-				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-			}
-
-			try
-			{
-				using JsonDocument jsonDocument = JsonDocument.Parse(stream, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-				FromJson(overrideCache, jsonDocument.RootElement);
-			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
-		}
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, Stream stream) => ExtensionHelper.LoadJson(cache, stream, (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified TextReader containing JSON data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
-		{
-			AssertCache(overrideCache);
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
 
-			try
-			{
-				using JsonDocument jsonDocument = JsonDocument.Parse(reader.ReadToEnd(), new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-				FromJson(overrideCache, jsonDocument.RootElement);
-			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
-		}
+		/// <summary>
+		/// Loads a list of assembly debug mode settings from the specified sequence of bytes containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing overrides.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="IOException">The JSON document or contents are invalid.</exception>
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, ReadOnlySequence<byte> utf8Json) => ExtensionHelper.LoadJson(cache, utf8Json, (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
+
+		/// <summary>
+		/// Loads a list of assembly debug mode settings from the specified sequence of bytes containing JSON data, and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing overrides.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="IOException">The JSON document or contents are invalid.</exception>
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, ReadOnlyMemory<byte> utf8Json) => ExtensionHelper.LoadJson(cache, utf8Json, (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
 
 		/// <summary>
 		/// Parses a list of facility identifier overrides from the specified string containing JSON data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
-		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
-		public static void ParseJson(this AssemblyFacilityOverrideCache overrideCache, string content)
-		{
-			AssertCache(overrideCache);
-			if (string.IsNullOrEmpty(content))
-			{
-				throw new ArgumentNullException(nameof(content));
-			}
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="content">A string containing JSON-formatted data representing overrides.</param>
+		public static void ParseJson(this AssemblyFacilityOverrideCache cache, string content) => ExtensionHelper.ParseJson(cache, content, (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
 
-			try
-			{
-				using JsonDocument jsonDocument = JsonDocument.Parse(content, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-				FromJson(overrideCache, jsonDocument.RootElement);
-			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
+		/// <summary>
+		/// Loads a list of facility identifier overrides from the specified JSON object, and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="jsonElement">A <see cref="JsonElement"/> containing overrides.</param>
+		public static void FromJson(this AssemblyFacilityOverrideCache cache, JsonElement jsonElement)
+		{
+			ExtensionHelper.AssertCache(cache);
+			FromJsonInternal(cache, jsonElement);
 		}
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified JSON object, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="jsonElement">A <see cref="JsonElement"/> containing overrides.</param>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache, JsonElement jsonElement)
+		private static void FromJsonInternal(AssemblyFacilityOverrideCache cache, JsonElement jsonElement)
 		{
-			AssertCache(overrideCache);
+			ExtensionHelper.AssertJsonValueKindObject(jsonElement);
 
-			if (jsonElement.ValueKind != JsonValueKind.Object)
-			{
-				throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonElement));
-			}
-
-			if (jsonElement.EnumerateObject().Count() == 1)
-			{
-				JsonElement jsonTemp = jsonElement.EnumerateObject().First().Value;
-				if (jsonTemp.ValueKind == JsonValueKind.Object)
-				{
-					jsonElement = jsonTemp;
-				}
-			}
+			jsonElement = ExtensionHelper.GetParentElement(jsonElement);
 
 			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
 			AssemblyIdentity assembly;
@@ -420,122 +306,79 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, jsonProperty.Name), ex);
+					throw ExtensionHelper.InvalidAssemblyNameException(jsonProperty.Name, ex);
 				}
 
 				if (jsonProperty.Value.ValueKind != JsonValueKind.Number)
 				{
-					throw new FormatException(TextResources.Global_FromJson_NotANumber);
+					throw NotANumberException();
 				}
 				identifier = jsonProperty.Value.GetInt32();
 
 				facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
 			}
 
-			overrideCache.AddRange(facilityOverrides);
+			cache.AddRange(facilityOverrides);
 		}
 #else
 		/// <summary>
+		/// Loads a list of facility identifier overrides from the default JSON file and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <remarks>The default file is named 'FacilityIdentifierOverrides.json' and must reside in the working directory of the application.</remarks>
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache) => ExtensionHelper.LoadJson(cache, DefaultFileName + ".json", (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
+
+		/// <summary>
+		/// Loads a list of facility identifier overrides from the JSON file at the specified path and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="path">The path to the JSON file containing the overrides.</param>
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, string path) => ExtensionHelper.LoadJson(cache, path, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
+
+		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified stream containing JSON data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing overrides.</param>
-		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, Stream stream)
-		{
-			AssertCache(overrideCache);
-			if (stream == null)
-			{
-				throw new ArgumentNullException(nameof(stream));
-			}
-			if (!stream.CanRead)
-			{
-				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-			}
-
-			JsonValue jsonValue;
-			try
-			{
-				jsonValue = JsonValue.Load(stream);
-				FromJson(overrideCache, jsonValue);
-			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
-		}
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, Stream stream) => ExtensionHelper.LoadJson(cache, stream, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified TextReader containing JSON data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		public static void LoadJson(this AssemblyFacilityOverrideCache overrideCache, TextReader reader)
-		{
-			AssertCache(overrideCache);
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
-
-			JsonValue jsonValue;
-			try
-			{
-				jsonValue = JsonValue.Load(reader);
-				FromJson(overrideCache, jsonValue);
-			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
-		}
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
 
 		/// <summary>
 		/// Parses a list of facility identifier overrides from the specified string containing JSON data, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
-		public static void ParseJson(this AssemblyFacilityOverrideCache overrideCache, string content)
-		{
-			AssertCache(overrideCache);
-			if (string.IsNullOrEmpty(content))
-			{
-				throw new ArgumentNullException(nameof(content));
-			}
+		public static void ParseJson(this AssemblyFacilityOverrideCache cache, string content) => ExtensionHelper.ParseJson(cache, content, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
 
-			JsonValue jsonValue;
-			try
-			{
-				jsonValue = JsonValue.Parse(content);
-				FromJson(overrideCache, jsonValue);
-			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is OverflowException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
+		/// <summary>
+		/// Loads a list of facility identifier overrides from the specified JSON object, and adds them to the cache.
+		/// </summary>
+		/// <param name="cache">The cache to add the overrides to.</param>
+		/// <param name="jsonValue">A <see cref="JsonValue"/> containing overrides.</param>
+		public static void FromJson(this AssemblyFacilityOverrideCache cache, JsonValue jsonValue)
+		{
+			ExtensionHelper.AssertCache(cache);
+			ExtensionHelper.AssertJsonValue(jsonValue);
+
+			FromJsonInternal(cache, jsonValue);
 		}
 
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified JSON object, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="jsonValue">A <see cref="JsonValue"/> containing overrides.</param>
-		public static void FromJson(this AssemblyFacilityOverrideCache overrideCache, JsonValue jsonValue)
+		private static void FromJsonInternal(AssemblyFacilityOverrideCache cache, JsonValue jsonValue)
 		{
-			AssertCache(overrideCache);
-			if (jsonValue == null)
-			{
-				throw new ArgumentNullException(nameof(jsonValue));
-			}
+			JsonObject jsonObject = ExtensionHelper.AssertJsonObject(jsonValue);
 
-			if (!(jsonValue is JsonObject jsonObject))
-			{
-				throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonValue));
-			}
-
-			if (jsonObject.Count == 1 && jsonObject.Values.First().JsonType == JsonType.Object)
-			{
-				jsonObject = (JsonObject)jsonObject.Values.First();
-			}
+			jsonObject = ExtensionHelper.GetParentElement(jsonObject);
 
 			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
 			AssemblyIdentity assembly;
@@ -548,39 +391,34 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, pair.Key), ex);
+					throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
 				}
 
 				if (pair.Value.JsonType != JsonType.Number)
 				{
-					throw new FormatException(TextResources.Global_FromJson_NotANumber);
+					throw NotANumberException();
 				}
 				identifier = pair.Value;
 
 				facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
 			}
 
-			overrideCache.AddRange(facilityOverrides);
+			cache.AddRange(facilityOverrides);
 		}
 #endif
-		#endregion
 
 #if !NET472
-		#region ConfigurationSection
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the specified <see cref="IConfiguration"/>, and adds them to the cache.
 		/// </summary>
-		/// <param name="overrideCache">The cache to add the overrides to.</param>
+		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="configuration">A <see cref="IConfiguration"/> containing overrides.</param>
 		/// <remarks>The section must be keyed by the assembly names (deserializable into an <see cref="AssemblyIdentity"/>), while the values specify the identifier overrides.</remarks>
 		[CLSCompliant(false)]
-		public static void LoadConfigurationSection(this AssemblyFacilityOverrideCache overrideCache, IConfiguration configuration)
+		public static void LoadConfigurationSection(this AssemblyFacilityOverrideCache cache, IConfiguration configuration)
 		{
-			AssertCache(overrideCache);
-			if (configuration == null)
-			{
-				throw new ArgumentNullException(nameof(configuration));
-			}
+			ExtensionHelper.AssertCache(cache);
+			ExtensionHelper.AssertConfiguration(configuration);
 
 			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
 			AssemblyIdentity assembly;
@@ -594,7 +432,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, pair.Key), ex);
+					throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
 				}
 
 				if (string.IsNullOrWhiteSpace(pair.Value))
@@ -607,30 +445,18 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, pair.Key), ex);
+					throw IdentifierInvalidException(pair.Key, ex);
 				}
 
 				facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
 			}
 
-			overrideCache.AddRange(facilityOverrides);
+			cache.AddRange(facilityOverrides);
 		}
-		#endregion
 #endif
 
-		#region Private methods
-		/// <summary>
-		/// Checks if the object has already been disposed.
-		/// </summary>
-		/// <exception cref="ObjectDisposedException">The object is already disposed.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertCache(AssemblyFacilityOverrideCache? overrideCache)
-		{
-			if (overrideCache == null)
-			{
-				throw new ArgumentNullException(nameof(overrideCache));
-			}
-		}
-		#endregion
+		private static FormatException IdentifierInvalidException(string assemblyName, Exception ex) => new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyName), ex);
+
+		private static FormatException NotANumberException() => new FormatException(TextResources.Global_FromJson_NotANumber);
 	}
 }

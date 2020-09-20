@@ -169,6 +169,15 @@ namespace NerdyDuck.CodedExceptions.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content may not be null, empty or white-space only..
+        /// </summary>
+        internal static string Global_NoContent {
+            get {
+                return ResourceManager.GetString("Global_NoContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Path may not be null, empty or white-space only..
         /// </summary>
         internal static string Global_NoPath {

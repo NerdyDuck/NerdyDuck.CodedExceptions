@@ -46,7 +46,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		internal const string OverrideNode = "override";
 		internal const string IdentifierKey = "identifier";
 		internal const string InvalidNameChars = "~!@#$%^&*()[]{}/'\"|\\";
-		internal static readonly XmlReaderSettings SecureSettings = new XmlReaderSettings() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
-
 	}
 }
