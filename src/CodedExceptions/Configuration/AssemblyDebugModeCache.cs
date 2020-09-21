@@ -48,23 +48,18 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[ComVisible(false)]
 	public sealed class AssemblyDebugModeCache : IDisposable
 	{
-		#region Private fields
 		private static readonly Lazy<AssemblyDebugModeCache> s_global = new Lazy<AssemblyDebugModeCache>(() => new AssemblyDebugModeCache());
 		private List<AssemblyDebugMode> _debugModes;
 		private ReaderWriterLockSlim _listLock;
 		private int _isDisposed;
 		private bool _canNotifyChange;
 		private bool _hasChanges;
-		#endregion
 
-		#region Events
 		/// <summary>
 		/// Notifies listeners of dynamic changes, such as when an item is added and removed or the whole cache is cleared.
 		/// </summary>
 		public event EventHandler? CacheChanged;
-		#endregion
 
-		#region Properties
 		/// <summary>
 		/// Gets a global singleton instance of <see cref="AssemblyDebugModeCache"/>.
 		/// </summary>
@@ -77,9 +72,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// Gets the number of entries in the cache.
 		/// </summary>
 		internal int Count => _debugModes.Count;
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyDebugModeCache"/> class.
 		/// </summary>
@@ -91,9 +84,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			_canNotifyChange = true;
 			_hasChanges = false;
 		}
-		#endregion
 
-		#region Destructor
 		/// <summary>
 		/// Destructor.
 		/// </summary>
@@ -101,9 +92,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			Dispose(false);
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Disables raising of the <see cref="CacheChanged" /> event when the cache is updated.
 		/// </summary>
@@ -340,9 +329,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				OnCollectionChanged();
 			}
 		}
-		#endregion
 
-		#region Private methods
 		/// <summary>
 		/// Checks if the object has already been disposed.
 		/// </summary>
@@ -370,9 +357,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				_hasChanges = true;
 			}
 		}
-		#endregion
 
-		#region IDisposed implementation
 		/// <summary>
 		/// Releases all resources used by the <see cref="AssemblyDebugModeCache"/>.
 		/// </summary>
@@ -400,6 +385,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				_listLock?.Dispose();
 			}
 		}
-		#endregion
 	}
 }

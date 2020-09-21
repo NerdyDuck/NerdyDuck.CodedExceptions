@@ -41,7 +41,6 @@ namespace NerdyDuck.CodedExceptions
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class ExceptionExtensions
 	{
-		#region GetErrorId
 		/// <summary>
 		/// Gets the error identifier part of a <see cref="Exception.HResult"/>.
 		/// </summary>
@@ -58,9 +57,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return HResultHelper.GetErrorId(ex.HResult);
 		}
-		#endregion
 
-		#region GetFacilityId
 		/// <summary>
 		/// Gets the facility (= the assembly) identifier part of an <see cref="Exception.HResult"/>.
 		/// </summary>
@@ -77,9 +74,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return HResultHelper.GetFacilityId(ex.HResult);
 		}
-		#endregion
 
-		#region IsCodedException
 		/// <summary>
 		/// Checks if the type of the specified instance of <see cref="Exception"/>
 		/// or a derived class has a <see cref="CodedExceptionAttribute"/>.
@@ -97,9 +92,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return CodedExceptionAttribute.IsCodedException(ex);
 		}
-		#endregion
 
-		#region IsCustomHResult
 		/// <summary>
 		/// Checks if the <see cref="Exception.HResult"/> of the exception is a custom error value.
 		/// </summary>
@@ -114,6 +107,5 @@ namespace NerdyDuck.CodedExceptions
 
 			return HResultHelper.IsCustomHResult(ex.HResult);
 		}
-		#endregion
 	}
 }

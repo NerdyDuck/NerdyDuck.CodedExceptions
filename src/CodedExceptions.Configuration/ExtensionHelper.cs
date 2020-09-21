@@ -534,7 +534,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <summary>
 		/// Checks if the element is null.
 		/// </summary>
-		/// <param name="jsonElement">The element to check.</param>
+		/// <param name="jsonValue">The element to check.</param>
 		/// <exception cref="ArgumentNullException">The element is null.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void AssertJsonValue(JsonValue jsonValue)
@@ -569,7 +569,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <summary>
 		/// Checks if the element is null.
 		/// </summary>
-		/// <param name="jsonElement">The element to check.</param>
+		/// <param name="configuration">The element to check.</param>
 		/// <exception cref="ArgumentNullException">The element is null.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void AssertConfiguration(Microsoft.Extensions.Configuration.IConfiguration configuration)
@@ -599,8 +599,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// Checks if the path string is null or empty.
 		/// </summary>
 		/// <param name="path">The path to check.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		/// <exception cref="ArgumentException">The path is null or empty.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static void AssertPath(string path)
 		{
 			if (string.IsNullOrWhiteSpace(path))

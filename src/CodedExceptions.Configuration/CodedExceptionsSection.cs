@@ -42,17 +42,11 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal class CodedExceptionsSection : ConfigurationSection
 	{
-		#region Constants
 		internal const string DefaultConfigSectionName = "nerdyDuck/codedExceptions";
-		#endregion
 
-		#region ConfigurationProperties
 		private static readonly ConfigurationPropertyCollection s_properties = new ConfigurationPropertyCollection();
 		private static readonly ConfigurationProperty s_facilityOverridesProp = new ConfigurationProperty(Globals.OverridesNode, typeof(AssemblyFacilityOverrideCollection), new AssemblyFacilityOverrideCollection());
 		private static readonly ConfigurationProperty s_debugModesProp = new ConfigurationProperty(Globals.DebugModesNode, typeof(AssemblyDebugModeCollection), new AssemblyDebugModeCollection());
-		#endregion
-
-		#region Properties
 
 		/// <summary>
 		/// Gets a collection of facility identifier override configurations.
@@ -78,13 +72,10 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// Gets a collection of configuration properties.
 		/// </summary>
 		protected override ConfigurationPropertyCollection Properties => s_properties;
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Static constructor.
 		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Cannot add other static fields inline.")]
 		static CodedExceptionsSection()
 		{
 			s_properties.Add(s_facilityOverridesProp);
@@ -98,9 +89,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			: base()
 		{
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Converts the <see cref="CodedExceptionsSection.FacilityOverrides"/> collection into a list of <see cref="AssemblyFacilityOverride"/> instances.
 		/// </summary>
@@ -140,9 +129,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			return null;
 		}
-		#endregion
 
-		#region Static methods
 		/// <summary>
 		/// Gets a list of <see cref="AssemblyFacilityOverride"/>s from the default section in the application configuration file.
 		/// </summary>
@@ -188,6 +175,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			return Config.CreateDebugModes();
 		}
-		#endregion
 	}
 }

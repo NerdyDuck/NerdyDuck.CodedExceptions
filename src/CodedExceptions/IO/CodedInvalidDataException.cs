@@ -42,7 +42,6 @@ namespace NerdyDuck.CodedExceptions.IO
 	[CodedException]
 	public class CodedInvalidDataException : CodedIOException
 	{
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedInvalidDataException"/> class.
 		/// </summary>
@@ -123,6 +122,5 @@ namespace NerdyDuck.CodedExceptions.IO
 			: base(hresult, message, innerException)
 		{
 		}
-		#endregion
 	}
 }

@@ -90,7 +90,6 @@ namespace NerdyDuck.CodedExceptions
 	[ComVisible(false)]
 	public sealed class AssemblyFacilityIdentifierAttribute : System.Attribute
 	{
-		#region Properties
 		/// <summary>
 		/// Gets the identifier for the facility (= the attributed assembly).
 		/// </summary>
@@ -99,9 +98,7 @@ namespace NerdyDuck.CodedExceptions
 		{
 			get; private set;
 		}
-		#endregion
 
-		#region Constructor
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyFacilityIdentifierAttribute"/> with the specified facility id.
 		/// </summary>
@@ -115,10 +112,7 @@ namespace NerdyDuck.CodedExceptions
 			}
 			FacilityId = facilityId;
 		}
-		#endregion
 
-		#region Public methods
-		#region FromAssembly
 		/// <summary>
 		/// Gets an <see cref="AssemblyFacilityIdentifierAttribute"/> located in the specified assembly.
 		/// </summary>
@@ -134,9 +128,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return assembly.GetCustomAttribute<AssemblyFacilityIdentifierAttribute>();
 		}
-		#endregion
 
-		#region FromType
 		/// <summary>
 		/// Gets an <see cref="AssemblyFacilityIdentifierAttribute"/> located in the assembly that defines the specified type.
 		/// </summary>
@@ -152,7 +144,5 @@ namespace NerdyDuck.CodedExceptions
 
 			return FromAssembly(type.GetTypeInfo().Assembly);
 		}
-		#endregion
-		#endregion
 	}
 }

@@ -38,7 +38,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal class AssemblyFacilityOverrideCollection : ConfigurationElementCollection
 	{
-		#region Properties
 		/// <summary>
 		/// Gets or sets a <see cref="AssemblyFacilityOverrideElement"/> at the specified <paramref name="index"/>.
 		/// </summary>
@@ -64,9 +63,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="assemblyName">The assembly name of the <see cref="AssemblyFacilityOverrideElement"/>.</param>
 		/// <returns>The <see cref="AssemblyFacilityOverrideElement"/> with the specified assembly name, if found; otherwise, <see langword="null"/>.</returns>
 		public new AssemblyFacilityOverrideElement this[string assemblyName] => (AssemblyFacilityOverrideElement)BaseGet(assemblyName);
-		#endregion
 
-		#region Constructor
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyFacilityOverrideCollection"/> class.
 		/// </summary>
@@ -74,9 +71,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			: base()
 		{
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Adds the specified <see cref="AssemblyFacilityOverrideElement"/> to the collection.
 		/// </summary>
@@ -118,9 +113,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="index">The index of the <see cref="AssemblyFacilityOverrideElement"/> to remove from the collection.</param>
 		public void RemoveAt(int index) => BaseRemoveAt(index);
-		#endregion
 
-		#region Protected methods
 		/// <summary>
 		/// Creates a new <see cref="AssemblyFacilityOverrideElement"/>.
 		/// </summary>
@@ -140,6 +133,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="element">The <see cref="AssemblyFacilityOverrideElement"/> to return the key for.</param>
 		/// <returns>A string that acts as a key for the specified <see cref="AssemblyFacilityOverrideElement"/>.</returns>
 		protected override object GetElementKey(ConfigurationElement element) => ((AssemblyFacilityOverrideElement)element).AssemblyName;
-		#endregion
 	}
 }

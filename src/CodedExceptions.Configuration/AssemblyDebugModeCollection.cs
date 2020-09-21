@@ -38,7 +38,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal class AssemblyDebugModeCollection : ConfigurationElementCollection
 	{
-		#region Properties
 		/// <summary>
 		/// Gets or sets a <see cref="AssemblyDebugModeElement"/> at the specified <paramref name="index"/>.
 		/// </summary>
@@ -64,9 +63,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="assemblyName">The assembly name of the <see cref="AssemblyDebugModeElement"/>.</param>
 		/// <returns>The <see cref="AssemblyDebugModeElement"/> with the specified assembly name, if found; otherwise, <see langword="null"/>.</returns>
 		public new AssemblyDebugModeElement this[string assemblyName] => (AssemblyDebugModeElement)BaseGet(assemblyName);
-		#endregion
 
-		#region Constructor
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyDebugModeCollection"/> class.
 		/// </summary>
@@ -74,9 +71,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			: base()
 		{
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Adds the specified <see cref="AssemblyDebugModeElement"/> to the collection.
 		/// </summary>
@@ -118,9 +113,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="index">The index of the <see cref="AssemblyDebugModeElement"/> to remove from the collection.</param>
 		public void RemoveAt(int index) => BaseRemoveAt(index);
-		#endregion
 
-		#region Protected methods
 		/// <summary>
 		/// Creates a new <see cref="AssemblyDebugModeElement"/>.
 		/// </summary>
@@ -140,6 +133,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="element">The <see cref="AssemblyDebugModeElement"/> to return the key for.</param>
 		/// <returns>A string that acts as a key for the specified <see cref="AssemblyDebugModeElement"/>.</returns>
 		protected override object GetElementKey(ConfigurationElement element) => ((AssemblyDebugModeElement)element).AssemblyName;
-		#endregion
 	}
 }

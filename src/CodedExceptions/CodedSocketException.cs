@@ -45,7 +45,6 @@ namespace NerdyDuck.CodedExceptions
 	[CodedException]
 	public class CodedSocketException : CodedException
 	{
-		#region Properties
 		/// <summary>
 		/// Gets the error code that is associated with this exception.
 		/// </summary>
@@ -54,9 +53,7 @@ namespace NerdyDuck.CodedExceptions
 		{
 			get; private set;
 		}
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedSocketException"/> class.
 		/// </summary>
@@ -237,9 +234,7 @@ namespace NerdyDuck.CodedExceptions
 			HResult = hresult;
 			SocketErrorCode = errorCode;
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 		/// </summary>
@@ -256,6 +251,5 @@ namespace NerdyDuck.CodedExceptions
 			base.GetObjectData(info, context);
 			info.AddValue(nameof(SocketErrorCode), SocketErrorCode);
 		}
-		#endregion
 	}
 }

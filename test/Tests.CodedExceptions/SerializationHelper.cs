@@ -44,7 +44,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 	[ExcludeFromCodeCoverage]
 	public static class SerializationHelper
 	{
-#pragma warning disable MSLIB0003
+#pragma warning disable SYSLIB0011
 		/// <summary>
 		/// Serializes an object.
 		/// </summary>
@@ -72,7 +72,7 @@ namespace NerdyDuck.Tests.CodedExceptions
 			BinaryFormatter formatter = new BinaryFormatter();
 			return (T)formatter.Deserialize(buffer);
 		}
-#pragma warning restore MSLIB0003
+#pragma warning restore SYSLIB0011
 
 		public static void InvokeSerializationConstructorWithNullContext(Type type)
 		{

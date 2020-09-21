@@ -40,13 +40,10 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal class AssemblyDebugModeElement : ConfigurationElement
 	{
-		#region ConfigurationProperties
 		private static readonly ConfigurationPropertyCollection s_properties = new ConfigurationPropertyCollection();
 		private static readonly ConfigurationProperty s_assemblyNameProp = new ConfigurationProperty(Globals.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty s_isEnabledProp = new ConfigurationProperty(Globals.IsEnabledKey, typeof(bool), true, ConfigurationPropertyOptions.None);
-		#endregion
 
-		#region Properties
 		/// <summary>
 		/// Gets or sets the fully or partially qualified name of the assembly to set the debug mode id for.
 		/// </summary>
@@ -78,13 +75,10 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Required to override behavior.")]
 		public new bool IsReadOnly => false;
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Static constructor.
 		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Cannot add other static fields to collection inline.")]
 		static AssemblyDebugModeElement()
 		{
 			s_properties.Add(s_assemblyNameProp);
@@ -98,9 +92,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			: base()
 		{
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Creates a <see cref="AssemblyDebugMode" /> object from the current element.
 		/// </summary>
@@ -117,6 +109,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.DebugModeElement_ToAssemblyIdentity_Invalid, AssemblyName), ex);
 			}
 		}
-		#endregion
 	}
 }

@@ -43,7 +43,6 @@ namespace NerdyDuck.CodedExceptions
 	[ComVisible(false)]
 	public class CodedCommunicationException : CodedException
 	{
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedCommunicationException"/> class.
 		/// </summary>
@@ -118,6 +117,5 @@ namespace NerdyDuck.CodedExceptions
 			: base(hresult, message, innerException)
 		{
 		}
-		#endregion
 	}
 }

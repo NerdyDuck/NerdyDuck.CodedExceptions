@@ -45,7 +45,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[ComVisible(false)]
 	public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>, ISerializable
 	{
-		#region Properties
 		/// <summary>
 		/// Gets the name of the assembly that the debug mode is set for.
 		/// </summary>
@@ -63,9 +62,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			get; private set;
 		}
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyDebugMode"/> class with the specified assembly name and debug mode setting.
 		/// </summary>
@@ -98,7 +95,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="SerializationException">The instance could not be deserialized correctly.</exception>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")] // HACK: suppress CA1801 until serialization constructors are handled correctly
 		private AssemblyDebugMode(SerializationInfo info, StreamingContext context)
 		{
 			if (info == null)
@@ -108,9 +104,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(TextResources.Global_ctor_MissingAssemblyIdentifier));
 			IsEnabled = info.GetBoolean(nameof(IsEnabled));
 		}
-		#endregion
 
-		#region Overrides
 		/// <summary>
 		/// Determines whether the specified <see cref="object" /> is equal to the current <see cref="AssemblyDebugMode" />.
 		/// </summary>
@@ -123,9 +117,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <returns>A hash code for the current object.</returns>
 		public override int GetHashCode() => AssemblyName.GetHashCode() ^ IsEnabled.GetHashCode();
-		#endregion
 
-		#region IEquatable implementation
 		/// <summary>
 		/// Determines whether the specified <see cref="AssemblyDebugMode" /> is equal to the current instance.
 		/// </summary>
@@ -145,9 +137,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			return IsEnabled != other.IsEnabled ? false : true;
 		}
-		#endregion
 
-		#region ISerializable implementation
 		/// <summary>
 		/// Sets the <see cref="SerializationInfo"/> with information about the exception.
 		/// </summary>
@@ -162,6 +152,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			info.AddValue(nameof(AssemblyName), AssemblyName);
 			info.AddValue(nameof(IsEnabled), IsEnabled);
 		}
-		#endregion
 	}
 }

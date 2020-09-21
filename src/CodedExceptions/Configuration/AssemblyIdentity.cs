@@ -50,7 +50,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[ComVisible(false)]
 	public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializable
 	{
-		#region Constants
 		private const string AssemblyIdentityRegex = "^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?";
 		private const string PublicKeyTokenName = "PublicKeyToken";
 		private const string NeutralLanguage = "neutral";
@@ -59,13 +58,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// The highest possible value returned by <see cref="Match(Assembly)"/>, meaning that name, version, culture and public key token are a match.
 		/// </summary>
 		public const int MaximumMatchValue = 15;
-		#endregion
 
-		#region Private fields
 		private byte[]? _publicKeyToken;
-		#endregion
 
-		#region Properties
 		/// <summary>
 		/// Gets or sets the culture of the assembly. May be <see langword="null"/>.
 		/// </summary>
@@ -92,9 +87,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			get; set;
 		}
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyIdentity"/> class.
 		/// </summary>
@@ -208,7 +201,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="SerializationException">The instance could not be deserialized correctly.</exception>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")] // HACK: suppress CA1801 until serialization constructors are handled correctly
 		private AssemblyIdentity(SerializationInfo info, StreamingContext context)
 		{
 			if (info == null)
@@ -221,9 +213,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			_publicKeyToken = (byte[]?)info.GetValue(PublicKeyTokenName, typeof(byte[]));
 			Version = (Version?)info.GetValue(nameof(Version), typeof(Version));
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Returns a value indicating whether this instance is equal to a specified object.
 		/// </summary>
@@ -573,9 +563,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 			return HResultHelper.GetStringAndRelease(sb);
 		}
-#endregion
 
-		#region Operators
 		/// <summary>
 		/// Determines whether two instances of <see cref="AssemblyIdentity"/> are equal.
 		/// </summary>
@@ -605,9 +593,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 			return !identity1.Equals(identity2);
 		}
-		#endregion
 
-		#region ISerializable implementation
 		/// <summary>
 		/// Sets the <see cref="SerializationInfo"/> with information about the exception.
 		/// </summary>
@@ -624,9 +610,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			info.AddValue(PublicKeyTokenName, _publicKeyToken);
 			info.AddValue(nameof(Version), Version);
 		}
-		#endregion
 
-		#region Private methods
 		/// <summary>
 		/// Compares the specified byte array to PublicKeyToken.
 		/// </summary>
@@ -658,9 +642,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 			return true;
 		}
-		#endregion
 
-		#region Enumerations
 		/// <summary>
 		/// Specifies the elements of a fully-qualified assembly name that are to be respected when creating an <see cref="AssemblyIdentity"/>.
 		/// </summary>
@@ -702,6 +684,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			/// </summary>
 			NoVersion = Name | Culture | PublicKeyToken
 		}
-		#endregion
 	}
 }

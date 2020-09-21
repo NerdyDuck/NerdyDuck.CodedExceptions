@@ -40,13 +40,10 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal class AssemblyFacilityOverrideElement : ConfigurationElement
 	{
-		#region ConfigurationProperties
 		private static readonly ConfigurationPropertyCollection s_properties = new ConfigurationPropertyCollection();
 		private static readonly ConfigurationProperty s_assemblyNameProp = new ConfigurationProperty(Globals.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
 		private static readonly ConfigurationProperty s_identifierProp = new ConfigurationProperty(Globals.IdentifierKey, typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
-		#endregion
 
-		#region Properties
 		/// <summary>
 		/// Gets or sets the fully or partially qualified name of the assembly to override the facility id for.
 		/// </summary>
@@ -79,13 +76,10 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Required to override behavior.")]
 		public new bool IsReadOnly => false;
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Static constructor.
 		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Cannot add other static fields to collection inline.")]
 		static AssemblyFacilityOverrideElement()
 		{
 			s_properties.Add(s_assemblyNameProp);
@@ -99,9 +93,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			: base()
 		{
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Creates a <see cref="AssemblyFacilityOverride" /> object from the current element.
 		/// </summary>
@@ -118,6 +110,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.FacilityOverrideElement_ToOverride_Invalid, AssemblyName), ex);
 			}
 		}
-		#endregion
 	}
 }

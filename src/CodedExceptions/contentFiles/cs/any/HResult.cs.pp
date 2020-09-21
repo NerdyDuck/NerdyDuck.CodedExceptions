@@ -39,7 +39,6 @@ namespace Test
 	[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
 	internal static class HResult
 	{
-		#region Private fields
 		// Load the facility id lazy and thread-safe.
 		private static readonly global::System.Lazy<int> _facilityId = new global::System.Lazy<int>(() =>
 		{
@@ -57,9 +56,7 @@ namespace Test
 
 		private static bool _isDebugModeInitialized = false;
 		private static bool _isDebugModeEnabled = false;
-		#endregion
 
-		#region Properties
 		/// <summary>
 		/// Gets the facility identifier of the current assembly.
 		/// </summary>
@@ -103,9 +100,7 @@ namespace Test
 				return _isDebugModeEnabled;
 			}
 		}
-		#endregion
 
-		#region Internal methods
 		/// <summary>
 		/// Combines the specified error identifier with the base HRESULT value for this assembly.
 		/// </summary>
@@ -125,9 +120,7 @@ namespace Test
 		/// more information about the definition of HRESULT values.</para></remarks>
 		/// <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
 		internal static int Create(global::System.Enum errorId) => _hResultBase.Value | global::NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId);
-		#endregion
 
-		#region Private methods
 		/// <summary>
 		/// Reloads the value of <see cref="IsDebugModeEnabled" /> from the default cache, after the cache has raised an event to notify a change in the cache.
 		/// </summary>
@@ -137,6 +130,5 @@ namespace Test
 		{
 			_isDebugModeEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly);
 		}
-		#endregion
 	}
 }

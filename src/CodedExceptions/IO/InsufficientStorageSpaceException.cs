@@ -45,7 +45,6 @@ namespace NerdyDuck.CodedExceptions.IO
 	[CodedException]
 	public class InsufficientStorageSpaceException : System.IO.IOException
 	{
-		#region Properties
 		/// <summary>
 		/// Gets the path or descriptor of the data storage that has insufficient space.
 		/// </summary>
@@ -54,9 +53,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		{
 			get; private set;
 		}
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="InsufficientStorageSpaceException"/> class with its HRESULT set to COR_E_IO, and its inner exception set to a null reference.
 		/// </summary>
@@ -205,9 +202,7 @@ namespace NerdyDuck.CodedExceptions.IO
 			StoragePath = storagePath;
 			HResult = hresult;
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 		/// </summary>
@@ -233,9 +228,7 @@ namespace NerdyDuck.CodedExceptions.IO
 			base.GetObjectData(info, context);
 			info.AddValue(nameof(StoragePath), StoragePath);
 		}
-		#endregion
 
-		#region Private methods
 		/// <summary>
 		/// Creates the string stored in the Message property, with or without the file name.
 		/// </summary>
@@ -254,6 +247,5 @@ namespace NerdyDuck.CodedExceptions.IO
 			}
 			return string.Format(CultureInfo.CurrentCulture, TextResources.InsufficientStorageSpaceException_MessagePath, fileName);
 		}
-		#endregion
 	}
 }

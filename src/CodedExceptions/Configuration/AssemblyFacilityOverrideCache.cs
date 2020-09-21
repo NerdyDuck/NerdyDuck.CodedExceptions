@@ -44,14 +44,11 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[ComVisible(false)]
 	public sealed class AssemblyFacilityOverrideCache : IDisposable
 	{
-		#region Private fields
 		private static readonly Lazy<AssemblyFacilityOverrideCache> s_global = new Lazy<AssemblyFacilityOverrideCache>(() => new AssemblyFacilityOverrideCache());
 		private List<AssemblyFacilityOverride> _facilityOverrides;
 		private ReaderWriterLockSlim _listLock;
 		private int _isDisposed;
-		#endregion
 
-		#region Properties
 		/// <summary>
 		/// Gets a global singleton instance of <see cref="AssemblyFacilityOverrideCache"/>.
 		/// </summary>
@@ -63,9 +60,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// Gets the number of entries in the cache.
 		/// </summary>
 		internal int Count => _facilityOverrides.Count;
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyFacilityOverrideCache"/> class.
 		/// </summary>
@@ -75,9 +70,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			_listLock = new ReaderWriterLockSlim();
 			_isDisposed = 0;
 		}
-		#endregion
 
-		#region Destructor
 		/// <summary>
 		/// Destructor.
 		/// </summary>
@@ -85,9 +78,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			Dispose(false);
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Attempts to find the facility identifier override with the best match for the specified assembly.
 		/// </summary>
@@ -254,9 +245,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				_listLock.ExitWriteLock();
 			}
 		}
-		#endregion
 
-		#region Private methods
 		/// <summary>
 		/// Checks if the object has already been disposed.
 		/// </summary>
@@ -269,9 +258,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				throw new ObjectDisposedException(GetType().Name);
 			}
 		}
-		#endregion
 
-		#region IDisposed implementation
 		/// <summary>
 		/// Releases all resources used by the <see cref="AssemblyFacilityOverrideCache"/>.
 		/// </summary>
@@ -298,6 +285,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				_listLock?.Dispose();
 			}
 		}
-		#endregion
 	}
 }

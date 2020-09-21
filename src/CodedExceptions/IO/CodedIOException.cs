@@ -41,7 +41,6 @@ namespace NerdyDuck.CodedExceptions.IO
 	[CodedException]
 	public class CodedIOException : System.IO.IOException
 	{
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedIOException"/> class with its message string set to the empty string (""), its HRESULT set to COR_E_IO, and its inner exception set to a null reference.
 		/// </summary>
@@ -119,14 +118,11 @@ namespace NerdyDuck.CodedExceptions.IO
 		{
 			HResult = hresult;
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 		/// </summary>
 		/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.</returns>
 		public override string ToString() => HResultHelper.CreateToString(this, null);
-		#endregion
 	}
 }

@@ -60,7 +60,6 @@ namespace NerdyDuck.CodedExceptions
 	[ComVisible(false)]
 	public sealed class CodedExceptionAttribute : Attribute
 	{
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedExceptionAttribute"/> class.
 		/// </summary>
@@ -68,9 +67,7 @@ namespace NerdyDuck.CodedExceptions
 			: base()
 		{
 		}
-		#endregion
 
-		#region Public static methods
 		/// <summary>
 		/// Checks if the type of the specified instance of <see cref="Exception"/>
 		/// or a derived class is decorated with a <see cref="CodedExceptionAttribute"/>.
@@ -88,6 +85,5 @@ namespace NerdyDuck.CodedExceptions
 
 			return (ex.GetType().GetTypeInfo().GetCustomAttribute<CodedExceptionAttribute>(true) != null);
 		}
-		#endregion
 	}
 }

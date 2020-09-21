@@ -45,7 +45,6 @@ namespace NerdyDuck.CodedExceptions.IO
 	[CodedException]
 	public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundException
 	{
-		#region Properties
 		/// <summary>
 		/// Gets the name of the directory that cannot be found.
 		/// </summary>
@@ -54,9 +53,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		{
 			get; private set;
 		}
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedDirectoryNotFoundException"/> class with its HRESULT set to COR_E_DIRECTORYNOTFOUND, and its inner exception set to a null reference.
 		/// </summary>
@@ -211,9 +208,7 @@ namespace NerdyDuck.CodedExceptions.IO
 			DirectoryName = directoryName;
 			HResult = hresult;
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 		/// </summary>
@@ -239,9 +234,7 @@ namespace NerdyDuck.CodedExceptions.IO
 			base.GetObjectData(info, context);
 			info.AddValue(nameof(DirectoryName), DirectoryName);
 		}
-		#endregion
 
-		#region Private methods
 		/// <summary>
 		/// Creates the string stored in the Message property, with or without the directory name.
 		/// </summary>
@@ -260,6 +253,5 @@ namespace NerdyDuck.CodedExceptions.IO
 			}
 			return string.Format(CultureInfo.CurrentCulture, TextResources.CodedDirectoryNotFoundException_MessageDirectory, directoryName);
 		}
-		#endregion
 	}
 }

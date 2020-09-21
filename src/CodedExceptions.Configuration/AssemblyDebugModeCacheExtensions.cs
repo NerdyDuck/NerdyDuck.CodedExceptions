@@ -225,7 +225,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <remarks>The default file is named 'AssemblyDebugModes.json' and must reside in the working directory of the application.</remarks>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="IOException">The file could not be opened or read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache) => ExtensionHelper.LoadJson(cache, DefaultFileName + ".json", (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -234,7 +234,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="path">The path to the JSON file containing the settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException"><paramref name="path"/> is <see langword="null"/> or white-space.</exception>
 		/// <exception cref="IOException">The file could not be opened or read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache, string path) => ExtensionHelper.LoadJson(cache, path, (cache, jsonElement) => FromJson(cache, jsonElement));
@@ -254,7 +254,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> or <paramref name="reader"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> or <paramref name="reader"/> is <see langword="null"/>.</exception>
 		/// <exception cref="IOException">The stream data could not be read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -263,7 +263,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="IOException">The JSON document or contents are invalid.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache, ReadOnlySequence<byte> utf8Json) => ExtensionHelper.LoadJson(cache, utf8Json, (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -272,7 +272,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="IOException">The JSON document or contents are invalid.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache, ReadOnlyMemory<byte> utf8Json) => ExtensionHelper.LoadJson(cache, utf8Json, (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -281,7 +281,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/> or <paramref name="json"/> is <see langword="null"/> or empty.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/> or <paramref name="content"/> is <see langword="null"/> or empty.</exception>
 		/// <exception cref="IOException">The stream data could not be read.</exception>
 		public static void ParseJson(this AssemblyDebugModeCache cache, string content) => ExtensionHelper.ParseJson(cache, content, (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -290,7 +290,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="jsonElement">The <see cref="JsonElement"/> containing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException"><paramref name="jsonElement"/> is not a JSON object.</exception>
 		/// <exception cref="FormatException">The JSON data is invalid.</exception>
 		public static void FromJson(this AssemblyDebugModeCache cache, JsonElement jsonElement)
@@ -304,7 +304,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="jsonElement">The <see cref="JsonElement"/> containing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException"><paramref name="jsonElement"/> is not a JSON object.</exception>
 		/// <exception cref="FormatException">The JSON data is invalid.</exception>
 		private static void FromJsonInternal(this AssemblyDebugModeCache cache, JsonElement jsonElement)
@@ -345,7 +345,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <remarks>The default file is named 'AssemblyDebugModes.json' and must reside in the working directory of the application.</remarks>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="IOException">The file could not be opened or read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache) => ExtensionHelper.LoadJson(cache, DefaultFileName + ".json", (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -354,7 +354,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="path">The path to the JSON file containing the settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException"><paramref name="path"/> is <see langword="null"/> or white-space.</exception>
 		/// <exception cref="IOException">The file could not be opened or read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache, string path) => ExtensionHelper.LoadJson(cache, path, (cache, jsonElement) => FromJson(cache, jsonElement));
@@ -374,7 +374,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> or <paramref name="reader"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> or <paramref name="reader"/> is <see langword="null"/>.</exception>
 		/// <exception cref="IOException">The stream data could not be read.</exception>
 		public static void LoadJson(this AssemblyDebugModeCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -383,7 +383,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/> or <paramref name="json"/> is <see langword="null"/> or empty.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/> or <paramref name="content"/> is <see langword="null"/> or empty.</exception>
 		/// <exception cref="IOException">The stream data could not be read.</exception>
 		public static void ParseJson(this AssemblyDebugModeCache cache, string content) => ExtensionHelper.ParseJson(cache, content, (cache, jsonElement) => FromJson(cache, jsonElement));
 
@@ -392,7 +392,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the settings to.</param>
 		/// <param name="jsonValue">The <see cref="JsonValue"/> containing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="debugModeCache"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException"><paramref name="jsonValue"/> is not a JSON object.</exception>
 		/// <exception cref="FormatException">The JSON data is invalid.</exception>
 		public static void FromJson(this AssemblyDebugModeCache cache, JsonValue jsonValue)

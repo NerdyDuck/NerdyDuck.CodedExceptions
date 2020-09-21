@@ -45,7 +45,6 @@ namespace NerdyDuck.CodedExceptions
 	/// more information about the definition of HRESULT values.</remarks>
 	public static class HResultHelper
 	{
-		#region Constants
 		/// <summary>
 		/// The base value for all custom HRESULT values, to unambiguously distinguish the exceptions from Microsoft error codes.
 		/// </summary>
@@ -102,61 +101,45 @@ namespace NerdyDuck.CodedExceptions
 
 		// Maximum capacity for StringBuilder instances cached in _cachedInstance.
 		private const int MaximumCapacity = 360;
-		#endregion
 
-		#region Private fields
 		[ThreadStatic]
 		private static StringBuilder? s_cachedInstance;
-		#endregion
 
-		#region Public methods
-		#region GetFacilityId
 		/// <summary>
 		/// Gets the facility (= the assembly) identifier part of an <see cref="Exception.HResult"/>.
 		/// </summary>
 		/// <param name="hresult">The <see cref="Exception.HResult"/> to extract the facility identifier from.</param>
 		/// <returns>The facility identifier.</returns>
 		public static int GetFacilityId(int hresult) => (hresult & FacilityIdMask) >> FacilityIdShift;
-		#endregion
 
-		#region GetErrorId
 		/// <summary>
 		/// Gets the error identifier part of an <see cref="Exception.HResult"/>.
 		/// </summary>
 		/// <param name="hresult">The <see cref="Exception.HResult"/> to extract the error identifier from.</param>
 		/// <returns>An error identifier.</returns>
 		public static int GetErrorId(int hresult) => hresult & ErrorIdMask;
-		#endregion
 
-		#region GetBaseHResult
 		/// <summary>
 		/// Gets the HRESULT base value for the specified facility identifier.
 		/// </summary>
 		/// <param name="facilityId">A facility identifier.</param>
 		/// <returns>A HRESULT base value, starting with 0xa0nnnnnn.</returns>
 		public static int GetBaseHResult(int facilityId) => HResultBase | (facilityId << FacilityIdShift);
-		#endregion
 
-		#region IsCustomHResult
 		/// <summary>
 		/// Checks if the specified HRESULT is a custom error value.
 		/// </summary>
 		/// <param name="hresult">The <see cref="Exception.HResult"/> to check.</param>
 		/// <returns><see langword="true"/>, if <paramref name="hresult"/> is a custom value; otherwise, <see langword="false"/>.</returns>
 		public static bool IsCustomHResult(int hresult) => (hresult & CustomHResultMask) > 0;
-		#endregion
 
-		#region GetEnumInt32Value
 		/// <summary>
 		/// Returns the integer value of an enumeration value.
 		/// </summary>
 		/// <param name="enumValue">The enumeration value to get the integer value of.</param>
 		/// <returns>An integer that represents <paramref name="enumValue"/>.</returns>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031", Justification = "Only enumerations should be used to avoid confusion.", MessageId = "enumValue")]
 		public static int EnumToInt32(Enum enumValue) => ((IConvertible)enumValue ?? throw new ArgumentNullException(nameof(enumValue))).ToInt32(null);
-		#endregion
 
-		#region CreateToString
 		/// <summary>
 		/// Creates the default ToString implementation for CodedExceptions, with the optional addition of custom text.
 		/// </summary>
@@ -192,9 +175,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return GetStringAndRelease(sb);
 		}
-		#endregion
 
-		#region HexStringToByteArray
 		/// <summary>
 		/// Converts a string of hexadecimal values into a byte array.
 		/// </summary>
@@ -223,10 +204,7 @@ namespace NerdyDuck.CodedExceptions
 
 			return returnValue;
 		}
-		#endregion
-		#endregion
 
-		#region Internal methods
 		/// <summary>
 		/// Acquires a cached instance of a <see cref="StringBuilder"/>.
 		/// </summary>
@@ -269,9 +247,7 @@ namespace NerdyDuck.CodedExceptions
 				s_cachedInstance = sb;
 			}
 		}
-		#endregion
 
-		#region Private methods
 		private static int HexToInt(char value)
 		{
 			switch (value)
@@ -318,6 +294,5 @@ namespace NerdyDuck.CodedExceptions
 					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.HResultHelper_HexToInt_InvalidChar, value));
 			}
 		}
-		#endregion
 	}
 }

@@ -46,15 +46,11 @@ namespace NerdyDuck.CodedExceptions
 	[ComVisible(false)]
 	public class CodedAggregateException : AggregateException
 	{
-		#region Properties
 		/// <summary>
 		/// Gets the count of inner exceptions for display in the debugger.
 		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Used for DebuggerDisplay output")]
 		private int InnerExceptionsCount => InnerExceptions.Count;
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a system-supplied message that describes the error.
 		/// </summary>
@@ -71,7 +67,6 @@ namespace NerdyDuck.CodedExceptions
 		/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1061:Do not hide base class methods", Justification = "Same as base class.")]
 		public CodedAggregateException(IEnumerable<Exception> innerExceptions)
 			: base(innerExceptions)
 		{
@@ -83,7 +78,6 @@ namespace NerdyDuck.CodedExceptions
 		/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1061:Do not hide base class methods", Justification = "Same as base class.")]
 		public CodedAggregateException(params Exception[] innerExceptions)
 			: base(innerExceptions)
 		{
@@ -128,7 +122,6 @@ namespace NerdyDuck.CodedExceptions
 		/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1061:Do not hide base class methods", Justification = "Same as base class.")]
 		public CodedAggregateException(string message, IEnumerable<Exception> innerExceptions)
 			: base(message, innerExceptions)
 		{
@@ -141,7 +134,6 @@ namespace NerdyDuck.CodedExceptions
 		/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1061:Do not hide base class methods", Justification = "Same as base class.")]
 		public CodedAggregateException(string message, params Exception[] innerExceptions)
 			: base(message, innerExceptions)
 		{
@@ -250,9 +242,7 @@ namespace NerdyDuck.CodedExceptions
 		{
 			HResult = hresult;
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 		/// </summary>
@@ -267,6 +257,5 @@ namespace NerdyDuck.CodedExceptions
 			}
 			return HResultHelper.CreateToString(this, CustomText);
 		}
-		#endregion
 	}
 }

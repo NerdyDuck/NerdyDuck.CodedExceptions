@@ -35,7 +35,6 @@
 <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("NerdyDuck.CodedExceptions", "2.0.0.0"), Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>
 Friend Module HResult
 
-#Region "Private fields"
     ' Load the facility id lazy and thread-safe.
     Private ReadOnly _facilityId As Global.System.Lazy(Of Integer) = New Global.System.Lazy(Of Integer)(AddressOf InitFacilityId)
 
@@ -45,9 +44,6 @@ Friend Module HResult
     Private _isDebugModeInitialized As Boolean = False
     Private _isDebugModeEnabled As Boolean = False
 
-#End Region
-
-#Region "Properties"
     ''' <summary>
     ''' Gets the facility identifier of the current assembly.
     ''' </summary>
@@ -94,9 +90,7 @@ Friend Module HResult
             Return _isDebugModeEnabled
         End Get
     End Property
-#End Region
 
-#Region "Internal methods"
     ''' <summary>
     ''' Combines the specified error identifier with the base HRESULT value for this assembly.
     ''' </summary>
@@ -120,9 +114,7 @@ Friend Module HResult
     Friend Function Create(errorId As System.Enum) As Integer
         Return _hResultBase.Value Or Global.NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId)
     End Function
-#End Region
 
-#Region "Private methods"
     ''' <summary>
     ''' Load the facility id lazy and thread-safe.
     ''' </summary>
@@ -145,5 +137,4 @@ Friend Module HResult
     Private Sub Global_CacheChanged(sender As Object, e As Global.System.EventArgs)
         _isDebugModeEnabled = Global.NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(GetType(HResult).Assembly)
     End Sub
-#End Region
 End Module

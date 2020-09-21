@@ -45,7 +45,6 @@ namespace NerdyDuck.CodedExceptions.IO
 	[CodedException]
 	public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	{
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileNotFoundException"/> class with its HRESULT set to COR_E_FILENOTFOUND, and its inner exception set to a null reference.
 		/// </summary>
@@ -184,9 +183,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		{
 			HResult = hresult;
 		}
-		#endregion
 
-		#region Public methods
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 		/// </summary>
@@ -201,6 +198,5 @@ namespace NerdyDuck.CodedExceptions.IO
 
 			return HResultHelper.CreateToString(this, CustomText);
 		}
-		#endregion
 	}
 }

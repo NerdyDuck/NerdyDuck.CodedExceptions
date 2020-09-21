@@ -45,7 +45,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[ComVisible(false)]
 	public sealed class AssemblyFacilityOverride : IEquatable<AssemblyFacilityOverride> , ISerializable
 	{
-		#region Properties
 		/// <summary>
 		/// Gets the name of the assembly that the identifier override is configured for.
 		/// </summary>
@@ -63,9 +62,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			get; private set;
 		}
-		#endregion
 
-		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AssemblyFacilityOverride"/> class with the specified assembly name and facility identifier.
 		/// </summary>
@@ -102,7 +99,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="SerializationException">The instance could not be deserialized correctly.</exception>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")] // HACK: suppress CA1801 until serialization constructors are handled correctly
 		private AssemblyFacilityOverride(SerializationInfo info, StreamingContext context)
 		{
 			if (info == null)
@@ -113,9 +109,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(TextResources.Global_ctor_MissingAssemblyIdentifier));
 			Identifier = info.GetInt32(nameof(Identifier));
 		}
-		#endregion
 
-		#region Overrides
 		/// <summary>
 		/// Determines whether the specified <see cref="object" /> is equal to the current <see cref="AssemblyFacilityOverride" />.
 		/// </summary>
@@ -136,9 +130,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <returns>A hash code for the current object.</returns>
 		public override int GetHashCode() => AssemblyName.GetHashCode();
-		#endregion
 
-		#region IEquatable implementation
 		/// <summary>
 		/// Determines whether the specified <see cref="AssemblyFacilityOverride" /> is equal to the current instance.
 		/// </summary>
@@ -158,9 +150,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			return Identifier == other.Identifier;
 		}
-		#endregion
 
-		#region ISerializable implementation
 		/// <summary>
 		/// Sets the <see cref="SerializationInfo"/> with information about the object.
 		/// </summary>
@@ -175,9 +165,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			info.AddValue(nameof(AssemblyName), AssemblyName);
 			info.AddValue(nameof(Identifier), Identifier);
 		}
-		#endregion
 
-		#region Private methods
 		/// <summary>
 		/// Checks if the identifier is within range (0 to 2047).
 		/// </summary>
@@ -189,6 +177,5 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				throw new ArgumentOutOfRangeException(nameof(identifier), TextResources.Global_FacilityId_OutOfRange);
 			}
 		}
-		#endregion
 	}
 }

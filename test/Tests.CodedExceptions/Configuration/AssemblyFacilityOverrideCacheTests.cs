@@ -213,7 +213,6 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			#region Finalizer
 			[TestMethod]
 			[SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Intentional for testing.")]
-			[SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification = "Intentional for testing.")]
 			public void Finalizer_Success()
 			{
 				if (true)
