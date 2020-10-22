@@ -3,7 +3,7 @@
   <PropertyGroup Label="Compilation">
     <DefaultLanguage>en-US</DefaultLanguage>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)shared\NerdyDuck.CodedExceptions.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)shared\NerdyDuck.CodedExceptions.snk</AssemblyOriginatorKeyFile>
     <LangVersion>preview</LangVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,11 +15,11 @@
     <Product>NerdyDuck Libraries</Product>
   </PropertyGroup>
   <ItemGroup Label="Code analysis">
-    <CodeAnalysisDictionary Include="$(SolutionDir)shared\AnalysisDictionary.xml">
+    <CodeAnalysisDictionary Include="$(MSBuildThisFileDirectory)shared\AnalysisDictionary.xml">
       <Link>AnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
   </ItemGroup>
-  <Import Project="$(SolutionDir)Versions.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)Versions.props"/>
   <PropertyGroup Label="Versions">
     <FileVersion>$(Version).0</FileVersion>
   </PropertyGroup>

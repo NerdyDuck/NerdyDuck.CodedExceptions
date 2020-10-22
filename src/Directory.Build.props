@@ -7,7 +7,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DefineTrace>true</DefineTrace>
-    <DeployPath>$(SolutionDir)deploy\$(Configuration)\</DeployPath>
+    <DeployPath>$(MSBuildThisFileDirectory)../deploy/$(Configuration)/</DeployPath>
   </PropertyGroup>
   <PropertyGroup Label="Assembly Signing">
     <CertificateThumbPrint>cfdbc0e88804856b8e157abf3ba2471a5a9fc940</CertificateThumbPrint>
@@ -17,7 +17,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
-    <CreateGitHubZip>false</CreateGitHubZip>
+    <CreateGitHubZip>true</CreateGitHubZip>
     <DefineDebug>true</DefineDebug>
     <DebugType>Full</DebugType>
   </PropertyGroup>
@@ -30,7 +30,7 @@
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <IsPackable>true</IsPackable>
-    <PackageOutputPath>$(DeployPath)NuGet\</PackageOutputPath>
+    <PackageOutputPath>$(DeployPath)NuGet/</PackageOutputPath>
     <MinClientVersion>4.6</MinClientVersion>
     <Authors>Daniel Kopp</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -41,10 +41,10 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Label="Github Release Zips">
-    <ZipOutputPath>$(DeployPath)Zip\</ZipOutputPath>
+    <ZipOutputPath>$(DeployPath)Zip/</ZipOutputPath>
   </PropertyGroup>
   <ItemGroup Label="NuGet package icon">
-    <None Include="$(SolutionDir)media\NerdyDuck.CodedExceptions-64x64.png" Pack="true" PackagePath="\">
+    <None Include="$(MSBuildThisFileDirectory)../media/NerdyDuck.CodedExceptions-64x64.png" Pack="true" PackagePath="\">
       <Link>NerdyDuck.CodedExceptions-64x64.png</Link>
     </None>
   </ItemGroup>

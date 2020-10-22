@@ -24,8 +24,8 @@
       - Configuration of facility identifier overrides is now in a separate package.
     </PackageReleaseNotes>
     <PackageTags>Exception HRESULT</PackageTags>
-    <!--<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>-->
-    <NoWarn>NU5118,NU5105</NoWarn>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>
+    <NoWarn>NU5118</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis" Version="3.7.0" />
@@ -51,4 +51,11 @@
       <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <Target Name="CustomContentTarget">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="contentFiles/**/*">
+        <PackagePath>contentFiles</PackagePath>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+  </Target>
 </Project>

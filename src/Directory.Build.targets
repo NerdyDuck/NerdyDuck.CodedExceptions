@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project InitialTargets="GetGitBranchInfo" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!--
   <Target Name="SignOutputAssemblies" AfterTargets="Build" DependsOnTargets="Build" Condition=" '$(SignAssembliesAndPackage)' == 'true' And '$(IsCrossTargetingBuild)' != 'true' ">
     <CreateItem Include="$(OutputPath)**\$(AssemblyName)*.exe;$(OutputPath)**\$(TargetName)*.dll" Condition="'$(OutputType)' != 'Library'">
       <Output TaskParameter="Include" ItemName="FilesToSign"/>
@@ -20,6 +19,7 @@
     <Message Importance="high" Text="Packages signed: @(PackageToSign)" />
   </Target>
   <Target Name="CreateGitHubZip" BeforeTargets="Pack" Condition=" '$(CreateGitHubZip)' == 'true' ">
+    <MakeDir Directories="$(ZipOutputPath)"/>
     <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(ZipOutputPath)$(AssemblyName)-$(Version)-binaries.zip" Overwrite="true" />
   </Target>
   <Target Name="CleanZip" AfterTargets="Clean" Condition=" '$(CreateGitHubZip)' == 'true' ">
@@ -28,7 +28,6 @@
     </ItemGroup>
     <Delete Files="@(_ZipToDelete)"/>
   </Target>
-  -->
   <Target Name="GetGitBranchInfo" Condition=" '$(PublishRepositoryUrl)' == 'true' ">
     <Exec Command="git ls-remote --get-url" ConsoleToMsBuild="true" EchoOff="true" StandardOutputImportance="low">
       <Output TaskParameter="ConsoleOutput" PropertyName="RepositoryUrl" />
