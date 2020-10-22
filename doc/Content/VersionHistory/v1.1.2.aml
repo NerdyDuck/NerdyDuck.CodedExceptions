@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="daa452b1-17a3-4d2d-84ec-af3ca09f1373" revisionNumber="1">
+ <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<introduction>
+	 <para>Version 1.1.2 was released on 2016-01-08.</para>
+	</introduction>
+	<section>
+	 <title>Changes in This Release</title>
+	 <content>
+		<list class="bullet">
+		 <listItem>
+			<para>Changed target version for UWP library to Windows 10 build 10586; minimum version remains build 10240.</para>
+		 </listItem>
+		 <listItem>
+			<para>Changed automatic signing of assemblies from post-compiler batch script to msbuild task.</para>
+		 </listItem>
+		</list>
+	 </content>
+	</section>
+	<relatedTopics>
+	 <link xlink:href="d080cb12-1ee6-498a-afff-68b01400abe1" />
+	</relatedTopics>
+ </developerConceptualDocument>
+</topic>
