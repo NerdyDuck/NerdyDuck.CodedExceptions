@@ -253,6 +253,7 @@ indent_size = 1
 [*.{content,aml}]
 indent_style = tab
 tab_width = 2
+indent_size = 1
 
 # Web files
 [*.{htm,html,cshtml,css,js}]
