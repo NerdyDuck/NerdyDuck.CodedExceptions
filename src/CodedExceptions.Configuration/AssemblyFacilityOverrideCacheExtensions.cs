@@ -245,7 +245,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="cache">The cache to add the overrides to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		public static void LoadJson(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
+		public static void LoadJson(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader ?? throw new ArgumentNullException(nameof(reader)), (cache, jsonElement) => FromJsonInternal(cache, jsonElement));
 
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the specified sequence of bytes containing JSON data, and adds them to the cache.

@@ -256,7 +256,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
 		/// <exception cref="ArgumentNullException"><paramref name="cache"/> or <paramref name="reader"/> is <see langword="null"/>.</exception>
 		/// <exception cref="IOException">The stream data could not be read.</exception>
-		public static void LoadJson(this AssemblyDebugModeCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonElement) => FromJson(cache, jsonElement));
+		public static void LoadJson(this AssemblyDebugModeCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader ?? throw new ArgumentNullException(nameof(reader)), (cache, jsonElement) => FromJson(cache, jsonElement));
 
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the specified sequence of bytes containing JSON data, and adds them to the cache.
