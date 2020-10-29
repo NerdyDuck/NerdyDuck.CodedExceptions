@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="16.0">
+  <PropertyGroup Label="Compilation">
+    <TargetFrameworks>netstandard2.0;net5.0;net472</TargetFrameworks>
+    <RootNamespace>NerdyDuck.CodedExceptions.Configuration</RootNamespace>
+    <AssemblyName>$(RootNamespace).AppConfig</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Label="Assembly info">
+    <AssemblyTitle>Configuration for NerdyDuck CodedExceptions</AssemblyTitle>
+    <Description>Configures facility identifier overrides and debug mode flags implemented in NerdyDuck.CodedExceptions.</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>$(DefineConstants);NETSTD20</DefineConstants>
+    <NoWarn>8632</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <DefineConstants>$(DefineConstants);NET50</DefineConstants>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net472'">
+    <DefineConstants>$(DefineConstants);NET472</DefineConstants>
+    <NoWarn>8632</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Label="NuGet package settings">
+    <PackageReleaseNotes>
+      - Configuration reworked and split from base library.
+      - Supports ConfigurationManager (app.config)
+    </PackageReleaseNotes>
+    <PackageTags>Exception HRESULT Configuration</PackageTags>
+    <NoWarn>NU5105</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0-rc.2.20475.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodedExceptions\CodedExceptions.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="TextResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TextResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="TextResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+    </ItemGroup>
+  </Target>
+</Project>

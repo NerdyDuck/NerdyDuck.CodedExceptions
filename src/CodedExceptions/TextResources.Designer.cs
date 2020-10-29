@@ -196,6 +196,15 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assembly name &apos;{0}&apos; is invalid..
+        /// </summary>
+        internal static string Global_AssemblyNameInvalid {
+            get {
+                return ResourceManager.GetString("Global_AssemblyNameInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Serialized data does not contain an object of type AssemblyIdentifier..
         /// </summary>
         internal static string Global_ctor_MissingAssemblyIdentifier {
@@ -228,6 +237,69 @@ namespace NerdyDuck.CodedExceptions {
         internal static string Global_FileName {
             get {
                 return ResourceManager.GetString("Global_FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Element &apos;{0}&apos; has no attribute &apos;{1}&apos;..
+        /// </summary>
+        internal static string Global_FromXml_AttributeMissing {
+            get {
+                return ResourceManager.GetString("Global_FromXml_AttributeMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identifier override of assembly &apos;{0}&apos; is invalid..
+        /// </summary>
+        internal static string Global_IdentifierInvalid {
+            get {
+                return ResourceManager.GetString("Global_IdentifierInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IsEnabled setting of assembly &apos;{0}&apos; is invalid..
+        /// </summary>
+        internal static string Global_IsEnabledInvalid {
+            get {
+                return ResourceManager.GetString("Global_IsEnabledInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content may not be null, empty or white-space only..
+        /// </summary>
+        internal static string Global_NoContent {
+            get {
+                return ResourceManager.GetString("Global_NoContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path may not be null, empty or white-space only..
+        /// </summary>
+        internal static string Global_NoPath {
+            get {
+                return ResourceManager.GetString("Global_NoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot open file &apos;{0}&apos; for reading..
+        /// </summary>
+        internal static string Global_OpenFileFailed {
+            get {
+                return ResourceManager.GetString("Global_OpenFileFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stream does not support reading..
+        /// </summary>
+        internal static string Global_StreamNoRead {
+            get {
+                return ResourceManager.GetString("Global_StreamNoRead", resourceCulture);
             }
         }
         

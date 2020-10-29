@@ -61,38 +61,11 @@ namespace NerdyDuck.CodedExceptions.Configuration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid assembly debug mode element in application configuration. Assembly name: &apos;{0}&apos;..
-        /// </summary>
-        internal static string DebugModeElement_ToAssemblyIdentity_Invalid {
-            get {
-                return ResourceManager.GetString("DebugModeElement_ToAssemblyIdentity_Invalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid facility identifier override element in application configuration. Assembly name: &apos;{0}&apos;..
-        /// </summary>
-        internal static string FacilityOverrideElement_ToOverride_Invalid {
-            get {
-                return ResourceManager.GetString("FacilityOverrideElement_ToOverride_Invalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Assembly name &apos;{0}&apos; is invalid..
         /// </summary>
         internal static string Global_AssemblyNameInvalid {
             get {
                 return ResourceManager.GetString("Global_AssemblyNameInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configuration section name may not be null, empty or white-space only..
-        /// </summary>
-        internal static string Global_FromApplicationConfiguration_NoSection {
-            get {
-                return ResourceManager.GetString("Global_FromApplicationConfiguration_NoSection", resourceCulture);
             }
         }
         
@@ -133,38 +106,11 @@ namespace NerdyDuck.CodedExceptions.Configuration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Element &apos;{0}&apos; has no attribute &apos;{1}&apos;..
-        /// </summary>
-        internal static string Global_FromXml_AttributeMissing {
-            get {
-                return ResourceManager.GetString("Global_FromXml_AttributeMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Facility identifier is empty..
-        /// </summary>
-        internal static string Global_IdentifierEmpty {
-            get {
-                return ResourceManager.GetString("Global_IdentifierEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Identifier override of assembly &apos;{0}&apos; is invalid..
         /// </summary>
         internal static string Global_IdentifierInvalid {
             get {
                 return ResourceManager.GetString("Global_IdentifierInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IsEnabled setting of assembly &apos;{0}&apos; is invalid..
-        /// </summary>
-        internal static string Global_IsEnabledInvalid {
-            get {
-                return ResourceManager.GetString("Global_IsEnabledInvalid", resourceCulture);
             }
         }
         

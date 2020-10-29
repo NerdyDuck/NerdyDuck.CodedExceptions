@@ -117,77 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssemblyIdentifier_ctor_VersionInvalid" xml:space="preserve">
-    <value>Die Versions-Nummer der Assembly-Identifikation ist ungültig.</value>
-  </data>
-  <data name="AssemblyIdentity_ctor_KeyTokenInvalid" xml:space="preserve">
-    <value>Der Public Key Token der Assembly-Identifikation is ungültig.</value>
-  </data>
-  <data name="AssemblyIdentity_ctor_NoAssemblyName" xml:space="preserve">
-    <value>Assembly hat keinen Namen.</value>
-  </data>
-  <data name="CodedAggregateException_ToString" xml:space="preserve">
-    <value>{0}{1}---&gt; (Interne Ausnahme #{2}) {3}&lt;---{1}</value>
-  </data>
-  <data name="CodedArgumentNullOrEmptyException_Message" xml:space="preserve">
-    <value>Argument darf nicht null oder leer sein.</value>
-  </data>
-  <data name="CodedArgumentNullOrWhiteSpaceException_Message" xml:space="preserve">
-    <value>Argument darf nicht null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
-  </data>
-  <data name="CodedDataException_Message" xml:space="preserve">
-    <value>Die Daten sind ungültig.</value>
-  </data>
-  <data name="CodedDirectoryNotFoundException_Message" xml:space="preserve">
-    <value>Das angegebene Verzeichnis wurde nicht gefunden.</value>
-  </data>
-  <data name="CodedDirectoryNotFoundException_MessageDirectory" xml:space="preserve">
-    <value>Das Verzeichnis '{0}' konnte nicht gefunden werden.</value>
-  </data>
-  <data name="CodedFileExistsException_Message" xml:space="preserve">
-    <value>Die angegebene Datei existiert bereits.</value>
-  </data>
-  <data name="CodedFileExistsException_MessageFile" xml:space="preserve">
-    <value>Datei '{0}' existiert bereits.</value>
-  </data>
-  <data name="CodedInvalidFileException_Message" xml:space="preserve">
-    <value>Die angegebene Datei ist ungültig.</value>
-  </data>
-  <data name="CodedInvalidFileException_MessageFile" xml:space="preserve">
-    <value>Datei '{0}' ist ungültig.</value>
-  </data>
-  <data name="CodedSocketException_Message" xml:space="preserve">
-    <value>Ein Socket-Fehler is aufgetreten.</value>
-  </data>
-  <data name="CodedSocketException_ToString_SocketErrorCode" xml:space="preserve">
-    <value>(Socket-Fehler: {0} ({0:d}))</value>
-  </data>
   <data name="Global_AssemblyNameInvalid" xml:space="preserve">
     <value>Assembly-Name '{0}' ist ungültig.</value>
   </data>
-  <data name="Global_ctor_MissingAssemblyIdentifier" xml:space="preserve">
-    <value>Serialisierte Daten beinhalten kein Object vom Type AssemblyIdentifier.</value>
+  <data name="Global_FromJson_NotABool" xml:space="preserve">
+    <value>Wert muss ein Boole'scher Wert sein.</value>
   </data>
-  <data name="Global_DirectoryName" xml:space="preserve">
-    <value>Verzeichnis-Name: '{0}'.</value>
+  <data name="Global_FromJson_NotAnObject" xml:space="preserve">
+    <value>Argument muss ein JSON-Objekt sein.</value>
   </data>
-  <data name="Global_FacilityId_OutOfRange" xml:space="preserve">
-    <value>Die Facility-ID muß zwischen 0 und 2047 liegen.</value>
+  <data name="Global_FromJson_NotANumber" xml:space="preserve">
+    <value>Wert muss eine Zahl sein.</value>
   </data>
-  <data name="Global_FileName" xml:space="preserve">
-    <value>Datei-Name: '{0}'.</value>
-  </data>
-  <data name="Global_FromXml_AttributeMissing" xml:space="preserve">
-    <value>Element '{0}' hat kein Attribut '{1}'.</value>
+  <data name="Global_FromJson_ParseFailed" xml:space="preserve">
+    <value>Kann JSON-Daten nicht lesen.</value>
   </data>
   <data name="Global_IdentifierInvalid" xml:space="preserve">
     <value>Facility-IDfür Assembly '{0}' ist ungültig.</value>
-  </data>
-  <data name="Global_IsEnabledInvalid" xml:space="preserve">
-    <value>IsEnabled-Einstellung für Assembly '{0}' ist ungültig.</value>
-  </data>
-  <data name="Global_NoContent" xml:space="preserve">
-    <value>Der Inhalt darf nicht Null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
   </data>
   <data name="Global_NoPath" xml:space="preserve">
     <value>Der Datei-Pfad darf nicht Null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
@@ -197,14 +143,5 @@
   </data>
   <data name="Global_StreamNoRead" xml:space="preserve">
     <value>Der Stream unterstützt keine Lese-Vorgänge.</value>
-  </data>
-  <data name="HResultHelper_HexToInt_InvalidChar" xml:space="preserve">
-    <value>'{0}' ist keine hexadezimale Ziffer.</value>
-  </data>
-  <data name="InsufficientStorageSpaceException_Message" xml:space="preserve">
-    <value>Nicht genügend freier Platz im Datenspeicher.</value>
-  </data>
-  <data name="InsufficientStorageSpaceException_MessagePath" xml:space="preserve">
-    <value>Nicht genügend freier Platz im Datenspeicher "{0}".</value>
   </data>
 </root>

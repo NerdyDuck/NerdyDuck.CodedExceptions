@@ -30,13 +30,10 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security;
-using System.Text;
-using System.Xml;
 using System.Linq;
 #if NET50
 using System.Buffers;
@@ -52,123 +49,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal static class ExtensionHelper
 	{
-		internal static readonly XmlReaderSettings SecureSettings = new XmlReaderSettings() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
-
-		/// <summary>
-		/// Loads configuration data into a cache from the specified file path, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="path">The path to the XML file containing the configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static void LoadXml<T>(T cache, string path, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
-			AssertPath(path);
-
-			FileStream stream;
-			try
-			{
-				stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-			}
-			catch (Exception ex) when (ex is IOException || ex is ArgumentException || ex is NotSupportedException || ex is SecurityException || ex is UnauthorizedAccessException)
-			{
-				throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
-			}
-
-			try
-			{
-				LoadXml(cache, stream, parser);
-			}
-			finally
-			{
-				stream.Close();
-			}
-		}
-
-		/// <summary>
-		/// Loads configuration data into a cache from the specified stream, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="stream">A stream containing XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static void LoadXml<T>(T cache, Stream stream, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
-			AssertStream(stream);
-
-			using XmlReader reader = XmlReader.Create(stream, SecureSettings);
-			parser(cache, reader);
-		}
-
-		/// <summary>
-		/// Loads configuration data into a cache from the specified TextReader, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="reader">A <see cref="TextReader"/> containing XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static void LoadXml<T>(T cache, TextReader reader, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
-			AssertTextReader(reader);
-
-			using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
-			parser(cache, xreader);
-		}
-
-#if NET50
-		/// <summary>
-		/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static void LoadXml<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
-
-			using MemoryStream stream = new MemoryStream(utf8Json.ToArray());
-			using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
-			parser(cache, xreader);
-		}
-
-		/// <summary>
-		/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static void LoadXml<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
-
-			using MemoryStream stream = new MemoryStream(utf8Json.ToArray());
-			using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
-			parser(cache, xreader);
-		}
-#endif
-
-		/// <summary>
-		/// Loads configuration data into a cache from the specified string, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="content">A string containing XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static void ParseXml<T>(T cache, string content, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
-			AssertContent(content);
-
-			using StringReader reader = new StringReader(content);
-			using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
-			parser(cache, xreader);
-		}
-
 #if NET50
 		/// <summary>
 		/// Loads configuration data into a cache from the specified file path, using the specified method.
@@ -177,7 +57,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="path">The path to the JSON file containing the configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, string path, Action<T, JsonElement> parser) where T : class
+		internal static T LoadJson<T>(T cache, string path, Action<T, JsonElement> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertPath(path);
@@ -200,6 +80,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				stream.Close();
 			}
+			return cache;
 		}
 
 		/// <summary>
@@ -209,7 +90,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, Stream stream, Action<T, JsonElement> parser) where T : class
+		internal static T LoadJson<T>(T cache, Stream stream, Action<T, JsonElement> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertStream(stream);
@@ -232,6 +113,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				jsonDocument.Dispose();
 			}
+			return cache;
 		}
 
 		/// <summary>
@@ -241,7 +123,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, TextReader reader, Action<T, JsonElement> parser) where T : class
+		internal static T LoadJson<T>(T cache, TextReader reader, Action<T, JsonElement> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertTextReader(reader);
@@ -264,6 +146,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				jsonDocument.Dispose();
 			}
+			return cache;
 		}
 
 		/// <summary>
@@ -273,7 +156,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, JsonElement> parser) where T : class
+		internal static T LoadJson<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, JsonElement> parser) where T : class
 		{
 			AssertCache(cache);
 
@@ -295,6 +178,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				jsonDocument.Dispose();
 			}
+			return cache;
 		}
 
 		/// <summary>
@@ -304,7 +188,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, JsonElement> parser) where T : class
+		internal static T LoadJson<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, JsonElement> parser) where T : class
 		{
 			AssertCache(cache);
 
@@ -326,6 +210,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				jsonDocument.Dispose();
 			}
+			return cache;
 		}
 
 		/// <summary>
@@ -335,7 +220,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="content">A string containing JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void ParseJson<T>(T cache, string content, Action<T, JsonElement> parser) where T : class
+		internal static T ParseJson<T>(T cache, string content, Action<T, JsonElement> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertContent(content);
@@ -358,6 +243,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				jsonDocument.Dispose();
 			}
+			return cache;
 		}
 #else
 		/// <summary>
@@ -367,7 +253,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="path">The path to the JSON file containing the configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, string path, Action<T, JsonValue> parser) where T : class
+		internal static T LoadJson<T>(T cache, string path, Action<T, JsonValue> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertPath(path);
@@ -390,6 +276,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				stream.Close();
 			}
+			return cache;
 		}
 
 		/// <summary>
@@ -399,7 +286,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="stream">A stream containing JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, Stream stream, Action<T, JsonValue> parser) where T : class
+		internal static T LoadJson<T>(T cache, Stream stream, Action<T, JsonValue> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertStream(stream);
@@ -415,6 +302,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 
 			parser(cache, jsonValue);
+			return cache;
 		}
 
 		/// <summary>
@@ -424,7 +312,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void LoadJson<T>(T cache, TextReader reader, Action<T, JsonValue> parser) where T : class
+		internal static T LoadJson<T>(T cache, TextReader reader, Action<T, JsonValue> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertTextReader(reader);
@@ -440,6 +328,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 
 			parser(cache, jsonValue);
+			return cache;
 		}
 
 		/// <summary>
@@ -449,7 +338,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="cache">The cache to add the configuration data to.</param>
 		/// <param name="content">A string containing JSON-formatted data representing configuration data.</param>
 		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static void ParseJson<T>(T cache, string content, Action<T, JsonValue> parser) where T : class
+		internal static T ParseJson<T>(T cache, string content, Action<T, JsonValue> parser) where T : class
 		{
 			AssertCache(cache);
 			AssertContent(content);
@@ -465,12 +354,11 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 
 			parser(cache, jsonValue);
+			return cache;
 		}
 #endif
 
 		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
-
-		internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, parentNodeName, Globals.AssemblyNameKey));
 
 		/// <summary>
 		/// Checks if the object is null.
@@ -485,28 +373,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 		}
 
-		/// <summary>
-		/// Checks if the reader is null.
-		/// </summary>
-		/// <param name="reader">The reader to check.</param>
-		/// <exception cref="ArgumentNullException">The reader is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertXmlReader(XmlReader reader)
-		{
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertSectionName(string sectionName)
-		{
-			if (string.IsNullOrWhiteSpace(sectionName))
-			{
-				throw new ArgumentException(TextResources.Global_FromApplicationConfiguration_NoSection, nameof(sectionName));
-			}
-		}
 
 #if NET50
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -563,21 +429,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			}
 
 			return jsonObject;
-		}
-#endif
-#if !NET472
-		/// <summary>
-		/// Checks if the element is null.
-		/// </summary>
-		/// <param name="configuration">The element to check.</param>
-		/// <exception cref="ArgumentNullException">The element is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertConfiguration(Microsoft.Extensions.Configuration.IConfiguration configuration)
-		{
-			if (configuration == null)
-			{
-				throw new ArgumentNullException(nameof(configuration));
-			}
 		}
 #endif
 
