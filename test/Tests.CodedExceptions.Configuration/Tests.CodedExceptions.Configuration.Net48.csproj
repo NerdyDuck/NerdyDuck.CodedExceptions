@@ -11,7 +11,9 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj" />
-    <ProjectReference Include="..\..\src\CodedExceptions.Configuration\CodedExceptions.Configuration.csproj" />
+    <ProjectReference Include="..\..\src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj" />
+    <ProjectReference Include="..\..\src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj" />
+    <ProjectReference Include="..\..\src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="obj\Configuration.Net50\**\*" />
@@ -20,14 +22,6 @@
     <None Remove="obj\Configuration.NetCore21\**\*" />
     <Compile Remove="obj\Configuration.NetCore31\**\*" />
     <None Remove="obj\Configuration.NetCore31\**\*" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="TestFiles\*.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestFiles\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
@@ -45,21 +39,4 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
   </ItemGroup>
-  <Target Name="AddFileWrites" BeforeTargets="Build">
-    <ItemGroup>
-      <FileWrites Include="$(OutputPath)AssemblyDebugModes.xml" />
-      <FileWrites Include="$(OutputPath)AssemblyDebugModes.json" />
-      <FileWrites Include="$(OutputPath)FacilityIdentifierOverrides.xml" />
-      <FileWrites Include="$(OutputPath)FacilityIdentifierOverrides.json" />
-    </ItemGroup>
-  </Target>
-  <Target Name="CopyExtraFiles" AfterTargets="Build" DependsOnTargets="Build">
-      <ItemGroup>
-        <SourceFiles Include="$(OutputPath)TestFiles\AssemblyDebugModes.xml" />
-        <SourceFiles Include="$(OutputPath)TestFiles\AssemblyDebugModes.json" />
-        <SourceFiles Include="$(OutputPath)TestFiles\FacilityIdentifierOverrides.xml" />
-        <SourceFiles Include="$(OutputPath)TestFiles\FacilityIdentifierOverrides.json" />
-      </ItemGroup>
-      <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(OutputPath)" />
-  </Target>
 </Project>

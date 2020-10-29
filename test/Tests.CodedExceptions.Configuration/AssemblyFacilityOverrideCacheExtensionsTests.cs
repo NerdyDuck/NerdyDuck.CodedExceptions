@@ -65,18 +65,15 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 		[TestClass]
 		public class AssemblyFacilityOverrideCacheExtensionsTests
 		{
-			#region AssertCache
 			[TestMethod]
 			public void AssertCache_Void_Throw()
 			{
 				Assert.ThrowsException<ArgumentNullException>(() =>
 				{
-					AssemblyFacilityOverrideCacheExtensions.LoadApplicationConfiguration(null);
+					AssemblyFacilityOverrideCacheAppConfigExtensions.LoadApplicationConfiguration(null);
 				});
 			}
-			#endregion
 
-			#region ApplicationConfiguration
 			[TestMethod]
 			public void LoadApplicationConfiguration_Void_Success()
 			{
@@ -102,209 +99,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 					cache.LoadApplicationConfiguration(string.Empty);
 				});
 			}
-			#endregion
 
-			#region Xml
-			[TestMethod]
-			public void LoadXml_Void_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				cache.LoadXml();
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_String_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				cache.LoadXml("FacilityIdentifierOverrides.xml");
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_StringEmpty_Throw()
-			{
-				Assert.ThrowsException<ArgumentException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml(string.Empty);
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_StringInvalid_Throw()
-			{
-				Assert.ThrowsException<IOException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml("NoFileHere.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_Stream_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				using (FileStream stream = new FileStream("FacilityIdentifierOverrides.xml", FileMode.Open, FileAccess.Read, FileShare.Read))
-				{
-					cache.LoadXml(stream);
-				}
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_StreamNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentNullException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml((Stream)null);
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_StreamNoRead_Throw()
-			{
-				Assert.ThrowsException<ArgumentException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml(new NoReadStream());
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_TextReader_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				using (FileStream stream = new FileStream("FacilityIdentifierOverrides.xml", FileMode.Open, FileAccess.Read, FileShare.Read))
-				using (TextReader reader = new StreamReader(stream))
-				{
-					cache.LoadXml(reader);
-				}
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_TextReaderNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentNullException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml((TextReader)null);
-				});
-			}
-
-			[TestMethod]
-			public void FromXml_XmlReader_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				using (FileStream stream = new FileStream("FacilityIdentifierOverrides.xml", FileMode.Open, FileAccess.Read, FileShare.Read))
-				using (XmlReader reader = XmlReader.Create(stream))
-				{
-					cache.FromXml(reader);
-				}
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void FromXml_XmlReaderNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentNullException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.FromXml((XmlReader)null);
-				});
-			}
-
-			[TestMethod]
-			public void ParseXml_String_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				string xml = File.ReadAllText("FacilityIdentifierOverrides.xml");
-				cache.ParseXml(xml);
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void ParseXml_StringNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.ParseXml(null);
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_InvAssemblyName_Throw()
-			{
-				Assert.ThrowsException<FormatException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesInvAssemblyName.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_InvIsEnabled_Throw()
-			{
-				Assert.ThrowsException<FormatException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesInvIdentifier.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_MissingAssemblyName_Throw()
-			{
-				Assert.ThrowsException<XmlException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesMissingAssemblyName.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_MissingIdentifier_Throw()
-			{
-				Assert.ThrowsException<XmlException>(() =>
-				{
-					using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-					cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesNoIdentifier.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_NoAssemblyName_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesNoAssemblyName.xml");
-				Assert.AreEqual(1, cache.Count);
-			}
-
-#if NET50
-			[TestMethod]
-			public void LoadXml_ReadOnlySequence_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				ReadOnlySequence<byte> buffer = new ReadOnlySequence<byte>(File.ReadAllBytes("FacilityIdentifierOverrides.xml"));
-				cache.LoadXml(buffer);
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_ReadOnlyMemory_Success()
-			{
-				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				ReadOnlyMemory<byte> buffer = new ReadOnlyMemory<byte>(File.ReadAllBytes("FacilityIdentifierOverrides.xml"));
-				cache.LoadXml(buffer);
-				Assert.AreEqual(7, cache.Count);
-			}
-#endif
-			#endregion
-
-			#region Json
 			[TestMethod]
 			public void LoadJson_Void_Success()
 			{
@@ -317,7 +112,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_String_Success()
 			{
 				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				cache.LoadJson("FacilityIdentifierOverrides.json");
+				cache.LoadJson(@"TestFiles\FacilityIdentifierOverrides.json");
 				Assert.AreEqual(7, cache.Count);
 			}
 
@@ -345,7 +140,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_Stream_Success()
 			{
 				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				using (FileStream stream = new FileStream("FacilityIdentifierOverrides.json", FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (FileStream stream = new FileStream(@"TestFiles\FacilityIdentifierOverrides.json", FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
 					cache.LoadJson(stream);
 				}
@@ -376,7 +171,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_TextReader_Success()
 			{
 				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				using (FileStream stream = new FileStream("FacilityIdentifierOverrides.json", FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (FileStream stream = new FileStream(@"TestFiles\FacilityIdentifierOverrides.json", FileMode.Open, FileAccess.Read, FileShare.Read))
 				using (TextReader reader = new StreamReader(stream))
 				{
 					cache.LoadJson(reader);
@@ -448,7 +243,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void ParseJson_String_Success()
 			{
 				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				string json = File.ReadAllText("FacilityIdentifierOverrides.json");
+				string json = File.ReadAllText(@"TestFiles\FacilityIdentifierOverrides.json");
 				cache.ParseJson(json);
 				Assert.AreEqual(7, cache.Count);
 			}
@@ -509,7 +304,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_ReadOnlySequence_Success()
 			{
 				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				byte[] fileBytes = File.ReadAllBytes("FacilityIdentifierOverrides.json"); // Has BOM, so we need to remove first three bytes.
+				byte[] fileBytes = File.ReadAllBytes(@"TestFiles\FacilityIdentifierOverrides.json"); // Has BOM, so we need to remove first three bytes.
 				ReadOnlySequence<byte> buffer = new ReadOnlySequence<byte>(fileBytes, 3, fileBytes.Length - 3);
 				cache.LoadJson(buffer);
 				Assert.AreEqual(7, cache.Count);
@@ -519,16 +314,14 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_ReadOnlyMemory_Success()
 			{
 				using AssemblyFacilityOverrideCache cache = new AssemblyFacilityOverrideCache();
-				byte[] fileBytes = File.ReadAllBytes("FacilityIdentifierOverrides.json"); // Has BOM, so we need to remove first three bytes.
+				byte[] fileBytes = File.ReadAllBytes(@"TestFiles\FacilityIdentifierOverrides.json"); // Has BOM, so we need to remove first three bytes.
 				ReadOnlyMemory<byte> buffer = new ReadOnlyMemory<byte>(fileBytes, 3, fileBytes.Length - 3);
 				cache.LoadJson(buffer);
 				Assert.AreEqual(7, cache.Count);
 			}
 #endif
 
-			#endregion
 #if !NET48
-			#region LoadConfigurationSection
 			[TestMethod]
 			public void LoadConfigurationSection_Success()
 			{
@@ -593,7 +386,6 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 					cache.LoadConfigurationSection(config.GetSection("facilityIdentifierOverrides"));
 				});
 			}
-			#endregion
 #endif
 		}
 	}

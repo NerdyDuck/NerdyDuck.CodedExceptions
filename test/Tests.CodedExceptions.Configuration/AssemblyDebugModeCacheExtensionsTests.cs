@@ -67,18 +67,15 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 		[TestClass]
 		public class AssemblyDebugModeCacheExtensionsTests
 		{
-			#region AssertCache
 			[TestMethod]
 			public void AssertCache_Void_Throw()
 			{
 				Assert.ThrowsException<ArgumentNullException>(() =>
 				{
-					AssemblyDebugModeCacheExtensions.LoadApplicationConfiguration(null);
+					AssemblyDebugModeCacheAppConfigExtensions.LoadApplicationConfiguration(null);
 				});
 			}
-			#endregion
 
-			#region ApplicationConfiguration
 			[TestMethod]
 			public void LoadApplicationConfiguration_Void_Success()
 			{
@@ -104,200 +101,6 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 					cache.LoadApplicationConfiguration(string.Empty);
 				});
 			}
-			#endregion
-
-			#region Xml
-
-			[TestMethod]
-			public void LoadXml_Void_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				cache.LoadXml();
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_String_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				cache.LoadXml("AssemblyDebugModes.xml");
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_StringEmpty_Throw()
-			{
-				Assert.ThrowsException<ArgumentException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml(string.Empty);
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_StringInvalid_Throw()
-			{
-				Assert.ThrowsException<IOException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml("NoFileHere.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_Stream_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				using (FileStream stream = new FileStream("AssemblyDebugModes.xml", FileMode.Open, FileAccess.Read, FileShare.Read))
-				{
-					cache.LoadXml(stream);
-				}
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_StreamNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentNullException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml((Stream)null);
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_StreamNoRead_Throw()
-			{
-				Assert.ThrowsException<ArgumentException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml(new NoReadStream());
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_TextReader_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				using (FileStream stream = new FileStream("AssemblyDebugModes.xml", FileMode.Open, FileAccess.Read, FileShare.Read))
-				using (TextReader reader = new StreamReader(stream))
-				{
-					cache.LoadXml(reader);
-				}
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_TextReaderNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentNullException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml((TextReader)null);
-				});
-			}
-
-			[TestMethod]
-			public void ParseXml_String_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				string xml = File.ReadAllText("AssemblyDebugModes.xml");
-				cache.ParseXml(xml);
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void FromXml_XmlReader_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				using (FileStream stream = new FileStream("AssemblyDebugModes.xml", FileMode.Open, FileAccess.Read, FileShare.Read))
-				using (XmlReader reader = XmlReader.Create(stream))
-				{
-					cache.FromXml(reader);
-				}
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void FromXml_XmlReaderNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentNullException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.FromXml((XmlReader)null);
-				});
-			}
-
-			[TestMethod]
-			public void ParseXml_StringNull_Throw()
-			{
-				Assert.ThrowsException<ArgumentException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.ParseXml(null);
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_InvAssemblyName_Throw()
-			{
-				Assert.ThrowsException<FormatException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml(@"TestFiles\AssemblyDebugModesInvAssemblyName.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_InvIsEnabled_Throw()
-			{
-				Assert.ThrowsException<XmlException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml(@"TestFiles\AssemblyDebugModesInvIsEnabled.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_MissingAssemblyName_Throw()
-			{
-				Assert.ThrowsException<XmlException>(() =>
-				{
-					using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-					cache.LoadXml(@"TestFiles\AssemblyDebugModesMissingAssemblyName.xml");
-				});
-			}
-
-			[TestMethod]
-			public void LoadXml_NoAssemblyName_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				cache.LoadXml(@"TestFiles\AssemblyDebugModesNoAssemblyName.xml");
-				Assert.AreEqual(1, cache.Count);
-			}
-
-#if NET50
-			[TestMethod]
-			public void LoadXml_ReadOnlySequence_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				ReadOnlySequence<byte> buffer = new ReadOnlySequence<byte>(File.ReadAllBytes("AssemblyDebugModes.xml"));
-				cache.LoadXml(buffer);
-				Assert.AreEqual(7, cache.Count);
-			}
-
-			[TestMethod]
-			public void LoadXml_ReadOnlyMemory_Success()
-			{
-				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				ReadOnlyMemory<byte> buffer = new ReadOnlyMemory<byte>(File.ReadAllBytes("AssemblyDebugModes.xml"));
-				cache.LoadXml(buffer);
-				Assert.AreEqual(7, cache.Count);
-			}
-#endif
-			#endregion
-
-			#region Json
 
 			[TestMethod]
 			public void LoadJson_Void_Success()
@@ -311,7 +114,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_String_Success()
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				cache.LoadJson("AssemblyDebugModes.json");
+				cache.LoadJson(@"TestFiles\AssemblyDebugModes.json");
 				Assert.AreEqual(7, cache.Count);
 			}
 
@@ -339,7 +142,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_Stream_Success()
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				using (FileStream stream = new FileStream("AssemblyDebugModes.json", FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (FileStream stream = new FileStream(@"TestFiles\AssemblyDebugModes.json", FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
 					cache.LoadJson(stream);
 				}
@@ -370,7 +173,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_TextReader_Success()
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				using (FileStream stream = new FileStream("AssemblyDebugModes.json", FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (FileStream stream = new FileStream(@"TestFiles\AssemblyDebugModes.json", FileMode.Open, FileAccess.Read, FileShare.Read))
 				using (TextReader reader = new StreamReader(stream))
 				{
 					cache.LoadJson(reader);
@@ -442,7 +245,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void ParseJson_String_Success()
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				string json = File.ReadAllText("AssemblyDebugModes.json");
+				string json = File.ReadAllText(@"TestFiles\AssemblyDebugModes.json");
 				cache.ParseJson(json);
 				Assert.AreEqual(7, cache.Count);
 			}
@@ -473,7 +276,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_ReadOnlySequence_Success()
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				byte[] fileBytes = File.ReadAllBytes("AssemblyDebugModes.json"); // Has BOM, so we need to remove first three bytes.
+				byte[] fileBytes = File.ReadAllBytes(@"TestFiles\AssemblyDebugModes.json"); // Has BOM, so we need to remove first three bytes.
 				ReadOnlySequence<byte> buffer = new ReadOnlySequence<byte>(fileBytes, 3, fileBytes.Length - 3);
 				cache.LoadJson(buffer);
 				Assert.AreEqual(7, cache.Count);
@@ -483,7 +286,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			public void LoadJson_ReadOnlyMemory_Success()
 			{
 				using AssemblyDebugModeCache cache = new AssemblyDebugModeCache();
-				byte[] fileBytes = File.ReadAllBytes("AssemblyDebugModes.json"); // Has BOM, so we need to remove first three bytes.
+				byte[] fileBytes = File.ReadAllBytes(@"TestFiles\AssemblyDebugModes.json"); // Has BOM, so we need to remove first three bytes.
 				ReadOnlyMemory<byte> buffer = new ReadOnlyMemory<byte>(fileBytes, 3, fileBytes.Length - 3);
 				cache.LoadJson(buffer);
 				Assert.AreEqual(7, cache.Count);
@@ -520,9 +323,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 				cache.LoadJson(@"TestFiles\AssemblyDebugModesParent.json");
 				Assert.AreEqual(7, cache.Count);
 			}
-#endregion
 #if !NET48
-#region LoadConfigurationSection
 			[TestMethod]
 			public void FromConfigurationSection_Success()
 			{
@@ -587,7 +388,6 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 					cache.LoadConfigurationSection(config.GetSection("debugModes"));
 				});
 			}
-#endregion
 #endif
 		}
 	}
