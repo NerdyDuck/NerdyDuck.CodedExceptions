@@ -10,7 +10,7 @@
     <DeployPath>$(MSBuildThisFileDirectory)../deploy/$(Configuration)/</DeployPath>
   </PropertyGroup>
   <PropertyGroup Label="Assembly Signing">
-    <CertificateThumbPrint>cfdbc0e88804856b8e157abf3ba2471a5a9fc940</CertificateThumbPrint>
+    <CertificateThumbPrint>1591e44893160c6d03991ec0ec792b033b9dcd78</CertificateThumbPrint>
     <CertificateSubjectName>Open Source Developer, Daniel Kopp</CertificateSubjectName>
     <TimestampUrl>http://time.certum.pl</TimestampUrl>
   </PropertyGroup>
