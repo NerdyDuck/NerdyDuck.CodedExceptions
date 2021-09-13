@@ -48,9 +48,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[ComVisible(false)]
 	public sealed class AssemblyDebugModeCache : IDisposable
 	{
-		private static readonly Lazy<AssemblyDebugModeCache> s_global = new Lazy<AssemblyDebugModeCache>(() => new AssemblyDebugModeCache());
-		private List<AssemblyDebugMode> _debugModes;
-		private ReaderWriterLockSlim _listLock;
+		private static readonly Lazy<AssemblyDebugModeCache> s_global = new(() => new AssemblyDebugModeCache());
+		private readonly List<AssemblyDebugMode> _debugModes;
+		private readonly ReaderWriterLockSlim _listLock;
 		private int _isDisposed;
 		private bool _canNotifyChange;
 		private bool _hasChanges;
@@ -163,12 +163,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		public bool IsDebugModeEnabled(Type type)
 		{
 			AssertDisposed();
-			if (type == null)
-			{
-				throw new ArgumentNullException(nameof(type));
-			}
-
-			return IsDebugModeEnabled(type.Assembly);
+			return type == null ? throw new ArgumentNullException(nameof(type)) : IsDebugModeEnabled(type.Assembly);
 		}
 
 		/// <summary>

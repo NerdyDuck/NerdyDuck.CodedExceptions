@@ -125,7 +125,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		private static void FromXmlInternal(this AssemblyDebugModeCache cache, XmlReader reader)
 		{
 			reader.ReadStartElement(Globals.DebugModesNode);
-			List<AssemblyDebugMode> debugModes = new List<AssemblyDebugMode>();
+			List<AssemblyDebugMode> debugModes = new();
 			string? assemblyString, isEnabledString;
 			AssemblyIdentity assembly;
 			bool isEnabled;

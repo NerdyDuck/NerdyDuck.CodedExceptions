@@ -29,14 +29,10 @@
  ******************************************************************************/
 #endregion
 
-#if !NET50
-#pragma warning disable CS8632
-#endif
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Xml;
 using Microsoft.Extensions.Configuration;
@@ -61,7 +57,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			ExtensionHelper.AssertCache(cache);
 			ExtensionHelper.AssertConfiguration(configuration);
 
-			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
+			List<AssemblyFacilityOverride> facilityOverrides = new();
 			AssemblyIdentity assembly;
 			int identifier;
 
@@ -96,6 +92,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			return cache;
 		}
 
-		private static FormatException IdentifierInvalidException(string assemblyName, Exception ex) => new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyName), ex);
+		private static FormatException IdentifierInvalidException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyName), ex);
 	}
 }

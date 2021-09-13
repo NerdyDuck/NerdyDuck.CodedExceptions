@@ -115,15 +115,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="obj">The <see cref="object" /> to compare with the current <see cref="AssemblyFacilityOverride" />.</param>
 		/// <returns><see langword="true" /> if the specified <see cref="object" /> is equal to the current <see cref="AssemblyFacilityOverride" />; otherwise, <see langword="false" />. </returns>
-		public override bool Equals(object? obj)
-		{
-			if (obj == null)
-			{
-				return false;
-			}
-
-			return obj is AssemblyFacilityOverride afo ? Equals(afo) : false;
-		}
+		public override bool Equals(object? obj) => obj != null && obj is AssemblyFacilityOverride afo && Equals(afo);
 
 		/// <summary>
 		/// Serves as the default hash function.
@@ -136,20 +128,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="other">The <see cref="AssemblyFacilityOverride" /> to compare with the current instance.</param>
 		/// <returns><see langword="true" /> if the specified <see cref="AssemblyFacilityOverride" /> is equal to the current instance; otherwise, <see langword="false" />. </returns>
-		public bool Equals(AssemblyFacilityOverride? other)
-		{
-			if (other is null)
-			{
-				return false;
-			}
-
-			if (!AssemblyName.Equals(other.AssemblyName))
-			{
-				return false;
-			}
-
-			return Identifier == other.Identifier;
-		}
+		public bool Equals(AssemblyFacilityOverride? other) => other is not null && AssemblyName.Equals(other.AssemblyName) && Identifier == other.Identifier;
 
 		/// <summary>
 		/// Sets the <see cref="SerializationInfo"/> with information about the object.
@@ -172,7 +151,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="identifier">The identifier to check.</param>
 		private static void AssertIdentifier(int identifier)
 		{
-			if (identifier < 0 || identifier > 2047)
+			if (identifier is < 0 or > 2047)
 			{
 				throw new ArgumentOutOfRangeException(nameof(identifier), TextResources.Global_FacilityId_OutOfRange);
 			}

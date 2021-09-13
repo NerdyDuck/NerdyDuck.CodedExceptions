@@ -40,9 +40,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal class AssemblyDebugModeElement : ConfigurationElement
 	{
-		private static readonly ConfigurationPropertyCollection s_properties = new ConfigurationPropertyCollection();
-		private static readonly ConfigurationProperty s_assemblyNameProp = new ConfigurationProperty(Globals.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
-		private static readonly ConfigurationProperty s_isEnabledProp = new ConfigurationProperty(Globals.IsEnabledKey, typeof(bool), true, ConfigurationPropertyOptions.None);
+		private static readonly ConfigurationPropertyCollection s_properties = new();
+		private static readonly ConfigurationProperty s_assemblyNameProp = new(Globals.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
+		private static readonly ConfigurationProperty s_isEnabledProp = new(Globals.IsEnabledKey, typeof(bool), true, ConfigurationPropertyOptions.None);
 
 		/// <summary>
 		/// Gets or sets the fully or partially qualified name of the assembly to set the debug mode id for.
@@ -104,7 +104,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				return new AssemblyDebugMode(AssemblyName, IsEnabled);
 			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException)
+			catch (Exception ex) when (ex is ArgumentException or FormatException)
 			{
 				throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.DebugModeElement_ToAssemblyIdentity_Invalid, AssemblyName), ex);
 			}

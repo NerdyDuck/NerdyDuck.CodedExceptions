@@ -110,7 +110,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="obj">The <see cref="object" /> to compare with the current <see cref="AssemblyDebugMode" />.</param>
 		/// <returns><see langword="true" /> if the specified <see cref="object" /> is equal to the current <see cref="AssemblyDebugMode" />; otherwise, <see langword="false" />. </returns>
-		public override bool Equals(object? obj) => obj == null ? false : obj is AssemblyDebugMode adm ? Equals(adm) : false;
+		public override bool Equals(object? obj) => obj != null && obj is AssemblyDebugMode adm && Equals(adm);
 
 		/// <summary>
 		/// Serves as the default hash function.
@@ -123,20 +123,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="other">The <see cref="AssemblyDebugMode" /> to compare with the current instance.</param>
 		/// <returns><see langword="true" /> if the specified <see cref="AssemblyDebugMode" /> is equal to the current instance; otherwise, <see langword="false" />. </returns>
-		public bool Equals(AssemblyDebugMode? other)
-		{
-			if (other is null)
-			{
-				return false;
-			}
-
-			if (!AssemblyName.Equals(other.AssemblyName))
-			{
-				return false;
-			}
-
-			return IsEnabled != other.IsEnabled ? false : true;
-		}
+		public bool Equals(AssemblyDebugMode? other) => other is not null && AssemblyName.Equals(other.AssemblyName) && IsEnabled == other.IsEnabled;
 
 		/// <summary>
 		/// Sets the <see cref="SerializationInfo"/> with information about the exception.

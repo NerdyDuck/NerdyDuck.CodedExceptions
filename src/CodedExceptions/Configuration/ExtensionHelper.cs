@@ -46,7 +46,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal static class ExtensionHelper
 	{
-		internal static readonly XmlReaderSettings SecureSettings = new XmlReaderSettings() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+		internal static readonly XmlReaderSettings SecureSettings = new() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
 
 		/// <summary>
 		/// Loads configuration data into a cache from the specified file path, using the specified method.
@@ -65,14 +65,14 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 			}
-			catch (Exception ex) when (ex is IOException || ex is ArgumentException || ex is NotSupportedException || ex is SecurityException || ex is UnauthorizedAccessException)
+			catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
 			{
 				throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
 			}
 
 			try
 			{
-				LoadXml(cache, stream, parser);
+				_ = LoadXml(cache, stream, parser);
 			}
 			finally
 			{
@@ -127,7 +127,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			AssertCache(cache);
 
-			using MemoryStream stream = new MemoryStream(utf8Json.ToArray());
+			using MemoryStream stream = new(utf8Json.ToArray());
 			using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
 			parser(cache, xreader);
 			return cache;
@@ -144,7 +144,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			AssertCache(cache);
 
-			using MemoryStream stream = new MemoryStream(utf8Json.ToArray());
+			using MemoryStream stream = new(utf8Json.ToArray());
 			using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
 			parser(cache, xreader);
 			return cache;
@@ -163,15 +163,15 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			AssertCache(cache);
 			AssertContent(content);
 
-			using StringReader reader = new StringReader(content);
+			using StringReader reader = new(content);
 			using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
 			parser(cache, xreader);
 			return cache;
 		}
 
-		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
+		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
 
-		internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, parentNodeName, Globals.AssemblyNameKey));
+		internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, parentNodeName, Globals.AssemblyNameKey));
 
 		/// <summary>
 		/// Checks if the object is null.

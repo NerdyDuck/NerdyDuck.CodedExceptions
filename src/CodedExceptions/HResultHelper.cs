@@ -156,21 +156,18 @@ namespace NerdyDuck.CodedExceptions
 			}
 
 			StringBuilder sb = AcquireStringBuilder();
-			sb.AppendFormat(CultureInfo.CurrentCulture, ExceptionBaseFormat, ex.GetType().FullName, ex.HResult, ex.Message);
+			_ = sb.AppendFormat(CultureInfo.CurrentCulture, ExceptionBaseFormat, ex.GetType().FullName, ex.HResult, ex.Message);
 			if (!string.IsNullOrEmpty(customText))
 			{
-				sb.Append(Environment.NewLine);
-				sb.Append(customText);
+				_ = sb.Append(Environment.NewLine).Append(customText);
 			}
 			if (ex.InnerException != null)
 			{
-				sb.Append(ExceptionConcatFormat);
-				sb.Append(ex.InnerException.ToString());
+				_ = sb.Append(ExceptionConcatFormat).Append(ex.InnerException.ToString());
 			}
 			if (ex.StackTrace != null)
 			{
-				sb.Append(Environment.NewLine);
-				sb.Append(ex.StackTrace);
+				_ = sb.Append(Environment.NewLine).Append(ex.StackTrace);
 			}
 
 			return GetStringAndRelease(sb);
@@ -189,10 +186,7 @@ namespace NerdyDuck.CodedExceptions
 			{
 				return null;
 			}
-			// HACK: disabling warning until string.IsNullOrEmpty is recognized as a null check
-#pragma warning disable CS8602
-			int valueLength = (value.StartsWith("0x", StringComparison.OrdinalIgnoreCase)) ? value.Length - 2 : value.Length;
-#pragma warning restore CS8602
+			int valueLength = value.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? value.Length - 2 : value.Length;
 			byte[] returnValue = new byte[(valueLength + 1) >> 1];
 			int lastCell = returnValue.Length - 1;
 			int lastChar = value.Length - 1;
@@ -218,7 +212,7 @@ namespace NerdyDuck.CodedExceptions
 				if ((cachedInstance != null) && (capacity <= cachedInstance.Capacity))
 				{
 					s_cachedInstance = null;
-					cachedInstance.Clear();
+					_ = cachedInstance.Clear();
 					return cachedInstance;
 				}
 			}
@@ -248,51 +242,25 @@ namespace NerdyDuck.CodedExceptions
 			}
 		}
 
-		private static int HexToInt(char value)
+		private static int HexToInt(char value) => value switch
 		{
-			switch (value)
-			{
-				case '0':
-					return 0;
-				case '1':
-					return 1;
-				case '2':
-					return 2;
-				case '3':
-					return 3;
-				case '4':
-					return 4;
-				case '5':
-					return 5;
-				case '6':
-					return 6;
-				case '7':
-					return 7;
-				case '8':
-					return 8;
-				case '9':
-					return 9;
-				case 'a':
-				case 'A':
-					return 10;
-				case 'b':
-				case 'B':
-					return 11;
-				case 'c':
-				case 'C':
-					return 12;
-				case 'd':
-				case 'D':
-					return 13;
-				case 'e':
-				case 'E':
-					return 14;
-				case 'f':
-				case 'F':
-					return 15;
-				default:
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.HResultHelper_HexToInt_InvalidChar, value));
-			}
-		}
+			'0' => 0,
+			'1' => 1,
+			'2' => 2,
+			'3' => 3,
+			'4' => 4,
+			'5' => 5,
+			'6' => 6,
+			'7' => 7,
+			'8' => 8,
+			'9' => 9,
+			'a' or 'A' => 10,
+			'b' or 'B' => 11,
+			'c' or 'C' => 12,
+			'd' or 'D' => 13,
+			'e' or 'E' => 14,
+			'f' or 'F' => 15,
+			_ => throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.HResultHelper_HexToInt_InvalidChar, value)),
+		};
 	}
 }

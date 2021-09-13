@@ -61,10 +61,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a message that describes the error, such as "The specified file already exists." This message takes into account the current system culture.
 		/// </remarks>
 		public CodedFileExistsException()
-			: base(CreateMessage(null, null))
-		{
-			FileName = null;
-		}
+			: base(CreateMessage(null, null)) => FileName = null;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileExistsException"/> class with with its message string set to <paramref name="message"/>, its HRESULT set to COR_E_IO, and its inner exception set to <see langword="null"/>.
@@ -72,10 +69,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 		/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/>.</remarks>
 		public CodedFileExistsException(string message)
-			: base(CreateMessage(message, null))
-		{
-			FileName = null;
-		}
+			: base(CreateMessage(message, null)) => FileName = null;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileExistsException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
@@ -83,10 +77,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <param name="message">The error message that explains the reason for the exception.</param>
 		/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 		public CodedFileExistsException(string message, Exception innerException)
-			: base(CreateMessage(message, null), innerException)
-		{
-			FileName = null;
-		}
+			: base(CreateMessage(message, null), innerException) => FileName = null;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileExistsException"/> class with with its message string set to <paramref name="message"/>, specifying the file name that already exists, its HRESULT set to COR_E_IO.
@@ -95,10 +86,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <param name="fileName">The full name of the file that already exists.</param>
 		/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</remarks>
 		public CodedFileExistsException(string message, string fileName)
-			: base(CreateMessage(message, fileName))
-		{
-			FileName = fileName;
-		}
+			: base(CreateMessage(message, fileName)) => FileName = fileName;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileExistsException"/> class with its message string set to <paramref name="message"/>, specifying the file name that already exists,
@@ -109,10 +97,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 		/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</remarks>
 		public CodedFileExistsException(string message, string fileName, Exception innerException)
-			: base(CreateMessage(message, fileName), innerException)
-		{
-			FileName = fileName;
-		}
+			: base(CreateMessage(message, fileName), innerException) => FileName = fileName;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileExistsException"/> class with serialized data.
@@ -122,10 +107,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="System.Runtime.Serialization.SerializationException">The exception could not be deserialized correctly.</exception>
 		protected CodedFileExistsException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
-			: base(info, context)
-		{
-			FileName = info.GetString(nameof(FileName));
-		}
+			: base(info, context) => FileName = info.GetString(nameof(FileName));
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileExistsException"/> class with the specified HRESULT value.
@@ -149,10 +131,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		public CodedFileExistsException(int hresult, string message)
-			: base(CreateMessage(message, null), hresult)
-		{
-			FileName = null;
-		}
+			: base(CreateMessage(message, null), hresult) => FileName = null;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileExistsException"/> class with a specified HRESULT value, error message and a reference to the inner exception that is the cause of this exception.
@@ -235,17 +214,8 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <param name="message">The message provided by the constructor. May be null.</param>
 		/// <param name="fileName">The file name. May be null.</param>
 		/// <returns>Either message, if it is not null; or a string stating that the file already exists, with the file name, if it is not null.</returns>
-		private static string CreateMessage(string? message, string? fileName)
-		{
-			if (message != null)
-			{
-				return message;
-			}
-			if (fileName == null)
-			{
-				return TextResources.CodedFileExistsException_Message;
-			}
-			return string.Format(CultureInfo.CurrentCulture, TextResources.CodedFileExistsException_MessageFile, fileName);
-		}
+		private static string CreateMessage(string? message, string? fileName) => message ?? (fileName == null
+				? TextResources.CodedFileExistsException_Message
+				: string.Format(CultureInfo.CurrentCulture, TextResources.CodedFileExistsException_MessageFile, fileName));
 	}
 }

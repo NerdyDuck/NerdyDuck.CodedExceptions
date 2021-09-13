@@ -44,9 +44,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	{
 		internal const string DefaultConfigSectionName = "nerdyDuck/codedExceptions";
 
-		private static readonly ConfigurationPropertyCollection s_properties = new ConfigurationPropertyCollection();
-		private static readonly ConfigurationProperty s_facilityOverridesProp = new ConfigurationProperty(Globals.OverridesNode, typeof(AssemblyFacilityOverrideCollection), new AssemblyFacilityOverrideCollection());
-		private static readonly ConfigurationProperty s_debugModesProp = new ConfigurationProperty(Globals.DebugModesNode, typeof(AssemblyDebugModeCollection), new AssemblyDebugModeCollection());
+		private static readonly ConfigurationPropertyCollection s_properties = new();
+		private static readonly ConfigurationProperty s_facilityOverridesProp = new(Globals.OverridesNode, typeof(AssemblyFacilityOverrideCollection), new AssemblyFacilityOverrideCollection());
+		private static readonly ConfigurationProperty s_debugModesProp = new(Globals.DebugModesNode, typeof(AssemblyDebugModeCollection), new AssemblyDebugModeCollection());
 
 		/// <summary>
 		/// Gets a collection of facility identifier override configurations.
@@ -98,7 +98,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			if (FacilityOverrides != null && FacilityOverrides.Count != 0)
 			{
-				List<AssemblyFacilityOverride> returnValue = new List<AssemblyFacilityOverride>();
+				List<AssemblyFacilityOverride> returnValue = new();
 				foreach (AssemblyFacilityOverrideElement element in FacilityOverrides)
 				{
 					returnValue.Add(element.ToOverride());
@@ -118,7 +118,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		{
 			if (DebugModes != null && DebugModes.Count != 0)
 			{
-				List<AssemblyDebugMode> returnValue = new List<AssemblyDebugMode>();
+				List<AssemblyDebugMode> returnValue = new();
 				foreach (AssemblyDebugModeElement element in DebugModes)
 				{
 					returnValue.Add(element.ToAssemblyDebugMode());
@@ -141,17 +141,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="sectionName">The name of the configuration section containing the override list.</param>
 		/// <returns>A list of <see cref="AssemblyFacilityOverride"/>s, or <see langword="null"/>, if the default section was not found in the application configuration file, or no configuration file exists.</returns>
-		internal static List<AssemblyFacilityOverride>? GetFacilityOverrides(string sectionName)
-		{
-			CodedExceptionsSection Config = (CodedExceptionsSection)ConfigurationManager.GetSection(sectionName);
-
-			if (Config == null)
-			{
-				return null;
-			}
-
-			return Config.CreateFacilityOverrides();
-		}
+		internal static List<AssemblyFacilityOverride>? GetFacilityOverrides(string sectionName) => ((CodedExceptionsSection)ConfigurationManager.GetSection(sectionName))?.CreateFacilityOverrides();
 
 		/// <summary>
 		/// Gets a list of <see cref="AssemblyDebugMode"/>s from the default section in the application configuration file.
@@ -164,16 +154,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// </summary>
 		/// <param name="sectionName">The name of the configuration section containing the override list.</param>
 		/// <returns>A list of <see cref="AssemblyDebugMode"/>s, or <see langword="null"/>, if the default section was not found in the application configuration file, or no configuration file exists.</returns>
-		internal static List<AssemblyDebugMode>? GetDebugModes(string sectionName)
-		{
-			CodedExceptionsSection Config = (CodedExceptionsSection)ConfigurationManager.GetSection(sectionName);
-
-			if (Config == null)
-			{
-				return null;
-			}
-
-			return Config.CreateDebugModes();
-		}
+		internal static List<AssemblyDebugMode>? GetDebugModes(string sectionName) => ((CodedExceptionsSection)ConfigurationManager.GetSection(sectionName))?.CreateDebugModes();
 	}
 }

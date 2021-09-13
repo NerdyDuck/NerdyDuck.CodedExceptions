@@ -120,10 +120,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedFileNotFoundException(int hresult)
-			: base()
-		{
-			HResult = hresult;
-		}
+			: base() => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileNotFoundException"/> class with a specified HRESULT value and error message.
@@ -133,10 +130,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		public CodedFileNotFoundException(int hresult, string message)
-			: base(message)
-		{
-			HResult = hresult;
-		}
+			: base(message) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileNotFoundException"/> class with a specified HRESULT value, error message and a reference to the inner exception that is the cause of this exception.
@@ -147,10 +141,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		///<remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		public CodedFileNotFoundException(int hresult, string message, Exception innerException)
-			: base(message, innerException)
-		{
-			HResult = hresult;
-		}
+			: base(message, innerException) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileNotFoundException"/> class with with a specified HRESULT value, its message string set to <paramref name="message"/>, specifying the file name that cannot be found, its HRESULT set to COR_E_FILENOTFOUND.
@@ -162,10 +153,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedFileNotFoundException(int hresult, string message, string fileName)
-			: base(message, fileName)
-		{
-			HResult = hresult;
-		}
+			: base(message, fileName) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedFileNotFoundException"/> class with a specified HRESULT value, its message string set to <paramref name="message"/>, specifying the file name that cannot be found,
@@ -179,10 +167,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedFileNotFoundException(int hresult, string message, string fileName, Exception innerException)
-			: base(message, fileName, innerException)
-		{
-			HResult = hresult;
-		}
+			: base(message, fileName, innerException) => HResult = hresult;
 
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.

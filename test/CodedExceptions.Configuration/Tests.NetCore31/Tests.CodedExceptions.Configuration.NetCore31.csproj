@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="17.0">
+  <PropertyGroup Label="Compilation">
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>NerdyDuck.Tests.CodedExceptions.Configuration</RootNamespace>
+    <AssemblyName>$(RootNamespace)</AssemblyName>
+    <DefineConstants>$(DefineConstants);NETCORE31</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Label="Assembly info">
+    <Description>Unit test for NerdyDuck.CodedExceptions.Configuration library</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\CodedExceptions\CodedExceptions.csproj" />
+    <ProjectReference Include="..\..\..\src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj" />
+    <ProjectReference Include="..\..\..\src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj" />
+    <ProjectReference Include="..\..\..\src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.6" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+  <Import Project="..\Tests.Shared\Tests.CodedExceptions.Configuration.projitems" Label="Shared" />
+</Project>

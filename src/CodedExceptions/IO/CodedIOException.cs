@@ -92,10 +92,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedIOException(int hresult)
-			: base()
-		{
-			HResult = hresult;
-		}
+			: base() => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedIOException"/> class with a specified HRESULT value and error message.
@@ -114,10 +111,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 		/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 		public CodedIOException(int hresult, string message, Exception innerException)
-			: base(message, innerException)
-		{
-			HResult = hresult;
-		}
+			: base(message, innerException) => HResult = hresult;
 
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.

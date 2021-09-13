@@ -127,10 +127,7 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="System.Runtime.Serialization.SerializationException">The exception could not be deserialized correctly.</exception>
 		protected CodedDirectoryNotFoundException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
-			: base(info, context)
-		{
-			DirectoryName = info.GetString(nameof(DirectoryName));
-		}
+			: base(info, context) => DirectoryName = info.GetString(nameof(DirectoryName));
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedDirectoryNotFoundException"/> class with the specified HRESULT value.
@@ -241,17 +238,8 @@ namespace NerdyDuck.CodedExceptions.IO
 		/// <param name="message">The message provided by the constructor. May be null.</param>
 		/// <param name="directoryName">The directory name. May be null.</param>
 		/// <returns>Either message, if it is not null; or a string stating that the directory cannot be found, with the directory name, if it is not null.</returns>
-		private static string CreateMessage(string? message, string? directoryName)
-		{
-			if (message != null)
-			{
-				return message;
-			}
-			if (directoryName == null)
-			{
-				return TextResources.CodedDirectoryNotFoundException_Message;
-			}
-			return string.Format(CultureInfo.CurrentCulture, TextResources.CodedDirectoryNotFoundException_MessageDirectory, directoryName);
-		}
+		private static string CreateMessage(string? message, string? directoryName) => message ?? (directoryName == null
+				? TextResources.CodedDirectoryNotFoundException_Message
+				: string.Format(CultureInfo.CurrentCulture, TextResources.CodedDirectoryNotFoundException_MessageDirectory, directoryName));
 	}
 }

@@ -44,9 +44,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	[ComVisible(false)]
 	public sealed class AssemblyFacilityOverrideCache : IDisposable
 	{
-		private static readonly Lazy<AssemblyFacilityOverrideCache> s_global = new Lazy<AssemblyFacilityOverrideCache>(() => new AssemblyFacilityOverrideCache());
-		private List<AssemblyFacilityOverride> _facilityOverrides;
-		private ReaderWriterLockSlim _listLock;
+		private static readonly Lazy<AssemblyFacilityOverrideCache> s_global = new(() => new AssemblyFacilityOverrideCache());
+		private readonly List<AssemblyFacilityOverride> _facilityOverrides;
+		private readonly ReaderWriterLockSlim _listLock;
 		private int _isDisposed;
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				_listLock.ExitReadLock();
 			}
-			return (highestMatch > 0);
+			return highestMatch > 0;
 		}
 
 		/// <summary>
@@ -134,12 +134,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		public bool TryGetOverride(Type type, out int identifier)
 		{
 			AssertDisposed();
-			if (type == null)
-			{
-				throw new ArgumentNullException(nameof(type));
-			}
-
-			return TryGetOverride(type.Assembly, out identifier);
+			return type == null ? throw new ArgumentNullException(nameof(type)) : TryGetOverride(type.Assembly, out identifier);
 		}
 
 		/// <summary>

@@ -106,7 +106,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <exception cref="ArgumentOutOfRangeException"><paramref name="facilityId"/> is less than 0 or greater than 2048.</exception>
 		public AssemblyFacilityIdentifierAttribute(int facilityId)
 		{
-			if (facilityId < 0 || facilityId > 2047)
+			if (facilityId is < 0 or > 2047)
 			{
 				throw new ArgumentOutOfRangeException(nameof(facilityId), TextResources.Global_FacilityId_OutOfRange);
 			}
@@ -119,15 +119,9 @@ namespace NerdyDuck.CodedExceptions
 		/// <param name="assembly">The assembly to retrieve the <see cref="AssemblyFacilityIdentifierAttribute"/> from.</param>
 		/// <returns>An <see cref="AssemblyFacilityIdentifierAttribute"/>, or <see langword="null"/>, if no matching attribute is found in the <paramref name="assembly"/>.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="assembly"/> is <see langword="null"/>.</exception>
-		public static AssemblyFacilityIdentifierAttribute? FromAssembly(Assembly assembly)
-		{
-			if (assembly == null)
-			{
-				throw new ArgumentNullException(nameof(assembly));
-			}
-
-			return assembly.GetCustomAttribute<AssemblyFacilityIdentifierAttribute>();
-		}
+		public static AssemblyFacilityIdentifierAttribute? FromAssembly(Assembly assembly) => assembly == null
+				? throw new ArgumentNullException(nameof(assembly))
+				: assembly.GetCustomAttribute<AssemblyFacilityIdentifierAttribute>();
 
 		/// <summary>
 		/// Gets an <see cref="AssemblyFacilityIdentifierAttribute"/> located in the assembly that defines the specified type.
@@ -135,14 +129,6 @@ namespace NerdyDuck.CodedExceptions
 		/// <param name="type">The type that is defined by the assembly that is checked for the attribute.</param>
 		/// <returns>An <see cref="AssemblyFacilityIdentifierAttribute"/>, or <see langword="null"/>, if no matching attribute is found.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="type"/> is <see langword="null"/>.</exception>
-		public static AssemblyFacilityIdentifierAttribute? FromType(Type type)
-		{
-			if (type == null)
-			{
-				throw new ArgumentNullException(nameof(type));
-			}
-
-			return FromAssembly(type.GetTypeInfo().Assembly);
-		}
+		public static AssemblyFacilityIdentifierAttribute? FromType(Type type) => type == null ? throw new ArgumentNullException(nameof(type)) : FromAssembly(type.GetTypeInfo().Assembly);
 	}
 }

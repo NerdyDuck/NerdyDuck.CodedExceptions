@@ -40,7 +40,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal static class ExtensionHelper
 	{
-		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
+		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
 
 		/// <summary>
 		/// Checks if the object is null.

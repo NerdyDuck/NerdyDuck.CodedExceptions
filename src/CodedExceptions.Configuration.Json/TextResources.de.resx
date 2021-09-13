@@ -132,9 +132,6 @@
   <data name="Global_FromJson_ParseFailed" xml:space="preserve">
     <value>Kann JSON-Daten nicht lesen.</value>
   </data>
-  <data name="Global_IdentifierInvalid" xml:space="preserve">
-    <value>Facility-IDfür Assembly '{0}' ist ungültig.</value>
-  </data>
   <data name="Global_NoPath" xml:space="preserve">
     <value>Der Datei-Pfad darf nicht Null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
   </data>

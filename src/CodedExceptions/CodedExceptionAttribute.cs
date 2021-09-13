@@ -76,14 +76,8 @@ namespace NerdyDuck.CodedExceptions
 		/// <returns><see langword="true"/>, if the type has a <see cref="CodedExceptionAttribute"/>; otherwise, <see langword="false"/>.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="ex"/> is <see langword="null"/>.</exception>
 		/// <exception cref="TypeLoadException">A custom attribute type cannot be loaded.</exception>
-		public static bool IsCodedException(Exception ex)
-		{
-			if (ex == null)
-			{
-				throw new ArgumentNullException(nameof(ex));
-			}
-
-			return (ex.GetType().GetTypeInfo().GetCustomAttribute<CodedExceptionAttribute>(true) != null);
-		}
+		public static bool IsCodedException(Exception ex) => ex == null
+				? throw new ArgumentNullException(nameof(ex))
+				: ex.GetType().GetTypeInfo().GetCustomAttribute<CodedExceptionAttribute>(true) != null;
 	}
 }

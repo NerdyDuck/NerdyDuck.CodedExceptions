@@ -29,9 +29,6 @@
  ******************************************************************************/
 #endregion
 
-#if !NET50
-#pragma warning disable CS8632
-#endif
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,7 +56,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			ExtensionHelper.AssertCache(cache);
 			ExtensionHelper.AssertConfiguration(configuration);
 
-			List<AssemblyDebugMode> debugModes = new List<AssemblyDebugMode>();
+			List<AssemblyDebugMode> debugModes = new();
 			AssemblyIdentity assembly;
 			bool isEnabled;
 

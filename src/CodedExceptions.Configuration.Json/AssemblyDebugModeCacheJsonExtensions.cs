@@ -29,21 +29,12 @@
  ******************************************************************************/
 #endregion
 
-#if !NET50
-#pragma warning disable CS8632
-#endif
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-#if NET50
 using System.Text.Json;
-using System.Buffers;
-#else
-using System.Json;
-#endif
 
 namespace NerdyDuck.CodedExceptions.Configuration
 {
@@ -55,7 +46,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	{
 		private const string DefaultFileName = "AssemblyDebugModes";
 
-#if NET50
 		/// <summary>
 		/// Loads a list of assembly debug mode settings from the default JSON file and adds them to the cache.
 		/// </summary>
@@ -150,7 +140,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			jsonElement = ExtensionHelper.GetParentElement(jsonElement);
 
-			List<AssemblyDebugMode> debugModes = new List<AssemblyDebugMode>();
+			List<AssemblyDebugMode> debugModes = new();
 			AssemblyIdentity assemblyName;
 			bool isEnabled;
 
@@ -165,7 +155,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 					throw ExtensionHelper.InvalidAssemblyNameException(jsonProperty.Name, ex);
 				}
 
-				if (jsonProperty.Value.ValueKind != JsonValueKind.True && jsonProperty.Value.ValueKind != JsonValueKind.False)
+				if (jsonProperty.Value.ValueKind is not JsonValueKind.True and not JsonValueKind.False)
 				{
 					throw NotABoolException();
 				}
@@ -176,109 +166,8 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			cache.AddRange(debugModes);
 		}
-#else
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the default JSON file and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <remarks>The default file is named 'AssemblyDebugModes.json' and must reside in the working directory of the application.</remarks>
-		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
-		/// <exception cref="IOException">The file could not be opened or read.</exception>
-		public static AssemblyDebugModeCache LoadJson(this AssemblyDebugModeCache cache) => ExtensionHelper.LoadJson(cache, DefaultFileName + ".json", (cache, jsonElement) => FromJson(cache, jsonElement));
 
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the JSON file at the specified path and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="path">The path to the JSON file containing the settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
-		/// <exception cref="ArgumentException"><paramref name="path"/> is <see langword="null"/> or white-space.</exception>
-		/// <exception cref="IOException">The file could not be opened or read.</exception>
-		public static AssemblyDebugModeCache LoadJson(this AssemblyDebugModeCache cache, string path) => ExtensionHelper.LoadJson(cache, path, (cache, jsonElement) => FromJson(cache, jsonElement));
-
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified stream containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="stream">A stream containing JSON-formatted data representing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="cache"/> or <paramref name="stream"/> is <see langword="null"/>.</exception>
-		/// <exception cref="ArgumentException"><paramref name="stream"/> is is not readable.</exception>
-		/// <exception cref="IOException">The stream data could not be read.</exception>
-		public static AssemblyDebugModeCache LoadJson(this AssemblyDebugModeCache cache, Stream stream) => ExtensionHelper.LoadJson(cache, stream, (cache, jsonElement) => FromJson(cache, jsonElement));
-
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified TextReader containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="cache"/> or <paramref name="reader"/> is <see langword="null"/>.</exception>
-		/// <exception cref="IOException">The stream data could not be read.</exception>
-		public static AssemblyDebugModeCache LoadJson(this AssemblyDebugModeCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonElement) => FromJson(cache, jsonElement));
-
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified string containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/> or <paramref name="content"/> is <see langword="null"/> or empty.</exception>
-		/// <exception cref="IOException">The stream data could not be read.</exception>
-		public static AssemblyDebugModeCache ParseJson(this AssemblyDebugModeCache cache, string content) => ExtensionHelper.ParseJson(cache, content, (cache, jsonElement) => FromJson(cache, jsonElement));
-
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified JSON object, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="jsonValue">The <see cref="JsonValue"/> containing debug mode settings.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="cache"/> is <see langword="null"/>.</exception>
-		/// <exception cref="ArgumentException"><paramref name="jsonValue"/> is not a JSON object.</exception>
-		/// <exception cref="FormatException">The JSON data is invalid.</exception>
-		public static AssemblyDebugModeCache FromJson(this AssemblyDebugModeCache cache, JsonValue jsonValue)
-		{
-			ExtensionHelper.AssertCache(cache);
-			ExtensionHelper.AssertJsonValue(jsonValue);
-			FromJsonInternal(cache, jsonValue);
-			return cache;
-		}
-
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified JSON object, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="jsonValue">A <see cref="JsonValue"/> containing debug mode settings.</param>
-		private static void FromJsonInternal(this AssemblyDebugModeCache cache, JsonValue jsonValue)
-		{
-			JsonObject jsonObject = ExtensionHelper.AssertJsonObject(jsonValue);
-
-			jsonObject = ExtensionHelper.GetParentElement(jsonObject);
-
-			List<AssemblyDebugMode> debugModes = new List<AssemblyDebugMode>();
-			AssemblyIdentity assembly;
-			bool isEnabled;
-			foreach (KeyValuePair<string, JsonValue> pair in jsonObject)
-			{
-				try
-				{
-					assembly = new AssemblyIdentity(pair.Key);
-				}
-				catch (FormatException ex)
-				{
-					throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
-				}
-
-				if (pair.Value.JsonType != JsonType.Boolean)
-				{
-					throw NotABoolException();
-				}
-				isEnabled = pair.Value;
-
-				debugModes.Add(new AssemblyDebugMode(assembly, isEnabled));
-			}
-
-			cache.AddRange(debugModes);
-		}
-#endif
-
-		private static FormatException NotABoolException() => new FormatException(TextResources.Global_FromJson_NotABool);
+		private static FormatException NotABoolException() => new(TextResources.Global_FromJson_NotABool);
 
 	}
 }

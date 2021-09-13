@@ -119,10 +119,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedArgumentOutOfRangeException(int hresult)
-			: base()
-		{
-			HResult = hresult;
-		}
+			: base() => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedArgumentOutOfRangeException"/> class with a specified HRESULT value and the name of the parameter that causes this exception.
@@ -134,10 +131,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedArgumentOutOfRangeException(int hresult, string paramName)
-			: base(paramName)
-		{
-			HResult = hresult;
-		}
+			: base(paramName) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedArgumentOutOfRangeException"/> class with a specified HRESULT value, an error message and a reference to the inner exception that is the cause of this exception.
@@ -149,10 +143,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedArgumentOutOfRangeException(int hresult, string message, Exception innerException)
-			: base(message, innerException)
-		{
-			HResult = hresult;
-		}
+			: base(message, innerException) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedArgumentOutOfRangeException"/> class with a specified HRESULT value, an error message and the name of the parameter that causes this exception.
@@ -165,10 +156,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedArgumentOutOfRangeException(int hresult, string paramName, string message)
-			: base(paramName, message)
-		{
-			HResult = hresult;
-		}
+			: base(paramName, message) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedArgumentOutOfRangeException"/> class with a specified HRESULT value, the parameter name, the value of the argument, and a specified error message.
@@ -181,10 +169,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>The <paramref name="actualValue"/> parameter is not used within the .NET Framework class library. However, the ActualValue property is provided so that applications can use the available argument value.</para>
 		/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using <paramref name="paramName"/>. The content of <paramref name="paramName"/> is intended to be understood by humans.</para></remarks>
 		public CodedArgumentOutOfRangeException(int hresult, string paramName, object actualValue, string message)
-			: base(paramName, actualValue, message)
-		{
-			HResult = hresult;
-		}
+			: base(paramName, actualValue, message) => HResult = hresult;
 
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project InitialTargets="GetGitBranchInfo" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="GetGitBranchInfo" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="SignOutputAssemblies" AfterTargets="Build" DependsOnTargets="Build" Condition=" '$(SignAssembliesAndPackage)' == 'true' And '$(IsCrossTargetingBuild)' != 'true' ">
     <CreateItem Include="$(OutputPath)**\$(AssemblyName)*.exe;$(OutputPath)**\$(TargetName)*.dll" Condition="'$(OutputType)' != 'Library'">
       <Output TaskParameter="Include" ItemName="FilesToSign"/>

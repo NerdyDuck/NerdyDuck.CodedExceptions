@@ -125,7 +125,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		private static void FromXmlInternal(AssemblyFacilityOverrideCache cache, XmlReader reader)
 		{
 			reader.ReadStartElement(Globals.OverridesNode);
-			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
+			List<AssemblyFacilityOverride> facilityOverrides = new();
 			string? assemblyString, identifierString;
 			AssemblyIdentity assembly;
 			int identifier;

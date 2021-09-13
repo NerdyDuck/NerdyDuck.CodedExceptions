@@ -41,7 +41,6 @@ namespace NerdyDuck.CodedExceptions
 	[Serializable]
 	[CodedException]
 	[ComVisible(false)]
-	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "Base class does not implement ctor(string, Exception)")]
 	public class CodedProtocolViolationException : System.Net.ProtocolViolationException
 	{
 		/// <summary>
@@ -83,10 +82,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedProtocolViolationException(int hresult)
-			: base()
-		{
-			HResult = hresult;
-		}
+			: base() => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedProtocolViolationException"/> class with a specified HRESULT value and error message.
@@ -97,10 +93,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedProtocolViolationException(int hresult, string message)
-			: base(message)
-		{
-			HResult = hresult;
-		}
+			: base(message) => HResult = hresult;
 
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.

@@ -40,9 +40,9 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	/// </summary>
 	internal class AssemblyFacilityOverrideElement : ConfigurationElement
 	{
-		private static readonly ConfigurationPropertyCollection s_properties = new ConfigurationPropertyCollection();
-		private static readonly ConfigurationProperty s_assemblyNameProp = new ConfigurationProperty(Globals.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
-		private static readonly ConfigurationProperty s_identifierProp = new ConfigurationProperty(Globals.IdentifierKey, typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
+		private static readonly ConfigurationPropertyCollection s_properties = new();
+		private static readonly ConfigurationProperty s_assemblyNameProp = new(Globals.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
+		private static readonly ConfigurationProperty s_identifierProp = new(Globals.IdentifierKey, typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
 
 		/// <summary>
 		/// Gets or sets the fully or partially qualified name of the assembly to override the facility id for.
@@ -105,7 +105,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			{
 				return new AssemblyFacilityOverride(AssemblyName, Identifier);
 			}
-			catch (Exception ex) when (ex is ArgumentException || ex is FormatException)
+			catch (Exception ex) when (ex is ArgumentException or FormatException)
 			{
 				throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.FacilityOverrideElement_ToOverride_Invalid, AssemblyName), ex);
 			}

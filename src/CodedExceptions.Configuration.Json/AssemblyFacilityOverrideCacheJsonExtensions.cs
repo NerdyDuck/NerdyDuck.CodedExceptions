@@ -29,21 +29,13 @@
  ******************************************************************************/
 #endregion
 
-#if !NET50
-#pragma warning disable CS8632
-#endif
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-#if NET50
 using System.Text.Json;
-using System.Buffers;
-#else
-using System.Json;
-#endif
 
 namespace NerdyDuck.CodedExceptions.Configuration
 {
@@ -55,7 +47,6 @@ namespace NerdyDuck.CodedExceptions.Configuration
 	{
 		private const string DefaultFileName = "FacilityIdentifierOverrides";
 
-#if NET50
 		/// <summary>
 		/// Loads a list of facility identifier overrides from the default JSON file and adds them to the cache.
 		/// </summary>
@@ -132,7 +123,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			jsonElement = ExtensionHelper.GetParentElement(jsonElement);
 
-			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
+			List<AssemblyFacilityOverride> facilityOverrides = new();
 			AssemblyIdentity assembly;
 			int identifier;
 			
@@ -158,96 +149,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			cache.AddRange(facilityOverrides);
 		}
-#else
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the default JSON file and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <remarks>The default file is named 'FacilityIdentifierOverrides.json' and must reside in the working directory of the application.</remarks>
-		public static AssemblyFacilityOverrideCache LoadJson(this AssemblyFacilityOverrideCache cache) => ExtensionHelper.LoadJson(cache, DefaultFileName + ".json", (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
 
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the JSON file at the specified path and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <param name="path">The path to the JSON file containing the overrides.</param>
-		public static AssemblyFacilityOverrideCache LoadJson(this AssemblyFacilityOverrideCache cache, string path) => ExtensionHelper.LoadJson(cache, path, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
-
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the specified stream containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <param name="stream">A stream containing JSON-formatted data representing overrides.</param>
-		public static AssemblyFacilityOverrideCache LoadJson(this AssemblyFacilityOverrideCache cache, Stream stream) => ExtensionHelper.LoadJson(cache, stream, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
-
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the specified TextReader containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing overrides.</param>
-		public static AssemblyFacilityOverrideCache LoadJson(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
-
-		/// <summary>
-		/// Parses a list of facility identifier overrides from the specified string containing JSON data, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <param name="content">A string containing JSON-formatted data representing debug mode settings.</param>
-		public static AssemblyFacilityOverrideCache ParseJson(this AssemblyFacilityOverrideCache cache, string content) => ExtensionHelper.ParseJson(cache, content, (cache, jsonObject) => FromJsonInternal(cache, jsonObject));
-
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the specified JSON object, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <param name="jsonValue">A <see cref="JsonValue"/> containing overrides.</param>
-		public static AssemblyFacilityOverrideCache FromJson(this AssemblyFacilityOverrideCache cache, JsonValue jsonValue)
-		{
-			ExtensionHelper.AssertCache(cache);
-			ExtensionHelper.AssertJsonValue(jsonValue);
-
-			FromJsonInternal(cache, jsonValue);
-			return cache;
-		}
-
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the specified JSON object, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <param name="jsonValue">A <see cref="JsonValue"/> containing overrides.</param>
-		private static void FromJsonInternal(AssemblyFacilityOverrideCache cache, JsonValue jsonValue)
-		{
-			JsonObject jsonObject = ExtensionHelper.AssertJsonObject(jsonValue);
-
-			jsonObject = ExtensionHelper.GetParentElement(jsonObject);
-
-			List<AssemblyFacilityOverride> facilityOverrides = new List<AssemblyFacilityOverride>();
-			AssemblyIdentity assembly;
-			int identifier;
-			foreach (KeyValuePair<string, JsonValue> pair in jsonObject)
-			{
-				try
-				{
-					assembly = new AssemblyIdentity(pair.Key);
-				}
-				catch (FormatException ex)
-				{
-					throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
-				}
-
-				if (pair.Value.JsonType != JsonType.Number)
-				{
-					throw NotANumberException();
-				}
-				identifier = pair.Value;
-
-				facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
-			}
-
-			cache.AddRange(facilityOverrides);
-		}
-#endif
-
-		private static FormatException IdentifierInvalidException(string assemblyName, Exception ex) => new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyName), ex);
-
-		private static FormatException NotANumberException() => new FormatException(TextResources.Global_FromJson_NotANumber);
+		private static FormatException NotANumberException() => new(TextResources.Global_FromJson_NotANumber);
 	}
 }

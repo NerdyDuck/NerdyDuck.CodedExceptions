@@ -32,7 +32,9 @@
     </TransformComponentArguments>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\src\CodedExceptions\CodedExceptions.csproj" />
-      <DocumentationSource sourceFile="..\src\CodedExceptions.Configuration\CodedExceptions.Configuration.csproj" />
+      <DocumentationSource sourceFile="..\src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj" />
+      <DocumentationSource sourceFile="..\src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj" />
+      <DocumentationSource sourceFile="..\src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj" />
     </DocumentationSources>
     <HelpFileFormat>Website</HelpFileFormat>
     <SyntaxFilters>C#, Visual Basic, Managed C++</SyntaxFilters>
@@ -120,17 +122,29 @@ The</NamespaceSummaryItem>
     <Content Include="icons\Help.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\CodedExceptions.Configuration\CodedExceptions.Configuration.csproj">
-      <Name>CodedExceptions.Configuration</Name>
+    <ProjectReference Include="..\src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj">
+      <Name>CodedExceptions.Configuration.AppConfig</Name>
+      <Project>{1e3fb77a-21c3-4f36-94bb-10987dbd5e14}</Project>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj">
+      <Name>CodedExceptions.Configuration.ConfigSection</Name>
+      <Project>{8bf527d7-f744-4748-80be-c0ead7e2eb49}</Project>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj">
+      <Name>CodedExceptions.Configuration.Json</Name>
       <Project>{d831c610-70dc-4045-843c-e06394713a9b}</Project>
-      <Private>False</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\src\CodedExceptions\CodedExceptions.csproj">
       <Name>CodedExceptions</Name>
       <Project>{d1d60d99-9e0e-4144-9488-08baff01d7c1}</Project>
-      <Private>False</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <!-- Import the SHFB build targets -->

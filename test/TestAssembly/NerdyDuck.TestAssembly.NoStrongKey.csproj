@@ -4,8 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>NerdyDuck.TestAssembly</RootNamespace>
     <AssemblyName>TestAssembly</AssemblyName>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 

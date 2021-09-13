@@ -137,10 +137,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
 		protected CodedSocketException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-			SocketErrorCode = (SocketError)info.GetInt32(nameof(SocketErrorCode));
-		}
+			: base(info, context) => SocketErrorCode = (SocketError)info.GetInt32(nameof(SocketErrorCode));
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedSocketException"/> class with a specified HRESULT value.

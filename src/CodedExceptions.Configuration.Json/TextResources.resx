@@ -132,9 +132,6 @@
   <data name="Global_FromJson_ParseFailed" xml:space="preserve">
     <value>Cannot parse JSON data.</value>
   </data>
-  <data name="Global_IdentifierInvalid" xml:space="preserve">
-    <value>Identifier override of assembly '{0}' is invalid.</value>
-  </data>
   <data name="Global_NoContent" xml:space="preserve">
     <value>Content may not be null, empty or white-space only.</value>
   </data>

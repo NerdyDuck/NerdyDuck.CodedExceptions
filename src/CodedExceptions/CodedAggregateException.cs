@@ -148,10 +148,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedAggregateException(int hresult)
-			: base()
-		{
-			HResult = hresult;
-		}
+			: base() => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value and references to the inner exceptions that are the cause of this exception.
@@ -163,10 +160,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 		public CodedAggregateException(int hresult, IEnumerable<Exception> innerExceptions)
-			: base(innerExceptions)
-		{
-			HResult = hresult;
-		}
+			: base(innerExceptions) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value and references to the inner exceptions that are the cause of this exception.
@@ -178,10 +172,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 		public CodedAggregateException(int hresult, params Exception[] innerExceptions)
-			: base(innerExceptions)
-		{
-			HResult = hresult;
-		}
+			: base(innerExceptions) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value and a message that describes the error.
@@ -191,10 +182,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		public CodedAggregateException(int hresult, string message)
-			: base(message)
-		{
-			HResult = hresult;
-		}
+			: base(message) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value, an error message and a reference to the inner exception that is the cause of this exception.
@@ -206,10 +194,7 @@ namespace NerdyDuck.CodedExceptions
 		/// more information about the definition of HRESULT values.</remarks>
 		/// <exception cref="ArgumentNullException">The <paramref name="innerException"/> argument is <see langword="null"/>.</exception>
 		public CodedAggregateException(int hresult, string message, Exception innerException)
-			: base(message, innerException)
-		{
-			HResult = hresult;
-		}
+			: base(message, innerException) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value, an error message and references to the inner exceptions that are the cause of this exception.
@@ -222,10 +207,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 		public CodedAggregateException(int hresult, string message, IEnumerable<Exception> innerExceptions)
-			: base(message, innerExceptions)
-		{
-			HResult = hresult;
-		}
+			: base(message, innerExceptions) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value, an error message and references to the inner exceptions that are the cause of this exception.
@@ -238,10 +220,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 		/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 		public CodedAggregateException(int hresult, string message, params Exception[] innerExceptions)
-			: base(message, innerExceptions)
-		{
-			HResult = hresult;
-		}
+			: base(message, innerExceptions) => HResult = hresult;
 
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.

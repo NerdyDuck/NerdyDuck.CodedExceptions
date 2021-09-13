@@ -248,7 +248,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				else
 				{
-					if (string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase) != 0)
+					if (!string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase))
 					{
 						return false;
 					}
@@ -292,7 +292,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				else
 				{
-					if (string.Compare(Culture, other.Culture, StringComparison.OrdinalIgnoreCase) != 0)
+					if (!string.Equals(Culture, other.Culture, StringComparison.OrdinalIgnoreCase))
 					{
 						return false;
 					}
@@ -363,7 +363,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 
 			AssemblyName assemblyName = other.GetName();
 
-			if (!string.IsNullOrEmpty(Name) && string.Compare(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase) != 0)
+			if (!string.IsNullOrEmpty(Name) && !string.Equals(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase))
 			{
 				return false;
 			}
@@ -384,7 +384,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				else
 				{
-					if (string.Compare(assemblyName.CultureName, Culture, StringComparison.OrdinalIgnoreCase) != 0)
+					if (!string.Equals(assemblyName.CultureName, Culture, StringComparison.OrdinalIgnoreCase))
 					{
 						return false;
 					}
@@ -450,7 +450,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			if (!string.IsNullOrEmpty(Name))
 			{
 				noCheck = false;
-				if (string.Compare(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase) == 0)
+				if (string.Equals(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase))
 				{
 					// Assembly name has the strongest factor, as it is the most important part of the identity. Overrides all other matches by version, language or public key.
 					returnValue += 8;
@@ -490,7 +490,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 				}
 				else
 				{
-					if (string.Compare(assemblyName.CultureName, Culture, StringComparison.OrdinalIgnoreCase) == 0)
+					if (string.Equals(assemblyName.CultureName, Culture, StringComparison.OrdinalIgnoreCase))
 					{
 						returnValue++;
 					}
@@ -543,22 +543,22 @@ namespace NerdyDuck.CodedExceptions.Configuration
 			StringBuilder sb = HResultHelper.AcquireStringBuilder();
 			if (!string.IsNullOrEmpty(Name))
 			{
-				sb.Append(Name);
+				_ = sb.Append(Name);
 			}
 			if (Version != null)
 			{
-				sb.AppendFormat(CultureInfo.InvariantCulture, ", Version={0}", Version.ToString(4));
+				_ = sb.AppendFormat(CultureInfo.InvariantCulture, ", Version={0}", Version.ToString(4));
 			}
 			if (Culture != null)
 			{
-				sb.AppendFormat(CultureInfo.InvariantCulture, ", Culture={0}", string.IsNullOrEmpty(Culture) ? NeutralLanguage : Culture);
+				_ = sb.AppendFormat(CultureInfo.InvariantCulture, ", Culture={0}", string.IsNullOrEmpty(Culture) ? NeutralLanguage : Culture);
 			}
 			if (_publicKeyToken != null)
 			{
-				sb.Append(", PublicKeyToken=");
+				_ = sb.Append(", PublicKeyToken=");
 				foreach (byte b in _publicKeyToken)
 				{
-					sb.AppendFormat(CultureInfo.InvariantCulture, "{0:x2}", b);
+					_ = sb.AppendFormat(CultureInfo.InvariantCulture, "{0:x2}", b);
 				}
 			}
 			return HResultHelper.GetStringAndRelease(sb);
@@ -570,14 +570,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="identity1">The first object to compare.</param>
 		/// <param name="identity2">The second object to compare.</param>
 		/// <returns><see langword="true"/>, if <paramref name="identity1"/> and <paramref name="identity2"/> represent the same byte array; otherwise, <see langword="false"/>.</returns>
-		public static bool operator ==(AssemblyIdentity? identity1, AssemblyIdentity? identity2)
-		{
-			if (identity1 is null)
-			{
-				return identity2 is null;
-			}
-			return identity1.Equals(identity2);
-		}
+		public static bool operator ==(AssemblyIdentity? identity1, AssemblyIdentity? identity2) => identity1 is null ? identity2 is null : identity1.Equals(identity2);
 
 		/// <summary>
 		/// Determines whether two specified instances of <see cref="AssemblyIdentity"/> are not equal.
@@ -585,14 +578,7 @@ namespace NerdyDuck.CodedExceptions.Configuration
 		/// <param name="identity1">The first object to compare.</param>
 		/// <param name="identity2">The second object to compare.</param>
 		/// <returns><see langword="true"/>, if <paramref name="identity1"/> and <paramref name="identity2"/> do not represent the same byte array; otherwise, <see langword="false"/>.</returns>
-		public static bool operator !=(AssemblyIdentity? identity1, AssemblyIdentity? identity2)
-		{
-			if (identity1 is null)
-			{
-				return identity2 is object;
-			}
-			return !identity1.Equals(identity2);
-		}
+		public static bool operator !=(AssemblyIdentity? identity1, AssemblyIdentity? identity2) => identity1 is null ? identity2 is not null : !identity1.Equals(identity2);
 
 		/// <summary>
 		/// Sets the <see cref="SerializationInfo"/> with information about the exception.

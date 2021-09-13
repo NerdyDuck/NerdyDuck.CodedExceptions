@@ -91,10 +91,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedInvalidOperationException(int hresult)
-			: base()
-		{
-			HResult = hresult;
-		}
+			: base() => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedInvalidOperationException"/> class with a specified HRESULT value and error message.
@@ -105,10 +102,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedInvalidOperationException(int hresult, string message)
-			: base(message)
-		{
-			HResult = hresult;
-		}
+			: base(message) => HResult = hresult;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CodedInvalidOperationException"/> class with a specified HRESULT value, error message and a reference to the inner exception that is the cause of this exception.
@@ -120,10 +114,7 @@ namespace NerdyDuck.CodedExceptions
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		public CodedInvalidOperationException(int hresult, string message, Exception innerException)
-			: base(message, innerException)
-		{
-			HResult = hresult;
-		}
+			: base(message, innerException) => HResult = hresult;
 
 		/// <summary>
 		/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
