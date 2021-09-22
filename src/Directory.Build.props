@@ -8,22 +8,21 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DefineTrace>true</DefineTrace>
     <DeployPath>$(MSBuildThisFileDirectory)../deploy/$(Configuration)/</DeployPath>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Label="Assembly Signing">
-    <CertificateThumbPrint>1591e44893160c6d03991ec0ec792b033b9dcd78</CertificateThumbPrint>
-    <CertificateSubjectName>Open Source Developer, Daniel Kopp</CertificateSubjectName>
-    <TimestampUrl>http://time.certum.pl</TimestampUrl>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
+  </PropertyGroup>
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../'))" Condition="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../')) != ''" />
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <CreateGitHubZip>true</CreateGitHubZip>
     <DefineDebug>true</DefineDebug>
     <DebugType>Full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <SignAssembliesAndPackage>true</SignAssembliesAndPackage>
     <CreateGitHubZip>true</CreateGitHubZip>
     <DefineDebug>false</DefineDebug>
     <DebugType>Portable</DebugType>
