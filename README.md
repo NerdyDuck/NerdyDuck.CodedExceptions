@@ -9,11 +9,12 @@ It also includes helper classes to create standardized HRESULT values compliant 
 - .NET 5 (net5.0)
 - .NET 6 (net6.0)
 - .NET Framework 4.7.2 (net472): only `NerdyDuck.CodedExceptions.Configuration.AppConfig`; to support the ConfigurationManager class integrated into the framework, without the [System.Configuration.ConfigurationManager](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiQgqq-rt7rAhVOzKQKHWtOADgQFjABegQIARAB&url=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FSystem.Configuration.ConfigurationManager%2F&usg=AOvVaw3QJEgGSRhEc4o3yYfrKf4q) Nuget package.
+
 #### Languages
 The neutral resource language for all texts is English (en-US). Currently, the only localization available is German (de-DE). If you like to add other languages, feel free to send a pull request with the translated resources!
 
 #### How to get
-- Use the NuGet packages (include debug symbol files and support [SourceLink](https://github.com/dotnet/sourcelink).
+- Use the NuGet packages (include debug symbol files and supports [SourceLink](https://github.com/dotnet/sourcelink).
   - https://www.nuget.org/packages/NerdyDuck.CodedExceptions
   - https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.AppConfig
   - https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.ConfigSection
