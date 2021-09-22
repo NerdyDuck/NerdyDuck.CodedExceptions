@@ -12,6 +12,12 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <Product>NerdyDuck Libraries</Product>
   </PropertyGroup>
+  <PropertyGroup Label="Code analysis">
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+  </PropertyGroup>
   <ItemGroup Label="Code analysis">
     <CodeAnalysisDictionary Include="$(MSBuildThisFileDirectory)shared\AnalysisDictionary.xml">
       <Link>AnalysisDictionary.xml</Link>

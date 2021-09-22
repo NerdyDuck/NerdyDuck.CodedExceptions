@@ -59,3 +59,6 @@ Help/
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Project-specific
+signing.props
