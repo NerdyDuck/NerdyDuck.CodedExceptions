@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="17.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="17.0">
   <PropertyGroup Label="Compilation">
     <TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
     <RootNamespace>NerdyDuck.CodedExceptions</RootNamespace>
@@ -65,6 +65,7 @@
     <ItemGroup>
       <TfmSpecificPackageFile Include="contentFiles/**/*">
         <PackagePath>contentFiles</PackagePath>
+        <BuildAction>Compile</BuildAction>
       </TfmSpecificPackageFile>
     </ItemGroup>
   </Target>
