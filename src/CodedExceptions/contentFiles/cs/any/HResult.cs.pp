@@ -53,9 +53,6 @@ namespace $rootnamespace$
 
 		private static readonly global::System.Lazy<int> _hResultBase = new global::System.Lazy<int>(() => global::NerdyDuck.CodedExceptions.HResultHelper.GetBaseHResult(_facilityId.Value));
 
-		private static bool _isDebugModeInitialized = false;
-		private static bool _isDebugModeEnabled = false;
-
 		/// <summary>
 		/// Gets the facility identifier of the current assembly.
 		/// </summary>
@@ -71,34 +68,6 @@ namespace $rootnamespace$
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		internal static int HResultBase => _hResultBase.Value;
-
-		/// <summary>
-		/// Gets a value indicting if the assembly was set into debug mode via configuration.
-		/// </summary>
-		/// <value><see langword="true"/>, if the assembly is running in debug mode; otherwise, <see langword="false"/>.</value>
-		/// <remarks>Use this value to determine if extra log output, additional checks etc. are required.</remarks>
-		internal static bool IsDebugModeEnabled
-		{
-			get
-			{
-				// First check without lock to avoid locking as far as possible
-				if (!_isDebugModeInitialized)
-				{
-					lock (_hResultBase)
-					{
-						// Double check in locked section to call code only once
-						if (!_isDebugModeInitialized)
-						{
-							_isDebugModeEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly);
-							_isDebugModeInitialized = true;
-							global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.CacheChanged += Global_CacheChanged;
-						}
-					}
-				}
-
-				return _isDebugModeEnabled;
-			}
-		}
 
 		/// <summary>
 		/// Combines the specified error identifier with the base HRESULT value for this assembly.
@@ -119,15 +88,5 @@ namespace $rootnamespace$
 		/// more information about the definition of HRESULT values.</para></remarks>
 		/// <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
 		internal static int Create(global::System.Enum errorId) => _hResultBase.Value | global::NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId);
-
-		/// <summary>
-		/// Reloads the value of <see cref="IsDebugModeEnabled" /> from the default cache, after the cache has raised an event to notify a change in the cache.
-		/// </summary>
-		/// <param name="sender">The cache that raised the event.</param>
-		/// <param name="e">The event arguments.</param>
-		private static void Global_CacheChanged(object? sender, global::System.EventArgs e)
-		{
-			_isDebugModeEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(HResult).Assembly);
-		}
 	}
 }
