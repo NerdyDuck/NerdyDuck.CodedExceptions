@@ -30,7 +30,6 @@
 #endregion
 
 namespace $rootnamespace$
-namespace Test
 {
 	/// <summary>
 	/// Provides easy access to the assembly's facility id and base HRESULT code.
