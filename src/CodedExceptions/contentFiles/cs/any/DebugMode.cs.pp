@@ -29,6 +29,8 @@
  ******************************************************************************/
 #endregion
 
+#nullable enable
+
 namespace $rootnamespace$
 {
 	/// <summary>
