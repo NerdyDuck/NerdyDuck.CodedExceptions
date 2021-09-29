@@ -91,6 +91,16 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 			}
 
 			[TestMethod]
+			public void FromJson_JsonElement_Success()
+			{
+				using AssemblyFacilityOverrideCache cache = new();
+				using FileStream stream = File.OpenRead(@"TestFiles\FacilityIdentifierOverrides.json");
+				System.Text.Json.JsonElement root = System.Text.Json.JsonDocument.Parse(stream).RootElement;
+				_ = cache.FromJson(root);
+				Assert.AreEqual(7, cache.Count);
+			}
+
+			[TestMethod]
 			public void LoadJson_Void_Success()
 			{
 				using AssemblyFacilityOverrideCache cache = new();

@@ -61,7 +61,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 		public class AssemblyDebugModeCacheExtensionsTests
 		{
 			[TestMethod]
-			public void AssertCache_Void_Throw()
+			public void AssertCacheAppConfig_Void_Throw()
 			{
 				_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyDebugModeCacheAppConfigExtensions.LoadApplicationConfiguration(null));
 			}
@@ -90,6 +90,29 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 					  using AssemblyDebugModeCache cache = new();
 					  _ = cache.LoadApplicationConfiguration(string.Empty);
 				  });
+			}
+
+			[TestMethod]
+			public void AssertCacheJson_string_Throw()
+			{
+				_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyDebugModeCacheJsonExtensions.ParseJson(null, string.Empty));
+			}
+
+			[TestMethod]
+			public void FromJson_JsonElement_Success()
+			{
+				using AssemblyDebugModeCache cache = new();
+				using FileStream stream = File.OpenRead(@"TestFiles\AssemblyDebugModes.json");
+				System.Text.Json.JsonElement root = System.Text.Json.JsonDocument.Parse(stream).RootElement;
+				_ = cache.FromJson(root);
+				Assert.AreEqual(7, cache.Count);
+			}
+
+			[TestMethod]
+			public void LoadJson_NoTextReader_Throw()
+			{
+				using AssemblyDebugModeCache cache = new();
+				_ = Assert.ThrowsException<ArgumentNullException>(() => cache.LoadJson((TextReader)null));
 			}
 
 			[TestMethod]
@@ -352,6 +375,23 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration
 					  IConfiguration config = new ConfigurationBuilder().AddInMemoryCollection(modes).Build();
 					  _ = cache.LoadConfigurationSection(config.GetSection("debugModes"));
 				  });
+			}
+
+			[TestMethod]
+			public void LoadJson_InvalidMemory_Throw()
+			{
+				using AssemblyDebugModeCache cache = new();
+				Memory<byte> ms = new(new byte[] { 0x7b, 0x7c, 0x7d }); // = {|}
+				_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms));
+			}
+
+			[TestMethod]
+			public void LoadJson_InvalidSequence_Throw()
+			{
+				using AssemblyDebugModeCache cache = new();
+				Memory<byte> ms = new(new byte[] { 0x7b, 0x7c, 0x7d }); // = {|}
+				ReadOnlySequence<byte> ms2 = new(ms);
+				_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms2));
 			}
 #endif
 		}
