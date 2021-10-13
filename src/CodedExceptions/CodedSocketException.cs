@@ -29,10 +29,7 @@
  ******************************************************************************/
 #endregion
 
-using System;
-using System.Globalization;
 using System.Net.Sockets;
-using System.Runtime.Serialization;
 
 namespace NerdyDuck.CodedExceptions;
 

@@ -29,7 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System;
 using System.Runtime.CompilerServices;
 
 namespace NerdyDuck.CodedExceptions.Configuration;

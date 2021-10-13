@@ -29,9 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System;
-using System.Runtime.InteropServices;
-
 namespace NerdyDuck.CodedExceptions;
 
 /// <summary>
@@ -80,8 +77,8 @@ public class CodedDataException : System.Data.DataException
 	/// <param name="info">The object that holds the serialized object data.</param>
 	/// <param name="context">The contextual information about the source or destination.</param>
 	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
-	/// <exception cref="System.Runtime.Serialization.SerializationException">The exception could not be deserialized correctly.</exception>
-	protected CodedDataException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+	/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
+	protected CodedDataException(SerializationInfo info, StreamingContext context)
 		: base(info, context)
 	{
 	}

@@ -29,11 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System;
-using System.Globalization;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 

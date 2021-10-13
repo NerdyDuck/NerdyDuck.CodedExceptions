@@ -29,10 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NerdyDuck.CodedExceptions;
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace NerdyDuck.Tests.CodedExceptions;

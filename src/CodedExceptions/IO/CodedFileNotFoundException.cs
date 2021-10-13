@@ -29,9 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System;
-using System.Globalization;
-
 namespace NerdyDuck.CodedExceptions.IO;
 /// <summary>
 /// The exception that is thrown when an attempt to access a file that does not exist on disk fails.
@@ -102,8 +99,8 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="info">The object that holds the serialized object data.</param>
 	/// <param name="context">The contextual information about the source or destination.</param>
 	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
-	/// <exception cref="System.Runtime.Serialization.SerializationException">The exception could not be deserialized correctly.</exception>
-	protected CodedFileNotFoundException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+	/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
+	protected CodedFileNotFoundException(SerializationInfo info, StreamingContext context)
 		: base(info, context)
 	{
 	}

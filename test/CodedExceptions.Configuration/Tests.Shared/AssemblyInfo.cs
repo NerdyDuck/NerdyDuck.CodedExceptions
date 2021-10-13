@@ -29,7 +29,11 @@
  ******************************************************************************/
 #endregion
 
-using System;
+global using System;
+global using System.Diagnostics.CodeAnalysis;
+global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using NerdyDuck.CodedExceptions.Configuration;
+
 using System.Reflection;
 using System.Runtime.InteropServices;
 using NerdyDuck.CodedExceptions;
@@ -38,3 +42,4 @@ using NerdyDuck.CodedExceptions;
 [assembly: ComVisible(true)]
 [assembly: AssemblyTrademark("Covered by MIT License")]
 [assembly: AssemblyFacilityIdentifier(0x002a)]
+

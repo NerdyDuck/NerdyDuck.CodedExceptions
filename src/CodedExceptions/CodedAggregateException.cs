@@ -29,10 +29,8 @@
  ******************************************************************************/
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace NerdyDuck.CodedExceptions;
 
@@ -109,8 +107,8 @@ public class CodedAggregateException : AggregateException
 	/// <param name="info">The object that holds the serialized object data.</param>
 	/// <param name="context">The contextual information about the source or destination.</param>
 	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
-	/// <exception cref="System.Runtime.Serialization.SerializationException">The exception could not be deserialized correctly.</exception>
-	protected CodedAggregateException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+	/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
+	protected CodedAggregateException(SerializationInfo info, StreamingContext context)
 		: base(info, context)
 	{
 	}

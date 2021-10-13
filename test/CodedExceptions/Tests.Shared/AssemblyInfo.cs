@@ -29,10 +29,17 @@
  ******************************************************************************/
 #endregion
 
-using System;
+global using System;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Globalization;
+global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using NerdyDuck.CodedExceptions;
+#if NET50
+global using System.Buffers;
+#endif
+
 using System.Reflection;
 using System.Runtime.InteropServices;
-using NerdyDuck.CodedExceptions;
 
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(true)]

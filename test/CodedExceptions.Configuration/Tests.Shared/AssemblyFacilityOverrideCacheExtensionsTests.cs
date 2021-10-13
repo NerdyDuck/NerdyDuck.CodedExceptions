@@ -29,14 +29,10 @@
  ******************************************************************************/
 #endregion
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Buffers;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NerdyDuck.CodedExceptions.Configuration;
 
 namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 

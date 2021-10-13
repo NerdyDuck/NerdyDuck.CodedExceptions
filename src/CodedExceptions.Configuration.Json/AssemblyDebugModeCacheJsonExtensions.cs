@@ -29,13 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System;
-using System.Buffers;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Text.Json;
-
 namespace NerdyDuck.CodedExceptions.Configuration;
 
 /// <summary>

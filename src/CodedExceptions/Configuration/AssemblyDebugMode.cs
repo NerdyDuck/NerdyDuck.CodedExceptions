@@ -29,10 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
-
 namespace NerdyDuck.CodedExceptions.Configuration;
 
 /// <summary>

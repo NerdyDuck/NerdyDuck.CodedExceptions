@@ -29,8 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System.Xml;
-
 namespace NerdyDuck.CodedExceptions.Configuration;
 /// <summary>
 /// Specifies global constants and objects.

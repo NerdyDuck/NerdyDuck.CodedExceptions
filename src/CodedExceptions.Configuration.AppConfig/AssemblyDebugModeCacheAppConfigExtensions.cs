@@ -29,9 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System.Collections.Generic;
-using System.ComponentModel;
-
 namespace NerdyDuck.CodedExceptions.Configuration;
 
 /// <summary>

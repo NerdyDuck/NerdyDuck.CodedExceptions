@@ -29,7 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace NerdyDuck.Tests.CodedExceptions;

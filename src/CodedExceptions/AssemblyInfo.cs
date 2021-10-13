@@ -29,10 +29,13 @@
  ******************************************************************************/
 #endregion
 
-using System;
-using System.Reflection;
+global using System;
+global using System.Globalization;
+global using System.Reflection;
+global using System.Runtime.InteropServices;
+global using System.Runtime.Serialization;
+
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(true)]

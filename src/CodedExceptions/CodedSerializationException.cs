@@ -29,8 +29,6 @@
  ******************************************************************************/
 #endregion
 
-using System;
-
 namespace NerdyDuck.CodedExceptions;
 
 /// <summary>
@@ -39,7 +37,7 @@ namespace NerdyDuck.CodedExceptions;
 /// </summary>
 [Serializable]
 [CodedException]
-public class CodedSerializationException : System.Runtime.Serialization.SerializationException
+public class CodedSerializationException : SerializationException
 {
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedSerializationException"/> class.
@@ -77,8 +75,8 @@ public class CodedSerializationException : System.Runtime.Serialization.Serializ
 	/// <param name="info">The object that holds the serialized object data.</param>
 	/// <param name="context">The contextual information about the source or destination.</param>
 	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
-	/// <exception cref="System.Runtime.Serialization.SerializationException">The exception could not be deserialized correctly.</exception>
-	protected CodedSerializationException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+	/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
+	protected CodedSerializationException(SerializationInfo info, StreamingContext context)
 		: base(info, context)
 	{
 	}
