@@ -42,7 +42,8 @@ namespace NerdyDuck.Tests.CodedExceptions;
 [ExcludeFromCodeCoverage]
 public static class SerializationHelper
 {
-#pragma warning disable SYSLIB0011
+#pragma warning disable IDE0079 // that next suppression is not unnecessary!
+#pragma warning disable SYSLIB0011 // the only simple way for serialization is still binary
 	/// <summary>
 	/// Serializes an object.
 	/// </summary>
@@ -71,6 +72,7 @@ public static class SerializationHelper
 		return (T)formatter.Deserialize(buffer);
 	}
 #pragma warning restore SYSLIB0011
+#pragma warning restore IDE0079
 
 	public static void InvokeSerializationConstructorWithNullContext(Type type)
 	{
