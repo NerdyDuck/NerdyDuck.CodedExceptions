@@ -38,304 +38,303 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text.Json;
 
-namespace NerdyDuck.CodedExceptions.Configuration
+namespace NerdyDuck.CodedExceptions.Configuration;
+
+/// <summary>
+/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+/// </summary>
+internal static class ExtensionHelper
 {
 	/// <summary>
-	/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+	/// Loads configuration data into a cache from the specified file path, using the specified method.
 	/// </summary>
-	internal static class ExtensionHelper
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="path">The path to the JSON file containing the configuration data.</param>
+	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
+	internal static T LoadJson<T>(T cache, string path, Action<T, JsonElement> parser) where T : class
 	{
-		/// <summary>
-		/// Loads configuration data into a cache from the specified file path, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="path">The path to the JSON file containing the configuration data.</param>
-		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static T LoadJson<T>(T cache, string path, Action<T, JsonElement> parser) where T : class
+		AssertCache(cache);
+		AssertPath(path);
+
+		FileStream stream;
+		try
 		{
-			AssertCache(cache);
-			AssertPath(path);
-
-			FileStream stream;
-			try
-			{
-				stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-			}
-			catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
-			{
-				throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
-			}
-
-			try
-			{
-				_ = LoadJson(cache, stream, parser);
-			}
-			finally
-			{
-				stream.Close();
-			}
-			return cache;
+			stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+		}
+		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
+		{
+			throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
 		}
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified stream, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="stream">A stream containing JSON-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static T LoadJson<T>(T cache, Stream stream, Action<T, JsonElement> parser) where T : class
+		try
 		{
-			AssertCache(cache);
-			AssertStream(stream);
+			_ = LoadJson(cache, stream, parser);
+		}
+		finally
+		{
+			stream.Close();
+		}
+		return cache;
+	}
 
-			JsonDocument jsonDocument;
-			try
-			{
-				jsonDocument = JsonDocument.Parse(stream, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-			}
-			catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
+	/// <summary>
+	/// Loads configuration data into a cache from the specified stream, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="stream">A stream containing JSON-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
+	internal static T LoadJson<T>(T cache, Stream stream, Action<T, JsonElement> parser) where T : class
+	{
+		AssertCache(cache);
+		AssertStream(stream);
 
-			try
-			{
-				parser(cache, jsonDocument.RootElement);
-			}
-			finally
-			{
-				jsonDocument.Dispose();
-			}
-			return cache;
+		JsonDocument jsonDocument;
+		try
+		{
+			jsonDocument = JsonDocument.Parse(stream, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+		}
+		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
+		{
+			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 		}
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified TextReader, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static T LoadJson<T>(T cache, TextReader reader, Action<T, JsonElement> parser) where T : class
+		try
 		{
-			AssertCache(cache);
-			AssertTextReader(reader);
+			parser(cache, jsonDocument.RootElement);
+		}
+		finally
+		{
+			jsonDocument.Dispose();
+		}
+		return cache;
+	}
 
-			JsonDocument jsonDocument;
-			try
-			{
-				jsonDocument = JsonDocument.Parse(reader.ReadToEnd(), new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-			}
-			catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
+	/// <summary>
+	/// Loads configuration data into a cache from the specified TextReader, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="reader">A <see cref="TextReader"/> containing JSON-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
+	internal static T LoadJson<T>(T cache, TextReader reader, Action<T, JsonElement> parser) where T : class
+	{
+		AssertCache(cache);
+		AssertTextReader(reader);
 
-			try
-			{
-				parser(cache, jsonDocument.RootElement);
-			}
-			finally
-			{
-				jsonDocument.Dispose();
-			}
-			return cache;
+		JsonDocument jsonDocument;
+		try
+		{
+			jsonDocument = JsonDocument.Parse(reader.ReadToEnd(), new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+		}
+		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
+		{
+			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 		}
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static T LoadJson<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, JsonElement> parser) where T : class
+		try
 		{
-			AssertCache(cache);
+			parser(cache, jsonDocument.RootElement);
+		}
+		finally
+		{
+			jsonDocument.Dispose();
+		}
+		return cache;
+	}
 
-			JsonDocument jsonDocument;
-			try
-			{
-				jsonDocument = JsonDocument.Parse(utf8Json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-			}
-			catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
+	/// <summary>
+	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
+	internal static T LoadJson<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, JsonElement> parser) where T : class
+	{
+		AssertCache(cache);
 
-			try
-			{
-				parser(cache, jsonDocument.RootElement);
-			}
-			finally
-			{
-				jsonDocument.Dispose();
-			}
-			return cache;
+		JsonDocument jsonDocument;
+		try
+		{
+			jsonDocument = JsonDocument.Parse(utf8Json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+		}
+		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
+		{
+			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 		}
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static T LoadJson<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, JsonElement> parser) where T : class
+		try
 		{
-			AssertCache(cache);
+			parser(cache, jsonDocument.RootElement);
+		}
+		finally
+		{
+			jsonDocument.Dispose();
+		}
+		return cache;
+	}
 
-			JsonDocument jsonDocument;
-			try
-			{
-				jsonDocument = JsonDocument.Parse(utf8Json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-			}
-			catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
+	/// <summary>
+	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
+	internal static T LoadJson<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, JsonElement> parser) where T : class
+	{
+		AssertCache(cache);
 
-			try
-			{
-				parser(cache, jsonDocument.RootElement);
-			}
-			finally
-			{
-				jsonDocument.Dispose();
-			}
-			return cache;
+		JsonDocument jsonDocument;
+		try
+		{
+			jsonDocument = JsonDocument.Parse(utf8Json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+		}
+		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
+		{
+			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 		}
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified string, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="content">A string containing JSON-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-		internal static T ParseJson<T>(T cache, string content, Action<T, JsonElement> parser) where T : class
+		try
 		{
-			AssertCache(cache);
-			AssertContent(content);
+			parser(cache, jsonDocument.RootElement);
+		}
+		finally
+		{
+			jsonDocument.Dispose();
+		}
+		return cache;
+	}
 
-			JsonDocument jsonDocument;
-			try
-			{
-				jsonDocument = JsonDocument.Parse(content, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-			}
-			catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
-			{
-				throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-			}
+	/// <summary>
+	/// Loads configuration data into a cache from the specified string, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="content">A string containing JSON-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
+	internal static T ParseJson<T>(T cache, string content, Action<T, JsonElement> parser) where T : class
+	{
+		AssertCache(cache);
+		AssertContent(content);
 
-			try
-			{
-				parser(cache, jsonDocument.RootElement);
-			}
-			finally
-			{
-				jsonDocument.Dispose();
-			}
-			return cache;
+		JsonDocument jsonDocument;
+		try
+		{
+			jsonDocument = JsonDocument.Parse(content, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+		}
+		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
+		{
+			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
 		}
 
-		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
-
-		/// <summary>
-		/// Checks if the object is null.
-		/// </summary>
-		/// <exception cref="ArgumentNullException">The object is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertCache(object cache)
+		try
 		{
-			if (cache == null)
+			parser(cache, jsonDocument.RootElement);
+		}
+		finally
+		{
+			jsonDocument.Dispose();
+		}
+		return cache;
+	}
+
+	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
+
+	/// <summary>
+	/// Checks if the object is null.
+	/// </summary>
+	/// <exception cref="ArgumentNullException">The object is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertCache(object cache)
+	{
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertJsonValueKindObject(JsonElement jsonElement)
+	{
+		if (jsonElement.ValueKind != JsonValueKind.Object)
+		{
+			throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonElement));
+		}
+	}
+
+	internal static JsonElement GetParentElement(JsonElement jsonElement)
+	{
+		if (jsonElement.EnumerateObject().Count() == 1)
+		{
+			JsonElement jsonTemp = jsonElement.EnumerateObject().First().Value;
+			if (jsonTemp.ValueKind == JsonValueKind.Object)
 			{
-				throw new ArgumentNullException(nameof(cache));
+				return jsonTemp;
 			}
 		}
+		return jsonElement;
+	}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertJsonValueKindObject(JsonElement jsonElement)
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertTextReader(TextReader reader)
+	{
+		if (reader == null)
 		{
-			if (jsonElement.ValueKind != JsonValueKind.Object)
-			{
-				throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonElement));
-			}
+			throw new ArgumentNullException(nameof(reader));
 		}
+	}
 
-		internal static JsonElement GetParentElement(JsonElement jsonElement)
+	/// <summary>
+	/// Checks if the path string is null or empty.
+	/// </summary>
+	/// <param name="path">The path to check.</param>
+	/// <exception cref="ArgumentException">The path is null or empty.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertPath(string path)
+	{
+		if (string.IsNullOrWhiteSpace(path))
 		{
-			if (jsonElement.EnumerateObject().Count() == 1)
-			{
-				JsonElement jsonTemp = jsonElement.EnumerateObject().First().Value;
-				if (jsonTemp.ValueKind == JsonValueKind.Object)
-				{
-					return jsonTemp;
-				}
-			}
-			return jsonElement;
+			throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
 		}
+	}
 
-		/// <summary>
-		/// Checks if the reader is null.
-		/// </summary>
-		/// <param name="reader">The reader to check.</param>
-		/// <exception cref="ArgumentNullException">The reader is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertTextReader(TextReader reader)
+	/// <summary>
+	/// Checks if the stream is null or not readable.
+	/// </summary>
+	/// <param name="stream">The stream to check.</param>
+	/// <exception cref="ArgumentNullException">The stream is null.</exception>
+	/// <exception cref="ArgumentException">The stream is not readable.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertStream(Stream stream)
+	{
+		if (stream == null)
 		{
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
+			throw new ArgumentNullException(nameof(stream));
 		}
-
-		/// <summary>
-		/// Checks if the path string is null or empty.
-		/// </summary>
-		/// <param name="path">The path to check.</param>
-		/// <exception cref="ArgumentException">The path is null or empty.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertPath(string path)
+		if (!stream.CanRead)
 		{
-			if (string.IsNullOrWhiteSpace(path))
-			{
-				throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
-			}
+			throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
 		}
+	}
 
-		/// <summary>
-		/// Checks if the stream is null or not readable.
-		/// </summary>
-		/// <param name="stream">The stream to check.</param>
-		/// <exception cref="ArgumentNullException">The stream is null.</exception>
-		/// <exception cref="ArgumentException">The stream is not readable.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertStream(Stream stream)
+	/// <summary>
+	/// Checks if the content string is null or empty.
+	/// </summary>
+	/// <param name="content">The content to check.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertContent(string content)
+	{
+		if (string.IsNullOrWhiteSpace(content))
 		{
-			if (stream == null)
-			{
-				throw new ArgumentNullException(nameof(stream));
-			}
-			if (!stream.CanRead)
-			{
-				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-			}
-		}
-
-		/// <summary>
-		/// Checks if the content string is null or empty.
-		/// </summary>
-		/// <param name="content">The content to check.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertContent(string content)
-		{
-			if (string.IsNullOrWhiteSpace(content))
-			{
-				throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
-			}
+			throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
 		}
 	}
 }

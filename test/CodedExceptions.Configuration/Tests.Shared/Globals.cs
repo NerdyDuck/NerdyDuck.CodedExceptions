@@ -32,17 +32,16 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace NerdyDuck.Tests.CodedExceptions.Configuration
+namespace NerdyDuck.Tests.CodedExceptions.Configuration;
+
+/// <summary>
+/// Global test values.
+/// </summary>
+[ExcludeFromCodeCoverage]
+public static class Globals
 {
-	/// <summary>
-	/// Global test values.
-	/// </summary>
-	[ExcludeFromCodeCoverage]
-	public static class Globals
-	{
-		public static readonly Assembly ThisAssembly = typeof(Globals).Assembly;
-		public static readonly AssemblyName ThisAssemblyName = ThisAssembly.GetName();
-		public static readonly string ThisAssemblyNameString = ThisAssembly.FullName;
-		public static readonly Assembly OtherAssembly = typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly;
-	}
+	public static readonly Assembly ThisAssembly = typeof(Globals).Assembly;
+	public static readonly AssemblyName ThisAssemblyName = ThisAssembly.GetName();
+	public static readonly string ThisAssemblyNameString = ThisAssembly.FullName;
+	public static readonly Assembly OtherAssembly = typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly;
 }

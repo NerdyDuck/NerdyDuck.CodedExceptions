@@ -36,59 +36,58 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 
-namespace NerdyDuck.CodedExceptions.Configuration
+namespace NerdyDuck.CodedExceptions.Configuration;
+
+/// <summary>
+/// Extends the <see cref="AssemblyDebugModeCache" /> class with methods to easily add debug mode settings from various sources.
+/// </summary>
+[EditorBrowsable(EditorBrowsableState.Never)]
+public static class AssemblyDebugModeCacheConfigSectionExtensions
 {
 	/// <summary>
-	/// Extends the <see cref="AssemblyDebugModeCache" /> class with methods to easily add debug mode settings from various sources.
+	/// Loads a list of assembly debug mode settings from the specified <see cref="IConfiguration"/>, and adds them to the cache.
 	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public static class AssemblyDebugModeCacheConfigSectionExtensions
+	/// <param name="cache">The cache to add the settings to.</param>
+	/// <param name="configuration">A <see cref="IConfiguration"/> containing debug mode settings.</param>
+	/// <remarks>The section must be keyed by the assembly names (deserializable into an <see cref="AssemblyIdentity"/>), while the values specify the whether the debug mode is enabled or not (true/false).</remarks>
+	[CLSCompliant(false)]
+	public static AssemblyDebugModeCache LoadConfigurationSection(this AssemblyDebugModeCache cache, IConfiguration configuration)
 	{
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified <see cref="IConfiguration"/>, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="configuration">A <see cref="IConfiguration"/> containing debug mode settings.</param>
-		/// <remarks>The section must be keyed by the assembly names (deserializable into an <see cref="AssemblyIdentity"/>), while the values specify the whether the debug mode is enabled or not (true/false).</remarks>
-		[CLSCompliant(false)]
-		public static AssemblyDebugModeCache LoadConfigurationSection(this AssemblyDebugModeCache cache, IConfiguration configuration)
+		ExtensionHelper.AssertCache(cache);
+		ExtensionHelper.AssertConfiguration(configuration);
+
+		List<AssemblyDebugMode> debugModes = new();
+		AssemblyIdentity assembly;
+		bool isEnabled;
+
+		foreach (KeyValuePair<string, string> pair in configuration.AsEnumerable(true))
 		{
-			ExtensionHelper.AssertCache(cache);
-			ExtensionHelper.AssertConfiguration(configuration);
-
-			List<AssemblyDebugMode> debugModes = new();
-			AssemblyIdentity assembly;
-			bool isEnabled;
-
-			foreach (KeyValuePair<string, string> pair in configuration.AsEnumerable(true))
+			try
 			{
-				try
-				{
-					assembly = new AssemblyIdentity(pair.Key);
-				}
-				catch (FormatException ex)
-				{
-					throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
-				}
-
-				if (string.IsNullOrWhiteSpace(pair.Value))
-				{
-					throw new FormatException(TextResources.Global_IdentifierEmpty);
-				}
-				try
-				{
-					isEnabled = Convert.ToBoolean(pair.Value, CultureInfo.InvariantCulture);
-				}
-				catch (FormatException ex)
-				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IsEnabledInvalid, pair.Key), ex);
-				}
-
-				debugModes.Add(new AssemblyDebugMode(assembly, isEnabled));
+				assembly = new AssemblyIdentity(pair.Key);
+			}
+			catch (FormatException ex)
+			{
+				throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
 			}
 
-			cache.AddRange(debugModes);
-			return cache;
+			if (string.IsNullOrWhiteSpace(pair.Value))
+			{
+				throw new FormatException(TextResources.Global_IdentifierEmpty);
+			}
+			try
+			{
+				isEnabled = Convert.ToBoolean(pair.Value, CultureInfo.InvariantCulture);
+			}
+			catch (FormatException ex)
+			{
+				throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IsEnabledInvalid, pair.Key), ex);
+			}
+
+			debugModes.Add(new AssemblyDebugMode(assembly, isEnabled));
 		}
+
+		cache.AddRange(debugModes);
+		return cache;
 	}
 }

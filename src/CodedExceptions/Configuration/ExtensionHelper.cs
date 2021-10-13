@@ -39,225 +39,224 @@ using System.Xml;
 using System.Buffers;
 #endif
 
-namespace NerdyDuck.CodedExceptions.Configuration
+namespace NerdyDuck.CodedExceptions.Configuration;
+
+/// <summary>
+/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+/// </summary>
+internal static class ExtensionHelper
 {
+	internal static readonly XmlReaderSettings SecureSettings = new() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+
 	/// <summary>
-	/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+	/// Loads configuration data into a cache from the specified file path, using the specified method.
 	/// </summary>
-	internal static class ExtensionHelper
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="path">The path to the XML file containing the configuration data.</param>
+	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
+	internal static T LoadXml<T>(T cache, string path, Action<T, XmlReader> parser) where T : class
 	{
-		internal static readonly XmlReaderSettings SecureSettings = new() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+		AssertCache(cache);
+		AssertPath(path);
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified file path, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="path">The path to the XML file containing the configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static T LoadXml<T>(T cache, string path, Action<T, XmlReader> parser) where T : class
+		FileStream stream;
+		try
 		{
-			AssertCache(cache);
-			AssertPath(path);
-
-			FileStream stream;
-			try
-			{
-				stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-			}
-			catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
-			{
-				throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
-			}
-
-			try
-			{
-				_ = LoadXml(cache, stream, parser);
-			}
-			finally
-			{
-				stream.Close();
-			}
-			return cache;
+			stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+		}
+		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
+		{
+			throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
 		}
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified stream, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="stream">A stream containing XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static T LoadXml<T>(T cache, Stream stream, Action<T, XmlReader> parser) where T : class
+		try
 		{
-			AssertCache(cache);
-			AssertStream(stream);
-
-			using XmlReader reader = XmlReader.Create(stream, SecureSettings);
-			parser(cache, reader);
-			return cache;
+			_ = LoadXml(cache, stream, parser);
 		}
-
-		/// <summary>
-		/// Loads configuration data into a cache from the specified TextReader, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="reader">A <see cref="TextReader"/> containing XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static T LoadXml<T>(T cache, TextReader reader, Action<T, XmlReader> parser) where T : class
+		finally
 		{
-			AssertCache(cache);
-			AssertTextReader(reader);
-
-			using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
-			parser(cache, xreader);
-			return cache;
+			stream.Close();
 		}
+		return cache;
+	}
+
+	/// <summary>
+	/// Loads configuration data into a cache from the specified stream, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="stream">A stream containing XML-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
+	internal static T LoadXml<T>(T cache, Stream stream, Action<T, XmlReader> parser) where T : class
+	{
+		AssertCache(cache);
+		AssertStream(stream);
+
+		using XmlReader reader = XmlReader.Create(stream, SecureSettings);
+		parser(cache, reader);
+		return cache;
+	}
+
+	/// <summary>
+	/// Loads configuration data into a cache from the specified TextReader, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="reader">A <see cref="TextReader"/> containing XML-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
+	internal static T LoadXml<T>(T cache, TextReader reader, Action<T, XmlReader> parser) where T : class
+	{
+		AssertCache(cache);
+		AssertTextReader(reader);
+
+		using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
+		parser(cache, xreader);
+		return cache;
+	}
 
 #if NET50
-		/// <summary>
-		/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static T LoadXml<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
+	/// <summary>
+	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
+	internal static T LoadXml<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, XmlReader> parser) where T : class
+	{
+		AssertCache(cache);
 
-			using MemoryStream stream = new(utf8Json.ToArray());
-			using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
-			parser(cache, xreader);
-			return cache;
-		}
+		using MemoryStream stream = new(utf8Json.ToArray());
+		using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
+		parser(cache, xreader);
+		return cache;
+	}
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static T LoadXml<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
+	/// <summary>
+	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, XML-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
+	internal static T LoadXml<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, XmlReader> parser) where T : class
+	{
+		AssertCache(cache);
 
-			using MemoryStream stream = new(utf8Json.ToArray());
-			using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
-			parser(cache, xreader);
-			return cache;
-		}
+		using MemoryStream stream = new(utf8Json.ToArray());
+		using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
+		parser(cache, xreader);
+		return cache;
+	}
 #endif
 
-		/// <summary>
-		/// Loads configuration data into a cache from the specified string, using the specified method.
-		/// </summary>
-		/// <typeparam name="T">The type of the cache.</typeparam>
-		/// <param name="cache">The cache to add the configuration data to.</param>
-		/// <param name="content">A string containing XML-formatted data representing configuration data.</param>
-		/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
-		internal static T ParseXml<T>(T cache, string content, Action<T, XmlReader> parser) where T : class
-		{
-			AssertCache(cache);
-			AssertContent(content);
+	/// <summary>
+	/// Loads configuration data into a cache from the specified string, using the specified method.
+	/// </summary>
+	/// <typeparam name="T">The type of the cache.</typeparam>
+	/// <param name="cache">The cache to add the configuration data to.</param>
+	/// <param name="content">A string containing XML-formatted data representing configuration data.</param>
+	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
+	internal static T ParseXml<T>(T cache, string content, Action<T, XmlReader> parser) where T : class
+	{
+		AssertCache(cache);
+		AssertContent(content);
 
-			using StringReader reader = new(content);
-			using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
-			parser(cache, xreader);
-			return cache;
+		using StringReader reader = new(content);
+		using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
+		parser(cache, xreader);
+		return cache;
+	}
+
+	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
+
+	internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, parentNodeName, Globals.AssemblyNameKey));
+
+	/// <summary>
+	/// Checks if the object is null.
+	/// </summary>
+	/// <exception cref="ArgumentNullException">The object is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertCache(object cache)
+	{
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
 		}
+	}
 
-		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
-
-		internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, parentNodeName, Globals.AssemblyNameKey));
-
-		/// <summary>
-		/// Checks if the object is null.
-		/// </summary>
-		/// <exception cref="ArgumentNullException">The object is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertCache(object cache)
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertXmlReader(XmlReader reader)
+	{
+		if (reader == null)
 		{
-			if (cache == null)
-			{
-				throw new ArgumentNullException(nameof(cache));
-			}
+			throw new ArgumentNullException(nameof(reader));
 		}
+	}
 
-		/// <summary>
-		/// Checks if the reader is null.
-		/// </summary>
-		/// <param name="reader">The reader to check.</param>
-		/// <exception cref="ArgumentNullException">The reader is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertXmlReader(XmlReader reader)
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertTextReader(TextReader reader)
+	{
+		if (reader == null)
 		{
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
+			throw new ArgumentNullException(nameof(reader));
 		}
+	}
 
-		/// <summary>
-		/// Checks if the reader is null.
-		/// </summary>
-		/// <param name="reader">The reader to check.</param>
-		/// <exception cref="ArgumentNullException">The reader is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertTextReader(TextReader reader)
+	/// <summary>
+	/// Checks if the path string is null or empty.
+	/// </summary>
+	/// <param name="path">The path to check.</param>
+	/// <exception cref="ArgumentException">The path is null or empty.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertPath(string path)
+	{
+		if (string.IsNullOrWhiteSpace(path))
 		{
-			if (reader == null)
-			{
-				throw new ArgumentNullException(nameof(reader));
-			}
+			throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
 		}
+	}
 
-		/// <summary>
-		/// Checks if the path string is null or empty.
-		/// </summary>
-		/// <param name="path">The path to check.</param>
-		/// <exception cref="ArgumentException">The path is null or empty.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertPath(string path)
+	/// <summary>
+	/// Checks if the stream is null or not readable.
+	/// </summary>
+	/// <param name="stream">The stream to check.</param>
+	/// <exception cref="ArgumentNullException">The stream is null.</exception>
+	/// <exception cref="ArgumentException">The stream is not readable.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertStream(Stream stream)
+	{
+		if (stream == null)
 		{
-			if (string.IsNullOrWhiteSpace(path))
-			{
-				throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
-			}
+			throw new ArgumentNullException(nameof(stream));
 		}
-
-		/// <summary>
-		/// Checks if the stream is null or not readable.
-		/// </summary>
-		/// <param name="stream">The stream to check.</param>
-		/// <exception cref="ArgumentNullException">The stream is null.</exception>
-		/// <exception cref="ArgumentException">The stream is not readable.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertStream(Stream stream)
+		if (!stream.CanRead)
 		{
-			if (stream == null)
-			{
-				throw new ArgumentNullException(nameof(stream));
-			}
-			if (!stream.CanRead)
-			{
-				throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-			}
+			throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
 		}
+	}
 
-		/// <summary>
-		/// Checks if the content string is null or empty.
-		/// </summary>
-		/// <param name="content">The content to check.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void AssertContent(string content)
+	/// <summary>
+	/// Checks if the content string is null or empty.
+	/// </summary>
+	/// <param name="content">The content to check.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertContent(string content)
+	{
+		if (string.IsNullOrWhiteSpace(content))
 		{
-			if (string.IsNullOrWhiteSpace(content))
-			{
-				throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
-			}
+			throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
 		}
 	}
 }

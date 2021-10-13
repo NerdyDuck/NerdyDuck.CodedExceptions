@@ -33,91 +33,79 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdyDuck.CodedExceptions.Configuration;
 
-namespace NerdyDuck.Tests.CodedExceptions.Configuration
+namespace NerdyDuck.Tests.CodedExceptions.Configuration;
+
+/// <summary>
+/// Contains test methods to test the NerdyDuck.CodedExceptions.Configuration.AssemblyFacilityOverrideCollection class.
+/// </summary>
+[ExcludeFromCodeCoverage]
+[TestClass]
+public class AssemblyFacilityOverrideCollectionTests
 {
-#if NET60
-	namespace Net60
-#elif NET50
-	namespace Net50
-#elif NETCORE31
-	namespace NetCore31
-#elif NET48
-	namespace Net48
-#endif
+	[TestMethod]
+	public void Add_Index_Remove_ByElement_Success()
 	{
-		/// <summary>
-		/// Contains test methods to test the NerdyDuck.CodedExceptions.Configuration.AssemblyFacilityOverrideCollection class.
-		/// </summary>
-		[ExcludeFromCodeCoverage]
-		[TestClass]
-		public class AssemblyFacilityOverrideCollectionTests
+		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideElement overrideElement = new()
 		{
-			[TestMethod]
-			public void Add_Index_Remove_ByElement_Success()
-			{
-				AssemblyFacilityOverrideCollection overrideCollection = new();
-				AssemblyFacilityOverrideElement overrideElement = new()
-				{
-					AssemblyName = Globals.ThisAssemblyNameString,
-					Identifier = 42
-				};
-				overrideCollection.Add(overrideElement);
+			AssemblyName = Globals.ThisAssemblyNameString,
+			Identifier = 42
+		};
+		overrideCollection.Add(overrideElement);
 
-				Assert.AreEqual(0, overrideCollection.IndexOf(overrideElement));
-				Assert.IsNotNull(overrideCollection[0]);
-				overrideCollection.Remove(overrideElement);
-				Assert.AreEqual(-1, overrideCollection.IndexOf(overrideElement));
-			}
+		Assert.AreEqual(0, overrideCollection.IndexOf(overrideElement));
+		Assert.IsNotNull(overrideCollection[0]);
+		overrideCollection.Remove(overrideElement);
+		Assert.AreEqual(-1, overrideCollection.IndexOf(overrideElement));
+	}
 
-			[TestMethod]
-			public void Add_Remove_ByName_Success()
-			{
-				AssemblyFacilityOverrideCollection overrideCollection = new();
-				AssemblyFacilityOverrideElement overrideElement = new()
-				{
-					AssemblyName = Globals.ThisAssemblyNameString,
-					Identifier = 42
-				};
-				overrideCollection.Add(overrideElement);
+	[TestMethod]
+	public void Add_Remove_ByName_Success()
+	{
+		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideElement overrideElement = new()
+		{
+			AssemblyName = Globals.ThisAssemblyNameString,
+			Identifier = 42
+		};
+		overrideCollection.Add(overrideElement);
 
-				Assert.IsNotNull(overrideCollection[Globals.ThisAssemblyNameString]);
-				overrideCollection.Remove(Globals.ThisAssemblyNameString);
-				Assert.IsNull(overrideCollection[Globals.ThisAssemblyNameString]);
-			}
+		Assert.IsNotNull(overrideCollection[Globals.ThisAssemblyNameString]);
+		overrideCollection.Remove(Globals.ThisAssemblyNameString);
+		Assert.IsNull(overrideCollection[Globals.ThisAssemblyNameString]);
+	}
 
-			[TestMethod]
-			public void Add_Remove_ByIndex_Success()
-			{
+	[TestMethod]
+	public void Add_Remove_ByIndex_Success()
+	{
 
-				AssemblyFacilityOverrideCollection overrideCollection = new();
-				AssemblyFacilityOverrideElement overrideElement = new()
-				{
-					AssemblyName = Globals.ThisAssemblyNameString,
-					Identifier = 42
-				};
-				overrideCollection.Add(overrideElement);
+		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideElement overrideElement = new()
+		{
+			AssemblyName = Globals.ThisAssemblyNameString,
+			Identifier = 42
+		};
+		overrideCollection.Add(overrideElement);
 
-				Assert.AreEqual(0, overrideCollection.IndexOf(overrideElement));
-				overrideCollection.RemoveAt(0);
-				Assert.AreEqual(-1, overrideCollection.IndexOf(overrideElement));
-			}
+		Assert.AreEqual(0, overrideCollection.IndexOf(overrideElement));
+		overrideCollection.RemoveAt(0);
+		Assert.AreEqual(-1, overrideCollection.IndexOf(overrideElement));
+	}
 
-			[TestMethod]
-			public void Clear_Success()
-			{
-				AssemblyFacilityOverrideCollection overrideCollection = new();
-				AssemblyFacilityOverrideElement overrideElement = new()
-				{
-					AssemblyName = Globals.ThisAssemblyNameString,
-					Identifier = 42
-				};
-				overrideCollection.Add(overrideElement);
+	[TestMethod]
+	public void Clear_Success()
+	{
+		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideElement overrideElement = new()
+		{
+			AssemblyName = Globals.ThisAssemblyNameString,
+			Identifier = 42
+		};
+		overrideCollection.Add(overrideElement);
 
-				overrideCollection[0] = overrideElement;
-				Assert.AreEqual(0, overrideCollection.IndexOf(overrideElement));
-				overrideCollection.Clear();
-				Assert.AreEqual(-1, overrideCollection.IndexOf(overrideElement));
-			}
-		}
+		overrideCollection[0] = overrideElement;
+		Assert.AreEqual(0, overrideCollection.IndexOf(overrideElement));
+		overrideCollection.Clear();
+		Assert.AreEqual(-1, overrideCollection.IndexOf(overrideElement));
 	}
 }

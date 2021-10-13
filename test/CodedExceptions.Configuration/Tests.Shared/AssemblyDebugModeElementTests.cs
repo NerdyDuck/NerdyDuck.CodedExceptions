@@ -34,60 +34,47 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdyDuck.CodedExceptions.Configuration;
 
-namespace NerdyDuck.Tests.CodedExceptions.Configuration
+namespace NerdyDuck.Tests.CodedExceptions.Configuration;
+
+/// <summary>
+/// Contains test methods to test the NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeElement class.
+/// </summary>
+[ExcludeFromCodeCoverage]
+[TestClass]
+public class AssemblyDebugModeElementTests
 {
-#if NET60
-	namespace Net60
-#elif NET50
-	namespace Net50
-#elif NETCORE31
-	namespace NetCore31
-#elif NET48
-	namespace Net48
-#endif
+	[TestMethod]
+	public void IsReadOnly_Success()
 	{
+		AssemblyDebugModeElement debugModeElement = new();
+		Assert.IsFalse(debugModeElement.IsReadOnly);
+	}
 
-		/// <summary>
-		/// Contains test methods to test the NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeElement class.
-		/// </summary>
-		[ExcludeFromCodeCoverage]
-		[TestClass]
-		public class AssemblyDebugModeElementTests
+	[TestMethod]
+	public void ToOverride_Success()
+	{
+		AssemblyDebugModeElement debugModeElement = new()
 		{
-			[TestMethod]
-			public void IsReadOnly_Success()
-			{
-				AssemblyDebugModeElement debugModeElement = new();
-				Assert.IsFalse(debugModeElement.IsReadOnly);
-			}
+			AssemblyName = Globals.ThisAssemblyNameString
+		};
 
-			[TestMethod]
-			public void ToOverride_Success()
-			{
-				AssemblyDebugModeElement debugModeElement = new()
-				{
-					AssemblyName = Globals.ThisAssemblyNameString
-				};
+		AssemblyDebugMode debugMode = debugModeElement.ToAssemblyDebugMode();
+		Assert.AreEqual(Globals.ThisAssemblyNameString, debugMode.AssemblyName.ToString());
+		Assert.IsTrue(debugMode.IsEnabled);
+	}
 
-				AssemblyDebugMode debugMode = debugModeElement.ToAssemblyDebugMode();
-				Assert.AreEqual(Globals.ThisAssemblyNameString, debugMode.AssemblyName.ToString());
-				Assert.IsTrue(debugMode.IsEnabled);
-			}
+	[TestMethod]
+	public void ToOverride_IdentifierInvalid_Throw()
+	{
+		_ = Assert.ThrowsException<FormatException>(() =>
+		  {
+			  AssemblyDebugModeElement debugModeElement = new()
+			  {
+				  AssemblyName = "TestAssembly, Version=1.0.xxx",
+				  IsEnabled = true
+			  };
 
-			[TestMethod]
-			public void ToOverride_IdentifierInvalid_Throw()
-			{
-				_ = Assert.ThrowsException<FormatException>(() =>
-				  {
-					  AssemblyDebugModeElement debugModeElement = new()
-					  {
-						  AssemblyName = "TestAssembly, Version=1.0.xxx",
-						  IsEnabled = true
-					  };
-
-					  _ = debugModeElement.ToAssemblyDebugMode();
-				  });
-			}
-		}
+			  _ = debugModeElement.ToAssemblyDebugMode();
+		  });
 	}
 }

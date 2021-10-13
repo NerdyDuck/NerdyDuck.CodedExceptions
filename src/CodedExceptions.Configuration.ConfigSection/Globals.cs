@@ -29,22 +29,19 @@
  ******************************************************************************/
 #endregion
 
-using System.Xml;
+namespace NerdyDuck.CodedExceptions.Configuration;
 
-namespace NerdyDuck.CodedExceptions.Configuration
+/// <summary>
+/// Specifies global constants and objects.
+/// </summary>
+internal static class Globals
 {
-	/// <summary>
-	/// Specifies global constants and objects.
-	/// </summary>
-	internal static class Globals
-	{
-		internal const string AssemblyNameKey = "assemblyName";
-		internal const string DebugModesNode = "debugModes";
-		internal const string DebugModeNode = "debugMode";
-		internal const string IsEnabledKey = "isEnabled";
-		internal const string OverridesNode = "facilityIdentifierOverrides";
-		internal const string OverrideNode = "override";
-		internal const string IdentifierKey = "identifier";
-		internal const string InvalidNameChars = "~!@#$%^&*()[]{}/'\"|\\";
-	}
+	internal const string AssemblyNameKey = "assemblyName";
+	internal const string DebugModesNode = "debugModes";
+	internal const string DebugModeNode = "debugMode";
+	internal const string IsEnabledKey = "isEnabled";
+	internal const string OverridesNode = "facilityIdentifierOverrides";
+	internal const string OverrideNode = "override";
+	internal const string IdentifierKey = "identifier";
+	internal const string InvalidNameChars = "~!@#$%^&*()[]{}/'\"|\\";
 }

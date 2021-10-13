@@ -34,61 +34,48 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdyDuck.CodedExceptions.Configuration;
 
-namespace NerdyDuck.Tests.CodedExceptions.Configuration
+namespace NerdyDuck.Tests.CodedExceptions.Configuration;
+
+/// <summary>
+/// Contains test methods to test the NerdyDuck.CodedExceptions.Configuration.AssemblyFacilityOverrideElement class.
+/// </summary>
+[ExcludeFromCodeCoverage]
+[TestClass]
+public class AssemblyFacilityOverrideElementTests
 {
-#if NET60
-	namespace Net60
-#elif NET50
-	namespace Net50
-#elif NETCORE31
-	namespace NetCore31
-#elif NET48
-	namespace Net48
-#endif
+	[TestMethod]
+	public void IsReadOnly_Success()
 	{
+		AssemblyFacilityOverrideElement overrideElement = new();
+		Assert.IsFalse(overrideElement.IsReadOnly);
+	}
 
-		/// <summary>
-		/// Contains test methods to test the NerdyDuck.CodedExceptions.Configuration.AssemblyFacilityOverrideElement class.
-		/// </summary>
-		[ExcludeFromCodeCoverage]
-		[TestClass]
-		public class AssemblyFacilityOverrideElementTests
+	[TestMethod]
+	public void ToOverride_Success()
+	{
+		AssemblyFacilityOverrideElement overrideElement = new()
 		{
-			[TestMethod]
-			public void IsReadOnly_Success()
-			{
-				AssemblyFacilityOverrideElement overrideElement = new();
-				Assert.IsFalse(overrideElement.IsReadOnly);
-			}
+			AssemblyName = Globals.ThisAssemblyNameString,
+			Identifier = 42
+		};
 
-			[TestMethod]
-			public void ToOverride_Success()
-			{
-				AssemblyFacilityOverrideElement overrideElement = new()
-				{
-					AssemblyName = Globals.ThisAssemblyNameString,
-					Identifier = 42
-				};
+		AssemblyFacilityOverride facilityOverride = overrideElement.ToOverride();
+		Assert.AreEqual(Globals.ThisAssemblyNameString, facilityOverride.AssemblyName.ToString());
+		Assert.AreEqual(42, facilityOverride.Identifier);
+	}
 
-				AssemblyFacilityOverride facilityOverride = overrideElement.ToOverride();
-				Assert.AreEqual(Globals.ThisAssemblyNameString, facilityOverride.AssemblyName.ToString());
-				Assert.AreEqual(42, facilityOverride.Identifier);
-			}
+	[TestMethod]
+	public void ToOverride_IdentifierInvalid_Throw()
+	{
+		_ = Assert.ThrowsException<FormatException>(() =>
+		  {
+			  AssemblyFacilityOverrideElement overrideElement = new()
+			  {
+				  AssemblyName = Globals.ThisAssemblyNameString,
+				  Identifier = -1
+			  };
 
-			[TestMethod]
-			public void ToOverride_IdentifierInvalid_Throw()
-			{
-				_ = Assert.ThrowsException<FormatException>(() =>
-				  {
-					  AssemblyFacilityOverrideElement overrideElement = new()
-					  {
-						  AssemblyName = Globals.ThisAssemblyNameString,
-						  Identifier = -1
-					  };
-
-					  _ = overrideElement.ToOverride();
-				  });
-			}
-		}
+			  _ = overrideElement.ToOverride();
+		  });
 	}
 }

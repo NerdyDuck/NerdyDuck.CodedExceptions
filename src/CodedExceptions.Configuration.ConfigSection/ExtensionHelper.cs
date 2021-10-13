@@ -33,40 +33,39 @@ using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-namespace NerdyDuck.CodedExceptions.Configuration
+namespace NerdyDuck.CodedExceptions.Configuration;
+
+/// <summary>
+/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+/// </summary>
+internal static class ExtensionHelper
 {
+	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
+
 	/// <summary>
-	/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+	/// Checks if the object is null.
 	/// </summary>
-	internal static class ExtensionHelper
+	/// <exception cref="ArgumentNullException">The object is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertCache(object cache)
 	{
-		internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
-
-		/// <summary>
-		/// Checks if the object is null.
-		/// </summary>
-		/// <exception cref="ArgumentNullException">The object is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertCache(object cache)
+		if (cache == null)
 		{
-			if (cache == null)
-			{
-				throw new ArgumentNullException(nameof(cache));
-			}
+			throw new ArgumentNullException(nameof(cache));
 		}
+	}
 
-		/// <summary>
-		/// Checks if the element is null.
-		/// </summary>
-		/// <param name="configuration">The element to check.</param>
-		/// <exception cref="ArgumentNullException">The element is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertConfiguration(Microsoft.Extensions.Configuration.IConfiguration configuration)
+	/// <summary>
+	/// Checks if the element is null.
+	/// </summary>
+	/// <param name="configuration">The element to check.</param>
+	/// <exception cref="ArgumentNullException">The element is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertConfiguration(Microsoft.Extensions.Configuration.IConfiguration configuration)
+	{
+		if (configuration == null)
 		{
-			if (configuration == null)
-			{
-				throw new ArgumentNullException(nameof(configuration));
-			}
+			throw new ArgumentNullException(nameof(configuration));
 		}
 	}
 }

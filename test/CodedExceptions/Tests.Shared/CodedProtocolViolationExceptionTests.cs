@@ -35,116 +35,103 @@ using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdyDuck.CodedExceptions;
 
-namespace NerdyDuck.Tests.CodedExceptions
+namespace NerdyDuck.Tests.CodedExceptions;
+
+/// <summary>
+/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedProtocolViolationException class.
+/// </summary>
+[ExcludeFromCodeCoverage]
+[TestClass]
+public class CodedProtocolViolationExceptionTests
 {
-#if NET60
-	namespace Net60
-#elif NET50
-	namespace Net50
-#elif NETCORE31
-	namespace NetCore31
-#elif NET48
-	namespace Net48
-#endif
+	[TestMethod]
+	public void Ctor_Void_Success()
 	{
-
-		/// <summary>
-		/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedProtocolViolationException class.
-		/// </summary>
-		[ExcludeFromCodeCoverage]
-		[TestClass]
-		public class CodedProtocolViolationExceptionTests
+		try
 		{
-			[TestMethod]
-			public void Ctor_Void_Success()
-			{
-				try
-				{
-					throw new CodedProtocolViolationException();
-				}
-				catch (CodedProtocolViolationException ex)
-				{
-					Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
-					Assert.IsNull(ex.InnerException);
-				}
-			}
+			throw new CodedProtocolViolationException();
+		}
+		catch (CodedProtocolViolationException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
+			Assert.IsNull(ex.InnerException);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_String_Success()
-			{
-				try
-				{
-					throw new CodedProtocolViolationException(Globals.TestMessage);
-				}
-				catch (CodedProtocolViolationException ex)
-				{
-					Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
-					Assert.IsNull(ex.InnerException);
-					Assert.AreEqual(Globals.TestMessage, ex.Message);
-				}
-			}
+	[TestMethod]
+	public void Ctor_String_Success()
+	{
+		try
+		{
+			throw new CodedProtocolViolationException(Globals.TestMessage);
+		}
+		catch (CodedProtocolViolationException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
+			Assert.IsNull(ex.InnerException);
+			Assert.AreEqual(Globals.TestMessage, ex.Message);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_Int32_Success()
-			{
-				try
-				{
-					throw new CodedProtocolViolationException(Globals.CustomHResult);
-				}
-				catch (CodedProtocolViolationException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.IsNull(ex.InnerException);
-				}
-			}
+	[TestMethod]
+	public void Ctor_Int32_Success()
+	{
+		try
+		{
+			throw new CodedProtocolViolationException(Globals.CustomHResult);
+		}
+		catch (CodedProtocolViolationException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.IsNull(ex.InnerException);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_IntString_Success()
-			{
-				try
-				{
-					throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
-				}
-				catch (CodedProtocolViolationException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.IsNull(ex.InnerException);
-					Assert.AreEqual(Globals.TestMessage, ex.Message);
-				}
-			}
+	[TestMethod]
+	public void Ctor_IntString_Success()
+	{
+		try
+		{
+			throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
+		}
+		catch (CodedProtocolViolationException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.IsNull(ex.InnerException);
+			Assert.AreEqual(Globals.TestMessage, ex.Message);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_SerializationInfo_Success()
-			{
-				try
-				{
-					throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
-				}
-				catch (CodedProtocolViolationException ex)
-				{
-					using System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
-					CodedProtocolViolationException ex2 = SerializationHelper.Deserialize<CodedProtocolViolationException>(Buffer);
+	[TestMethod]
+	public void Ctor_SerializationInfo_Success()
+	{
+		try
+		{
+			throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
+		}
+		catch (CodedProtocolViolationException ex)
+		{
+			using System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
+			CodedProtocolViolationException ex2 = SerializationHelper.Deserialize<CodedProtocolViolationException>(Buffer);
 
-					Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
-					Assert.IsNull(ex2.InnerException);
-					Assert.AreEqual(Globals.TestMessage, ex2.Message);
-				}
-			}
+			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.IsNull(ex2.InnerException);
+			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+		}
+	}
 
-			[TestMethod]
-			public void ToString_Success()
-			{
-				try
-				{
-					throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
-				}
-				catch (CodedProtocolViolationException ex)
-				{
-					string str = ex.ToString();
-					StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedProtocolViolationException).FullName, Globals.CustomHResultString, Globals.TestMessage));
-					StringAssert.Contains(str, nameof(ToString_Success));
-				}
-			}
+	[TestMethod]
+	public void ToString_Success()
+	{
+		try
+		{
+			throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
+		}
+		catch (CodedProtocolViolationException ex)
+		{
+			string str = ex.ToString();
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedProtocolViolationException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}
 }

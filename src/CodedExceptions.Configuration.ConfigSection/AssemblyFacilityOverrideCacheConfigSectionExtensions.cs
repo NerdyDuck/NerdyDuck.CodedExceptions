@@ -37,61 +37,60 @@ using System.Linq;
 using System.Xml;
 using Microsoft.Extensions.Configuration;
 
-namespace NerdyDuck.CodedExceptions.Configuration
+namespace NerdyDuck.CodedExceptions.Configuration;
+
+/// <summary>
+/// Extends the <see cref="AssemblyFacilityOverrideCache" /> class with methods to easily add assembly facility identifier overrides from various sources.
+/// </summary>
+[EditorBrowsable(EditorBrowsableState.Never)]
+public static class AssemblyFacilityOverrideCacheConfigSectionExtensions
 {
 	/// <summary>
-	/// Extends the <see cref="AssemblyFacilityOverrideCache" /> class with methods to easily add assembly facility identifier overrides from various sources.
+	/// Loads a list of facility identifier overrides from the specified <see cref="IConfiguration"/>, and adds them to the cache.
 	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public static class AssemblyFacilityOverrideCacheConfigSectionExtensions
+	/// <param name="cache">The cache to add the overrides to.</param>
+	/// <param name="configuration">A <see cref="IConfiguration"/> containing overrides.</param>
+	/// <remarks>The section must be keyed by the assembly names (deserializable into an <see cref="AssemblyIdentity"/>), while the values specify the identifier overrides.</remarks>
+	[CLSCompliant(false)]
+	public static AssemblyFacilityOverrideCache LoadConfigurationSection(this AssemblyFacilityOverrideCache cache, IConfiguration configuration)
 	{
-		/// <summary>
-		/// Loads a list of facility identifier overrides from the specified <see cref="IConfiguration"/>, and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the overrides to.</param>
-		/// <param name="configuration">A <see cref="IConfiguration"/> containing overrides.</param>
-		/// <remarks>The section must be keyed by the assembly names (deserializable into an <see cref="AssemblyIdentity"/>), while the values specify the identifier overrides.</remarks>
-		[CLSCompliant(false)]
-		public static AssemblyFacilityOverrideCache LoadConfigurationSection(this AssemblyFacilityOverrideCache cache, IConfiguration configuration)
+		ExtensionHelper.AssertCache(cache);
+		ExtensionHelper.AssertConfiguration(configuration);
+
+		List<AssemblyFacilityOverride> facilityOverrides = new();
+		AssemblyIdentity assembly;
+		int identifier;
+
+		foreach (KeyValuePair<string, string> pair in configuration.AsEnumerable(true))
 		{
-			ExtensionHelper.AssertCache(cache);
-			ExtensionHelper.AssertConfiguration(configuration);
-
-			List<AssemblyFacilityOverride> facilityOverrides = new();
-			AssemblyIdentity assembly;
-			int identifier;
-
-			foreach (KeyValuePair<string, string> pair in configuration.AsEnumerable(true))
+			try
 			{
-				try
-				{
-					assembly = new AssemblyIdentity(pair.Key);
-				}
-				catch (FormatException ex)
-				{
-					throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
-				}
-
-				if (string.IsNullOrWhiteSpace(pair.Value))
-				{
-					throw new FormatException(TextResources.Global_IdentifierEmpty);
-				}
-				try
-				{
-					identifier = XmlConvert.ToInt32(pair.Value);
-				}
-				catch (FormatException ex)
-				{
-					throw IdentifierInvalidException(pair.Key, ex);
-				}
-
-				facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
+				assembly = new AssemblyIdentity(pair.Key);
+			}
+			catch (FormatException ex)
+			{
+				throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
 			}
 
-			cache.AddRange(facilityOverrides);
-			return cache;
+			if (string.IsNullOrWhiteSpace(pair.Value))
+			{
+				throw new FormatException(TextResources.Global_IdentifierEmpty);
+			}
+			try
+			{
+				identifier = XmlConvert.ToInt32(pair.Value);
+			}
+			catch (FormatException ex)
+			{
+				throw IdentifierInvalidException(pair.Key, ex);
+			}
+
+			facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
 		}
 
-		private static FormatException IdentifierInvalidException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyName), ex);
+		cache.AddRange(facilityOverrides);
+		return cache;
 	}
+
+	private static FormatException IdentifierInvalidException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyName), ex);
 }

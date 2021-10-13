@@ -36,419 +36,406 @@ using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdyDuck.CodedExceptions;
 
-namespace NerdyDuck.Tests.CodedExceptions
+namespace NerdyDuck.Tests.CodedExceptions;
+
+/// <summary>
+/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedAggregateException class.
+/// </summary>
+[ExcludeFromCodeCoverage]
+[TestClass]
+public class CodedAggregateExceptionTests
 {
-#if NET60
-	namespace Net60
-#elif NET50
-	namespace Net50
-#elif NETCORE31
-	namespace NetCore31
-#elif NET48
-	namespace Net48
-#endif
+	[TestMethod]
+	public void Ctor_Void_Success()
 	{
-
-		/// <summary>
-		/// Contains test methods to test the NerdyDuck.CodedExceptions.CodedAggregateException class.
-		/// </summary>
-		[ExcludeFromCodeCoverage]
-		[TestClass]
-		public class CodedAggregateExceptionTests
+		try
 		{
-			[TestMethod]
-			public void Ctor_Void_Success()
+			throw new CodedAggregateException();
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(0, ex.InnerExceptions.Count);
+		}
+	}
+
+	[TestMethod]
+	public void Ctor_IEnumerableException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					throw new CodedAggregateException();
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
-					Assert.AreEqual(0, ex.InnerExceptions.Count);
+					List<Exception> exs = new() { ex, ex2 };
+					throw new CodedAggregateException(exs);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_IEnumerableException_Success()
+	[TestMethod]
+	public void Ctor_ParamsException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							List<Exception> exs = new() { ex, ex2 };
-							throw new CodedAggregateException(exs);
-						}
-					}
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
+					throw new CodedAggregateException(ex, ex2);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_ParamsException_Success()
+	[TestMethod]
+	public void Ctor_String_Success()
+	{
+		try
+		{
+			throw new CodedAggregateException(Globals.TestMessage);
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(0, ex.InnerExceptions.Count);
+			Assert.AreEqual(Globals.TestMessage, ex.Message);
+		}
+	}
+
+	[TestMethod]
+	public void Ctor_StringException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
+			{
+				throw new CodedAggregateException(Globals.TestMessage, ex);
+			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(1, ex.InnerExceptions.Count);
+			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+		}
+	}
+
+	[TestMethod]
+	public void Ctor_StringIEnumerableException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							throw new CodedAggregateException(ex, ex2);
-						}
-					}
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
+					List<Exception> exs = new() { ex, ex2 };
+					throw new CodedAggregateException(Globals.TestMessage, exs);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_String_Success()
+	[TestMethod]
+	public void Ctor_StringParamsException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					throw new CodedAggregateException(Globals.TestMessage);
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
-					Assert.AreEqual(0, ex.InnerExceptions.Count);
-					Assert.AreEqual(Globals.TestMessage, ex.Message);
+					throw new CodedAggregateException(Globals.TestMessage, ex, ex2);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_StringException_Success()
+	[TestMethod]
+	public void Ctor_Int32_Success()
+	{
+		try
+		{
+			throw new CodedAggregateException(Globals.CustomHResult);
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(0, ex.InnerExceptions.Count);
+		}
+	}
+
+	[TestMethod]
+	public void Ctor_Int32IEnumerableException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						throw new CodedAggregateException(Globals.TestMessage, ex);
-					}
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
-					Assert.AreEqual(1, ex.InnerExceptions.Count);
-					StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+					List<Exception> exs = new() { ex, ex2 };
+					throw new CodedAggregateException(Globals.CustomHResult, exs);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_StringIEnumerableException_Success()
+	[TestMethod]
+	public void Ctor_Int32ParamsException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							List<Exception> exs = new() { ex, ex2 };
-							throw new CodedAggregateException(Globals.TestMessage, exs);
-						}
-					}
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
-					StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+					throw new CodedAggregateException(Globals.CustomHResult, ex, ex2);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_StringParamsException_Success()
+	[TestMethod]
+	public void Ctor_IntString_Success()
+	{
+		try
+		{
+			throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage);
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(0, ex.InnerExceptions.Count);
+			Assert.AreEqual(Globals.TestMessage, ex.Message);
+		}
+	}
+
+	[TestMethod]
+	public void Ctor_IntStringException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
+			{
+				throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex);
+			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(1, ex.InnerExceptions.Count);
+			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+		}
+	}
+
+	[TestMethod]
+	public void Ctor_Int32StringIEnumerableException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							throw new CodedAggregateException(Globals.TestMessage, ex, ex2);
-						}
-					}
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
-					StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+					List<Exception> exs = new() { ex, ex2 };
+					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, exs);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_Int32_Success()
+	[TestMethod]
+	public void Ctor_Int32StringParamsException_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					throw new CodedAggregateException(Globals.CustomHResult);
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.AreEqual(0, ex.InnerExceptions.Count);
+					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex, ex2);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(2, ex.InnerExceptions.Count);
+			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+		}
+	}
 
-			[TestMethod]
-			public void Ctor_Int32IEnumerableException_Success()
+	[TestMethod]
+	public void Ctor_SerializationInfo_Success()
+	{
+		try
+		{
+			try
 			{
-				try
-				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							List<Exception> exs = new() { ex, ex2 };
-							throw new CodedAggregateException(Globals.CustomHResult, exs);
-						}
-					}
-				}
-				catch (CodedAggregateException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
-				}
+				throw new FormatException();
 			}
-
-			[TestMethod]
-			public void Ctor_Int32ParamsException_Success()
+			catch (Exception ex)
 			{
-				try
-				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							throw new CodedAggregateException(Globals.CustomHResult, ex, ex2);
-						}
-					}
-				}
-				catch (CodedAggregateException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
-				}
+				throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex);
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			using System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
+			CodedAggregateException ex2 = SerializationHelper.Deserialize<CodedAggregateException>(Buffer);
 
-			[TestMethod]
-			public void Ctor_IntString_Success()
-			{
-				try
-				{
-					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage);
-				}
-				catch (CodedAggregateException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.AreEqual(0, ex.InnerExceptions.Count);
-					Assert.AreEqual(Globals.TestMessage, ex.Message);
-				}
-			}
-
-			[TestMethod]
-			public void Ctor_IntStringException_Success()
-			{
-				try
-				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex);
-					}
-				}
-				catch (CodedAggregateException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.AreEqual(1, ex.InnerExceptions.Count);
-					StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-				}
-			}
-
-			[TestMethod]
-			public void Ctor_Int32StringIEnumerableException_Success()
-			{
-				try
-				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							List<Exception> exs = new() { ex, ex2 };
-							throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, exs);
-						}
-					}
-				}
-				catch (CodedAggregateException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
-					StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-				}
-			}
-
-			[TestMethod]
-			public void Ctor_Int32StringParamsException_Success()
-			{
-				try
-				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex, ex2);
-						}
-					}
-				}
-				catch (CodedAggregateException ex)
-				{
-					Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-					Assert.AreEqual(2, ex.InnerExceptions.Count);
-					StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-				}
-			}
-
-			[TestMethod]
-			public void Ctor_SerializationInfo_Success()
-			{
-				try
-				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex);
-					}
-				}
-				catch (CodedAggregateException ex)
-				{
-					using System.IO.MemoryStream Buffer = SerializationHelper.Serialize(ex);
-					CodedAggregateException ex2 = SerializationHelper.Deserialize<CodedAggregateException>(Buffer);
-
-					Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
-					Assert.AreEqual(1, ex2.InnerExceptions.Count);
+			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(1, ex2.InnerExceptions.Count);
 #if NET48
 					Assert.AreEqual(Globals.TestMessage, ex2.Message);
 #else
-					StringAssert.StartsWith(ex2.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex2.Message, Globals.TestMessage);
 #endif
-				}
-			}
+		}
+	}
 
-			[TestMethod]
-			public void ToString_Success()
+	[TestMethod]
+	public void ToString_Success()
+	{
+		try
+		{
+			try
+			{
+				throw new FormatException();
+			}
+			catch (Exception ex)
 			{
 				try
 				{
-					try
-					{
-						throw new FormatException();
-					}
-					catch (Exception ex)
-					{
-						try
-						{
-							throw new NotSupportedException();
-						}
-						catch (Exception ex2)
-						{
-							throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex, ex2);
-						}
-					}
+					throw new NotSupportedException();
 				}
-				catch (CodedAggregateException ex)
+				catch (Exception ex2)
 				{
-					string str = ex.ToString();
-					StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedAggregateException).FullName, Globals.CustomHResultString, Globals.TestMessage));
-					StringAssert.Contains(str, nameof(ToString_Success));
-					StringAssert.Contains(str, typeof(FormatException).FullName);
-					StringAssert.Contains(str, typeof(NotSupportedException).FullName);
+					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex, ex2);
 				}
 			}
+		}
+		catch (CodedAggregateException ex)
+		{
+			string str = ex.ToString();
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedAggregateException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.Contains(str, nameof(ToString_Success));
+			StringAssert.Contains(str, typeof(FormatException).FullName);
+			StringAssert.Contains(str, typeof(NotSupportedException).FullName);
 		}
 	}
 }

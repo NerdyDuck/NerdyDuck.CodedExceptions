@@ -32,47 +32,46 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace NerdyDuck.CodedExceptions.Configuration
+namespace NerdyDuck.CodedExceptions.Configuration;
+
+/// <summary>
+/// Extends the <see cref="AssemblyDebugModeCache" /> class with methods to easily add debug mode settings from various sources.
+/// </summary>
+[EditorBrowsable(EditorBrowsableState.Never)]
+public static class AssemblyDebugModeCacheAppConfigExtensions
 {
 	/// <summary>
-	/// Extends the <see cref="AssemblyDebugModeCache" /> class with methods to easily add debug mode settings from various sources.
+	/// Loads a list of assembly debug mode settings from the application configuration file (app.config / web.config) and adds them to the cache.
 	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public static class AssemblyDebugModeCacheAppConfigExtensions
+	/// <param name="cache">The cache to add the settings to.</param>
+	/// <remarks>The settings are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
+	public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache)
 	{
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the application configuration file (app.config / web.config) and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <remarks>The settings are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
-		public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache)
+		ExtensionHelper.AssertCache(cache);
+		List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes();
+		if (adm is not null)
 		{
-			ExtensionHelper.AssertCache(cache);
-			List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes();
-			if (adm is not null)
-			{
-				cache.AddRange(adm);
-			}
-
-			return cache;
+			cache.AddRange(adm);
 		}
 
-		/// <summary>
-		/// Loads a list of assembly debug mode settings from the specified section of the application configuration file (app.config / web.config) and adds them to the cache.
-		/// </summary>
-		/// <param name="cache">The cache to add the settings to.</param>
-		/// <param name="sectionName">The name of the section in the application configuration file.</param>
-		public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache, string sectionName)
-		{
-			ExtensionHelper.AssertCache(cache);
-			ExtensionHelper.AssertSectionName(sectionName);
-			List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes(sectionName);
-			if (adm is not null)
-			{
-				cache.AddRange(adm);
-			}
+		return cache;
+	}
 
-			return cache;
+	/// <summary>
+	/// Loads a list of assembly debug mode settings from the specified section of the application configuration file (app.config / web.config) and adds them to the cache.
+	/// </summary>
+	/// <param name="cache">The cache to add the settings to.</param>
+	/// <param name="sectionName">The name of the section in the application configuration file.</param>
+	public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache, string sectionName)
+	{
+		ExtensionHelper.AssertCache(cache);
+		ExtensionHelper.AssertSectionName(sectionName);
+		List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes(sectionName);
+		if (adm is not null)
+		{
+			cache.AddRange(adm);
 		}
+
+		return cache;
 	}
 }

@@ -34,84 +34,72 @@ using System.Globalization;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace NerdyDuck.Tests.CodedExceptions
+namespace NerdyDuck.Tests.CodedExceptions;
+
+/// <summary>
+/// Contains test methods to test localization.
+/// </summary>
+[ExcludeFromCodeCoverage]
+[TestClass]
+public class LocalizationTest
 {
-#if NET60
-	namespace Net60
-#elif NET50
-	namespace Net50
-#elif NETCORE31
-	namespace NetCore31
-#elif NET48
-	namespace Net48
-#endif
+	[TestMethod]
+	public void Global_LocalizationGermanEnglish_Success()
 	{
-		/// <summary>
-		/// Contains test methods to test localization.
-		/// </summary>
-		[ExcludeFromCodeCoverage]
-		[TestClass]
-		public class LocalizationTest
+		CultureInfo CurrentCulture = Thread.CurrentThread.CurrentCulture;
+		CultureInfo CurrentUICulture = Thread.CurrentThread.CurrentUICulture;
+		CultureInfo GermanCulture = new("de-DE");
+		CultureInfo EnglishCulture = new("en-US");
+		CultureInfo FrenchCulture = new("fr-FR");
+		Thread.CurrentThread.CurrentCulture = GermanCulture;
+		Thread.CurrentThread.CurrentUICulture = GermanCulture;
+
+		try
 		{
-			[TestMethod]
-			public void Global_LocalizationGermanEnglish_Success()
-			{
-				CultureInfo CurrentCulture = Thread.CurrentThread.CurrentCulture;
-				CultureInfo CurrentUICulture = Thread.CurrentThread.CurrentUICulture;
-				CultureInfo GermanCulture = new("de-DE");
-				CultureInfo EnglishCulture = new("en-US");
-				CultureInfo FrenchCulture = new("fr-FR");
-				Thread.CurrentThread.CurrentCulture = GermanCulture;
-				Thread.CurrentThread.CurrentUICulture = GermanCulture;
+			throw new NerdyDuck.CodedExceptions.IO.CodedFileExistsException();
+		}
+		catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
+		{
+			StringAssert.Contains(ex.Message, "Die angegebene Datei existiert bereits.");
+		}
+		finally
+		{
+			Thread.CurrentThread.CurrentCulture = CurrentCulture;
+			Thread.CurrentThread.CurrentUICulture = CurrentUICulture;
+		}
 
-				try
-				{
-					throw new NerdyDuck.CodedExceptions.IO.CodedFileExistsException();
-				}
-				catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
-				{
-					StringAssert.Contains(ex.Message, "Die angegebene Datei existiert bereits.");
-				}
-				finally
-				{
-					Thread.CurrentThread.CurrentCulture = CurrentCulture;
-					Thread.CurrentThread.CurrentUICulture = CurrentUICulture;
-				}
+		Thread.CurrentThread.CurrentCulture = EnglishCulture;
+		Thread.CurrentThread.CurrentUICulture = EnglishCulture;
 
-				Thread.CurrentThread.CurrentCulture = EnglishCulture;
-				Thread.CurrentThread.CurrentUICulture = EnglishCulture;
+		try
+		{
+			throw new NerdyDuck.CodedExceptions.IO.CodedFileExistsException();
+		}
+		catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
+		{
+			StringAssert.Contains(ex.Message, "The specified file already exists.");
+		}
+		finally
+		{
+			Thread.CurrentThread.CurrentCulture = CurrentCulture;
+			Thread.CurrentThread.CurrentUICulture = CurrentUICulture;
+		}
 
-				try
-				{
-					throw new NerdyDuck.CodedExceptions.IO.CodedFileExistsException();
-				}
-				catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
-				{
-					StringAssert.Contains(ex.Message, "The specified file already exists.");
-				}
-				finally
-				{
-					Thread.CurrentThread.CurrentCulture = CurrentCulture;
-					Thread.CurrentThread.CurrentUICulture = CurrentUICulture;
-				}
+		Thread.CurrentThread.CurrentCulture = FrenchCulture;
+		Thread.CurrentThread.CurrentUICulture = FrenchCulture;
 
-				Thread.CurrentThread.CurrentCulture = FrenchCulture;
-				Thread.CurrentThread.CurrentUICulture = FrenchCulture;
-
-				try
-				{
-					throw new NerdyDuck.CodedExceptions.IO.CodedFileExistsException();
-				}
-				catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
-				{
-					StringAssert.Contains(ex.Message, "The specified file already exists.");
-				}
-				finally
-				{
-					Thread.CurrentThread.CurrentCulture = CurrentCulture;
-					Thread.CurrentThread.CurrentUICulture = CurrentUICulture;
-				}
-			}
+		try
+		{
+			throw new NerdyDuck.CodedExceptions.IO.CodedFileExistsException();
+		}
+		catch (NerdyDuck.CodedExceptions.IO.CodedFileExistsException ex)
+		{
+			StringAssert.Contains(ex.Message, "The specified file already exists.");
+		}
+		finally
+		{
+			Thread.CurrentThread.CurrentCulture = CurrentCulture;
+			Thread.CurrentThread.CurrentUICulture = CurrentUICulture;
 		}
 	}
 }

@@ -32,33 +32,32 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace NerdyDuck.CodedExceptions.Configuration
+namespace NerdyDuck.CodedExceptions.Configuration;
+
+/// <summary>
+/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+/// </summary>
+internal static class ExtensionHelper
 {
 	/// <summary>
-	/// Provides methods to read configurations for <see cref="AssemblyDebugModeCache" /> and <see cref="AssemblyFacilityOverrideCache" /> from various sources.
+	/// Checks if the object is null.
 	/// </summary>
-	internal static class ExtensionHelper
+	/// <exception cref="ArgumentNullException">The object is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertCache(object cache)
 	{
-		/// <summary>
-		/// Checks if the object is null.
-		/// </summary>
-		/// <exception cref="ArgumentNullException">The object is null.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertCache(object cache)
+		if (cache == null)
 		{
-			if (cache == null)
-			{
-				throw new ArgumentNullException(nameof(cache));
-			}
+			throw new ArgumentNullException(nameof(cache));
 		}
+	}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AssertSectionName(string sectionName)
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertSectionName(string sectionName)
+	{
+		if (string.IsNullOrWhiteSpace(sectionName))
 		{
-			if (string.IsNullOrWhiteSpace(sectionName))
-			{
-				throw new ArgumentException(TextResources.Global_FromApplicationConfiguration_NoSection, nameof(sectionName));
-			}
+			throw new ArgumentException(TextResources.Global_FromApplicationConfiguration_NoSection, nameof(sectionName));
 		}
 	}
 }

@@ -33,50 +33,49 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-namespace NerdyDuck.Tests.CodedExceptions.Configuration
+namespace NerdyDuck.Tests.CodedExceptions.Configuration;
+
+/// <summary>
+/// A dummy stream that does not allow reading from.
+/// </summary>
+[ExcludeFromCodeCoverage]
+public class NoReadStream : Stream
 {
-	/// <summary>
-	/// A dummy stream that does not allow reading from.
-	/// </summary>
-	[ExcludeFromCodeCoverage]
-	public class NoReadStream : Stream
+	public override bool CanRead => false;
+
+	public override bool CanSeek => false;
+
+	public override bool CanWrite => true;
+
+	public override long Length => 0;
+
+	public override long Position
 	{
-		public override bool CanRead => false;
-
-		public override bool CanSeek => false;
-
-		public override bool CanWrite => true;
-
-		public override long Length => 0;
-
-		public override long Position
-		{
-			get => 0;
-			set
-			{
-			}
-		}
-
-		public override void Flush()
+		get => 0;
+		set
 		{
 		}
+	}
 
-		public override int Read(byte[] buffer, int offset, int count)
-		{
-			throw new InvalidOperationException();
-		}
+	public override void Flush()
+	{
+	}
 
-		public override long Seek(long offset, SeekOrigin origin)
-		{
-			throw new InvalidOperationException();
-		}
+	public override int Read(byte[] buffer, int offset, int count)
+	{
+		throw new InvalidOperationException();
+	}
 
-		public override void SetLength(long value)
-		{
-		}
+	public override long Seek(long offset, SeekOrigin origin)
+	{
+		throw new InvalidOperationException();
+	}
 
-		public override void Write(byte[] buffer, int offset, int count)
-		{
-		}
+	public override void SetLength(long value)
+	{
+	}
+
+	public override void Write(byte[] buffer, int offset, int count)
+	{
 	}
 }
