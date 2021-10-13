@@ -10,6 +10,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Code analysis">
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <NoWarn>NU5118;CS8632</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>$(DefineConstants);NETSTD20</DefineConstants>
@@ -33,7 +34,6 @@
       - Supports ConfigurationManager (app.config)
     </PackageReleaseNotes>
     <PackageTags>Exception HRESULT Configuration</PackageTags>
-    <NoWarn>NU5105</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis" Version="4.0.0-4.final">
