@@ -59,7 +59,7 @@ internal static class ExtensionHelper
 	/// <param name="configuration">The element to check.</param>
 	/// <exception cref="ArgumentNullException">The element is null.</exception>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertConfiguration(Microsoft.Extensions.Configuration.IConfiguration configuration)
+	internal static void AssertConfiguration(IConfiguration configuration)
 	{
 		if (configuration == null)
 		{

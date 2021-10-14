@@ -85,7 +85,7 @@ public class CodedAggregateException : AggregateException
 	/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified message that describes the error.
 	/// </summary>
 	/// <param name="message">The message that describes the exception. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
-	public CodedAggregateException(string message)
+	public CodedAggregateException(string? message)
 		: base(message)
 	{
 	}
@@ -96,7 +96,7 @@ public class CodedAggregateException : AggregateException
 	/// <param name="message">The message that describes the exception. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception.</param>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerException"/> argument is <see langword="null"/>.</exception>
-	public CodedAggregateException(string message, Exception innerException)
+	public CodedAggregateException(string? message, Exception innerException)
 		: base(message, innerException)
 	{
 	}
@@ -120,7 +120,7 @@ public class CodedAggregateException : AggregateException
 	/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-	public CodedAggregateException(string message, IEnumerable<Exception> innerExceptions)
+	public CodedAggregateException(string? message, IEnumerable<Exception> innerExceptions)
 		: base(message, innerExceptions)
 	{
 	}
@@ -132,7 +132,7 @@ public class CodedAggregateException : AggregateException
 	/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-	public CodedAggregateException(string message, params Exception[] innerExceptions)
+	public CodedAggregateException(string? message, params Exception[] innerExceptions)
 		: base(message, innerExceptions)
 	{
 	}
@@ -179,7 +179,7 @@ public class CodedAggregateException : AggregateException
 	/// <param name="message">The message that describes the exception. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedAggregateException(int hresult, string message)
+	public CodedAggregateException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 
 	/// <summary>
@@ -191,7 +191,7 @@ public class CodedAggregateException : AggregateException
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerException"/> argument is <see langword="null"/>.</exception>
-	public CodedAggregateException(int hresult, string message, Exception innerException)
+	public CodedAggregateException(int hresult, string? message, Exception innerException)
 		: base(message, innerException) => HResult = hresult;
 
 	/// <summary>
@@ -204,7 +204,7 @@ public class CodedAggregateException : AggregateException
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-	public CodedAggregateException(int hresult, string message, IEnumerable<Exception> innerExceptions)
+	public CodedAggregateException(int hresult, string? message, IEnumerable<Exception> innerExceptions)
 		: base(message, innerExceptions) => HResult = hresult;
 
 	/// <summary>
@@ -217,7 +217,7 @@ public class CodedAggregateException : AggregateException
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
-	public CodedAggregateException(int hresult, string message, params Exception[] innerExceptions)
+	public CodedAggregateException(int hresult, string? message, params Exception[] innerExceptions)
 		: base(message, innerExceptions) => HResult = hresult;
 
 	/// <summary>
@@ -229,7 +229,7 @@ public class CodedAggregateException : AggregateException
 		string CustomText = string.Empty;
 		for (int i = 0; i < base.InnerExceptions.Count; i++)
 		{
-			CustomText = string.Format(System.Globalization.CultureInfo.InvariantCulture, TextResources.CodedAggregateException_ToString,
+			CustomText = string.Format(CultureInfo.InvariantCulture, TextResources.CodedAggregateException_ToString,
 				CustomText, Environment.NewLine, i, InnerExceptions[i].ToString());
 		}
 		return HResultHelper.CreateToString(this, CustomText);

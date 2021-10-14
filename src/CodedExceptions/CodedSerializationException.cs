@@ -53,7 +53,7 @@ public class CodedSerializationException : SerializationException
 	/// </summary>
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</remarks>
-	public CodedSerializationException(string message)
+	public CodedSerializationException(string? message)
 		: base(message)
 	{
 	}
@@ -64,7 +64,7 @@ public class CodedSerializationException : SerializationException
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</remarks>
-	public CodedSerializationException(string message, Exception innerException)
+	public CodedSerializationException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{
 	}
@@ -99,7 +99,7 @@ public class CodedSerializationException : SerializationException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedSerializationException(int hresult, string message)
+	public CodedSerializationException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 
 	/// <summary>
@@ -111,7 +111,7 @@ public class CodedSerializationException : SerializationException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedSerializationException(int hresult, string message, Exception innerException)
+	public CodedSerializationException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;
 
 	/// <summary>

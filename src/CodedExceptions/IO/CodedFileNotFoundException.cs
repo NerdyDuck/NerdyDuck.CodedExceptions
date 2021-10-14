@@ -54,7 +54,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// </summary>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/>.</remarks>
-	public CodedFileNotFoundException(string message)
+	public CodedFileNotFoundException(string? message)
 		: base(message)
 	{
 	}
@@ -64,7 +64,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// </summary>
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedFileNotFoundException(string message, Exception innerException)
+	public CodedFileNotFoundException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{
 	}
@@ -75,7 +75,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="fileName">The full name of the file with the invalid image.</param>
 	/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="System.IO.FileNotFoundException.FileName"/> property using <paramref name="fileName"/>.</remarks>
-	public CodedFileNotFoundException(string message, string fileName)
+	public CodedFileNotFoundException(string? message, string? fileName)
 		: base(message, fileName)
 	{
 	}
@@ -88,7 +88,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="fileName">The full name of the file with the invalid image.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="System.IO.FileNotFoundException.FileName"/> property using <paramref name="fileName"/>.</remarks>
-	public CodedFileNotFoundException(string message, string fileName, Exception innerException)
+	public CodedFileNotFoundException(string? message, string? fileName, Exception? innerException)
 		: base(message, fileName, innerException)
 	{
 	}
@@ -122,7 +122,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedFileNotFoundException(int hresult, string message)
+	public CodedFileNotFoundException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 
 	/// <summary>
@@ -133,7 +133,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	///<remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedFileNotFoundException(int hresult, string message, Exception innerException)
+	public CodedFileNotFoundException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;
 
 	/// <summary>
@@ -145,7 +145,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="System.IO.FileNotFoundException.FileName"/> property using <paramref name="fileName"/>.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedFileNotFoundException(int hresult, string message, string fileName)
+	public CodedFileNotFoundException(int hresult, string? message, string? fileName)
 		: base(message, fileName) => HResult = hresult;
 
 	/// <summary>
@@ -159,7 +159,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="System.IO.FileNotFoundException.FileName"/> property using <paramref name="fileName"/>.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedFileNotFoundException(int hresult, string message, string fileName, Exception innerException)
+	public CodedFileNotFoundException(int hresult, string? message, string? fileName, Exception? innerException)
 		: base(message, fileName, innerException) => HResult = hresult;
 
 	/// <summary>

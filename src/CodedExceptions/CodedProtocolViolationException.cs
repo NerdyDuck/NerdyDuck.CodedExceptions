@@ -55,7 +55,7 @@ public class CodedProtocolViolationException : System.Net.ProtocolViolationExcep
 	/// </summary>
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</remarks>
-	public CodedProtocolViolationException(string message)
+	public CodedProtocolViolationException(string? message)
 		: base(message)
 	{
 	}
@@ -90,7 +90,7 @@ public class CodedProtocolViolationException : System.Net.ProtocolViolationExcep
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedProtocolViolationException(int hresult, string message)
+	public CodedProtocolViolationException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 
 	/// <summary>

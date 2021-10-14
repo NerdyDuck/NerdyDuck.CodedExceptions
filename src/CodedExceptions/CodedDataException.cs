@@ -56,7 +56,7 @@ public class CodedDataException : System.Data.DataException
 	/// </summary>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>This constructor initializes the Message property of the new instance using <paramref name="message"/>.</remarks>
-	public CodedDataException(string message)
+	public CodedDataException(string? message)
 		: base(message ?? TextResources.CodedDataException_Message)
 	{
 	}
@@ -66,7 +66,7 @@ public class CodedDataException : System.Data.DataException
 	/// </summary>
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedDataException(string message, Exception innerException)
+	public CodedDataException(string? message, Exception? innerException)
 		: base(message ?? TextResources.CodedDataException_Message, innerException)
 	{
 	}
@@ -100,7 +100,7 @@ public class CodedDataException : System.Data.DataException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedDataException(int hresult, string message)
+	public CodedDataException(int hresult, string? message)
 		: base(message ?? TextResources.CodedDataException_Message) => HResult = hresult;
 
 	/// <summary>
@@ -111,7 +111,7 @@ public class CodedDataException : System.Data.DataException
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedDataException(int hresult, string message, Exception innerException)
+	public CodedDataException(int hresult, string? message, Exception? innerException)
 		: base(message ?? TextResources.CodedDataException_Message, innerException) => HResult = hresult;
 
 	/// <summary>

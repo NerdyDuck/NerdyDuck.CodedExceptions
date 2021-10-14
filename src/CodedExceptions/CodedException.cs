@@ -51,7 +51,7 @@ public class CodedException : Exception
 	/// Initializes a new instance of the <see cref="CodedException"/> class with a specified error message.
 	/// </summary>
 	/// <param name="message">The message that describes the error.</param>
-	public CodedException(string message)
+	public CodedException(string? message)
 		: base(message)
 	{
 	}
@@ -61,7 +61,7 @@ public class CodedException : Exception
 	/// </summary>
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedException(string message, Exception innerException)
+	public CodedException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{
 	}
@@ -94,7 +94,7 @@ public class CodedException : Exception
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedException(int hresult, string message)
+	public CodedException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 
 	/// <summary>
@@ -105,7 +105,7 @@ public class CodedException : Exception
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedException(int hresult, string message, Exception innerException)
+	public CodedException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;
 
 	/// <summary>

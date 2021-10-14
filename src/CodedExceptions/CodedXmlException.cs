@@ -54,7 +54,7 @@ public class CodedXmlException : System.Xml.XmlException
 	/// </summary>
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</remarks>
-	public CodedXmlException(string message)
+	public CodedXmlException(string? message)
 		: base(message)
 	{
 	}
@@ -65,7 +65,7 @@ public class CodedXmlException : System.Xml.XmlException
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</remarks>
-	public CodedXmlException(string message, Exception innerException)
+	public CodedXmlException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{
 	}
@@ -78,7 +78,7 @@ public class CodedXmlException : System.Xml.XmlException
 	/// <param name="lineNumber">The line number indicating where the error occurred.</param>
 	/// <param name="linePosition">The line position indicating where the error occurred.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</remarks>
-	public CodedXmlException(string message, Exception innerException, int lineNumber, int linePosition)
+	public CodedXmlException(string? message, Exception? innerException, int lineNumber, int linePosition)
 		: base(message, innerException, lineNumber, linePosition)
 	{
 	}
@@ -113,7 +113,7 @@ public class CodedXmlException : System.Xml.XmlException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedXmlException(int hresult, string message)
+	public CodedXmlException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 
 	/// <summary>
@@ -125,7 +125,7 @@ public class CodedXmlException : System.Xml.XmlException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedXmlException(int hresult, string message, Exception innerException)
+	public CodedXmlException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;
 
 	/// <summary>
@@ -139,7 +139,7 @@ public class CodedXmlException : System.Xml.XmlException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedXmlException(int hresult, string message, Exception innerException, int lineNumber, int linePosition)
+	public CodedXmlException(int hresult, string? message, Exception? innerException, int lineNumber, int linePosition)
 		: base(message, innerException, lineNumber, linePosition) => HResult = hresult;
 
 	/// <summary>

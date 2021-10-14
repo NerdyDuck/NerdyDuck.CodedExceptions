@@ -66,7 +66,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// </summary>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/>.</remarks>
-	public CodedDirectoryNotFoundException(string message)
+	public CodedDirectoryNotFoundException(string? message)
 		: base(CreateMessage(message, null))
 	{
 		DirectoryName = null;
@@ -78,7 +78,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// </summary>
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedDirectoryNotFoundException(string message, Exception innerException)
+	public CodedDirectoryNotFoundException(string? message, Exception? innerException)
 		: base(CreateMessage(message, null), innerException)
 	{
 		DirectoryName = null;
@@ -91,7 +91,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="directoryName">The full name of the directory that cannot be found.</param>
 	/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="DirectoryName"/> property using <paramref name="directoryName"/>.</remarks>
-	public CodedDirectoryNotFoundException(string message, string directoryName)
+	public CodedDirectoryNotFoundException(string? message, string? directoryName)
 		: base(CreateMessage(message, directoryName))
 	{
 		DirectoryName = directoryName;
@@ -106,7 +106,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// <param name="directoryName">The full name of the directory that cannot be found.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="DirectoryName" /> property using <paramref name="directoryName"/>.</remarks>
-	public CodedDirectoryNotFoundException(string message, string directoryName, Exception innerException)
+	public CodedDirectoryNotFoundException(string? message, string? directoryName, Exception? innerException)
 		: base(CreateMessage(message, directoryName), innerException)
 	{
 		DirectoryName = directoryName;
@@ -144,7 +144,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedDirectoryNotFoundException(int hresult, string message)
+	public CodedDirectoryNotFoundException(int hresult, string? message)
 		: base(CreateMessage(message, null))
 	{
 		DirectoryName = null;
@@ -159,7 +159,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	///<remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedDirectoryNotFoundException(int hresult, string message, Exception innerException)
+	public CodedDirectoryNotFoundException(int hresult, string? message, Exception? innerException)
 		: base(CreateMessage(message, null), innerException)
 	{
 		DirectoryName = null;
@@ -175,7 +175,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="DirectoryName"/> property using <paramref name="directoryName"/>.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedDirectoryNotFoundException(int hresult, string message, string directoryName)
+	public CodedDirectoryNotFoundException(int hresult, string? message, string? directoryName)
 		: base(CreateMessage(message, directoryName))
 	{
 		DirectoryName = directoryName;
@@ -193,7 +193,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="DirectoryName"/> property using <paramref name="directoryName"/>.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedDirectoryNotFoundException(int hresult, string message, string directoryName, Exception innerException)
+	public CodedDirectoryNotFoundException(int hresult, string? message, string? directoryName, Exception? innerException)
 		: base(CreateMessage(message, directoryName), innerException)
 	{
 		DirectoryName = directoryName;

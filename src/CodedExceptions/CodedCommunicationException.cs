@@ -52,7 +52,7 @@ public class CodedCommunicationException : CodedException
 	/// Initializes a new instance of the <see cref="CodedCommunicationException"/> class with a specified error message.
 	/// </summary>
 	/// <param name="message">The message that describes the error.</param>
-	public CodedCommunicationException(string message)
+	public CodedCommunicationException(string? message)
 		: base(message)
 	{
 	}
@@ -62,7 +62,7 @@ public class CodedCommunicationException : CodedException
 	/// </summary>
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedCommunicationException(string message, Exception innerException)
+	public CodedCommunicationException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{
 	}
@@ -97,7 +97,7 @@ public class CodedCommunicationException : CodedException
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedCommunicationException(int hresult, string message)
+	public CodedCommunicationException(int hresult, string? message)
 		: base(hresult, message)
 	{
 	}
@@ -110,7 +110,7 @@ public class CodedCommunicationException : CodedException
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedCommunicationException(int hresult, string message, Exception innerException)
+	public CodedCommunicationException(int hresult, string? message, Exception? innerException)
 		: base(hresult, message, innerException)
 	{
 	}

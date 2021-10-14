@@ -62,7 +62,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// </summary>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/>.</remarks>
-	public CodedFileExistsException(string message)
+	public CodedFileExistsException(string? message)
 		: base(CreateMessage(message, null)) => FileName = null;
 
 	/// <summary>
@@ -70,7 +70,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// </summary>
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedFileExistsException(string message, Exception innerException)
+	public CodedFileExistsException(string? message, Exception? innerException)
 		: base(CreateMessage(message, null), innerException) => FileName = null;
 
 	/// <summary>
@@ -79,7 +79,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="fileName">The full name of the file that already exists.</param>
 	/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</remarks>
-	public CodedFileExistsException(string message, string fileName)
+	public CodedFileExistsException(string? message, string? fileName)
 		: base(CreateMessage(message, fileName)) => FileName = fileName;
 
 	/// <summary>
@@ -90,7 +90,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// <param name="fileName">The full name of the file that already exists.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</remarks>
-	public CodedFileExistsException(string message, string fileName, Exception innerException)
+	public CodedFileExistsException(string? message, string? fileName, Exception? innerException)
 		: base(CreateMessage(message, fileName), innerException) => FileName = fileName;
 
 	/// <summary>
@@ -124,7 +124,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedFileExistsException(int hresult, string message)
+	public CodedFileExistsException(int hresult, string? message)
 		: base(CreateMessage(message, null), hresult) => FileName = null;
 
 	/// <summary>
@@ -135,7 +135,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	///<remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public CodedFileExistsException(int hresult, string message, Exception innerException)
+	public CodedFileExistsException(int hresult, string? message, Exception? innerException)
 		: base(CreateMessage(message, null), innerException)
 	{
 		FileName = null;
@@ -151,7 +151,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedFileExistsException(int hresult, string message, string fileName)
+	public CodedFileExistsException(int hresult, string? message, string? fileName)
 		: base(CreateMessage(message, fileName))
 	{
 		FileName = fileName;
@@ -169,7 +169,7 @@ public class CodedFileExistsException : System.IO.IOException
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</para>
 	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
-	public CodedFileExistsException(int hresult, string message, string fileName, Exception innerException)
+	public CodedFileExistsException(int hresult, string? message, string? fileName, Exception? innerException)
 		: base(CreateMessage(message, fileName), innerException)
 	{
 		FileName = fileName;

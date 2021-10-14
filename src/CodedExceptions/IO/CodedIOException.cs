@@ -55,7 +55,7 @@ public class CodedIOException : System.IO.IOException
 	/// </summary>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/>.</remarks>
-	public CodedIOException(string message)
+	public CodedIOException(string? message)
 		: base(message)
 	{
 	}
@@ -65,7 +65,7 @@ public class CodedIOException : System.IO.IOException
 	/// </summary>
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedIOException(string message, Exception innerException)
+	public CodedIOException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{
 	}
@@ -97,7 +97,7 @@ public class CodedIOException : System.IO.IOException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
-	public CodedIOException(int hresult, string message)
+	public CodedIOException(int hresult, string? message)
 		: base(message, hresult)
 	{
 	}
@@ -108,7 +108,7 @@ public class CodedIOException : System.IO.IOException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	public CodedIOException(int hresult, string message, Exception innerException)
+	public CodedIOException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;
 
 	/// <summary>
