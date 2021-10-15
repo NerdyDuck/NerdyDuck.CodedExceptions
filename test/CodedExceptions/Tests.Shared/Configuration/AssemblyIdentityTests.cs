@@ -63,7 +63,7 @@ public class AssemblyIdentityTests
 	{
 		AssemblyIdentity assemblyIdentity = new();
 		Assert.IsNull(assemblyIdentity.Culture);
-		Assert.AreEqual(string.Empty, assemblyIdentity.Name);
+		Assert.IsNull(assemblyIdentity.Name);
 		Assert.IsNull(assemblyIdentity.Version);
 		Assert.IsNull(assemblyIdentity.GetPublicKeyToken());
 	}
@@ -263,7 +263,8 @@ public class AssemblyIdentityTests
 		Assert.IsTrue(assemblyIdentity6.IsMatch(Globals.ThisAssembly), "Match 6");
 		Assert.IsTrue(assemblyIdentity7.IsMatch(s_localizedAssembly), "Match 7");
 
-		Assert.IsFalse(assemblyIdentity1.IsMatch(null), "No match null");
+		Assert.IsFalse(assemblyIdentity1.IsMatch((Assembly)null), "No match null");
+		Assert.IsFalse(assemblyIdentity1.IsMatch((AssemblyName)null), "No match null");
 		Assert.IsFalse(assemblyIdentity1.IsMatch(Globals.OtherAssembly), "No match 1");
 		Assert.IsFalse(assemblyIdentity2.IsMatch(Globals.OtherAssembly), "No match 2");
 		Assert.IsFalse(assemblyIdentity3a.IsMatch(Globals.ThisAssembly), "No match 3a");
@@ -301,7 +302,8 @@ public class AssemblyIdentityTests
 		AssemblyIdentity assemblyIdentity7 = new(s_localizedAssembly, AssemblyIdentity.AssemblyNameElements.Culture);
 		AssemblyIdentity assemblyIdentity8 = new(AssemblyNamePkt);
 
-		Assert.AreEqual(-1, assemblyIdentity0.Match(null), "Match0(null)");
+		Assert.AreEqual(-1, assemblyIdentity0.Match((Assembly)null), "Match0(null)");
+		Assert.AreEqual(-1, assemblyIdentity0.Match((AssemblyName)null), "Match0(null)");
 		Assert.AreEqual(0, assemblyIdentity0.Match(Globals.ThisAssembly), "Match0(This)");
 		Assert.AreEqual(8, assemblyIdentity1.Match(Globals.ThisAssembly), "Match1(This)");
 		Assert.AreEqual(4, assemblyIdentity2.Match(Globals.ThisAssembly), "Match2(This)");
@@ -321,15 +323,6 @@ public class AssemblyIdentityTests
 		Assert.AreEqual(11, assemblyIdentity5.Match(Globals.ThisAssembly), "Match5(This)");
 		Assert.AreEqual(15, assemblyIdentity6.Match(Globals.ThisAssembly), "Match6(This)");
 		Assert.AreEqual(-4, assemblyIdentity8.Match(s_testAssembly), "Match8(TestAssembly)");
-	}
-
-	[TestMethod]
-	public void SetPublicKeyToken_ByteArray_Success()
-	{
-		AssemblyIdentity assemblyIdentity = new(Globals.ThisAssembly, AssemblyIdentity.AssemblyNameElements.All);
-		CollectionAssert.AreEqual(Globals.ThisAssemblyName.GetPublicKeyToken(), assemblyIdentity.GetPublicKeyToken());
-		assemblyIdentity.SetPublicKeyToken(null);
-		Assert.IsNull(assemblyIdentity.GetPublicKeyToken());
 	}
 
 	[TestMethod]

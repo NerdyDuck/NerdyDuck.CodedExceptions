@@ -42,9 +42,10 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 [ComVisible(false)]
 public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializable
 {
-	private const string AssemblyIdentityRegex = "^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?";
 	private const string PublicKeyTokenName = "PublicKeyToken";
 	private const string NeutralLanguage = "neutral";
+	private const string AssemblyIdentityRegexString = "^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?";
+	private static readonly Lazy<Regex> AssemblyIdentityRegex = new(() => new Regex(AssemblyIdentityRegexString));
 
 	/// <summary>
 	/// The highest possible value returned by <see cref="Match(Assembly)"/>, meaning that name, version, culture and public key token are a match.
@@ -54,21 +55,21 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	private byte[]? _publicKeyToken;
 
 	/// <summary>
-	/// Gets or sets the culture of the assembly. May be <see langword="null"/>.
+	/// Gets the culture of the assembly. May be <see langword="null"/>.
 	/// </summary>
 	/// <remarks>If the value is empty, the culture is neutral; if the value is <see langword="null"/>, the culture is not respected when comparing to an <see cref="Assembly"/>.</remarks>
 	public string? Culture
 	{
-		get; set;
+		get; private set;
 	}
 
 	/// <summary>
-	/// Gets or sets the name of the assembly. May be <see langword="null"/>.
+	/// Gets the name of the assembly. May be <see langword="null"/>.
 	/// </summary>
 	/// <remarks>If the value is <see langword="null"/>, the name is not respected when comparing to an <see cref="Assembly"/>.</remarks>
-	public string Name
+	public string? Name
 	{
-		get; set;
+		get; private set;
 	}
 
 	/// <summary>
@@ -77,7 +78,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// <remarks>If the value is <see langword="null"/>, the version is not respected when comparing to an <see cref="Assembly"/>.</remarks>
 	public Version? Version
 	{
-		get; set;
+		get; private set;
 	}
 
 	/// <summary>
@@ -87,7 +88,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	public AssemblyIdentity()
 	{
 		Culture = null;
-		Name = string.Empty;
+		Name = null;
 		_publicKeyToken = null;
 		Version = null;
 	}
@@ -124,22 +125,24 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 		}
 
 		AssemblyName assemblyName = assembly.GetName() ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assembly));
-		if (assemblyNameElements.HasFlag(AssemblyNameElements.Culture))
+		CopyFromAssemblyName(assemblyName, assemblyNameElements);
+	}
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="AssemblyIdentity"/> class with the specified <see cref="AssemblyName"/>.
+	/// </summary>
+	/// <param name="assemblyName">The name of the assembly to create an identity from.</param>
+	/// <param name="assemblyNameElements">A combination of <see cref="AssemblyNameElements"/> values indicating which properties of the <see cref="AssemblyName"/> to copy.</param>
+	/// <exception cref="ArgumentNullException"><paramref name="assemblyName"/> is <see langword="null"/>.</exception>
+	public AssemblyIdentity(AssemblyName assemblyName, AssemblyNameElements assemblyNameElements)
+		: this()
+	{
+		if (assemblyName == null)
 		{
-			Culture = string.IsNullOrEmpty(assemblyName.CultureName) ? NeutralLanguage : assemblyName.CultureName;
+			throw new ArgumentNullException(nameof(assemblyName));
 		}
-		if (assemblyNameElements.HasFlag(AssemblyNameElements.Name))
-		{
-			Name = assemblyName.Name ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assembly));
-		}
-		if (assemblyNameElements.HasFlag(AssemblyNameElements.PublicKeyToken))
-		{
-			_publicKeyToken = assemblyName.GetPublicKeyToken();
-		}
-		if (assemblyNameElements.HasFlag(AssemblyNameElements.Version))
-		{
-			Version = (Version?)assemblyName.Version?.Clone();
-		}
+
+		CopyFromAssemblyName(assemblyName, assemblyNameElements);
 	}
 
 	/// <summary>
@@ -151,7 +154,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	{
 		if (!string.IsNullOrEmpty(assemblyName))
 		{
-			Match match = new Regex(AssemblyIdentityRegex).Match(assemblyName);
+			Match match = AssemblyIdentityRegex.Value.Match(assemblyName);
 			Name = match.Result("${name}");
 			string temp = match.Result("${version}");
 			if (!string.IsNullOrEmpty(temp))
@@ -344,16 +347,31 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// <summary>
 	/// Returns a value indicating whether the properties of this instance match the specified <see cref="Assembly"/>.
 	/// </summary>
-	/// <param name="other">The <see cref="Assembly"/> to check.</param>
+	/// <param name="assembly">The <see cref="Assembly"/> to check.</param>
 	/// <returns><see langword="true"/>, if all non-<see langword="null"/> properties of this instance match the specified <see cref="Assembly"/>; otherwise, <see langword="false"/>.</returns>
-	public bool IsMatch(Assembly other)
+	public bool IsMatch(Assembly assembly)
 	{
-		if (other == null)
+		if (assembly == null)
 		{
 			return false;
 		}
 
-		AssemblyName assemblyName = other.GetName();
+		AssemblyName assemblyName = assembly.GetName();
+
+		return IsMatch(assemblyName);
+	}
+
+	/// <summary>
+	/// Returns a value indicating whether the properties of this instance match the specified <see cref="AssemblyName"/>.
+	/// </summary>
+	/// <param name="assemblyName">The <see cref="AssemblyName"/> to check.</param>
+	/// <returns><see langword="true"/>, if all non-<see langword="null"/> properties of this instance match the specified <see cref="AssemblyName"/>; otherwise, <see langword="false"/>.</returns>
+	public bool IsMatch(AssemblyName assemblyName)
+	{
+		if (assemblyName == null)
+		{
+			return false;
+		}
 
 		if (!string.IsNullOrEmpty(Name) && !string.Equals(Name, assemblyName.Name, StringComparison.OrdinalIgnoreCase))
 		{
@@ -435,9 +453,49 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			return -1;
 		}
 
+		AssemblyName assemblyName = assembly.GetName();
+
+		return Match(assemblyName);
+	}
+
+	/// <summary>
+	/// Compares the specified <see cref="AssemblyName"/> to the current <see cref="AssemblyIdentity"/>, and returns an integer value
+	/// that specifies if the <paramref name="assemblyName"/> matches the identity, and how strong that match is.
+	/// </summary>
+	/// <param name="assemblyName">The <see cref="AssemblyName"/> to compare to.</param>
+	/// <returns>A signed number indicating the relative matching strength of the <paramref name="assemblyName"/> to the identity.
+	/// <list type="table">
+	/// <listheader><term>Value</term><term>Description</term></listheader>
+	/// <item><term>Less than zero</term><term>The <paramref name="assemblyName"/> does not match the identity, or <paramref name="assemblyName"/> is <see langword="null"/>.</term></item>
+	/// <item><term>Zero</term><term>The current <see cref="AssemblyIdentity"/> is a "catch-all" where all property values are set to <see langword="null"/>, so every <see cref="Assembly"/> matches.</term></item>
+	/// <item><term>More than zero</term><term>The <paramref name="assemblyName"/> matches the identity. The higher the value, the stronger the match.</term></item>
+	/// </list></returns>
+	/// <returns>This table details the specific values of the return value.
+	/// <list type="table">
+	/// <listheader><term>Value</term><term>Description</term></listheader>
+	/// <item><term>-4</term><term>The <paramref name="assemblyName"/>'s public key does not match the identity.</term></item>
+	/// <item><term>-3</term><term>The <paramref name="assemblyName"/> culture does not match the identity.</term></item>
+	/// <item><term>-2</term><term>The <paramref name="assemblyName"/> version does not match the identity.</term></item>
+	/// <item><term>-1</term><term>The <paramref name="assemblyName"/> name does not match the identity, or <paramref name="assemblyName"/> is <see langword="null"/>.</term></item>
+	/// <item><term>0</term><term>The current <see cref="AssemblyIdentity"/> is a "catch-all" where all property values are set to <see langword="null"/>, so every <see cref="Assembly"/> matches.</term></item>
+	/// <item><term>1</term><term>The <paramref name="assemblyName"/>'s public key matches the identity.</term></item>
+	/// <item><term>2</term><term>The <paramref name="assemblyName"/> culture matches the identity.</term></item>
+	/// <item><term>4</term><term>The <paramref name="assemblyName"/> version matches the identity.</term></item>
+	/// <item><term>8</term><term>The <paramref name="assemblyName"/> name matches the identity.</term></item>
+	/// </list>
+	/// <para>Positive values are combined if multiple properties match, to detect the strongest match when comparing multiple <see cref="AssemblyIdentity"/>s
+	/// to an <see cref="AssemblyName"/>, while a single mismatch results in the negative return value according to the mismatched property. The different properties of the <see cref="AssemblyIdentity"/>
+	/// have different weights, so that a match via e.g. the assembly name will always be higher ranked than the match via the assembly version. Only
+	/// properties of the <see cref="AssemblyIdentity"/> that are not <see langword="null"/> are compared to the assembly.</para></returns>
+	public int Match(AssemblyName assemblyName)
+	{
+		if (assemblyName == null)
+		{
+			return -1;
+		}
+
 		int returnValue = 0;
 		bool noCheck = true;
-		AssemblyName assemblyName = assembly.GetName();
 
 		if (!string.IsNullOrEmpty(Name))
 		{
@@ -519,12 +577,6 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 
 		return returnValue;
 	}
-
-	/// <summary>
-	/// Sets the public key token of the assembly, which is the last 8 bytes of the SHA-1 hash of the public key under which the assembly is signed.
-	/// </summary>
-	/// <param name="publicKeyToken">An array of bytes containing the public key token. May be <see langword="null"/>.</param>
-	public void SetPublicKeyToken(byte[] publicKeyToken) => _publicKeyToken = publicKeyToken;
 
 	/// <summary>
 	/// Returns the full name of the assembly identity.
@@ -619,6 +671,33 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			}
 		}
 		return true;
+	}
+
+	/// <summary>
+	/// Copies the values of the specified <see cref="AssemblyName" /> to the properties.
+	/// </summary>
+	/// <param name="assemblyName">The <see cref="AssemblyName" /> that contains the values.</param>
+	/// <param name="assemblyNameElements">A combination of values from the <see cref="AssemblyNameElements" /> enumeration specifying which properties to copy.</param>
+	/// <exception cref="ArgumentException">The <paramref name="assemblyName"/> has no name.</exception>
+	private void CopyFromAssemblyName(AssemblyName assemblyName, AssemblyNameElements assemblyNameElements)
+	{
+		if (assemblyNameElements.HasFlag(AssemblyNameElements.Culture))
+		{
+			Culture = string.IsNullOrEmpty(assemblyName.CultureName) ? NeutralLanguage : assemblyName.CultureName;
+		}
+		if (assemblyNameElements.HasFlag(AssemblyNameElements.Name))
+		{
+			Name = assemblyName.Name ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assemblyName));
+		}
+		if (assemblyNameElements.HasFlag(AssemblyNameElements.PublicKeyToken))
+		{
+			_publicKeyToken = assemblyName.GetPublicKeyToken();
+		}
+		if (assemblyNameElements.HasFlag(AssemblyNameElements.Version))
+		{
+			Version = (Version?)assemblyName.Version?.Clone();
+		}
+
 	}
 
 	/// <summary>
