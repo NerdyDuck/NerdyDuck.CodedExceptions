@@ -117,5 +117,5 @@ public static class AssemblyDebugModeCacheExtensions
 	/// </summary>
 	/// <param name="cache">The cache to add the settings to.</param>
 	/// <param name="reader">A <see cref="XmlReader"/> containing debug mode settings.</param>
-	private static void FromXmlInternal(this AssemblyDebugModeCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, Globals.DebugModesNode, Globals.DebugModeNode, Globals.IsEnabledKey, nameof(TextResources.Global_IsEnabledInvalid), (stringValue) => string.IsNullOrWhiteSpace(stringValue) || XmlConvert.ToBoolean(stringValue), true, (assembly, convertedValue) => new AssemblyDebugMode(assembly, convertedValue)));
+	private static void FromXmlInternal(this AssemblyDebugModeCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, Globals.DebugModesNode, Globals.DebugModeNode, Globals.IsEnabledKey, nameof(TextResources.Global_IsEnabledInvalid), (stringValue) => string.IsNullOrWhiteSpace(stringValue) || XmlConvert.ToBoolean(stringValue), (assembly, convertedValue) => new AssemblyDebugMode(assembly, convertedValue)));
 }

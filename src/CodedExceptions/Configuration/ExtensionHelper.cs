@@ -287,7 +287,7 @@ internal static class ExtensionHelper
 		return result;
 	}
 
-	internal static List<T> FromXmlInternal<T, TValue>(XmlReader reader, string rootNodeName, string nodesName, string valueKey, string valueInvalidResourceKey, Func<string, TValue> converter, bool allowEmptyOrMissing, Func<AssemblyIdentity,TValue,T> constructor)
+	internal static List<T> FromXmlInternal<T, TValue>(XmlReader reader, string rootNodeName, string nodesName, string valueKey, string valueInvalidResourceKey, Func<string?, TValue> converter, Func<AssemblyIdentity, TValue, T> constructor)
 	{
 		reader.ReadStartElement(rootNodeName);
 		List<T> result = new();
@@ -315,13 +315,13 @@ internal static class ExtensionHelper
 				}
 
 				valueString = reader.GetAttribute(valueKey);
-				if (!allowEmptyOrMissing && string.IsNullOrWhiteSpace(valueString))
-				{
-					throw new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, nodesName, valueKey));
-				}
 				try
 				{
 					convertedValue = converter(valueString);
+				}
+				catch (XmlException)
+				{
+					throw;
 				}
 				catch (FormatException ex)
 				{

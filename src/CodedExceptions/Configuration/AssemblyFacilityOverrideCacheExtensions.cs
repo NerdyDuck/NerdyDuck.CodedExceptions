@@ -117,5 +117,5 @@ public static class AssemblyFacilityOverrideCacheExtensions
 	/// </summary>
 	/// <param name="cache">The cache to add the overrides to.</param>
 	/// <param name="reader">A <see cref="XmlReader"/> containing overrides.</param>
-	private static void FromXmlInternal(AssemblyFacilityOverrideCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, Globals.OverridesNode, Globals.OverrideNode, Globals.IdentifierKey, nameof(TextResources.Global_FromXml_AttributeMissing), (stringValue) => XmlConvert.ToInt32(stringValue), false, (assembly, convertedValue) => new AssemblyFacilityOverride(assembly, convertedValue)));
+	private static void FromXmlInternal(AssemblyFacilityOverrideCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, Globals.OverridesNode, Globals.OverrideNode, Globals.IdentifierKey, nameof(TextResources.Global_FromXml_AttributeMissing), (stringValue) => string.IsNullOrWhiteSpace(stringValue) ? throw new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, Globals.OverrideNode, Globals.IdentifierKey)) : XmlConvert.ToInt32(stringValue), (assembly, convertedValue) => new AssemblyFacilityOverride(assembly, convertedValue)));
 }
