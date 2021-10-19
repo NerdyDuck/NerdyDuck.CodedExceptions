@@ -23,7 +23,7 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 - You can clone the repository and compile the libraries yourself (see the [Documentation](https://nerdyduck.github.io/CodedExceptions/index.html) for requirements).
 
 #### More information
-For examples and a complete class reference, please see the [Documentation](https://nerdyduck.github.io/CodedExceptions/index.html).
+:exclamation: The documentation at the [Wiki](../../wiki/) is currently outdated. :exclamation:
 
 #### License
 The project is licensed under the [MIT License](LICENSE).
