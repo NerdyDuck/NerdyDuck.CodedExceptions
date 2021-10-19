@@ -1,4 +1,4 @@
-# ![Logo](media/NerdyDuck.CodedExceptions.svg) NerdyDuck.CodedExceptions
+[Logo](media/NerdyDuck.CodedExceptions.svg) NerdyDuck.CodedExceptions
 #### Exceptions with custom HRESULTs for .NET to identify the origins of errors.
 
 This project provides a library of classes derived from [`System.Exception`](https://docs.microsoft.com/en-us/dotnet/api/system.exception) that offer constructors to set the `HResult` property with a custom value.
