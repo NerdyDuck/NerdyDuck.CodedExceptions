@@ -1,0 +1,6 @@
+<CodeCloneSettings>  
+  <Exclusions>  
+    <Namespace>NerdyDuck.Tests.CodedExceptions</Namespace>  
+    <Namespace>NerdyDuck.Tests.CodedExceptions.*</Namespace>  
+  </Exclusions>  
+</CodeCloneSettings>        

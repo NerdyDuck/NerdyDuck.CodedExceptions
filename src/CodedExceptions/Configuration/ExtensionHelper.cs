@@ -29,6 +29,7 @@
  ******************************************************************************/
 #endregion
 
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security;
@@ -256,5 +257,89 @@ internal static class ExtensionHelper
 		{
 			throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
 		}
+	}
+
+	/// <summary>
+	/// Finds the object in a list that has the best match of it's <see cref="AssemblyIdentity" /> field to the specified <see cref="Assembly" />.
+	/// </summary>
+	/// <typeparam name="TSource">The type of the <paramref name="source"/> list to search.</typeparam>
+	/// <param name="source">The list of objects to search.</param>
+	/// <param name="assembly">The <see cref="Assembly" /> to match the <see cref="AssemblyIdentity" />s to.</param>
+	/// <param name="selector">A function to select the <see cref="AssemblyIdentity" /> of the <typeparamref name="TSource"/> objects.</param>
+	/// <returns>The <typeparamref name="TSource"/> object having the best match to <paramref name="assembly"/>, or <see langword="null" />, it no match was found.</returns>
+	internal static TSource? GetMaximumMatch<TSource>(List<TSource> source, Assembly assembly, Func<TSource, AssemblyIdentity> selector)
+	{
+		int match, highestMatch = -1;
+		TSource? result = default;
+		foreach (TSource sourceObject in source)
+		{
+			if ((match = selector(sourceObject).Match(assembly)) > 0 && match > highestMatch)
+			{
+				highestMatch = match;
+				result = sourceObject;
+				if (match == AssemblyIdentity.MaximumMatchValue)
+				{
+					break; // Can't get any better.
+				}
+			}
+		}
+
+		return result;
+	}
+
+	internal static List<T> FromXmlInternal<T, TValue>(XmlReader reader, string rootNodeName, string nodesName, string valueKey, string valueInvalidResourceKey, Func<string, TValue> converter, bool allowEmptyOrMissing, Func<AssemblyIdentity,TValue,T> constructor)
+	{
+		reader.ReadStartElement(rootNodeName);
+		List<T> result = new();
+		string? assemblyString, valueString;
+		AssemblyIdentity assembly;
+		TValue convertedValue;
+
+		while (!(reader.Name == rootNodeName && reader.NodeType == XmlNodeType.EndElement))
+		{
+			if (reader.Name == nodesName && reader.NodeType == XmlNodeType.Element)
+			{
+				assemblyString = reader.GetAttribute(Globals.AssemblyNameKey);
+				if (assemblyString == null)
+				{
+					throw AssemblyNameAttributeMissingException(nodesName);
+				}
+
+				try
+				{
+					assembly = new AssemblyIdentity(assemblyString);
+				}
+				catch (FormatException ex)
+				{
+					throw InvalidAssemblyNameException(assemblyString, ex);
+				}
+
+				valueString = reader.GetAttribute(valueKey);
+				if (!allowEmptyOrMissing && string.IsNullOrWhiteSpace(valueString))
+				{
+					throw new XmlException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, nodesName, valueKey));
+				}
+				try
+				{
+					convertedValue = converter(valueString);
+				}
+				catch (FormatException ex)
+				{
+					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.ResourceManager.GetString(valueInvalidResourceKey, CultureInfo.CurrentCulture) ?? string.Empty, assemblyString), ex);
+				}
+
+				result.Add(constructor(assembly, convertedValue));
+				reader.Skip();
+			}
+			else
+			{
+				if (!reader.Read())
+				{
+					break;
+				}
+			}
+		}
+
+		return result;
 	}
 }

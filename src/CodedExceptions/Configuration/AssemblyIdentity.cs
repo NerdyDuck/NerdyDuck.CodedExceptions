@@ -228,95 +228,18 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			return false;
 		}
 
-		if (other.Name == null)
-		{
-			if (Name != null)
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if (Name == null)
-			{
-				return false;
-			}
-			else
-			{
-				if (!string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase))
-				{
-					return false;
-				}
-			}
-		}
 
-		if (other.Version == null)
-		{
-			if (Version != null)
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if (Version == null)
-			{
-				return false;
-			}
-			else
-			{
-				if (!Version.Equals(other.Version))
-				{
-					return false;
-				}
-			}
-		}
+#pragma warning disable IDE0079 // suppression is necessary
+#pragma warning disable CS8602 // thisValue is guarded by NullCompare
+#pragma warning disable CS8604 // thisValue is guarded by NullCompare
+		return NullCompare(Name, other.Name, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
+			&& NullCompare(Version, other.Version, (thisValue, otherValue) => thisValue.Equals(otherValue)) &&
+			NullCompare(Culture, other.Culture, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase)) &&
+			NullCompare(_publicKeyToken, other._publicKeyToken, (thisValue, otherValue) => CompareKeyTokens(thisValue, otherValue));
+#pragma warning restore CS8604
+#pragma warning restore CS8602
+#pragma warning restore IDE0079
 
-		if (other.Culture == null)
-		{
-			if (Culture != null)
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if (Culture == null)
-			{
-				return false;
-			}
-			else
-			{
-				if (!string.Equals(Culture, other.Culture, StringComparison.OrdinalIgnoreCase))
-				{
-					return false;
-				}
-			}
-		}
-
-		if (other._publicKeyToken == null)
-		{
-			if (_publicKeyToken != null)
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if (_publicKeyToken == null)
-			{
-				return false;
-			}
-			else
-			{
-				if (!CompareKeyTokens(other._publicKeyToken))
-				{
-					return false;
-				}
-			}
-		}
-
-		return true;
 	}
 
 	/// <summary>
@@ -408,7 +331,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			{
 				return false;
 			}
-			if (!CompareKeyTokens(pkt))
+			if (!CompareKeyTokens(_publicKeyToken, pkt))
 			{
 				return false;
 			}
@@ -559,7 +482,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			{
 				return -4;
 			}
-			if (CompareKeyTokens(pkt))
+			if (CompareKeyTokens(_publicKeyToken, pkt))
 			{
 				returnValue += 2;
 			}
@@ -642,32 +565,22 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	}
 
 	/// <summary>
-	/// Compares the specified byte array to PublicKeyToken.
+	/// Compares two bytes arrays.
 	/// </summary>
+	/// <param name="current">The array to compare.</param>
 	/// <param name="other">The array to compare.</param>
 	/// <returns>true, if both arrays have the same length and content; otherwise, false.</returns>
-	private bool CompareKeyTokens(byte[]? other)
+	private static bool CompareKeyTokens(byte[] current, byte[] other)
 	{
-		if (other == null)
+		if (current.Length != other.Length)
 		{
-			return _publicKeyToken == null;
+			return false;
 		}
-		else
+		for (int i = 0; i < current.Length; i++)
 		{
-			if (_publicKeyToken == null)
+			if (current[i] != other[i])
 			{
 				return false;
-			}
-			if (_publicKeyToken.Length != other.Length)
-			{
-				return false;
-			}
-			for (int i = 0; i < _publicKeyToken.Length; i++)
-			{
-				if (_publicKeyToken[i] != other[i])
-				{
-					return false;
-				}
 			}
 		}
 		return true;
@@ -698,6 +611,40 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			Version = (Version?)assemblyName.Version?.Clone();
 		}
 
+	}
+
+	/// <summary>
+	/// Compares two values, where values are considered equal when both are <see langword="null" />.
+	/// </summary>
+	/// <typeparam name="TCompare">The type of the values to compare.</typeparam>
+	/// <param name="thisValue">The value from this instance of <see cref="AssemblyIdentity" />.</param>
+	/// <param name="otherValue">The value from another instance of <see cref="AssemblyIdentity" />.</param>
+	/// <param name="equalityComparer">A function that compares <paramref name="thisValue"/> with <paramref name="thisValue"/>, if neither are <see langword="null" />.</param>
+	/// <returns><see langword="true" />, if the values are equal, or both <see langword="null" />; <see langword="false" />, otherwise.</returns>
+	private static bool NullCompare<TCompare>(TCompare thisValue, TCompare otherValue, Func<TCompare, TCompare, bool> equalityComparer)
+	{
+		if (otherValue == null)
+		{
+			if (thisValue != null)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (thisValue == null)
+			{
+				return false;
+			}
+			else
+			{
+				if (!equalityComparer(thisValue, otherValue))
+				{
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/// <summary>

@@ -27,4 +27,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
   </ItemGroup>
   <Import Project="..\Tests.Shared\Tests.CodedExceptions.Configuration.projitems" Label="Shared" />
+  <ItemGroup>
+    <None Include=".codeclonesettings" />
+  </ItemGroup>
 </Project>

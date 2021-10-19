@@ -66,4 +66,40 @@ internal static class ExtensionHelper
 			throw new ArgumentNullException(nameof(configuration));
 		}
 	}
+
+	internal static List<TTarget> LoadConfigurationSection<TTarget, TValue>(IConfiguration source, Func<AssemblyIdentity, TValue, TTarget> constructor, Func<string, TValue> converter)
+	{
+		List<TTarget> result = new();
+		AssemblyIdentity assembly;
+		TValue convertedValue;
+
+		foreach (KeyValuePair<string, string> pair in source.AsEnumerable(true))
+		{
+			try
+			{
+				assembly = new AssemblyIdentity(pair.Key);
+			}
+			catch (FormatException ex)
+			{
+				throw InvalidAssemblyNameException(pair.Key, ex);
+			}
+
+			if (string.IsNullOrWhiteSpace(pair.Value))
+			{
+				throw new FormatException(TextResources.Global_IdentifierEmpty);
+			}
+			try
+			{
+				convertedValue = converter(pair.Value);
+			}
+			catch (FormatException ex)
+			{
+				throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, pair.Key), ex);
+			}
+
+			result.Add(constructor(assembly, convertedValue));
+		}
+
+		return result;
+	}
 }

@@ -120,29 +120,17 @@ public sealed class AssemblyDebugModeCache : IDisposable
 			throw new ArgumentNullException(nameof(assembly));
 		}
 
-		int match, highestMatch = -1;
+		bool result = false;
 		_listLock.EnterReadLock();
-		bool returnValue = false;
 		try
 		{
-			foreach (AssemblyDebugMode debugMode in _debugModes)
-			{
-				if ((match = debugMode.AssemblyName.Match(assembly)) > 0 && match > highestMatch)
-				{
-					highestMatch = match;
-					returnValue = debugMode.IsEnabled;
-					if (match == AssemblyIdentity.MaximumMatchValue)
-					{
-						break; // Can't get any better.
-					}
-				}
-			}
+			result = ExtensionHelper.GetMaximumMatch(_debugModes, assembly, (debugMode) => debugMode.AssemblyName)?.IsEnabled ?? false;
 		}
 		finally
 		{
 			_listLock.ExitReadLock();
 		}
-		return returnValue;
+		return result;
 	}
 
 	/// <summary>

@@ -25,4 +25,7 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
   <Import Project="..\Tests.Shared\Tests.CodedExceptions.Configuration.projitems" Label="Shared" />
+  <ItemGroup>
+    <None Include=".codeclonesettings" />
+  </ItemGroup>
 </Project>

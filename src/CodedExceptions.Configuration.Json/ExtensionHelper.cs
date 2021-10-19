@@ -179,30 +179,7 @@ internal static class ExtensionHelper
 	/// <param name="cache">The cache to add the configuration data to.</param>
 	/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
-	internal static T LoadJson<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, JsonElement> parser) where T : class
-	{
-		AssertCache(cache);
-
-		JsonDocument jsonDocument;
-		try
-		{
-			jsonDocument = JsonDocument.Parse(utf8Json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-		}
-		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
-		{
-			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
-		}
-
-		try
-		{
-			parser(cache, jsonDocument.RootElement);
-		}
-		finally
-		{
-			jsonDocument.Dispose();
-		}
-		return cache;
-	}
+	internal static T LoadJson<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, JsonElement> parser) where T : class => LoadJson(cache, new ReadOnlySequence<byte>(utf8Json), parser);
 
 	/// <summary>
 	/// Loads configuration data into a cache from the specified string, using the specified method.
@@ -332,5 +309,34 @@ internal static class ExtensionHelper
 		{
 			throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
 		}
+	}
+
+	internal static List<T> FromJsonInternal<T, TValue>(JsonElement jsonElement, Func<JsonProperty, TValue> converter, Func<AssemblyIdentity, TValue, T> constructor)
+	{
+		ExtensionHelper.AssertJsonValueKindObject(jsonElement);
+
+		jsonElement = ExtensionHelper.GetParentElement(jsonElement);
+
+		List<T> result = new();
+		AssemblyIdentity assembly;
+		TValue convertedValue;
+
+		foreach (JsonProperty jsonProperty in jsonElement.EnumerateObject())
+		{
+			try
+			{
+				assembly = new AssemblyIdentity(jsonProperty.Name);
+			}
+			catch (FormatException ex)
+			{
+				throw ExtensionHelper.InvalidAssemblyNameException(jsonProperty.Name, ex);
+			}
+
+			convertedValue = converter(jsonProperty);
+
+			result.Add(constructor(assembly, convertedValue));
+		}
+
+		return result;
 	}
 }

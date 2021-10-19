@@ -111,36 +111,10 @@ public static class AssemblyFacilityOverrideCacheJsonExtensions
 	/// <param name="jsonElement">A <see cref="JsonElement"/> containing overrides.</param>
 	private static void FromJsonInternal(AssemblyFacilityOverrideCache cache, JsonElement jsonElement)
 	{
-		ExtensionHelper.AssertJsonValueKindObject(jsonElement);
+		cache.AddRange(ExtensionHelper.FromJsonInternal(jsonElement, (jsonProperty) => CheckAndConvert(jsonProperty), (assembly, identifier) => new AssemblyFacilityOverride(assembly, identifier)));
 
-		jsonElement = ExtensionHelper.GetParentElement(jsonElement);
-
-		List<AssemblyFacilityOverride> facilityOverrides = new();
-		AssemblyIdentity assembly;
-		int identifier;
-
-		foreach (JsonProperty jsonProperty in jsonElement.EnumerateObject())
-		{
-			try
-			{
-				assembly = new AssemblyIdentity(jsonProperty.Name);
-			}
-			catch (FormatException ex)
-			{
-				throw ExtensionHelper.InvalidAssemblyNameException(jsonProperty.Name, ex);
-			}
-
-			if (jsonProperty.Value.ValueKind != JsonValueKind.Number)
-			{
-				throw NotANumberException();
-			}
-			identifier = jsonProperty.Value.GetInt32();
-
-			facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
-		}
-
-		cache.AddRange(facilityOverrides);
+		static int CheckAndConvert(JsonProperty jsonProperty) => jsonProperty.Value.ValueKind != JsonValueKind.Number ? throw NotANumberException() : jsonProperty.Value.GetInt32();
+		static FormatException NotANumberException() => new(TextResources.Global_FromJson_NotANumber);
 	}
 
-	private static FormatException NotANumberException() => new(TextResources.Global_FromJson_NotANumber);
 }

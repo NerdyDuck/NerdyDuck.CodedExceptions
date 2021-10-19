@@ -186,7 +186,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_InvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<XmlException>(() =>
+		_ = Assert.ThrowsException<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\AssemblyDebugModesInvIsEnabled.xml");

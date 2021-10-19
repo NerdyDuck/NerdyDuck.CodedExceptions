@@ -129,37 +129,10 @@ public static class AssemblyDebugModeCacheJsonExtensions
 	/// <exception cref="FormatException">The JSON data is invalid.</exception>
 	private static void FromJsonInternal(this AssemblyDebugModeCache cache, JsonElement jsonElement)
 	{
-		ExtensionHelper.AssertJsonValueKindObject(jsonElement);
-
-		jsonElement = ExtensionHelper.GetParentElement(jsonElement);
-
-		List<AssemblyDebugMode> debugModes = new();
-		AssemblyIdentity assemblyName;
-		bool isEnabled;
-
-		foreach (JsonProperty jsonProperty in jsonElement.EnumerateObject())
-		{
-			try
-			{
-				assemblyName = new AssemblyIdentity(jsonProperty.Name);
-			}
-			catch (FormatException ex)
-			{
-				throw ExtensionHelper.InvalidAssemblyNameException(jsonProperty.Name, ex);
-			}
-
-			if (jsonProperty.Value.ValueKind is not JsonValueKind.True and not JsonValueKind.False)
-			{
-				throw NotABoolException();
-			}
-			isEnabled = jsonProperty.Value.GetBoolean();
-
-			debugModes.Add(new AssemblyDebugMode(assemblyName, isEnabled));
-		}
-
-		cache.AddRange(debugModes);
+		cache.AddRange(ExtensionHelper.FromJsonInternal(jsonElement, (jsonProperty) => CheckAndConvert(jsonProperty), (assembly, debugMode) => new AssemblyDebugMode(assembly, debugMode)));
+		static bool CheckAndConvert(JsonProperty jsonProperty) => jsonProperty.Value.ValueKind is not JsonValueKind.True and not JsonValueKind.False ? throw NotABoolException() : jsonProperty.Value.GetBoolean();
+		static FormatException NotABoolException() => new(TextResources.Global_FromJson_NotABool);
 	}
 
-	private static FormatException NotABoolException() => new(TextResources.Global_FromJson_NotABool);
 
 }

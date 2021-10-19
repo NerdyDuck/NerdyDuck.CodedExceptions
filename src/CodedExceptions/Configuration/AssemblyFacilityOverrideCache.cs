@@ -94,29 +94,17 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 			throw new ArgumentNullException(nameof(assembly));
 		}
 
-		int match, highestMatch = -1;
 		_listLock.EnterReadLock();
 		try
 		{
+			identifier = ExtensionHelper.GetMaximumMatch(_facilityOverrides, assembly, (facilityOverride) => facilityOverride.AssemblyName)?.Identifier ?? 0;
 
-			foreach (AssemblyFacilityOverride facilityOverride in _facilityOverrides)
-			{
-				if ((match = facilityOverride.AssemblyName.Match(assembly)) > 0 && match > highestMatch)
-				{
-					highestMatch = match;
-					identifier = facilityOverride.Identifier;
-					if (match == AssemblyIdentity.MaximumMatchValue)
-					{
-						break; // Can't get any better.
-					}
-				}
-			}
 		}
 		finally
 		{
 			_listLock.ExitReadLock();
 		}
-		return highestMatch > 0;
+		return identifier > 0;
 	}
 
 	/// <summary>

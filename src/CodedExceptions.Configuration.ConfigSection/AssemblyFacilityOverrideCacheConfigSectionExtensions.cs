@@ -50,41 +50,7 @@ public static class AssemblyFacilityOverrideCacheConfigSectionExtensions
 	{
 		ExtensionHelper.AssertCache(cache);
 		ExtensionHelper.AssertConfiguration(configuration);
-
-		List<AssemblyFacilityOverride> facilityOverrides = new();
-		AssemblyIdentity assembly;
-		int identifier;
-
-		foreach (KeyValuePair<string, string> pair in configuration.AsEnumerable(true))
-		{
-			try
-			{
-				assembly = new AssemblyIdentity(pair.Key);
-			}
-			catch (FormatException ex)
-			{
-				throw ExtensionHelper.InvalidAssemblyNameException(pair.Key, ex);
-			}
-
-			if (string.IsNullOrWhiteSpace(pair.Value))
-			{
-				throw new FormatException(TextResources.Global_IdentifierEmpty);
-			}
-			try
-			{
-				identifier = XmlConvert.ToInt32(pair.Value);
-			}
-			catch (FormatException ex)
-			{
-				throw IdentifierInvalidException(pair.Key, ex);
-			}
-
-			facilityOverrides.Add(new AssemblyFacilityOverride(assembly, identifier));
-		}
-
-		cache.AddRange(facilityOverrides);
+		cache.AddRange(ExtensionHelper.LoadConfigurationSection(configuration, (assembly, identifier) => new AssemblyFacilityOverride(assembly, identifier), (stringValue) => Convert.ToInt32(stringValue, CultureInfo.InvariantCulture)));
 		return cache;
 	}
-
-	private static FormatException IdentifierInvalidException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_IdentifierInvalid, assemblyName), ex);
 }
