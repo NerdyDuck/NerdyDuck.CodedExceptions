@@ -45,7 +45,7 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// </summary>
 internal static class ExtensionHelper
 {
-	internal static readonly XmlReaderSettings SecureSettings = new() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+	internal static readonly XmlReaderSettings s_secureSettings = new() { IgnoreComments = true, IgnoreWhitespace = true, CloseInput = false, DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
 
 	/// <summary>
 	/// Loads configuration data into a cache from the specified file path, using the specified method.
@@ -92,7 +92,7 @@ internal static class ExtensionHelper
 		AssertCache(cache);
 		AssertStream(stream);
 
-		using XmlReader reader = XmlReader.Create(stream, SecureSettings);
+		using XmlReader reader = XmlReader.Create(stream, s_secureSettings);
 		parser(cache, reader);
 		return cache;
 	}
@@ -109,7 +109,7 @@ internal static class ExtensionHelper
 		AssertCache(cache);
 		AssertTextReader(reader);
 
-		using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
+		using XmlReader xreader = XmlReader.Create(reader, s_secureSettings);
 		parser(cache, xreader);
 		return cache;
 	}
@@ -127,7 +127,7 @@ internal static class ExtensionHelper
 		AssertCache(cache);
 
 		using MemoryStream stream = new(utf8Json.ToArray());
-		using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
+		using XmlReader xreader = XmlReader.Create(stream, s_secureSettings);
 		parser(cache, xreader);
 		return cache;
 	}
@@ -144,7 +144,7 @@ internal static class ExtensionHelper
 		AssertCache(cache);
 
 		using MemoryStream stream = new(utf8Json.ToArray());
-		using XmlReader xreader = XmlReader.Create(stream, SecureSettings);
+		using XmlReader xreader = XmlReader.Create(stream, s_secureSettings);
 		parser(cache, xreader);
 		return cache;
 	}
@@ -163,7 +163,7 @@ internal static class ExtensionHelper
 		AssertContent(content);
 
 		using StringReader reader = new(content);
-		using XmlReader xreader = XmlReader.Create(reader, SecureSettings);
+		using XmlReader xreader = XmlReader.Create(reader, s_secureSettings);
 		parser(cache, xreader);
 		return cache;
 	}

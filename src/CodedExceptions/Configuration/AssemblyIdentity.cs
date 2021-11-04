@@ -45,7 +45,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	private const string PublicKeyTokenName = "PublicKeyToken";
 	private const string NeutralLanguage = "neutral";
 	private const string AssemblyIdentityRegexString = "^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?";
-	private static readonly Lazy<Regex> AssemblyIdentityRegex = new(() => new Regex(AssemblyIdentityRegexString));
+	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(() => new Regex(AssemblyIdentityRegexString));
 
 	/// <summary>
 	/// The highest possible value returned by <see cref="Match(Assembly)"/>, meaning that name, version, culture and public key token are a match.
@@ -154,7 +154,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	{
 		if (!string.IsNullOrEmpty(assemblyName))
 		{
-			Match match = AssemblyIdentityRegex.Value.Match(assemblyName);
+			Match match = s_assemblyIdentityRegex.Value.Match(assemblyName);
 			Name = match.Result("${name}");
 			string temp = match.Result("${version}");
 			if (!string.IsNullOrEmpty(temp))

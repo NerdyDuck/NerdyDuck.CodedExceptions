@@ -40,9 +40,9 @@ namespace $rootnamespace$
 	[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
 	internal static partial class DebugMode
 	{
-		private static bool _isInitialized = false;
-		private static bool _isEnabled = false;
-		private static readonly object _syncRoot = new();
+		private static bool s_isInitialized = false;
+		private static bool s_isEnabled = false;
+		private static readonly object s_syncRoot = new();
 
 		/// <summary>
 		/// Gets a value indicting if the assembly was set into debug mode via configuration.
@@ -54,15 +54,15 @@ namespace $rootnamespace$
 			get
 			{
 				// First check without lock to avoid locking as far as possible
-				if (!_isInitialized)
+				if (!s_isInitialized)
 				{
-					lock (_syncRoot)
+					lock (s_syncRoot)
 					{
 						// Double check in locked section to call code only once
-						if (!_isInitialized)
+						if (!s_isInitialized)
 						{
-							_isEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(DebugMode).Assembly);
-							_isInitialized = true;
+							s_isEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(DebugMode).Assembly);
+							s_isInitialized = true;
 							global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.CacheChanged += Global_CacheChanged;
 						}
 					}
@@ -79,7 +79,7 @@ namespace $rootnamespace$
 		/// <param name="e">The event arguments.</param>
 		private static void Global_CacheChanged(object? sender, global::System.EventArgs e)
 		{
-			_isEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(DebugMode).Assembly);
+			s_isEnabled = global::NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache.Global.IsDebugModeEnabled(typeof(DebugMode).Assembly);
 		}
 	}
 }

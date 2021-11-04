@@ -39,7 +39,7 @@ namespace $rootnamespace$
 	internal static partial class HResult
 	{
 		// Load the facility id lazy and thread-safe.
-		private static readonly global::System.Lazy<int> _facilityId = new global::System.Lazy<int>(() =>
+		private static readonly global::System.Lazy<int> s_facilityId = new global::System.Lazy<int>(() =>
 		{
 			// Check for override in configuration
 			if (global::NerdyDuck.CodedExceptions.Configuration.AssemblyFacilityOverrideCache.Global.TryGetOverride(typeof(HResult).Assembly, out int identifier))
@@ -51,7 +51,7 @@ namespace $rootnamespace$
 			return global::NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute.FromAssembly(typeof(HResult).Assembly)?.FacilityId ?? 0;
 		});
 
-		private static readonly global::System.Lazy<int> _hResultBase = new global::System.Lazy<int>(() => global::NerdyDuck.CodedExceptions.HResultHelper.GetBaseHResult(_facilityId.Value));
+		private static readonly global::System.Lazy<int> s_hResultBase = new global::System.Lazy<int>(() => global::NerdyDuck.CodedExceptions.HResultHelper.GetBaseHResult(s_facilityId.Value));
 
 		/// <summary>
 		/// Gets the facility identifier of the current assembly.
@@ -59,7 +59,7 @@ namespace $rootnamespace$
 		/// <value>The facility identifier, or 0, if no <see cref="NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
-		internal static int FacilityId => _facilityId.Value;
+		internal static int FacilityId => s_facilityId.Value;
 
 		/// <summary>
 		/// Gets the base HRESULT value of the current assembly.
@@ -67,7 +67,7 @@ namespace $rootnamespace$
 		/// <value>The base HRESULT value, or 0xa0000000, if no <see cref="NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
-		internal static int HResultBase => _hResultBase.Value;
+		internal static int HResultBase => s_hResultBase.Value;
 
 		/// <summary>
 		/// Combines the specified error identifier with the base HRESULT value for this assembly.
@@ -76,7 +76,7 @@ namespace $rootnamespace$
 		/// <returns>A custom HRESULT value, combined from <paramref name="errorId"/> and <see cref="HResultBase"/>.</returns>
 		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
-		internal static int Create(int errorId) => _hResultBase.Value | errorId;
+		internal static int Create(int errorId) => s_hResultBase.Value | errorId;
 
 		/// <summary>
 		/// Combines the specified error identifier, represented by an enumeration, with the base HRESULT value for this assembly.
@@ -87,6 +87,6 @@ namespace $rootnamespace$
 		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		/// <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
-		internal static int Create(global::System.Enum errorId) => _hResultBase.Value | global::NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId);
+		internal static int Create(global::System.Enum errorId) => s_hResultBase.Value | global::NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId);
 	}
 }
