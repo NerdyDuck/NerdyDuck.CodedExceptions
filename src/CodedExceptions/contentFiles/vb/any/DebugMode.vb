@@ -33,7 +33,7 @@
 ''' Provides easy access to the assembly's debug mode status.
 ''' </summary>
 <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("NerdyDuck.CodedExceptions", "2.0.0.0"), Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>
-Friend Module DebugMode
+Partial Friend Module DebugMode
 
 	Private _isInitialized As Boolean = False
 	Private _isEnabled As Boolean = False

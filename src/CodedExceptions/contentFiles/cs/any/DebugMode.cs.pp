@@ -38,7 +38,7 @@ namespace $rootnamespace$
 	/// </summary>
 	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("NerdyDuck.CodedExceptions", "2.0.0.0")]
 	[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-	internal static class DebugMode
+	internal static partial class DebugMode
 	{
 		private static bool _isInitialized = false;
 		private static bool _isEnabled = false;

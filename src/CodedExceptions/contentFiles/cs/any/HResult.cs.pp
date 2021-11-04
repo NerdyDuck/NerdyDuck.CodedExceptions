@@ -36,7 +36,7 @@ namespace $rootnamespace$
 	/// </summary>
 	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("NerdyDuck.CodedExceptions", "2.0.0.0")]
 	[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-	internal static class HResult
+	internal static partial class HResult
 	{
 		// Load the facility id lazy and thread-safe.
 		private static readonly global::System.Lazy<int> _facilityId = new global::System.Lazy<int>(() =>

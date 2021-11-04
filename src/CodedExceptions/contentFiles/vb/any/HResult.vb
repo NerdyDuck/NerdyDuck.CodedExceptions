@@ -33,7 +33,7 @@
 ''' Provides easy access to the assembly's facility id and base HRESULT code.
 ''' </summary>
 <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("NerdyDuck.CodedExceptions", "2.0.0.0"), Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>
-Friend Module HResult
+Partial Friend Module HResult
 
 	' Load the facility id lazy and thread-safe.
 	Private ReadOnly _facilityId As Global.System.Lazy(Of Integer) = New Global.System.Lazy(Of Integer)(AddressOf InitFacilityId)
