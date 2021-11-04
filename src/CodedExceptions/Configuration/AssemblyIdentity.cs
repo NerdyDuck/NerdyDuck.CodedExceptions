@@ -229,16 +229,16 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 		}
 
 
-#pragma warning disable IDE0079 // suppression is necessary
-#pragma warning disable CS8602 // thisValue is guarded by NullCompare
-#pragma warning disable CS8604 // thisValue is guarded by NullCompare
+//#pragma warning disable IDE0079 // suppression is necessary
+//#pragma warning disable CS8602 // thisValue is guarded by NullCompare
+//#pragma warning disable CS8604 // thisValue is guarded by NullCompare
 		return NullCompare(Name, other.Name, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
-			&& NullCompare(Version, other.Version, (thisValue, otherValue) => thisValue.Equals(otherValue)) &&
+			&& NullCompare(Version, other.Version, (thisValue, otherValue) => thisValue!.Equals(otherValue)) &&
 			NullCompare(Culture, other.Culture, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase)) &&
 			NullCompare(_publicKeyToken, other._publicKeyToken, (thisValue, otherValue) => CompareKeyTokens(thisValue, otherValue));
-#pragma warning restore CS8604
-#pragma warning restore CS8602
-#pragma warning restore IDE0079
+//#pragma warning restore CS8604
+//#pragma warning restore CS8602
+//#pragma warning restore IDE0079
 
 	}
 
@@ -570,8 +570,16 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// <param name="current">The array to compare.</param>
 	/// <param name="other">The array to compare.</param>
 	/// <returns>true, if both arrays have the same length and content; otherwise, false.</returns>
-	private static bool CompareKeyTokens(byte[] current, byte[] other)
+	private static bool CompareKeyTokens(byte[]? current, byte[]? other)
 	{
+		if (current is null)
+		{
+			return other is null;
+		}
+		else if (other is null)
+		{
+			return false;
+		}
 		if (current.Length != other.Length)
 		{
 			return false;
