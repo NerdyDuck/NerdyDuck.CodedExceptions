@@ -228,17 +228,10 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			return false;
 		}
 
-
-//#pragma warning disable IDE0079 // suppression is necessary
-//#pragma warning disable CS8602 // thisValue is guarded by NullCompare
-//#pragma warning disable CS8604 // thisValue is guarded by NullCompare
 		return NullCompare(Name, other.Name, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
 			&& NullCompare(Version, other.Version, (thisValue, otherValue) => thisValue!.Equals(otherValue)) &&
 			NullCompare(Culture, other.Culture, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase)) &&
 			NullCompare(_publicKeyToken, other._publicKeyToken, (thisValue, otherValue) => CompareKeyTokens(thisValue, otherValue));
-//#pragma warning restore CS8604
-//#pragma warning restore CS8602
-//#pragma warning restore IDE0079
 
 	}
 
