@@ -9,10 +9,6 @@
     <AssemblyTitle>Configuration for NerdyDuck CodedExceptions</AssemblyTitle>
     <Description>Configures facility identifier overrides and debug mode flags implemented in NerdyDuck.CodedExceptions.</Description>
   </PropertyGroup>
-  <PropertyGroup Label="Code analysis">
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
       - Configuration reworked and split from base library.

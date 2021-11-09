@@ -9,6 +9,10 @@
     <DefineTrace>true</DefineTrace>
     <DeployPath>$(MSBuildThisFileDirectory)../deploy/$(Configuration)/</DeployPath>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Label="Code analysis">
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
   </PropertyGroup>
   <PropertyGroup Label="Assembly Signing">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>

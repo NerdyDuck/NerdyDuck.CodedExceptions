@@ -10,9 +10,7 @@
     <Description>Exceptions with custom HRESULTs to identify the origins of errors.</Description>
   </PropertyGroup>
   <PropertyGroup Label="Code analysis">
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <NoWarn>NU5118</NoWarn>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
