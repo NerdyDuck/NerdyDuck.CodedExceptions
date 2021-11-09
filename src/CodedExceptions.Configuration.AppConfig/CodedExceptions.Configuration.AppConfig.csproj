@@ -11,23 +11,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Code analysis">
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <NoWarn>NU5118;CS8632</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants>$(DefineConstants);NETSTD20</DefineConstants>
-    <NoWarn>8632</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <DefineConstants>$(DefineConstants);NET50</DefineConstants>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <DefineConstants>$(DefineConstants);NET50</DefineConstants>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net472'">
-    <DefineConstants>$(DefineConstants);NET472</DefineConstants>
-    <NoWarn>8632</NoWarn>
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>

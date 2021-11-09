@@ -221,19 +221,11 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// </summary>
 	/// <param name="other">The object to compare to this instance.</param>
 	/// <returns><see langword="true"/> if the <paramref name="other"/> parameter equals the value of this instance; otherwise, <see langword="false"/>.</returns>
-	public bool Equals(AssemblyIdentity? other)
-	{
-		if (other is null)
-		{
-			return false;
-		}
-
-		return NullCompare(Name, other.Name, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
-			&& NullCompare(Version, other.Version, (thisValue, otherValue) => thisValue!.Equals(otherValue)) &&
-			NullCompare(Culture, other.Culture, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase)) &&
-			NullCompare(_publicKeyToken, other._publicKeyToken, (thisValue, otherValue) => CompareKeyTokens(thisValue, otherValue));
-
-	}
+	public bool Equals(AssemblyIdentity? other) => other is not null
+			&& NullCompare(Name, other.Name, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
+			&& NullCompare(Version, other.Version, (thisValue, otherValue) => thisValue!.Equals(otherValue))
+			&& NullCompare(Culture, other.Culture, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
+			&& NullCompare(_publicKeyToken, other._publicKeyToken, (thisValue, otherValue) => CompareKeyTokens(thisValue, otherValue));
 
 	/// <summary>
 	/// Returns a value indicating whether this instance is equal to the value of the specified <see cref="Assembly"/> instance.
@@ -248,10 +240,10 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// </summary>
 	/// <returns>A hash code for the current object.</returns>
 	public override int GetHashCode() =>
-#if NETSTD20
-			ToString().GetHashCode();
-#else
+#if NET5_0_OR_GREATER
 			ToString().GetHashCode(StringComparison.Ordinal);
+#else
+			ToString().GetHashCode();
 #endif
 
 	/// <summary>

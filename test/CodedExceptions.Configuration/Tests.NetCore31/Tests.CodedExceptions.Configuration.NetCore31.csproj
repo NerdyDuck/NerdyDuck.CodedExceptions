@@ -4,7 +4,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>NerdyDuck.Tests.CodedExceptions.Configuration</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
-    <DefineConstants>$(DefineConstants);NETCORE31</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Description>Unit test for NerdyDuck.CodedExceptions.Configuration library</Description>

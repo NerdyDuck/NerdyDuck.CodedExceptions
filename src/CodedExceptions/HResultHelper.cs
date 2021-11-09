@@ -181,7 +181,10 @@ public static class HResultHelper
 		{
 			return null;
 		}
+#pragma warning disable IDE0079
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
 		int valueLength = value.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? value.Length - 2 : value.Length;
+#pragma warning restore CS8602, IDE0079 // Dereference of a possibly null reference.
 		byte[] returnValue = new byte[(valueLength + 1) >> 1];
 		int lastCell = returnValue.Length - 1;
 		int lastChar = value.Length - 1;
@@ -237,6 +240,12 @@ public static class HResultHelper
 		}
 	}
 
+	/// <summary>
+	/// Converts a hexadecimal digit character into a decimal value.
+	/// </summary>
+	/// <param name="value">The value to convert.</param>
+	/// <returns>A value between 0 and 15</returns>
+	/// <exception cref="FormatException"><paramref name="value"/> is not a hexadecimal digit.</exception>
 	private static int HexToInt(char value) => value switch
 	{
 		'0' => 0,

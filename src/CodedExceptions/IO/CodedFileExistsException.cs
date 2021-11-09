@@ -209,6 +209,6 @@ public class CodedFileExistsException : System.IO.IOException
 	/// <param name="fileName">The file name. May be null.</param>
 	/// <returns>Either message, if it is not null; or a string stating that the file already exists, with the file name, if it is not null.</returns>
 	private static string CreateMessage(string? message, string? fileName) => message ?? (fileName == null
-			? TextResources.CodedFileExistsException_Message
-			: string.Format(CultureInfo.CurrentCulture, TextResources.CodedFileExistsException_MessageFile, fileName));
+		? TextResources.CodedFileExistsException_Message
+		: string.Format(CultureInfo.CurrentCulture, TextResources.CodedFileExistsException_MessageFile, fileName));
 }

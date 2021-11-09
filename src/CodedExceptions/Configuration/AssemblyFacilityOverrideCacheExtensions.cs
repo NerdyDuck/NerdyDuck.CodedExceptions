@@ -33,7 +33,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Xml;
-#if NET50
+#if NET5_0_OR_GREATER
 using System.Buffers;
 #endif
 
@@ -75,7 +75,7 @@ public static class AssemblyFacilityOverrideCacheExtensions
 	/// <param name="reader">A <see cref="TextReader"/> containing XML-formatted data representing overrides.</param>
 	public static AssemblyFacilityOverrideCache LoadXml(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadXml(cache, reader, (cache, reader) => FromXmlInternal(cache, reader));
 
-#if NET50
+#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Loads a list of facility identifier overrides from the specified sequence of bytes containing XML data, and adds them to the cache.
 	/// </summary>
