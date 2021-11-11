@@ -4,7 +4,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)shared\NerdyDuck.CodedExceptions.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Company>NerdyDuck</Company>

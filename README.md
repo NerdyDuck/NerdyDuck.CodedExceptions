@@ -29,7 +29,7 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 The project is licensed under the [MIT License](LICENSE).
 
 #### History
-##### TBD / 2.0.0-rc.1 / DAK
+##### TBD / 2.0.0 / DAK
 - Upgraded platform to .NET Standard 2.0, .NET 5 and .NET 6
 - Split `Configuration` namespace into three libraries, one for each type of configuration source:
 - - `NerdyDuck.CodedExceptions.Configuration.AppConfig`, for configurations in the app.config file, with additional platform .NET Framework 4.7.2 .

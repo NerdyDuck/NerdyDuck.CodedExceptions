@@ -11,12 +11,8 @@
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <PropertyGroup Label="Code analysis">
+  <PropertyGroup Label="Code Analysis">
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
-    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
   <PropertyGroup Label="Assembly Signing">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>

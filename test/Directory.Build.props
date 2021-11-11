@@ -8,6 +8,9 @@
     <DefineTrace>true</DefineTrace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
+  <PropertyGroup Label="Code Analysis">
+    <AnalysisMode>Default</AnalysisMode>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineDebug>true</DefineDebug>
     <DebugType>Full</DebugType>
