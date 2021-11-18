@@ -107,7 +107,7 @@ public class CodedInvalidFileException : System.IO.IOException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "The specified file is invalid." This message takes into account the current system culture.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedInvalidFileException(int hresult)
 		: base(CreateMessage(null, null))
@@ -121,7 +121,7 @@ public class CodedInvalidFileException : System.IO.IOException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedInvalidFileException(int hresult, string? message)
 		: base(CreateMessage(message, null), hresult) => FileName = null;
@@ -132,7 +132,7 @@ public class CodedInvalidFileException : System.IO.IOException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedInvalidFileException(int hresult, string? message, Exception? innerException)
 		: base(CreateMessage(message, null), innerException)
@@ -148,7 +148,7 @@ public class CodedInvalidFileException : System.IO.IOException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="fileName">The full name of the invalid file.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedInvalidFileException(int hresult, string? message, string? fileName)
 		: base(CreateMessage(message, fileName))
@@ -166,7 +166,7 @@ public class CodedInvalidFileException : System.IO.IOException
 	/// <param name="fileName">The full name of the invalid file.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="FileName"/> property using <paramref name="fileName"/>.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedInvalidFileException(int hresult, string? message, string? fileName, Exception? innerException)
 		: base(CreateMessage(message, fileName), innerException)

@@ -45,7 +45,7 @@ Partial Friend Module HResult
 	''' Gets the facility identifier of the current assembly.
 	''' </summary>
 	''' <returns>The facility identifier, or 0, if no <see cref="AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</returns>
-	''' <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	''' <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	''' more information about the definition of HRESULT values.</remarks>
 	Friend ReadOnly Property FacilityId() As Integer
 		Get
@@ -57,7 +57,7 @@ Partial Friend Module HResult
 	''' Gets the base HRESULT value of the current assembly.
 	''' </summary>
 	''' <returns>The base HRESULT value, or 0xa0000000, if no <see cref="AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</returns>
-	''' <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	''' <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	''' more information about the definition of HRESULT values.</remarks>
 	Friend ReadOnly Property HResultBase() As Integer
 		Get
@@ -71,7 +71,7 @@ Partial Friend Module HResult
 	''' </summary>
 	''' <param name="errorId">The error identifier to add to the base HRESULT value.</param>
 	''' <returns>A custom HRESULT value, combined from <paramref name="errorId"/> And <see cref="HResultBase"/>.</returns>
-	''' <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	''' <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	''' more information about the definition of HRESULT values.</remarks>
 	Friend Function Create(errorId As Integer) As Integer
 		Return _hResultBase.Value Or errorId
@@ -83,7 +83,7 @@ Partial Friend Module HResult
 	''' <param name="errorId">The error identifier to add to the base HRESULT value.</param>
 	''' <returns>A custom HRESULT value, combined from <paramref name="errorId"/> And <see cref="HResultBase"/>.</returns>
 	''' <remarks><para>This method can only be used for enumerations based on <see cref="System.Int32"/>.</para>
-	''' <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	''' <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	''' more information about the definition of HRESULT values.</para></remarks>
 	''' <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> Is Not based on <see cref="System.Int32"/> Or Not a valid enumeration.</exception>
 	Friend Function Create(errorId As System.Enum) As Integer

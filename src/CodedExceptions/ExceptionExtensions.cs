@@ -45,7 +45,7 @@ public static class ExceptionExtensions
 	/// </summary>
 	/// <param name="ex">The <see cref="Exception"/> to extract the error identifier from.</param>
 	/// <returns>An error identifier.</returns>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public static int GetErrorId(this Exception ex) => ex == null ? throw new ArgumentNullException(nameof(ex)) : HResultHelper.GetErrorId(ex.HResult);
 
@@ -54,7 +54,7 @@ public static class ExceptionExtensions
 	/// </summary>
 	/// <param name="ex">The <see cref="Exception"/> to extract the facility identifier from.</param>
 	/// <returns>The facility identifier.</returns>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public static int GetFacilityId(this Exception ex) => ex == null ? throw new ArgumentNullException(nameof(ex)) : HResultHelper.GetFacilityId(ex.HResult);
 

@@ -57,7 +57,7 @@ namespace $rootnamespace$
 		/// Gets the facility identifier of the current assembly.
 		/// </summary>
 		/// <value>The facility identifier, or 0, if no <see cref="NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
-		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+		/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		internal static int FacilityId => s_facilityId.Value;
 
@@ -65,7 +65,7 @@ namespace $rootnamespace$
 		/// Gets the base HRESULT value of the current assembly.
 		/// </summary>
 		/// <value>The base HRESULT value, or 0xa0000000, if no <see cref="NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</value>
-		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+		/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		internal static int HResultBase => s_hResultBase.Value;
 
@@ -74,7 +74,7 @@ namespace $rootnamespace$
 		/// </summary>
 		/// <param name="errorId">The error identifier to add to the base HRESULT value.</param>
 		/// <returns>A custom HRESULT value, combined from <paramref name="errorId"/> and <see cref="HResultBase"/>.</returns>
-		/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+		/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</remarks>
 		internal static int Create(int errorId) => s_hResultBase.Value | errorId;
 
@@ -84,7 +84,7 @@ namespace $rootnamespace$
 		/// <param name="errorId">The error identifier to add to the base HRESULT value.</param>
 		/// <returns>A custom HRESULT value, combined from <paramref name="errorId"/> and <see cref="HResultBase"/>.</returns>
 		/// <remarks><para>This method can only be used for enumerations based on <see cref="System.Int32"/>.</para>
-		/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+		/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 		/// more information about the definition of HRESULT values.</para></remarks>
 		/// <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
 		internal static int Create(global::System.Enum errorId) => s_hResultBase.Value | global::NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId);

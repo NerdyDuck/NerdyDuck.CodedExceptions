@@ -87,7 +87,7 @@ public class CodedIOException : System.IO.IOException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "An I/O error occurred while performing the requested operation." This message takes into account the current system culture.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedIOException(int hresult)
 		: base() => HResult = hresult;

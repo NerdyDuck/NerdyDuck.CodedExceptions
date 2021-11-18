@@ -88,7 +88,7 @@ public class CodedDataException : System.Data.DataException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Could not find the specified directory." This message takes into account the current system culture.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedDataException(int hresult)
 		: base(TextResources.CodedDataException_Message) => HResult = hresult;
@@ -98,7 +98,7 @@ public class CodedDataException : System.Data.DataException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedDataException(int hresult, string? message)
 		: base(message ?? TextResources.CodedDataException_Message) => HResult = hresult;
@@ -109,7 +109,7 @@ public class CodedDataException : System.Data.DataException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedDataException(int hresult, string? message, Exception? innerException)
 		: base(message ?? TextResources.CodedDataException_Message, innerException) => HResult = hresult;

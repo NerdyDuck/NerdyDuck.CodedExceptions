@@ -82,7 +82,7 @@ public class CodedException : Exception
 	/// Initializes a new instance of the <see cref="CodedException"/> class with a specified HRESULT value.
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedException(int hresult)
 		: base() => HResult = hresult;
@@ -92,7 +92,7 @@ public class CodedException : Exception
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the error.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedException(int hresult, string? message)
 		: base(message) => HResult = hresult;
@@ -103,7 +103,7 @@ public class CodedException : Exception
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the error.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;

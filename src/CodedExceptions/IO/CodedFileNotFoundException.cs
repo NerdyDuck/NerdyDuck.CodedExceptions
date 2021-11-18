@@ -110,7 +110,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "An I/O error occurred while performing the requested operation." This message takes into account the current system culture.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedFileNotFoundException(int hresult)
 		: base() => HResult = hresult;
@@ -120,7 +120,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedFileNotFoundException(int hresult, string? message)
 		: base(message) => HResult = hresult;
@@ -131,7 +131,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
-	///<remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	///<remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public CodedFileNotFoundException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;
@@ -143,7 +143,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="fileName">The full name of the file with the invalid image.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="System.IO.FileNotFoundException.FileName"/> property using <paramref name="fileName"/>.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedFileNotFoundException(int hresult, string? message, string? fileName)
 		: base(message, fileName) => HResult = hresult;
@@ -157,7 +157,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <param name="fileName">The full name of the file with the invalid image.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks><para>The constructor initializes the <see cref="Exception.Message"/> property of the new instance using <paramref name="message"/> and the <see cref="System.IO.FileNotFoundException.FileName"/> property using <paramref name="fileName"/>.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedFileNotFoundException(int hresult, string? message, string? fileName, Exception? innerException)
 		: base(message, fileName, innerException) => HResult = hresult;

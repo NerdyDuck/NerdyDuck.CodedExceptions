@@ -38,7 +38,7 @@ namespace NerdyDuck.CodedExceptions;
 /// <remarks>
 /// <para>Apply this attribute to an assembly if that assembly throws exceptions with custom <see cref="Exception.HResult"/> values,
 /// and you want to create values that adhere to the HRESULT format specified by Microsoft. See the
-/// <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for more information about
+/// <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for more information about
 /// the definition of HRESULT values.</para>
 /// <para>The <see cref="FacilityId"/> value of the attribute defines the lower bits of the higher two bytes of the HRESULT value.
 /// It can be used to discover the assembly that an exception is thrown by. The value can range between 0 and 2047, as 11 bits

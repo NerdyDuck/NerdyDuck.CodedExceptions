@@ -36,21 +36,21 @@ namespace NerdyDuck.CodedExceptions;
 /// <summary>
 /// Helper class to create and examine custom <see cref="Exception.HResult"/> values.
 /// </summary>
-/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 /// more information about the definition of HRESULT values.</remarks>
 public static class HResultHelper
 {
 	/// <summary>
 	/// The base value for all custom HRESULT values, to unambiguously distinguish the exceptions from Microsoft error codes.
 	/// </summary>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	public const int HResultBase = unchecked((int)0xa0000000);
 
 	/// <summary>
 	/// A bit mask to filter the id of the facility (= the assembly) that threw the exception.
 	/// </summary>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <example>int FacilityId = (ex.HResult &amp; HResultHelper.FacilityIdMask) >> HResultHelper.FacilityIdShift;</example>
 	public const int FacilityIdMask = 0x07ff0000;
@@ -58,7 +58,7 @@ public static class HResultHelper
 	/// <summary>
 	/// The number of bits to shift an <see cref="Exception.HResult"/> to the left to get the facility (= the assembly) id on the lowest bit.
 	/// </summary>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <example>int FacilityId = (ex.HResult &amp; HResultHelper.FacilityIdMask) >> HResultHelper.FacilityIdShift;</example>
 	public const int FacilityIdShift = 16;
@@ -66,7 +66,7 @@ public static class HResultHelper
 	/// <summary>
 	/// A bit mask to filter the error id of the <see cref="Exception.HResult"/>.
 	/// </summary>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <example>int ErrorId = ex.HResult &amp; HResultHelper.ErrorIdMask;</example>
 	public const int ErrorIdMask = 0x0000ffff;
@@ -74,7 +74,7 @@ public static class HResultHelper
 	/// <summary>
 	/// A bit mask to check if the <see cref="Exception.HResult"/> is a custom value.
 	/// </summary>
-	/// <remarks>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <example>bool IsCustom = (ex.HResult &amp; HResultHelper.CustomHResultMask) > 0;</example>
 	public const int CustomHResultMask = 0x20000000;

@@ -100,7 +100,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error,
 	/// such as "Argument cannot be null." This message takes into account the current system culture.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedArgumentNullOrWhiteSpaceException(int hresult)
 		: base(TextResources.CodedArgumentNullOrWhiteSpaceException_Message) => HResult = hresult;
@@ -112,7 +112,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <param name="paramName">The name of the parameter that caused the exception.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null oe empty." This message takes into account the current system culture.</para>
 	/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using the <paramref name="paramName"/> parameter. The content of <paramref name="paramName"/> is intended to be understood by humans.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedArgumentNullOrWhiteSpaceException(int hresult, string? paramName)
 		: base(TextResources.CodedArgumentNullOrWhiteSpaceException_Message, paramName) => HResult = hresult;
@@ -124,7 +124,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedArgumentNullOrWhiteSpaceException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException) => HResult = hresult;
@@ -137,7 +137,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
 	/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using <paramref name="paramName"/>. The content of <paramref name="paramName"/> is intended to be understood by humans.</para>
-	/// <para>See the <a href="http://msdn.microsoft.com/en-us/library/cc231198.aspx">HRESULT definition at MSDN</a> for
+	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</para></remarks>
 	public CodedArgumentNullOrWhiteSpaceException(int hresult, string? paramName, string? message)
 		: base(message, paramName) => HResult = hresult;
