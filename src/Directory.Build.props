@@ -5,7 +5,6 @@
     <IsTestProject>false</IsTestProject>
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DefineTrace>true</DefineTrace>
     <DeployPath>$(MSBuildThisFileDirectory)../deploy/$(Configuration)/</DeployPath>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
@@ -17,8 +16,8 @@
   <PropertyGroup Label="Assembly Signing">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
   </PropertyGroup>
-	<Import Project="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../'))" Condition="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../')) != ''" />
-	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../'))" Condition="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../')) != ''" />
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <CreateGitHubZip>true</CreateGitHubZip>
@@ -34,21 +33,24 @@
   <PropertyGroup Label="NuGet package settings">
     <IsPackable>true</IsPackable>
     <PackageOutputPath>$(DeployPath)NuGet/</PackageOutputPath>
-    <MinClientVersion>4.6</MinClientVersion>
+    <MinClientVersion>4.9</MinClientVersion>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Authors>Daniel Kopp</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>NerdyDuck.CodedExceptions-64x64.png</PackageIcon>
+    <PackageIcon>NerdyDuck.CodedExceptions-128x128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/NerdyDuck/NerdyDuck.CodedExceptions</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Label="Github Release Zips">
     <ZipOutputPath>$(DeployPath)Zip/</ZipOutputPath>
   </PropertyGroup>
   <ItemGroup Label="NuGet package icon">
-    <None Include="$(MSBuildThisFileDirectory)../media/NerdyDuck.CodedExceptions-64x64.png" Pack="true" PackagePath="\">
-      <Link>NerdyDuck.CodedExceptions-64x64.png</Link>
+    <None Include="$(MSBuildThisFileDirectory)../media/NerdyDuck.CodedExceptions-128x128.png" Pack="true" PackagePath="\">
+      <Link>NerdyDuck.CodedExceptions-128x128.png</Link>
     </None>
   </ItemGroup>
 </Project>

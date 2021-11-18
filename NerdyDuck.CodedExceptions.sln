@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media", "media", "{DAA9D4BA-D1F3-4C1E-9827-5C4752E8D636}"
 	ProjectSection(SolutionItems) = preProject
+		media\NerdyDuck.CodedExceptions-128x128.png = media\NerdyDuck.CodedExceptions-128x128.png
 		media\NerdyDuck.CodedExceptions-64x64.png = media\NerdyDuck.CodedExceptions-64x64.png
 		media\NerdyDuck.CodedExceptions.svg = media\NerdyDuck.CodedExceptions.svg
 	EndProjectSection
