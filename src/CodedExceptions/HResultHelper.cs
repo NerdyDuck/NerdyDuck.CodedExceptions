@@ -41,11 +41,18 @@ namespace NerdyDuck.CodedExceptions;
 public static class HResultHelper
 {
 	/// <summary>
+	/// The base value for all custom HRESULT values, to unambiguously distinguish the exceptions from Microsoft codes.
+	/// </summary>
+	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
+	/// more information about the definition of HRESULT values.</remarks>
+	public const int HResultBase = unchecked((int)0x20000000);
+
+	/// <summary>
 	/// The base value for all custom HRESULT values, to unambiguously distinguish the exceptions from Microsoft error codes.
 	/// </summary>
 	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	/// more information about the definition of HRESULT values.</remarks>
-	public const int HResultBase = unchecked((int)0xa0000000);
+	public const int HResultErrorBase = HResultBase | unchecked((int)0x80000000);
 
 	/// <summary>
 	/// A bit mask to filter the id of the facility (= the assembly) that threw the exception.
@@ -70,14 +77,6 @@ public static class HResultHelper
 	/// more information about the definition of HRESULT values.</remarks>
 	/// <example>int ErrorId = ex.HResult &amp; HResultHelper.ErrorIdMask;</example>
 	public const int ErrorIdMask = 0x0000ffff;
-
-	/// <summary>
-	/// A bit mask to check if the <see cref="Exception.HResult"/> is a custom value.
-	/// </summary>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
-	/// <example>bool IsCustom = (ex.HResult &amp; HResultHelper.CustomHResultMask) > 0;</example>
-	public const int CustomHResultMask = 0x20000000;
 
 	/// <summary>
 	/// Exception message format that includes the HResult
@@ -115,18 +114,25 @@ public static class HResultHelper
 	public static int GetErrorId(int hresult) => hresult & ErrorIdMask;
 
 	/// <summary>
-	/// Gets the HRESULT base value for the specified facility identifier.
+	/// Gets the HRESULT success base value for the specified facility identifier.
+	/// </summary>
+	/// <param name="facilityId">A facility identifier.</param>
+	/// <returns>A HRESULT base value, starting with 0x20nnnnnn.</returns>
+	public static int GetBaseHResult(int facilityId) => HResultBase | (facilityId << FacilityIdShift);
+
+	/// <summary>
+	/// Gets the HRESULT error base value for the specified facility identifier.
 	/// </summary>
 	/// <param name="facilityId">A facility identifier.</param>
 	/// <returns>A HRESULT base value, starting with 0xa0nnnnnn.</returns>
-	public static int GetBaseHResult(int facilityId) => HResultBase | (facilityId << FacilityIdShift);
+	public static int GetBaseHResultError(int facilityId) => HResultErrorBase | (facilityId << FacilityIdShift);
 
 	/// <summary>
 	/// Checks if the specified HRESULT is a custom error value.
 	/// </summary>
 	/// <param name="hresult">The <see cref="Exception.HResult"/> to check.</param>
 	/// <returns><see langword="true"/>, if <paramref name="hresult"/> is a custom value; otherwise, <see langword="false"/>.</returns>
-	public static bool IsCustomHResult(int hresult) => (hresult & CustomHResultMask) > 0;
+	public static bool IsCustomHResult(int hresult) => (hresult & HResultBase) > 0;
 
 	/// <summary>
 	/// Returns the integer value of an enumeration value.

@@ -41,6 +41,9 @@ Partial Friend Module HResult
 	Private ReadOnly _hResultBase As Global.System.Lazy(Of Integer) =
 		New Global.System.Lazy(Of Integer)(Function() Global.NerdyDuck.CodedExceptions.HResultHelper.GetBaseHResult(_facilityId.Value))
 
+	Private ReadOnly _hResultErrorBase As Global.System.Lazy(Of Integer) =
+		New Global.System.Lazy(Of Integer)(Function() Global.NerdyDuck.CodedExceptions.HResultHelper.GetBaseHResultError(_facilityId.Value))
+
 	''' <summary>
 	''' Gets the facility identifier of the current assembly.
 	''' </summary>
@@ -54,9 +57,9 @@ Partial Friend Module HResult
 	End Property
 
 	''' <summary>
-	''' Gets the base HRESULT value of the current assembly.
+	''' Gets the base HRESULT success value of the current assembly.
 	''' </summary>
-	''' <returns>The base HRESULT value, or 0xa0000000, if no <see cref="AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</returns>
+	''' <returns>The base HRESULT value, or 0x20000000, if no <see cref="AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</returns>
 	''' <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	''' more information about the definition of HRESULT values.</remarks>
 	Friend ReadOnly Property HResultBase() As Integer
@@ -65,29 +68,64 @@ Partial Friend Module HResult
 		End Get
 	End Property
 
+	''' <summary>
+	''' Gets the base HRESULT error value of the current assembly.
+	''' </summary>
+	''' <returns>The base HRESULT value, or 0xa0000000, if no <see cref="AssemblyFacilityIdentifierAttribute"/> was found on the current assembly.</returns>
+	''' <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
+	''' more information about the definition of HRESULT values.</remarks>
+	Friend ReadOnly Property HResultErrorBase() As Integer
+		Get
+			Return _hResultErrorBase.Value
+		End Get
+	End Property
 
 	''' <summary>
 	''' Combines the specified error identifier with the base HRESULT value for this assembly.
 	''' </summary>
 	''' <param name="errorId">The error identifier to add to the base HRESULT value.</param>
-	''' <returns>A custom HRESULT value, combined from <paramref name="errorId"/> And <see cref="HResultBase"/>.</returns>
+	''' <returns>A custom HRESULT value, combined from <paramref name="errorId"/> And <see cref="HResultErrorBase"/>.</returns>
 	''' <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	''' more information about the definition of HRESULT values.</remarks>
 	Friend Function Create(errorId As Integer) As Integer
-		Return _hResultBase.Value Or errorId
+		Return _hResultErrorBase.Value Or errorId
 	End Function
 
 	''' <summary>
 	''' Combines the specified error identifier, represented by an enumeration, with the base HRESULT value for this assembly.
 	''' </summary>
 	''' <param name="errorId">The error identifier to add to the base HRESULT value.</param>
-	''' <returns>A custom HRESULT value, combined from <paramref name="errorId"/> And <see cref="HResultBase"/>.</returns>
+	''' <returns>A custom HRESULT value, combined from <paramref name="errorId"/> And <see cref="HResultErrorBase"/>.</returns>
 	''' <remarks><para>This method can only be used for enumerations based on <see cref="System.Int32"/>.</para>
 	''' <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
 	''' more information about the definition of HRESULT values.</para></remarks>
 	''' <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="errorId"/> Is Not based on <see cref="System.Int32"/> Or Not a valid enumeration.</exception>
 	Friend Function Create(errorId As System.Enum) As Integer
-		Return _hResultBase.Value Or Global.NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId)
+		Return _hResultErrorBase.Value Or Global.NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(errorId)
+	End Function
+
+	''' <summary>
+	''' Combines the specified success identifier with the base HRESULT value for this assembly.
+	''' </summary>
+	''' <param name="successId">The success identifier to add to the base HRESULT value.</param>
+	''' <returns>A custom HRESULT value, combined from <paramref name="successId"/> And <see cref="HResultBase"/>.</returns>
+	''' <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
+	''' more information about the definition of HRESULT values.</remarks>
+	Friend Function CreateSuccess(successId As Integer) As Integer
+		Return _hResultBase.Value Or successId
+	End Function
+
+	''' <summary>
+	''' Combines the specified success identifier, represented by an enumeration, with the base HRESULT value for this assembly.
+	''' </summary>
+	''' <param name="successId">The success identifier to add to the base HRESULT value.</param>
+	''' <returns>A custom HRESULT value, combined from <paramref name="successId"/> And <see cref="HResultBase"/>.</returns>
+	''' <remarks><para>This method can only be used for enumerations based on <see cref="System.Int32"/>.</para>
+	''' <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
+	''' more information about the definition of HRESULT values.</para></remarks>
+	''' <exception cref="NerdyDuck.CodedExceptions.CodedArgumentException"><paramref name="successId"/> Is not based on <see cref="System.Int32"/> or not a valid enumeration.</exception>
+	Friend Function CreateSuccess(successId As System.Enum) As Integer
+		Return _hResultBase.Value Or Global.NerdyDuck.CodedExceptions.HResultHelper.EnumToInt32(successId)
 	End Function
 
 	''' <summary>

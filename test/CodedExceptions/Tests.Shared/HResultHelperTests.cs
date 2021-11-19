@@ -57,6 +57,13 @@ public class HResultHelperTests
 	public void GetBaseHResult_Success()
 	{
 		int i = HResultHelper.GetBaseHResult(0x7ff);
+		Assert.AreEqual(unchecked((int)0x27ff0000), i);
+	}
+
+	[TestMethod]
+	public void GetBaseHResultError_Success()
+	{
+		int i = HResultHelper.GetBaseHResultError(0x7ff);
 		Assert.AreEqual(unchecked((int)0xa7ff0000), i);
 	}
 
