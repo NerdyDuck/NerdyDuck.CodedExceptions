@@ -5,20 +5,20 @@ This project provides a library of classes derived from [`System.Exception`](htt
 It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
 
 #### Platforms
-- .NET Standard 2.0 (netstandard2.0), to support .NET Framework (4.6.1 and up), .NET Core (2.0 and up), Mono (5.4 and up), and the Xamarin and UWP platforms.
-- .NET 5 (net5.0)
-- .NET 6 (net6.0)
-- .NET Framework 4.7.2 (net472): only `NerdyDuck.CodedExceptions.Configuration.AppConfig`; to support the ConfigurationManager class integrated into the framework, without the [System.Configuration.ConfigurationManager](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiQgqq-rt7rAhVOzKQKHWtOADgQFjABegQIARAB&url=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FSystem.Configuration.ConfigurationManager%2F&usg=AOvVaw3QJEgGSRhEc4o3yYfrKf4q) Nuget package.
+- .NET Standard 2.0 (`netstandard2.0`), to support .NET Framework (4.6.1 and up), .NET Core (2.0 and up), Mono (5.4 and up), and the Xamarin and UWP platforms.
+- .NET 6 (`net6.0`)
+- .NET Framework 4.7.2 (`net472`): only `NerdyDuck.CodedExceptions.Configuration.AppConfig`; to support the [ConfigurationManager](https://docs.microsoft.com/en-us/dotnet/api/system.configuration.configurationmanager) class integrated into the framework, without the [System.Configuration.ConfigurationManager](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiQgqq-rt7rAhVOzKQKHWtOADgQFjABegQIARAB&url=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FSystem.Configuration.ConfigurationManager%2F&usg=AOvVaw3QJEgGSRhEc4o3yYfrKf4q) Nuget package.
 
 #### Languages
 The neutral resource language for all texts is English (en-US). Currently, the only localization available is German (de-DE). If you like to add other languages, feel free to send a pull request with the translated resources!
 
 #### How to get
-- Use the NuGet packages (include debug symbol files and supports [SourceLink](https://github.com/dotnet/sourcelink).
+- Use the NuGet packages:
   - https://www.nuget.org/packages/NerdyDuck.CodedExceptions
   - https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.AppConfig
   - https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.ConfigSection
   - https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.Json
+  - All packages have corresponding debug symbol packages (.snupkg) and support [SourceLink](https://github.com/dotnet/sourcelink).
 - Download the binaries from the [Releases](../../releases/) page.
 - You can clone the repository and compile the libraries yourself (see the [Documentation](https://nerdyduck.github.io/CodedExceptions/index.html) for requirements).
 
@@ -30,16 +30,17 @@ The project is licensed under the [MIT License](LICENSE).
 
 #### History
 ##### TBD / 2.0.0 / DAK
-- Upgraded platform to .NET Standard 2.0, .NET 5 and .NET 6
+- Upgraded platform to .NET Standard 2.0 and .NET 6
+- Removed separate binaries for UWP (use .NET Standard 2.0 instead).
 - Split `Configuration` namespace into three libraries, one for each type of configuration source:
-- - `NerdyDuck.CodedExceptions.Configuration.AppConfig`, for configurations in the app.config file, with additional platform .NET Framework 4.7.2 .
+  - `NerdyDuck.CodedExceptions.Configuration.AppConfig`, for configurations in the app.config file, with additional platform .NET Framework 4.7.2 .
   - `NerdyDuck.CodedExceptions.Configuration.ConfigSection`, for `[Microsoft.Extensions.Configuration.IConfigurationSection](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationsection)` support.
   - `NerdyDuck.CodedExceptions.Configuration.Json`, for JSON file support.
   - `NerdyDuck.CodedExceptions` still offers support for XML files, as it is available on all platforms without additional dependencies.
-- Removed separate binaries for UWP (use .NET Standard 2.0 instead)
 - Changed German resources from de-DE to just de.
-- Restructured repository, using Directory.Build.props/.targets for common configuration
-- Switched license from Apache 2.0 to MIT
+- Restructured repository, using Directory.Build.props/.targets for common configuration.
+- Switched release branch from `master` to `main`.
+- Switched license from Apache 2.0 to MIT.
 
 ##### 2016-08-04 / 1.3.1 / DAK
 - Universal project compiled against Microsoft.NETCore.UniversalWindowsPlatform 5.2.2 .

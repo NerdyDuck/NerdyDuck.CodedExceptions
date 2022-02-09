@@ -34,7 +34,7 @@ global using System.Diagnostics.CodeAnalysis;
 global using System.Globalization;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using NerdyDuck.CodedExceptions;
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 global using System.Buffers;
 #endif
 

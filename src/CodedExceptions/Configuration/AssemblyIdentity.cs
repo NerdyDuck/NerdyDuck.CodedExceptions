@@ -240,7 +240,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// </summary>
 	/// <returns>A hash code for the current object.</returns>
 	public override int GetHashCode() =>
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 			ToString().GetHashCode(StringComparison.Ordinal);
 #else
 			ToString().GetHashCode();

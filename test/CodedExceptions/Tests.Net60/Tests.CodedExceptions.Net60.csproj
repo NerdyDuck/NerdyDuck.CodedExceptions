@@ -10,12 +10,12 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\CodedExceptions\CodedExceptions.csproj" />
-		<ProjectReference Include="..\..\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj">
-			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-			<OutputItemType>Content</OutputItemType>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</ProjectReference>
-	</ItemGroup>
+    <ProjectReference Include="..\..\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />

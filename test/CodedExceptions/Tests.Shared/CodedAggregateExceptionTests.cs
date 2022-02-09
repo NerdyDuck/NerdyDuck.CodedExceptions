@@ -396,7 +396,7 @@ public class CodedAggregateExceptionTests
 			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
 			Assert.AreEqual(1, ex2.InnerExceptions.Count);
 #if NET48
-					Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(Globals.TestMessage, ex2.Message);
 #else
 			StringAssert.StartsWith(ex2.Message, Globals.TestMessage);
 #endif

@@ -220,7 +220,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		Assert.AreEqual(1, cache.Count);
 	}
 
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 	[TestMethod]
 	public void LoadXml_ReadOnlySequence_Success()
 	{
