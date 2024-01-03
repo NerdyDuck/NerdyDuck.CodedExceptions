@@ -1,33 +1,6 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace NerdyDuck.CodedExceptions;
 
@@ -37,8 +10,7 @@ namespace NerdyDuck.CodedExceptions;
 /// </summary>
 /// <remarks>
 /// <para>Apply this attribute to an assembly if that assembly throws exceptions with custom <see cref="Exception.HResult"/> values,
-/// and you want to create values that adhere to the HRESULT format specified by Microsoft. See the
-/// <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for more information about
+/// and you want to create values that adhere to the HRESULT format specified by Microsoft. See the MSDN for more information about
 /// the definition of HRESULT values.</para>
 /// <para>The <see cref="FacilityId"/> value of the attribute defines the lower bits of the higher two bytes of the HRESULT value.
 /// It can be used to discover the assembly that an exception is thrown by. The value can range between 0 and 2047, as 11 bits
@@ -46,38 +18,15 @@ namespace NerdyDuck.CodedExceptions;
 /// custom HRESULT value (values from Microsoft always start with 0x8). The lower two bytes of the HRESULT are used for specific
 /// error numbers, so a maximum of 65,535 individual error numbers per assembly are possible using this schema.</para>
 /// </remarks>
+/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 /// <example>
 /// <para>First decorate your assembly with the <see cref="AssemblyFacilityIdentifierAttribute"/>.</para>
-/// <code language="C#" title="Assembly.cs">
-/// using NerdyDuck.CodedExceptions;
-///
-/// [assembly: AssemblyFacilityIdentifier(0x0305)]
-/// </code>
+/// <code source="..\..\doc\Examples\AssemblyFacilityIdentifierAttribute.cs" region="example1part1" language="C#" title="AssemblyInfo.cs" />
 ///
 /// <para>Then you can use the <see cref="AssemblyFacilityIdentifierAttribute"/> and <see cref="HResultHelper"/> classes to retrieve the
 /// facility id and build a HRESULT value.</para>
 ///
-/// <code language="C#" title="Program.cs">
-/// using NerdyDuck.CodedExceptions;
-/// using System;
-/// using System.Reflection;
-///
-/// namespace Example
-/// {
-///     class Program
-///     {
-///         static void Main()
-///         {
-///             int facilityId = AssemblyFacilityIdentifierAttribute.FromAssembly(Assembly.GetExecutingAssembly()).FacilityId;
-///             // facilityId is 0x0305
-///             int baseHResult = HResultHelper.GetBaseHResult(facilityId);
-///             // baseHResult is 0xa3050000
-///             int myHResult = baseHResult | 0x42;
-///             // myHResult is 0xa3050042;
-///         }
-///     }
-/// }
-/// </code>
+/// <code source="..\..\doc\Examples\AssemblyFacilityIdentifierAttribute.cs" region="example1part2" language="C#" title="Program.cs" />
 /// </example>
 [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false, Inherited = false)]
 [ComVisible(false)]

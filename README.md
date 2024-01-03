@@ -5,9 +5,8 @@ This project provides a library of classes derived from [`System.Exception`](htt
 It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
 
 #### Platforms
-- .NET Standard 2.0 (`netstandard2.0`), to support .NET Framework (4.6.1 and up), .NET Core (2.0 and up), Mono (5.4 and up), and the Xamarin and UWP platforms.
-- .NET 6 (`net6.0`)
-- .NET Framework 4.7.2 (`net472`): only `NerdyDuck.CodedExceptions.Configuration.AppConfig`; to support the [ConfigurationManager](https://docs.microsoft.com/en-us/dotnet/api/system.configuration.configurationmanager) class integrated into the framework, without the [System.Configuration.ConfigurationManager](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiQgqq-rt7rAhVOzKQKHWtOADgQFjABegQIARAB&url=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FSystem.Configuration.ConfigurationManager%2F&usg=AOvVaw3QJEgGSRhEc4o3yYfrKf4q) Nuget package.
+- .NET 6/7/8 (`net6.0`, `net7.0`, `net8.0`) and later
+- .NET Framework 4.7.2 (`net472`) and later
 
 #### Languages
 The neutral resource language for all texts is English (en-US). Currently, the only localization available is German (de-DE). If you like to add other languages, feel free to send a pull request with the translated resources!
@@ -30,15 +29,15 @@ The project is licensed under the [MIT License](LICENSE).
 
 #### History
 ##### TBD / 2.0.0 / DAK
-- Upgraded platform to .NET Standard 2.0 and .NET 6
-- Removed separate binaries for UWP (use .NET Standard 2.0 instead).
+- Complete change of target platforms to .NET 6/7/8+ and .NET Framework 4.7.2+
+- Removed `[SerializableAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.serializableattribute)`, `[ISerializable](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iserializable)` and corresponding constructors and methods for all platforms except `net472`, as this kind of serialization will be deprecated.
 - Split `Configuration` namespace into three libraries, one for each type of configuration source:
   - `NerdyDuck.CodedExceptions.Configuration.AppConfig`, for configurations in the app.config file, with additional platform .NET Framework 4.7.2 .
   - `NerdyDuck.CodedExceptions.Configuration.ConfigSection`, for `[Microsoft.Extensions.Configuration.IConfigurationSection](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationsection)` support.
   - `NerdyDuck.CodedExceptions.Configuration.Json`, for JSON file support.
   - `NerdyDuck.CodedExceptions` still offers support for XML files, as it is available on all platforms without additional dependencies.
 - Changed German resources from de-DE to just de.
-- Restructured repository, using Directory.Build.props/.targets for common configuration.
+- Restructured repository, using Directory.Build.props/.targets and Directory.Packages.props for common configuration.
 - Switched release branch from `master` to `main`.
 - Switched license from Apache 2.0 to MIT.
 

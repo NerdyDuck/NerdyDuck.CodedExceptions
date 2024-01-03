@@ -169,13 +169,13 @@
     <value>Serialisierte Daten beinhalten kein Object vom Type AssemblyIdentifier.</value>
   </data>
   <data name="Global_DirectoryName" xml:space="preserve">
-    <value>Verzeichnis-Name: '{0}'.</value>
+    <value>Verzeichnis-Name: '{0}'</value>
   </data>
   <data name="Global_FacilityId_OutOfRange" xml:space="preserve">
     <value>Die Facility-ID muß zwischen 0 und 2047 liegen.</value>
   </data>
   <data name="Global_FileName" xml:space="preserve">
-    <value>Datei-Name: '{0}'.</value>
+    <value>Datei-Name: '{0}'</value>
   </data>
   <data name="Global_FromXml_AttributeMissing" xml:space="preserve">
     <value>Element '{0}' hat kein Attribut '{1}'.</value>

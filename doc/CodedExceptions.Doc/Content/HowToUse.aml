@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="41badca4-aaab-4613-a0b7-d1c16482fc45" revisionNumber="1">
+	<developerConceptualDocument
+		xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+		xmlns:xlink="http://www.w3.org/1999/xlink">
+
+		<introduction>
+			<para>A brief manual on how to use the types of the project, with examples.</para>
+		</introduction>
+
+		<section address="Namespaces">
+			<title>Namespaces</title>
+			<content>
+				<para>
+					Most classes reside in the NerdyDuck.CodedExceptions namespace.
+					Exceptions related to I/O operations can be found in the NerdyDuck.CodedExceptions.IO namespace.
+					The NerdyDuck.CodedExceptions.Configuration namespace contains types to override facility identifiers of other assemblies.
+				</para>
+			</content>
+		</section>
+
+		<section address="ExceptionTypes">
+			<title>Exception Types</title>
+			<content>
+				<para>
+					Exceptions that represent the "enhanced" version of an existing framework exception are prefixed with "Coded".
+					If possible, the classes are derived from its corresponding framework exceptions, so it is easy to catch them even without the knowing the derived class.
+					The following code would catch a CodedFormatException as well as a FormatException:
+				</para>
+				<code language="c#">
+					try
+					{
+					// Your code here
+					}
+					catch (FormatException ex)
+					{
+					// Do the error handling
+					}
+				</code>
+			</content>
+		</section>
+
+		<section address="FirstSteps">
+			<title>First Steps</title>
+			<content>
+				<para>You can use the exceptions right out of the box:</para>
+				<code language="c#">
+					using NerdyDuck.CodedExceptions;
+
+					public double Divide(double dividend, double divisor)
+					{
+					if (divisor == 0.0)
+					{
+					throw new CodedArgumentOutOfRangeException(42, "divisor", divisor, "Divisor may not be 0.");
+					}
+					return dividend / divisor;
+					}
+				</code>
+				<para>
+					In this example, the HResult of the CodedArgumentOutOfRangeException thrown would be 42 (or hex 0x2a).
+					That is surely a identifiable value, but not looking like a classic HRESULT value.
+				</para>
+			</content>
+		</section>
+
+		<section address="HRESULT">
+			<title>HRESULT</title>
+			<content>
+				<para>
+					According to Microsoft, the five highest bits are flags that specify if the HRESULT is an error code and if it originates from a Microsoft application (and three bits that do not concern .NET applications)
+					Due to those 5 bytes, almost all Microsoft error codes start with 0x8..., and custom error codes should start with 0xa... .
+					There are also standard non-error HRESULTs, but this projects is concerned with exceptions, that means errors.
+				</para>
+				<para>
+					The following 11 bits specify the facility, that is the origin of the error.
+					This may represent a whole application, or a specific assembly.
+					You may as well split up the 11 bits again into an application and an assembly part (as I usually do).
+					In the CodedExceptions project this part is called Facility identifier.
+					The value may range between 0 and 2047 (2^11).
+				</para>
+				<para>
+					The lower 16 bits are used for the individual error code.
+					It's up to you if you prefer to assign a new error code for every exception you throw, or if you use the same code for similar errors in different places of your code.
+					You've got 65,535 possible codes, that should be sufficient for any approach.
+				</para>
+			</content>
+		</section>
+
+		<section address="FacilityIdentifiers">
+			<title>Facility Identifiers</title>
+			<content>
+				<para>
+					The easiest way to set a common facility identifier for the whole assembly is to use the 'AssemblyFacilityIdentifierAttribute` class.
+					Add the following code to your AssemblyInfo file (or any other file where you want to define assembly-scoped information):
+				</para>
+				<code language="c#">
+					[assembly: NerdyDuck.CodedExceptions.AssemblyFacilityIdentifier(0x0000)]
+				</code>
+				<para>The following code retrieves the facility id of an assembly.</para>
+				<code language="c#">
+					AssemblyFacilityIdentifierAttribute IdentifierAttribute = AssemblyFacilityIdentifierAttribute.FromType(typeof(Program)); // Assuming that your assembly contains a class named Program
+					int Identifier = 0;
+					if (IdentifierAttribute != null)
+					Identifier = IdentifierAttribute.FacilityId;
+				</code>
+				<para>The HResultHelper class contains methods to combine your facility identifier and your error code to a HRESULT value:</para>
+				<code language="c#">
+					int Identifier = 0x0305;
+					int ErrorId = 0x42;
+					int i = HResultHelper.GetBaseHResult(Identifier) | ErrorId;
+					// Value of i is 0xa3050042
+				</code>
+				<para>
+					If you intend to use standardized HRESULT values, you may want a simple way of creating a new HRESULT while creating a new exception.
+					Have a look at the Errors class (Errors.cs or Errors.vb) in the example projects.
+					It retrieves the facility id from a AssemblyFacilityIdentifierAttribute, if available, and creates a base error code, both in a lazy and thread-safe way.
+					The CreateHResult method uses this value to combine it with your error code to create the final HRESULT.
+				</para>
+				<para>Here's an example on how to use the resulting HResult value in an exception:</para>
+				<code language="c#">
+					using NerdyDuck.CodedExceptions;
+
+					public double Divide(double dividend, double divisor)
+					{
+					if (divisor == 0.0)
+					{
+					throw new CodedArgumentOutOfRangeException(Errors.CreateHResult(0x17), "divisor", divisor, "Divisor may not be 0.");
+					}
+					return dividend / divisor;
+					}
+				</code>
+			</content>
+		</section>
+		<section address="HandlingCustomHRESULTS">
+			<title>Handling Custom HRESULTS</title>
+			<content>
+				<para>If you need to know whether the exception may include a custom error code, include the NerdyDuck.CodedExceptions namespace in a using directive, and use the extension method for the Exception class:</para>
+				<code language="c#">
+					using NerdyDuck.CodedExceptions;
+
+					try
+					{
+					// Your code here
+					}
+					catch (Exception ex)
+					{
+					if (ex.IsCodedException())
+					{
+					Console.WriteLine("Custom error code: 0x{0:x}", ex.HResult);
+					}
+					}
+				</code>
+				<para>
+					If you need to determine if a value is a custom error code, and not a Microsoft exception, use the HResultHelper.IsCustomHResult method.
+					The ToString method of all exceptions in the library is overridden.
+				</para>
+			</content>
+		</section>
+
+		<section address="OverridingFacilityIdentifiers">
+			<title>Overriding Facility Identifiers</title>
+			<content>
+				<para>
+					If you have two libraries that use the same facility identifier (maybe a third-party library, where you cannot simply change the attribute) you can change the facility identifier via configuration.
+					Unfortunately, this only works if the libraries used the AssemblyFacilityIdentifierAttribute.TryGetOverride method to read the overrides configuration file (like it is done in the Errors classes of the Example projects.
+					If they did not, then you're out of luck.
+				</para>
+			</content>
+			<sections>
+				<section address="UsingApp.config">
+					<title>Using App.config (for desktop projects)</title>
+					<content>
+						<para>
+							In .NET Framework 4.6 (desktop) projects, you add the overrides to your App.config file.
+							First you need to specify the handler for the new section in the config:
+						</para>
+						<code language="xml">
+							<![CDATA[<configSections>
+							<sectionGroup name="nerdyDuck">
+							<section name="codedExceptions" type="NerdyDuck.CodedExceptions.Configuration.CodedExceptionsSection, NerdyDuck.CodedExceptions" allowDefinition="Everywhere"/>
+							</sectionGroup>
+							</configSections>]]>
+						</code>
+						<para>The names of the SectionGroup and Section should not be altered, or the call to the parameterless version of AssemblyFacilityIdentifierAttribute.TryGetOverride won't find it.</para>
+						<para>Next, you can define the overrides for the libraries you want to change.</para>
+						<code language="xml">
+							<![CDATA[<nerdyDuck>
+							<codedExceptions>
+							<facilityOverrides>
+							<add assemblyName="NerdyDuck.CodedExceptions" identifier="17"/>
+							<add assemblyName="ThirdParty.Library, Version=1.2.0.0" identifier="18"/>
+							</facilityOverrides>
+							</codedExceptions>
+							</nerdyDuck>]]>
+						</code>
+					<para>
+						In the example, you would change the facility identifier of all versions of NerdyDuck.CodedExceptions.dll to 17, and Version 1.2.0.0 of ThirdParty.Library.dll to 18.
+						You can use fully qualified assembly names (name, version, language and public key), or omit any part of it to generalize your identification (e.g. to target all versions and languages of an assembly, so you don't need to modify the overrides when updating to a newer version of that assembly).
+						Only the assembly's file name (without extension) is required.
+						Note: The new identifier must be expressed in decimal, not in hexadecimal form.
+					</para>
+					<para>The full example can be found here.</para>
+					</content>
+				</section>
+			<section address="UsingFacilityIdentifierOverrides.xml">
+				<title>Using FacilityIdentifierOverrides.xml (for UAP projects)</title>
+				<content>
+					<para>In UAP projects, just add a file named FacilityIdentifierOverrides.xml as a content file, to be copied into the root directory of your project output. Here is the example:</para>
+						<code language="xml">
+							<![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+							<facilityIdentifierOverrides>
+							<override assemblyName="NerdyDuck.CodedExceptions" identifier="17" />
+							<override assemblyName="ThirdParty.Library, Version=1.2.0.0" identifier="18" />
+							</facilityIdentifierOverrides>]]>
+						</code>
+				<para>As for desktop version, you may use full or partially qualified assemblies to target the assembly to override, and you also need to specify the new identifier in decimal form.</para>
+				</content>
+			</section>
+			<section address="CreatingYourOwnEexception">
+				<title>Creating Your Own Exception</title>
+				<content>
+					<para>
+						You may want to create your own "coded" exception, that fits your application.
+						To do that, you can either derive your exception from one of the exceptions in the NerdyDuck.CodedExceptions library, or create a new one from scratch, deriving from System.Exception or any other exception that suites you best.
+						There are some general guidelines you may want to consider:
+					</para>
+				<list class="bullet">
+					<listItem>
+						<para>Decorate your new exception with the CodedExceptionAttribute to show that your exception may contain custom HResults.</para>
+					</listItem>
+				<listItem>
+					<para>Add the default constructors (ctor(), ctor(string), ctor(string, Exception)), even if you don't use them. The Microsoft coding guidelines suggest doing that.</para>
+				</listItem>
+				<listItem>
+					<para>For desktop projects: Decorate your exception with the SerializableAttribute, add the matching constructor (ctor(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)), and override the GetObjectData method, if you have data to be serialized.</para>
+				</listItem>
+				<listItem>
+					<para>If you did not derive from one of the exceptions of NerdyDuck.CodedExceptions: Override the ToString method to contain the HResult in the returned string, e.g.: "MyException: (0xa042001f): This is a custom exception)".</para>
+				</listItem>
+				</list>
+				</content>
+			</section>
+			</sections>
+		</section>
+
+		<relatedTopics>
+			<!-- One or more of the following:
+					 - A local link
+					 - An external link
+					 - A code entity reference
+
+			<link xlink:href="Other Topic's ID"/>
+			<link xlink:href="Other Topic's ID">Link inner text</link>
+
+			<externalLink>
+					<linkText>Link text</linkText>
+					<linkAlternateText>Optional alternate link text</linkAlternateText>
+					<linkUri>URI</linkUri>
+			</externalLink>
+
+			<codeEntityReference>API member ID</codeEntityReference>
+
+			Examples:
+
+			<link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8270" />
+			<link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8278">Some other topic</link>
+
+			<externalLink>
+					<linkText>SHFB on GitHub</linkText>
+					<linkAlternateText>Go to GitHub</linkAlternateText>
+					<linkUri>https://GitHub.com/EWSoftware/SHFB</linkUri>
+			</externalLink>
+
+			<codeEntityReference>T:TestDoc.TestClass</codeEntityReference>
+			<codeEntityReference>P:TestDoc.TestClass.SomeProperty</codeEntityReference>
+			<codeEntityReference>M:TestDoc.TestClass.#ctor</codeEntityReference>
+			<codeEntityReference>M:TestDoc.TestClass.#ctor(System.String,System.Int32)</codeEntityReference>
+			<codeEntityReference>M:TestDoc.TestClass.ToString</codeEntityReference>
+			<codeEntityReference>M:TestDoc.TestClass.FirstMethod</codeEntityReference>
+			<codeEntityReference>M:TestDoc.TestClass.SecondMethod(System.Int32,System.String)</codeEntityReference>
+			-->
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>

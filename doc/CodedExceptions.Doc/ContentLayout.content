@@ -1,17 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="a109b326-3ad7-4f74-a177-6540e9dfd0e1" visible="True" isDefault="true" isSelected="true" title="Welcome to the [TODO: Add project name]">
+  <Topic id="c8b04c1b-1b57-4701-a2fc-5a589193c22a" visible="True" title="Nerdyduck.CodedExceptions Wiki">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
   </Topic>
-  <Topic id="6f91fe3f-4101-4b91-b3bd-18de54ef1b3c" visible="True" isExpanded="true" title="Version History">
+  <Topic id="2631cf6c-c929-4d9d-aa74-f3fbf0c01c2b" visible="True" />
+  <Topic id="511edc3b-15cc-4b17-bd52-91096110d05b" visible="True" title="Platforms &amp; Packages" />
+  <Topic id="41badca4-aaab-4613-a0b7-d1c16482fc45" visible="True" title="How To Use">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="usage" />
+      <HelpKeyword index="K" term="examples" />
+    </HelpKeywords>
+  </Topic>
+  <Topic id="c9e1497e-2117-4027-9a82-64139f3ce748" visible="True" isSelected="true" apiParentMode="InsertAsChild" title="Class Reference">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="API" />
+      <HelpKeyword index="K" term="class" />
+      <HelpKeyword index="K" term="reference" />
+    </HelpKeywords>
+  </Topic>
+  <Topic id="b3615815-e598-4585-8e45-83c1ba19bf01" visible="True" isExpanded="true" title="Version History">
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="6d96df48-f720-4f3d-8e95-1f0324942164" visible="True" title="Version 1.0.0.0">
+    <Topic id="6d96df48-f720-4f3d-8e95-1f0324942164" visible="True">
       <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.0.2" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="a2833094-80ba-459e-a5bd-fec3db3ede75" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.0.3" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="46396f19-19fb-4460-956f-090957bc0e7b" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.1.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="7e9d600f-10c4-4c0a-b3e2-c84d858fc937" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.1.1." />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="8c8f1716-4371-4712-a1d1-f90958ead890" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.1.2" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="49b8872e-c7e2-444c-aab0-fdf0841692ec" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.2.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="38cffbdf-f913-42a6-a056-3d500d2d03e6" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.2.1" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="37527408-c35b-4533-aafc-2f9ce5312699" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.3.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="6448d35e-b8c9-476c-b004-43d474aeb014" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="v1.3.1" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="258842f3-75f5-41cd-9bc1-4bcc268481bd" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version" />
+        <HelpKeyword index="K" term="2.0.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

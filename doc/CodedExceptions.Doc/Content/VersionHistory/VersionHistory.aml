@@ -1,33 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="6f91fe3f-4101-4b91-b3bd-18de54ef1b3c" revisionNumber="1">
+<topic id="b3615815-e598-4585-8e45-83c1ba19bf01" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>The topics in this section describe the various changes made to the [TODO: Project Title] over the
-life of the project.</para>
+			<para>The topics in this section describe the various changes made to the NerdyDuck.CodedExceptions library over the life of the project.</para>
 		</introduction>
-
 		<section>
 			<title>Version History</title>
 			<content>
 				<para>Select a version below to see a description of its changes.</para>
-
 				<list class="bullet">
 					<listItem>
-						<para><link xlink:href="6d96df48-f720-4f3d-8e95-1f0324942164" /></para>
+						<para>
+							<link xlink:href="258842f3-75f5-41cd-9bc1-4bcc268481bd" />
+						</para>
 					</listItem>
-
 					<listItem>
-						<para>[TODO: Add links to each specific version page]</para>
+						<para>
+							<link xlink:href="6448d35e-b8c9-476c-b004-43d474aeb014" />
+						</para>
 					</listItem>
-
+					<listItem>
+						<para>
+							<link xlink:href="37527408-c35b-4533-aafc-2f9ce5312699" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="38cffbdf-f913-42a6-a056-3d500d2d03e6" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="49b8872e-c7e2-444c-aab0-fdf0841692ec" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="8c8f1716-4371-4712-a1d1-f90958ead890" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="7e9d600f-10c4-4c0a-b3e2-c84d858fc937" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="46396f19-19fb-4460-956f-090957bc0e7b" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="a2833094-80ba-459e-a5bd-fec3db3ede75" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="6d96df48-f720-4f3d-8e95-1f0324942164" />
+						</para>
+					</listItem>
 				</list>
-
 			</content>
 		</section>
-
 		<relatedTopics>
-			<link xlink:href="a109b326-3ad7-4f74-a177-6540e9dfd0e1" />
+			<link xlink:href="c8b04c1b-1b57-4701-a2fc-5a589193c22a" />
 		</relatedTopics>
-
 	</developerConceptualDocument>
 </topic>

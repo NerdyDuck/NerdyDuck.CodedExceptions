@@ -1,33 +1,6 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,14 +11,28 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// Specifies the identity of an assembly.
 /// </summary>
 /// <remarks>This class can contain a fully qualified assembly name, or parts of it.</remarks>
+#if NETFRAMEWORK
 [Serializable]
+#endif
 [ComVisible(false)]
-public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializable
+public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
+#if NETFRAMEWORK
+	, ISerializable
+#endif
 {
+#if NETFRAMEWORK
 	private const string PublicKeyTokenName = "PublicKeyToken";
+#endif
 	private const string NeutralLanguage = "neutral";
+
+#if NET7_0_OR_GREATER
+	[GeneratedRegex("^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?")]
+	private static partial Regex CreateAssemblyIdentityRegex();
+	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(CreateAssemblyIdentityRegex);
+#else
 	private const string AssemblyIdentityRegexString = "^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?";
 	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(() => new Regex(AssemblyIdentityRegexString));
+#endif
 
 	/// <summary>
 	/// The highest possible value returned by <see cref="Match(Assembly)"/>, meaning that name, version, culture and public key token are a match.
@@ -57,7 +44,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// <summary>
 	/// Gets the culture of the assembly. May be <see langword="null"/>.
 	/// </summary>
-	/// <remarks>If the value is empty, the culture is neutral; if the value is <see langword="null"/>, the culture is not respected when comparing to an <see cref="Assembly"/>.</remarks>
+	/// <value>The culture of the assembly as a RFC4646-encoded string; the value is <see cref="string.Empty" /> if the culture is neutral; if the value is <see langword="null"/>, the culture is not respected when comparing to an <see cref="Assembly"/>.</value>
 	public string? Culture
 	{
 		get; private set;
@@ -66,7 +53,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// <summary>
 	/// Gets the name of the assembly. May be <see langword="null"/>.
 	/// </summary>
-	/// <remarks>If the value is <see langword="null"/>, the name is not respected when comparing to an <see cref="Assembly"/>.</remarks>
+	/// <value>The name of the assembly. If the value is <see langword="null"/>, the name is not respected when comparing to an <see cref="Assembly"/>.</value>
 	public string? Name
 	{
 		get; private set;
@@ -75,7 +62,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// <summary>
 	/// Gets or sets the version of the assembly. May be <see langword="null"/>.
 	/// </summary>
-	/// <remarks>If the value is <see langword="null"/>, the version is not respected when comparing to an <see cref="Assembly"/>.</remarks>
+	/// <value>The version of the assembly. If the value is <see langword="null"/>, the version is not respected when comparing to an <see cref="Assembly"/>.</value>
 	public Version? Version
 	{
 		get; private set;
@@ -119,10 +106,14 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	public AssemblyIdentity(Assembly assembly, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
+#if NETFRAMEWORK
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#endif
 
 		AssemblyName assemblyName = assembly.GetName() ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assembly));
 		CopyFromAssemblyName(assemblyName, assemblyNameElements);
@@ -137,10 +128,14 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	public AssemblyIdentity(AssemblyName assemblyName, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
+#if NETFRAMEWORK
 		if (assemblyName == null)
 		{
 			throw new ArgumentNullException(nameof(assemblyName));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(assemblyName, nameof(assemblyName));
+#endif
 
 		CopyFromAssemblyName(assemblyName, assemblyNameElements);
 	}
@@ -190,26 +185,6 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	}
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="AssemblyIdentity"/> class with serialized data.
-	/// </summary>
-	/// <param name="info">The object that holds the serialized object data.</param>
-	/// <param name="context">The contextual information about the source or destination.</param>
-	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
-	/// <exception cref="SerializationException">The instance could not be deserialized correctly.</exception>
-	private AssemblyIdentity(SerializationInfo info, StreamingContext context)
-	{
-		if (info == null)
-		{
-			throw new ArgumentNullException(nameof(info));
-		}
-
-		Culture = info.GetString(nameof(Culture));
-		Name = info.GetString(nameof(Name)) ?? throw new SerializationException(TextResources.AssemblyIdentity_ctor_NoAssemblyName);
-		_publicKeyToken = (byte[]?)info.GetValue(PublicKeyTokenName, typeof(byte[]));
-		Version = (Version?)info.GetValue(nameof(Version), typeof(Version));
-	}
-
-	/// <summary>
 	/// Returns a value indicating whether this instance is equal to a specified object.
 	/// </summary>
 	/// <param name="obj">The object to compare to this instance.</param>
@@ -225,7 +200,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 			&& NullCompare(Name, other.Name, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
 			&& NullCompare(Version, other.Version, (thisValue, otherValue) => thisValue!.Equals(otherValue))
 			&& NullCompare(Culture, other.Culture, (thisValue, otherValue) => string.Equals(thisValue, otherValue, StringComparison.OrdinalIgnoreCase))
-			&& NullCompare(_publicKeyToken, other._publicKeyToken, (thisValue, otherValue) => CompareKeyTokens(thisValue, otherValue));
+			&& NullCompare(_publicKeyToken, other._publicKeyToken, CompareKeyTokens);
 
 	/// <summary>
 	/// Returns a value indicating whether this instance is equal to the value of the specified <see cref="Assembly"/> instance.
@@ -240,7 +215,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// </summary>
 	/// <returns>A hash code for the current object.</returns>
 	public override int GetHashCode() =>
-#if NET6_0_OR_GREATER
+#if !NETFRAMEWORK
 			ToString().GetHashCode(StringComparison.Ordinal);
 #else
 			ToString().GetHashCode();
@@ -532,6 +507,27 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 	/// <returns><see langword="true"/>, if <paramref name="identity1"/> and <paramref name="identity2"/> do not represent the same byte array; otherwise, <see langword="false"/>.</returns>
 	public static bool operator !=(AssemblyIdentity? identity1, AssemblyIdentity? identity2) => identity1 is null ? identity2 is not null : !identity1.Equals(identity2);
 
+#if NETFRAMEWORK
+	/// <summary>
+	/// Initializes a new instance of the <see cref="AssemblyIdentity"/> class with serialized data.
+	/// </summary>
+	/// <param name="info">The object that holds the serialized object data.</param>
+	/// <param name="context">The contextual information about the source or destination.</param>
+	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
+	/// <exception cref="SerializationException">The instance could not be deserialized correctly.</exception>
+	private AssemblyIdentity(SerializationInfo info, StreamingContext context)
+	{
+		if (info == null)
+		{
+			throw new ArgumentNullException(nameof(info));
+		}
+
+		Culture = info.GetString(nameof(Culture));
+		Name = info.GetString(nameof(Name)) ?? throw new SerializationException(TextResources.AssemblyIdentity_ctor_NoAssemblyName);
+		_publicKeyToken = (byte[]?)info.GetValue(PublicKeyTokenName, typeof(byte[]));
+		Version = (Version?)info.GetValue(nameof(Version), typeof(Version));
+	}
+
 	/// <summary>
 	/// Sets the <see cref="SerializationInfo"/> with information about the exception.
 	/// </summary>
@@ -548,6 +544,7 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 		info.AddValue(PublicKeyTokenName, _publicKeyToken);
 		info.AddValue(nameof(Version), Version);
 	}
+#endif
 
 	/// <summary>
 	/// Compares two bytes arrays.
@@ -603,7 +600,6 @@ public sealed class AssemblyIdentity : IEquatable<AssemblyIdentity>, ISerializab
 		{
 			Version = (Version?)assemblyName.Version?.Clone();
 		}
-
 	}
 
 	/// <summary>

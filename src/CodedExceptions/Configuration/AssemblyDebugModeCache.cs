@@ -1,35 +1,9 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -114,11 +88,22 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="assembly"/> is <see langword="null"/>.</exception>
 	public bool IsDebugModeEnabled(Assembly assembly)
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
+#if NETFRAMEWORK
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#endif
 
 		bool result = false;
 		_listLock.EnterReadLock();
@@ -143,7 +128,14 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="type"/> is <see langword="null"/>.</exception>
 	public bool IsDebugModeEnabled(Type type)
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
 		return type == null ? throw new ArgumentNullException(nameof(type)) : IsDebugModeEnabled(type.Assembly);
 	}
 
@@ -156,11 +148,22 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="debugMode"/> is <see langword="null"/>.</exception>
 	public void Add(AssemblyDebugMode debugMode)
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
+#if NETFRAMEWORK
 		if (debugMode == null)
 		{
 			throw new ArgumentNullException(nameof(debugMode));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(debugMode, nameof(debugMode));
+#endif
 
 		bool raiseEvent = false;
 		_listLock.EnterWriteLock();
@@ -254,7 +257,14 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ObjectDisposedException">The current object is already disposed.</exception>
 	public void Clear()
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
 		_listLock.EnterWriteLock();
 		try
 		{
@@ -275,11 +285,22 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="identity"/> is <see langword="null"/>.</exception>
 	public void Remove(AssemblyIdentity identity)
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
+#if NETFRAMEWORK
 		if (identity == null)
 		{
 			throw new ArgumentNullException(nameof(identity));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(identity, nameof(identity));
+#endif
 
 		bool raiseEvent = false;
 		_listLock.EnterWriteLock();
@@ -303,19 +324,6 @@ public sealed class AssemblyDebugModeCache : IDisposable
 		if (raiseEvent)
 		{
 			OnCollectionChanged();
-		}
-	}
-
-	/// <summary>
-	/// Checks if the object has already been disposed.
-	/// </summary>
-	/// <exception cref="ObjectDisposedException">The object is already disposed.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private void AssertDisposed()
-	{
-		if (_isDisposed == 1)
-		{
-			throw new ObjectDisposedException(GetType().Name);
 		}
 	}
 

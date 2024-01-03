@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="17.0">
+  <PropertyGroup Label="Compilation">
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
+    <AssemblyName>$(RootNamespace)</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Label="Assembly info">
+    <Description>Unit test for NerdyDuck.CodedExceptions library</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj" />
+    <ProjectReference Include="..\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <OutputItemType>Content</OutputItemType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestFiles\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".codeclonesettings" />
+  </ItemGroup>
+</Project>

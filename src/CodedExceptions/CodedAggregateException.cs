@@ -1,33 +1,8 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+// Ignore Spelling: hresult
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,7 +13,9 @@ namespace NerdyDuck.CodedExceptions;
 /// Represents one or more errors that occur during application execution.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
+#if NETFRAMEWORK
 [Serializable]
+#endif
 [CodedException]
 [DebuggerDisplay("Count = {InnerExceptionsCount}")]
 [ComVisible(false)]
@@ -101,6 +78,7 @@ public class CodedAggregateException : AggregateException
 	{
 	}
 
+#if NETFRAMEWORK
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with serialized data.
 	/// </summary>
@@ -112,6 +90,7 @@ public class CodedAggregateException : AggregateException
 		: base(info, context)
 	{
 	}
+#endif
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified error message and references to the inner exceptions that are the cause of this exception.
@@ -143,8 +122,8 @@ public class CodedAggregateException : AggregateException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error,
 	/// such as "One or more errors occurred." This message takes into account the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult)
 		: base() => HResult = hresult;
 
@@ -153,10 +132,10 @@ public class CodedAggregateException : AggregateException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, IEnumerable<Exception> innerExceptions)
 		: base(innerExceptions) => HResult = hresult;
 
@@ -165,10 +144,10 @@ public class CodedAggregateException : AggregateException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, params Exception[] innerExceptions)
 		: base(innerExceptions) => HResult = hresult;
 
@@ -177,8 +156,8 @@ public class CodedAggregateException : AggregateException
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the exception. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 
@@ -188,9 +167,9 @@ public class CodedAggregateException : AggregateException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the exception. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception.</param>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerException"/> argument is <see langword="null"/>.</exception>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, string? message, Exception innerException)
 		: base(message, innerException) => HResult = hresult;
 
@@ -200,10 +179,10 @@ public class CodedAggregateException : AggregateException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the exception. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, string? message, IEnumerable<Exception> innerExceptions)
 		: base(message, innerExceptions) => HResult = hresult;
 
@@ -213,10 +192,10 @@ public class CodedAggregateException : AggregateException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the exception. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <param name="innerExceptions">The exceptions that are the cause of the current exception.</param>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, string? message, params Exception[] innerExceptions)
 		: base(message, innerExceptions) => HResult = hresult;
 
@@ -226,12 +205,12 @@ public class CodedAggregateException : AggregateException
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace. </returns>
 	public override string ToString()
 	{
-		string CustomText = string.Empty;
+		string customText = string.Empty;
 		for (int i = 0; i < base.InnerExceptions.Count; i++)
 		{
-			CustomText = string.Format(CultureInfo.InvariantCulture, TextResources.CodedAggregateException_ToString,
-				CustomText, Environment.NewLine, i, InnerExceptions[i].ToString());
+			customText = string.Format(CultureInfo.InvariantCulture, CompositeFormatCache.Default.Get(TextResources.CodedAggregateException_ToString),
+				customText, Environment.NewLine, i, InnerExceptions[i].ToString());
 		}
-		return HResultHelper.CreateToString(this, CustomText);
+		return HResultHelper.CreateToString(this, customText);
 	}
 }

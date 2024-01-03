@@ -1,33 +1,6 @@
-﻿#Region "Copyright"
-'******************************************************************************
-' NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
-' origins of errors.
-' 
-' The MIT License (MIT)
-'
-' Copyright (c) Daniel Kopp, dak@nerdyduck.de
-'
-' All rights reserved.
-'
-' Permission Is hereby granted, free of charge, to any person obtaining a copy
-' of this software And associated documentation files (the "Software"), to deal
-' in the Software without restriction, including without limitation the rights
-' to use, copy, modify, merge, publish, distribute, sublicense, And/Or sell
-' copies of the Software, And to permit persons to whom the Software Is
-' furnished to do so, subject to the following conditions:
-'
-' The above copyright notice And this permission notice shall be included in
-' all copies Or substantial portions of the Software.
-'
-' THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS Or
-' IMPLIED, INCLUDING BUT Not LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-' FITNESS FOR A PARTICULAR PURPOSE And NONINFRINGEMENT. IN NO EVENT SHALL THE
-' AUTHORS Or COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES Or OTHER
-' LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT Or OTHERWISE, ARISING FROM,
-' OUT OF Or IN CONNECTION WITH THE SOFTWARE Or THE USE Or OTHER DEALINGS IN THE
-' SOFTWARE.
-'******************************************************************************
-#End Region
+﻿' Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+' This file Is licensed to you under the MIT license.
+' See the LICENSE file in the project root for more information.
 
 ''' <summary>
 ''' Provides easy access to the assembly's debug mode status.

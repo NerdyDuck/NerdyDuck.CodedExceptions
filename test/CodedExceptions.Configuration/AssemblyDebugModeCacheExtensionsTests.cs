@@ -1,0 +1,355 @@
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+using System.Collections.Generic;
+using System.IO;
+using System.Buffers;
+#if !NETFRAMEWORK
+using Microsoft.Extensions.Configuration;
+#endif
+
+namespace NerdyDuck.Tests.CodedExceptions.Configuration;
+
+/// <summary>
+/// Contains test methods to test the NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCacheExtensions class.
+/// </summary>
+[ExcludeFromCodeCoverage]
+[TestClass]
+public class AssemblyDebugModeCacheExtensionsTests
+{
+	[TestMethod]
+	public void AssertCacheAppConfig_Void_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyDebugModeCacheAppConfigExtensions.LoadApplicationConfiguration(null));
+	}
+
+	[TestMethod]
+	public void LoadApplicationConfiguration_Void_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		_ = cache.LoadApplicationConfiguration();
+		Assert.AreEqual(1, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadApplicationConfiguration_String_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		_ = cache.LoadApplicationConfiguration("testSections/goodOverrides");
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadApplicationConfiguration_StringEmpty_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadApplicationConfiguration(string.Empty);
+		  });
+	}
+
+	[TestMethod]
+	public void AssertCacheJson_string_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyDebugModeCacheJsonExtensions.ParseJson(null, string.Empty));
+	}
+
+	[TestMethod]
+	public void FromJson_JsonElement_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		using FileStream stream = File.OpenRead(@"TestFiles\AssemblyDebugModes.json");
+		System.Text.Json.JsonElement root = System.Text.Json.JsonDocument.Parse(stream).RootElement;
+		_ = cache.FromJson(root);
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadJson_NoTextReader_Throw()
+	{
+		using AssemblyDebugModeCache cache = new();
+		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.LoadJson((TextReader)null));
+	}
+
+	[TestMethod]
+	public void LoadJson_Void_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		_ = cache.LoadJson();
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadJson_String_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		_ = cache.LoadJson(@"TestFiles\AssemblyDebugModes.json");
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadJson_StringEmpty_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson(string.Empty);
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_StringInvalid_Throw()
+	{
+		_ = Assert.ThrowsException<IOException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson("NoFileHere.json");
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_Stream_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		using (FileStream stream = new(@"TestFiles\AssemblyDebugModes.json", FileMode.Open, FileAccess.Read, FileShare.Read))
+		{
+			_ = cache.LoadJson(stream);
+		}
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadJson_StreamNull_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson((Stream)null);
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_StreamNoRead_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson(new NoReadStream());
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_TextReader_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		using (FileStream stream = new(@"TestFiles\AssemblyDebugModes.json", FileMode.Open, FileAccess.Read, FileShare.Read))
+		using (TextReader reader = new StreamReader(stream))
+		{
+			_ = cache.LoadJson(reader);
+		}
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadJson_TextReaderNull_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson((TextReader)null);
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_TextReaderInvIsEnabled_Throw()
+	{
+		_ = Assert.ThrowsException<IOException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  using FileStream stream = new(@"TestFiles\AssemblyDebugModesInvIsEnabled.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+			  using TextReader reader = new StreamReader(stream);
+			  _ = cache.LoadJson(reader);
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_InvAssemblyName_Throw()
+	{
+		_ = Assert.ThrowsException<FormatException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson(@"TestFiles\AssemblyDebugModesInvAssemblyName.json");
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_InvIsEnabled_Throw()
+	{
+		_ = Assert.ThrowsException<IOException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson(@"TestFiles\AssemblyDebugModesInvIsEnabled.json");
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_NoAssemblyName_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		_ = cache.LoadJson(@"TestFiles\AssemblyDebugModesNoAssemblyName.json");
+		Assert.AreEqual(1, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadJson_NotBool_Throw()
+	{
+		_ = Assert.ThrowsException<FormatException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadJson(@"TestFiles\AssemblyDebugModesNotBool.json");
+		  });
+	}
+
+	[TestMethod]
+	public void ParseJson_String_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		string json = File.ReadAllText(@"TestFiles\AssemblyDebugModes.json");
+		_ = cache.ParseJson(json);
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void ParseJson_StringNull_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.ParseJson(null);
+		  });
+	}
+
+	[TestMethod]
+	public void ParseJson_StringInvIsEnabled_Throw()
+	{
+		_ = Assert.ThrowsException<IOException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  string json = File.ReadAllText(@"TestFiles\AssemblyDebugModesInvIsEnabled.json");
+			  _ = cache.ParseJson(json);
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_ParentObj_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		_ = cache.LoadJson(@"TestFiles\AssemblyDebugModesParent.json");
+		Assert.AreEqual(7, cache.Count);
+	}
+
+#if !NETFRAMEWORK
+	[TestMethod]
+	public void LoadJson_ReadOnlySequence_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		byte[] fileBytes = File.ReadAllBytes(@"TestFiles\AssemblyDebugModes.json"); // Has BOM, so we need to remove first three bytes.
+		ReadOnlySequence<byte> buffer = new(fileBytes, 3, fileBytes.Length - 3);
+		_ = cache.LoadJson(buffer);
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void LoadJson_ReadOnlyMemory_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		byte[] fileBytes = File.ReadAllBytes(@"TestFiles\AssemblyDebugModes.json"); // Has BOM, so we need to remove first three bytes.
+		ReadOnlyMemory<byte> buffer = new(fileBytes, 3, fileBytes.Length - 3);
+		_ = cache.LoadJson(buffer);
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void FromConfigurationSection_Success()
+	{
+		using AssemblyDebugModeCache cache = new();
+		IConfiguration config = new ConfigurationBuilder().AddJsonFile(@"TestFiles\AssemblyDebugModesParent.json").Build();
+		_ = cache.LoadConfigurationSection(config.GetSection("debugModes"));
+		Assert.AreEqual(7, cache.Count);
+	}
+
+	[TestMethod]
+	public void FromConfigurationSection_Null_Throw()
+	{
+		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  _ = cache.LoadConfigurationSection(null);
+		  });
+	}
+
+	[TestMethod]
+	public void FromConfigurationSection_AssemblyNameInv_Throw()
+	{
+		_ = Assert.ThrowsException<FormatException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  Dictionary<string, string> modes = new()
+			  {
+				  ["debugModes:NerdyDuck.CodedExceptions, Version=9.x.x.x"] = "True"
+			  };
+			  IConfiguration config = new ConfigurationBuilder().AddInMemoryCollection(modes).Build();
+			  _ = cache.LoadConfigurationSection(config.GetSection("debugModes"));
+		  });
+	}
+
+	[TestMethod]
+	public void FromConfigurationSection_IsEnabledInv_Throw()
+	{
+		_ = Assert.ThrowsException<FormatException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  Dictionary<string, string> modes = new()
+			  {
+				  ["debugModes:NerdyDuck.CodedExceptions"] = "Foo"
+			  };
+			  IConfiguration config = new ConfigurationBuilder().AddInMemoryCollection(modes).Build();
+			  _ = cache.LoadConfigurationSection(config.GetSection("debugModes"));
+		  });
+	}
+
+	[TestMethod]
+	public void FromConfigurationSection_IsEnabledEmpty_Throw()
+	{
+		_ = Assert.ThrowsException<FormatException>(() =>
+		  {
+			  using AssemblyDebugModeCache cache = new();
+			  Dictionary<string, string> modes = new()
+			  {
+				  ["debugModes:NerdyDuck.CodedExceptions"] = ""
+			  };
+			  IConfiguration config = new ConfigurationBuilder().AddInMemoryCollection(modes).Build();
+			  _ = cache.LoadConfigurationSection(config.GetSection("debugModes"));
+		  });
+	}
+
+	[TestMethod]
+	public void LoadJson_InvalidMemory_Throw()
+	{
+		using AssemblyDebugModeCache cache = new();
+		Memory<byte> ms = new(new byte[] { 0x7b, 0x7c, 0x7d }); // = {|}
+		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms));
+	}
+
+	[TestMethod]
+	public void LoadJson_InvalidSequence_Throw()
+	{
+		using AssemblyDebugModeCache cache = new();
+		Memory<byte> ms = new(new byte[] { 0x7b, 0x7c, 0x7d }); // = {|}
+		ReadOnlySequence<byte> ms2 = new(ms);
+		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms2));
+	}
+#endif
+}

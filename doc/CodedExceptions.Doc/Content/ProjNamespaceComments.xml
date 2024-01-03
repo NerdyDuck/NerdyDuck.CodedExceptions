@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+	<assembly>
+		<name>_SharedItems_</name>
+	</assembly>
+	<members>
+		<member name="R:Project_CodedExceptionsDoc">
+			<summary>
+				The <localUri>NerdyDuck.CodedExceptions</localUri> library contains 3 namespaces. The <codeEntityReference qualifyHint="true" autoUpgrade="true">N:NerdyDuck.CodedExceptions</codeEntityReference> namespace contains modified versions of the most commonly used exceptions, e.g. the
+				<codeEntityReference qualifyHint="true" autoUpgrade="true">T:NerdyDuck.CodedExceptions.CodedException</codeEntityReference>, that is derived from the System.Exception class. It also contains attributes and helper classes to facilitate the generation of standardized HRESULT values.
+				The <codeEntityReference qualifyHint="true" autoUpgrade="true">N:NerdyDuck.CodedExceptions.IO</codeEntityReference> namespace contains exceptions related to I/O errors.
+				<codeEntityReference qualifyHint="true" autoUpgrade="true">N:The NerdyDuck.CodedExceptions.Configuration</codeEntityReference> namespace contains classes to override facility identifiers via configuration, and set an assembly-wide debug flag, either in code, or using configuration files.
+				XML configuration files are supported without requiring other libraries.
+
+				The <localUri>NerdyDuck.CodedExceptions.Configuration.AppConfig</localUri> library adds functionality for the classes in the <codeEntityReference qualifyHint="true" autoUpgrade="true">N:NerdyDuck.CodedExceptions.Configuration</codeEntityReference> namespace, so that facility identifier overrides and debug flags can be set via Application Configuration File (app.config / web.config).
+
+				Likewise, the <localUri>NerdyDuck.CodedExceptions.Configuration.ConfigSection</localUri> library adds functionality for the classes in the <codeEntityReference qualifyHint="true" autoUpgrade="true">N:NerdyDuck.CodedExceptions.Configuration</codeEntityReference> namespace, so that facility identifier overrides and debug flags can be set via the IConfigurationSection interface, introduced with ASP.NET Core 1.0, and now available on most platforms for unified configuration.
+
+				As a fourth option, the <localUri>NerdyDuck.CodedExceptions.Configuration.Json</localUri> library adds functionality for the classes in the <codeEntityReference qualifyHint="true" autoUpgrade="true">N:NerdyDuck.CodedExceptions.Configuration</codeEntityReference> namespace, so that facility identifier overrides and debug flags can be set using JSON files.
+			</summary>
+		</member>
+		<member name="N:">
+			<!--<exclude />-->
+			<summary>
+				Here comes the global namespace!
+			</summary>
+		</member>
+		<member name="N:NerdyDuck.CodedExceptions">
+			<summary>
+				The <codeEntityReference qualifyHint="true" autoUpgrade="true">N:NerdyDuck.CodedExceptions</codeEntityReference> namespace contains classes derived from `System.Exception` that expose constructors that you can use to set the `HResult` property. The simplest version is the <codeEntityReference qualifyHint="true" autoUpgrade="true">T:NerdyDuck.CodedExceptions.CodedException</codeEntityReference> class, but most common exceptions are present like the ArgumentException or FormatException.
+				It also contains the <codeEntityReference qualifyHint="true" autoUpgrade="true">T:NerdyDuck.CodedExceptions.CodedExceptionAttribute</codeEntityReference> that you can use to signal that an exception may contain custom `HResult` values, when creating your own exception classes. The <codeEntityReference qualifyHint="true" autoUpgrade="true">T:NerdyDuck.CodedExceptions.HResultHelper</codeEntityReference> class offers static methods to create standardized HRESULT values. If you want to set an assembly-wide facility identifier to use in your HRESULTs, use the <codeEntityReference qualifyHint="true" autoUpgrade="true">T:NerdyDuck.CodedExceptions.AssemblyFacilityIdentifierAttribute</codeEntityReference> to decorate the assembly, and it's static methods to retrieve the facility identifier value.
+			</summary>
+		</member>
+		<member name="N:NerdyDuck.CodedExceptions.IO">
+			<summary>
+				The <codeEntityReference qualifyHint="true" autoUpgrade="true">N:NerdyDuck.CodedExceptions.IO</codeEntityReference> namespace contains exceptions related to I/O errors.
+			</summary>
+		</member>
+		<member name="N:NerdyDuck.CodedExceptions.Configuration">
+			<summary>
+				This is the NerdyDuck.CodedExceptions.Configuration namespace summary.
+			</summary>
+		</member>
+	</members>
+</doc>

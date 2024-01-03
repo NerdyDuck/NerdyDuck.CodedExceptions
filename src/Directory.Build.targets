@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project InitialTargets="GetGitBranchInfo" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="SignOutputAssemblies" AfterTargets="Build" DependsOnTargets="Build" Condition=" '$(SignAssembliesAndPackage)' == 'true' And '$(IsCrossTargetingBuild)' != 'true' ">
     <CreateItem Include="$(OutputPath)**\$(AssemblyName)*.exe;$(OutputPath)**\$(TargetName)*.dll" Condition="'$(OutputType)' != 'Library'">
       <Output TaskParameter="Include" ItemName="FilesToSign"/>
@@ -28,30 +28,13 @@
     </ItemGroup>
     <Delete Files="@(_ZipToDelete)"/>
   </Target>
-  <Target Name="GetGitBranchInfo" Condition=" '$(PublishRepositoryUrl)' == 'true' ">
-    <Exec Command="git ls-remote --get-url" ConsoleToMsBuild="true" EchoOff="true" StandardOutputImportance="low">
-      <Output TaskParameter="ConsoleOutput" PropertyName="RepositoryUrl" />
-    </Exec>
-    <Exec Command="git rev-parse --abbrev-ref HEAD" ConsoleToMsBuild="true" EchoOff="true" StandardOutputImportance="low">
-      <Output TaskParameter="ConsoleOutput" PropertyName="RepositoryBranch" />
-    </Exec>
-    <Exec Command="git rev-parse HEAD" ConsoleToMsBuild="true" EchoOff="true" StandardOutputImportance="low">
-      <Output TaskParameter="ConsoleOutput" PropertyName="RepositoryCommit" />
-    </Exec>
-    <Exec Command="git rev-parse --short HEAD" ConsoleToMsBuild="true" EchoOff="true" StandardOutputImportance="low">
-      <Output TaskParameter="ConsoleOutput" PropertyName="RepositoryCommitShort" />
-    </Exec>
-    <CreateProperty Value="true">
-      <Output TaskParameter="Value" PropertyName="GenerateAssemblyInfo"/>
-    </CreateProperty>
-  </Target>
-  <Target Name="UpdateInformationalVersions" BeforeTargets="GetAssemblyVersion" Condition=" '$(RepositoryCommitShort)' != '' ">
-    <CreateProperty Value="$(Version)$(PrereleaseVersion)+$(RepositoryCommitShort)">
+  <Target Name="UpdateInformationalVersions" BeforeTargets="GetAssemblyVersion">
+    <CreateProperty Value="$(Version)$(PrereleaseVersion)">
       <Output TaskParameter="Value" PropertyName="InformationalVersion"/>
     </CreateProperty>
   </Target>
-  <Target Name="UpdatePackageVersions" BeforeTargets="GenerateNuspec" Condition=" '$(RepositoryCommitShort)' != '' ">
-    <CreateProperty Value="$(Version)$(PrereleaseVersion)+$(RepositoryCommitShort)">
+  <Target Name="UpdatePackageVersions" BeforeTargets="GenerateNuspec">
+    <CreateProperty Value="$(Version)$(PrereleaseVersion)">
       <Output TaskParameter="Value" PropertyName="PackageVersion"/>
     </CreateProperty>
     <Message Text="PackageVersion: $(PackageVersion)" Importance="high" />

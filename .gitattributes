@@ -1,63 +1,190 @@
 ###############################################################################
-# Set default behavior to automatically normalize line endings.
+# Default setting
 ###############################################################################
+
+# Set default behaviour to automatically normalize line endings.
 * text=auto
 
 ###############################################################################
-# Set default behavior for command prompt diff.
-#
-# This is need for earlier builds of msysgit that does not have it on by
-# default for csharp files.
-# Note: This is only used by command line
+# Text files
 ###############################################################################
-#*.cs     diff=csharp
+
+# Project files
+*.sln             text eol=crlf 
+*.csproj          text eol=crlf 
+*.vbproj          text eol=crlf 
+*.vcxproj         text eol=crlf 
+*.fsproj          text eol=crlf 
+*.wixproj         text eol=crlf 
+*.modelproj       text eol=crlf 
+*.sqlproj         text eol=crlf 
+*.props           text eol=crlf
+*.targets         text eol=crlf
+*.filters         text eol=crlf
+*.vcxitems        text eol=crlf
+*.shproj          text eol=crlf
+*.projitems       text eol=crlf
+*.shfbproj        text eol=crlf
+                                
+# C#                            
+*.cs              text diff=csharp
+*.resx            text eol=crlf
+*.snk             binary
+*.xaml            text eol=crlf
+*.manifest        text eol=crlf
+*.appxmanifest    text eol=crlf
+*.plist           text eol=crlf
+*.config          text eol=crlf
+*.settings        text eol=crlf
+*.content         text
+
+# C / C++                       
+*.c               text diff=c   
+*.cc              text diff=cpp 
+*.cxx             text diff=cpp 
+*.cpp             text diff=cpp 
+*.c++             text diff=cpp 
+*.hpp             text diff=cpp 
+*.h               text diff=c   
+*.h++             text diff=cpp 
+*.hh              text diff=cpp 
+*.idl             text diff=c   
+*.rc              text
+
+# Web
+*.cshtml          text
+*.css             text diff=css
+*.htm             text diff=html
+*.html            text diff=html
+*.inc             text
+*.js              text
+*.jsx             text
+*.less            text
+*.ls              text
+*.map             text
+*.sass            text
+*.scm             text
+*.scss            text diff=css
+*.sql             text
+*.ts              text
+*.tsx             text
+*.xhtml           text diff=html
+
+# GRPC
+*.proto           text eol=crlf
+
+# Data
+*.xml             text
+*.xsd             text
+*.json            text
+
+# Documentation
+*.aml             text eol=crlf
+*.md              text diff=markdown
+*.txt             text
+AUTHORS           text
+CHANGELOG         text
+CHANGES           text
+CONTRIBUTING      text
+COPYING           text
+copyright         text
+*COPYRIGHT*       text
+INSTALL           text
+license           text
+LICENSE           text
+NEWS              text
+readme            text
+*README*          text
+TODO              text
+
+# Configs
+*.cnf             text
+*.conf            text
+.editorconfig     text
+.env              text
+.htaccess         text
+*.lock            text -diff
+*.toml            text
+*.yaml            text
+*.yml             text
+browserslist      text
+Makefile          text
+makefile          text
+*.ini             text
+
+# Docker
+Dockerfile        text
+
+# Batch
+*.bash            text eol=lf
+*.bat             text eol=crlf
+*.cmd             text eol=crlf
+*.sh              text eol=lf
+*.ps1             text eol=crlf
+
+# Git files
+.gitattributes    text
+.gitconfig        text
+.gitignore        text
 
 ###############################################################################
-# Set the merge driver for project and solution files
-#
-# Merging from the command prompt will add diff markers to the files if there
-# are conflicts (Merging from VS is not affected by the settings below, in VS
-# the diff markers are never inserted). Diff markers may cause the following 
-# file extensions to fail to load in VS. An alternative would be to treat
-# these files as binary and thus will always conflict and require user
-# intervention with every merge. To do so, just uncomment the entries below
+# Binary files
 ###############################################################################
-#*.sln       merge=binary
-#*.csproj    merge=binary
-#*.vbproj    merge=binary
-#*.vcxproj   merge=binary
-#*.vcproj    merge=binary
-#*.dbproj    merge=binary
-#*.fsproj    merge=binary
-#*.lsproj    merge=binary
-#*.wixproj   merge=binary
-#*.modelproj merge=binary
-#*.sqlproj   merge=binary
-#*.wwaproj   merge=binary
 
-###############################################################################
-# behavior for image files
-#
-# image files are treated as binary by default.
-###############################################################################
-#*.jpg   binary
-#*.png   binary
-#*.gif   binary
+# Graphics
+*.ai              binary
+*.bmp             binary
+*.eps             binary
+*.gif             binary
+*.gifv            binary
+*.ico             binary
+*.jng             binary
+*.jp2             binary
+*.jpg             binary
+*.jpeg            binary
+*.jpx             binary
+*.jxr             binary
+*.pdf             binary
+*.png             binary
+*.psb             binary
+*.psd             binary
+# SVG treated as an asset (binary) by default.
+*.svg             text
+*.svgz            binary
+*.tif             binary
+*.tiff            binary
+*.wbmp            binary
+*.webp            binary
 
-###############################################################################
-# diff behavior for common document formats
-# 
-# Convert binary document formats to text before diffing them. This feature
-# is only available from the command line. Turn it on by uncommenting the 
-# entries below.
-###############################################################################
-#*.doc   diff=astextplain
-#*.DOC   diff=astextplain
-#*.docx  diff=astextplain
-#*.DOCX  diff=astextplain
-#*.dot   diff=astextplain
-#*.DOT   diff=astextplain
-#*.pdf   diff=astextplain
-#*.PDF   diff=astextplain
-#*.rtf   diff=astextplain
-#*.RTF   diff=astextplain
+# Audio
+*.kar             binary
+*.m4a             binary
+*.mp3             binary
+*.ogg             binary
+
+# Video
+*.3gpp            binary
+*.3gp             binary
+*.m4v             binary
+*.mng             binary
+*.mov             binary
+*.mp4             binary
+*.mpeg            binary
+*.mpg             binary
+*.ogv             binary
+*.webm            binary
+
+# Archives
+*.7z              binary
+*.gz              binary
+*.jar             binary
+*.rar             binary
+*.tar             binary
+*.zip             binary
+
+# Fonts
+*.ttf             binary
+*.eot             binary
+*.otf             binary
+*.woff            binary
+*.woff2           binary

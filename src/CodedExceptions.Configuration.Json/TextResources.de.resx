@@ -141,4 +141,7 @@
   <data name="Global_StreamNoRead" xml:space="preserve">
     <value>Der Stream unterstützt keine Lese-Vorgänge.</value>
   </data>
+  <data name="Global_NoContent" xml:space="preserve">
+    <value>Der Inhalt darf nicht Null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
+  </data>
 </root>

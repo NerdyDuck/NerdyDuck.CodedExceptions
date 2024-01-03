@@ -1,33 +1,8 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+// Ignore Spelling: hresult
 
 using System.Text;
 
@@ -36,46 +11,46 @@ namespace NerdyDuck.CodedExceptions;
 /// <summary>
 /// Helper class to create and examine custom <see cref="Exception.HResult"/> values.
 /// </summary>
-/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-/// more information about the definition of HRESULT values.</remarks>
+/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
+/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 public static class HResultHelper
 {
 	/// <summary>
 	/// The base value for all custom HRESULT values, to unambiguously distinguish the exceptions from Microsoft codes.
 	/// </summary>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public const int HResultBase = unchecked((int)0x20000000);
 
 	/// <summary>
 	/// The base value for all custom HRESULT values, to unambiguously distinguish the exceptions from Microsoft error codes.
 	/// </summary>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public const int HResultErrorBase = HResultBase | unchecked((int)0x80000000);
 
 	/// <summary>
 	/// A bit mask to filter the id of the facility (= the assembly) that threw the exception.
 	/// </summary>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <example>int FacilityId = (ex.HResult &amp; HResultHelper.FacilityIdMask) >> HResultHelper.FacilityIdShift;</example>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public const int FacilityIdMask = 0x07ff0000;
 
 	/// <summary>
 	/// The number of bits to shift an <see cref="Exception.HResult"/> to the left to get the facility (= the assembly) id on the lowest bit.
 	/// </summary>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <example>int FacilityId = (ex.HResult &amp; HResultHelper.FacilityIdMask) >> HResultHelper.FacilityIdShift;</example>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public const int FacilityIdShift = 16;
 
 	/// <summary>
 	/// A bit mask to filter the error id of the <see cref="Exception.HResult"/>.
 	/// </summary>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <example>int ErrorId = ex.HResult &amp; HResultHelper.ErrorIdMask;</example>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public const int ErrorIdMask = 0x0000ffff;
 
 	/// <summary>
@@ -151,13 +126,16 @@ public static class HResultHelper
 	/// <exception cref="ArgumentNullException">ex is null.</exception>
 	public static string CreateToString(Exception ex, string? customText)
 	{
+#if NETFRAMEWORK
 		if (ex == null)
 		{
 			throw new ArgumentNullException(nameof(ex));
 		}
-
+#else
+		ArgumentNullException.ThrowIfNull(ex, nameof(ex));
+#endif
 		StringBuilder sb = AcquireStringBuilder();
-		_ = sb.AppendFormat(CultureInfo.CurrentCulture, ExceptionBaseFormat, ex.GetType().FullName, ex.HResult, ex.Message);
+		_ = sb.AppendFormat(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(ExceptionBaseFormat), ex.GetType().FullName, ex.HResult, ex.Message);
 		if (!string.IsNullOrEmpty(customText))
 		{
 			_ = sb.Append(Environment.NewLine).Append(customText);
@@ -183,24 +161,24 @@ public static class HResultHelper
 	/// <exception cref="CodedFormatException"><paramref name="value"/> contains at least one character that is not a valid hexadecimal digit.</exception>
 	public static byte[]? HexStringToByteArray(string? value)
 	{
-		if (string.IsNullOrEmpty(value))
+		if (value is null || value.Length == 0)
 		{
 			return null;
 		}
-#pragma warning disable IDE0079
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-		int valueLength = value.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? value.Length - 2 : value.Length;
-#pragma warning restore CS8602, IDE0079 // Dereference of a possibly null reference.
-		byte[] returnValue = new byte[(valueLength + 1) >> 1];
-		int lastCell = returnValue.Length - 1;
-		int lastChar = value.Length - 1;
-
-		for (int i = 0; i < valueLength; i++)
+		else
 		{
-			returnValue[lastCell - (i >> 1)] |= (byte)(HexToInt(value[lastChar - i]) << ((i & 1) << 2));
-		}
+			int valueLength = value.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? value.Length - 2 : value.Length;
+			byte[] returnValue = new byte[(valueLength + 1) >> 1];
+			int lastCell = returnValue.Length - 1;
+			int lastChar = value.Length - 1;
 
-		return returnValue;
+			for (int i = 0; i < valueLength; i++)
+			{
+				returnValue[lastCell - (i >> 1)] |= (byte)(HexToInt(value[lastChar - i]) << ((i & 1) << 2));
+			}
+
+			return returnValue;
+		}
 	}
 
 	/// <summary>
@@ -270,6 +248,6 @@ public static class HResultHelper
 		'd' or 'D' => 13,
 		'e' or 'E' => 14,
 		'f' or 'F' => 15,
-		_ => throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.HResultHelper_HexToInt_InvalidChar, value)),
+		_ => throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.HResultHelper_HexToInt_InvalidChar), value)),
 	};
 }

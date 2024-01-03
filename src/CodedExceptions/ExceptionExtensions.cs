@@ -1,33 +1,6 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
 
@@ -45,8 +18,8 @@ public static class ExceptionExtensions
 	/// </summary>
 	/// <param name="ex">The <see cref="Exception"/> to extract the error identifier from.</param>
 	/// <returns>An error identifier.</returns>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public static int GetErrorId(this Exception ex) => ex == null ? throw new ArgumentNullException(nameof(ex)) : HResultHelper.GetErrorId(ex.HResult);
 
 	/// <summary>
@@ -54,8 +27,8 @@ public static class ExceptionExtensions
 	/// </summary>
 	/// <param name="ex">The <see cref="Exception"/> to extract the facility identifier from.</param>
 	/// <returns>The facility identifier.</returns>
-	/// <remarks>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</remarks>
+	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public static int GetFacilityId(this Exception ex) => ex == null ? throw new ArgumentNullException(nameof(ex)) : HResultHelper.GetFacilityId(ex.HResult);
 
 	/// <summary>

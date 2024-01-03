@@ -9,11 +9,11 @@ bring it to our attention. Post an issue or email us:
 
 The attached notices are provided for information only.
 
-License notice for .NET Core
+License notice for .NET
 -------------------------------
 
 Copyright (c) .NET Foundation and Contributors
 The MIT License (MIT)
 
 Available at
-https://github.com/dotnet/corefx/blob/master/LICENSE.TXT
+https://github.com/dotnet/core/blob/main/LICENSE.TXT

@@ -1,42 +1,20 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace NerdyDuck.CodedExceptions.Configuration;
 
 /// <summary>
 /// Represents a debug mode setting for an assembly.
 /// </summary>
+#if NETFRAMEWORK
 [Serializable]
+#endif
 [ComVisible(false)]
-public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>, ISerializable
+public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>
+#if NETFRAMEWORK
+	, ISerializable
+#endif
 {
 	/// <summary>
 	/// Gets the name of the assembly that the debug mode is set for.
@@ -73,29 +51,12 @@ public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>, ISerializ
 	/// </summary>
 	/// <param name="assemblyName">The name of the assembly that the debug mode is configured for.</param>
 	/// <param name="isEnabled">A value indicating if debug mode is enabled for the assembly defined in <paramref name="assemblyName"/>.</param>
-	/// <exception cref="CodedArgumentNullException"><paramref name="assemblyName"/> is <see langword="null"/>.</exception>
-	/// <exception cref="CodedFormatException"><paramref name="assemblyName"/> is not a valid assembly name (full or partially qualified).</exception>
+	/// <exception cref="ArgumentNullException"><paramref name="assemblyName"/> is <see langword="null"/>.</exception>
+	/// <exception cref="FormatException"><paramref name="assemblyName"/> is not a valid assembly name (full or partially qualified).</exception>
 	public AssemblyDebugMode(string assemblyName, bool isEnabled)
 	{
 		AssemblyName = new AssemblyIdentity(assemblyName);
 		IsEnabled = isEnabled;
-	}
-
-	/// <summary>
-	/// Initializes a new instance of the <see cref="AssemblyDebugMode"/> class with serialized data.
-	/// </summary>
-	/// <param name="info">The object that holds the serialized object data.</param>
-	/// <param name="context">The contextual information about the source or destination.</param>
-	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
-	/// <exception cref="SerializationException">The instance could not be deserialized correctly.</exception>
-	private AssemblyDebugMode(SerializationInfo info, StreamingContext context)
-	{
-		if (info == null)
-		{
-			throw new ArgumentNullException(nameof(info));
-		}
-		AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(TextResources.Global_ctor_MissingAssemblyIdentifier));
-		IsEnabled = info.GetBoolean(nameof(IsEnabled));
 	}
 
 	/// <summary>
@@ -118,11 +79,30 @@ public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>, ISerializ
 	/// <returns><see langword="true" /> if the specified <see cref="AssemblyDebugMode" /> is equal to the current instance; otherwise, <see langword="false" />. </returns>
 	public bool Equals(AssemblyDebugMode? other) => other is not null && AssemblyName.Equals(other.AssemblyName) && IsEnabled == other.IsEnabled;
 
+#if NETFRAMEWORK
+	/// <summary>
+	/// Initializes a new instance of the <see cref="AssemblyDebugMode"/> class with serialized data.
+	/// </summary>
+	/// <param name="info">The object that holds the serialized object data.</param>
+	/// <param name="context">The contextual information about the source or destination.</param>
+	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
+	/// <exception cref="SerializationException">The instance could not be deserialized correctly.</exception>
+	private AssemblyDebugMode(SerializationInfo info, StreamingContext context)
+	{
+		if (info == null)
+		{
+			throw new ArgumentNullException(nameof(info));
+		}
+		AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(TextResources.Global_ctor_MissingAssemblyIdentifier));
+		IsEnabled = info.GetBoolean(nameof(IsEnabled));
+	}
+
 	/// <summary>
 	/// Sets the <see cref="SerializationInfo"/> with information about the exception.
 	/// </summary>
 	/// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the object being thrown.</param>
 	/// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+	/// <exception cref="ArgumentNullException"><paramref name="info"/> is <see langword="null" />.</exception>
 	void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		if (info == null)
@@ -132,4 +112,5 @@ public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>, ISerializ
 		info.AddValue(nameof(AssemblyName), AssemblyName);
 		info.AddValue(nameof(IsEnabled), IsEnabled);
 	}
+#endif
 }

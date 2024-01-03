@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="37527408-c35b-4533-aafc-2f9ce5312699" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>Version 1.3.0 was released on 2016-08-02.</para>
+		</introduction>
+		<section>
+			<title>Changes in This Release</title>
+			<content>
+				<list class="bullet">
+					<listItem>
+						<para>Added new target platform .NET Core 1.0. Compiled against netstandard1.6 .</para>
+					</listItem>
+					<listItem>
+						<para>Added new exceptions: `CodedInvalidCastException`, `CodedSocketException`, `InsufficientStorageSpaceException`.</para>
+					</listItem>
+				</list>
+			</content>
+		</section>
+		<relatedTopics>
+			<link xlink:href="b3615815-e598-4585-8e45-83c1ba19bf01" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>

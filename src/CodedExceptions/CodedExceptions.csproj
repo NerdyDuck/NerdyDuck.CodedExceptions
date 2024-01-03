@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="17.0">
   <PropertyGroup Label="Compilation">
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0;net8.0;net472</TargetFrameworks>
     <RootNamespace>NerdyDuck.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
   </PropertyGroup>
+  <Import Project="..\..\shared\ArtifactsOverrides.props" />
   <PropertyGroup Label="Assembly info">
     <AssemblyTitle>NerdyDuck CodedExceptions</AssemblyTitle>
     <Description>Exceptions with custom HRESULTs to identify the origins of errors.</Description>
@@ -14,8 +15,8 @@
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
-      - Upgraded platforms to .NET Standard 2.0 and .NET 6
-      - Removed separate binaries for UWP (use .NET Standard 2.0 instead).
+      - Upgraded platforms to .NET 6/7/8 and .NET Framework 4.7.2
+      - Removed separate binaries for UWP.
       - Switched license from Apache 2.0 to MIT.
       - Split Configuration namespace into three separate packages libraries
       - Changed German resources from de-DE to just de.
@@ -23,24 +24,6 @@
     </PackageReleaseNotes>
     <PackageTags>Exception HRESULT</PackageTags>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="TextResources.Designer.cs">
       <DesignTime>True</DesignTime>

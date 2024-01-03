@@ -1,40 +1,13 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.Tests.CodedExceptions.Configuration - Unit tests for the
- * NerdyDuck.CodedExceptions.Configuration assembly
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security;
 using System.Xml;
-#if NET6_0_OR_GREATER
+#if !NETFRAMEWORK
 using System.Buffers;
 #endif
 
@@ -57,7 +30,14 @@ internal static class ExtensionHelper
 	internal static T LoadXml<T>(T cache, string path, Action<T, XmlReader> parser) where T : class
 	{
 		AssertCache(cache);
-		AssertPath(path);
+#if NET8_0_OR_GREATER
+		ArgumentException.ThrowIfNullOrWhiteSpace(path, nameof(path));
+#else
+		if (string.IsNullOrWhiteSpace(path))
+		{
+			throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
+		}
+#endif
 
 		FileStream stream;
 		try
@@ -66,7 +46,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
 		{
-			throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
+			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_OpenFileFailed), path), ex);
 		}
 
 		try
@@ -109,12 +89,12 @@ internal static class ExtensionHelper
 		AssertCache(cache);
 		AssertTextReader(reader);
 
-		using XmlReader xreader = XmlReader.Create(reader, s_secureSettings);
-		parser(cache, xreader);
+		using XmlReader xmlReader = XmlReader.Create(reader, s_secureSettings);
+		parser(cache, xmlReader);
 		return cache;
 	}
 
-#if NET6_0_OR_GREATER
+#if !NETFRAMEWORK
 	/// <summary>
 	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
 	/// </summary>
@@ -127,8 +107,8 @@ internal static class ExtensionHelper
 		AssertCache(cache);
 
 		using MemoryStream stream = new(utf8Json.ToArray());
-		using XmlReader xreader = XmlReader.Create(stream, s_secureSettings);
-		parser(cache, xreader);
+		using XmlReader xmlReader = XmlReader.Create(stream, s_secureSettings);
+		parser(cache, xmlReader);
 		return cache;
 	}
 
@@ -144,8 +124,8 @@ internal static class ExtensionHelper
 		AssertCache(cache);
 
 		using MemoryStream stream = new(utf8Json.ToArray());
-		using XmlReader xreader = XmlReader.Create(stream, s_secureSettings);
-		parser(cache, xreader);
+		using XmlReader xmlReader = XmlReader.Create(stream, s_secureSettings);
+		parser(cache, xmlReader);
 		return cache;
 	}
 #endif
@@ -163,15 +143,16 @@ internal static class ExtensionHelper
 		AssertContent(content);
 
 		using StringReader reader = new(content);
-		using XmlReader xreader = XmlReader.Create(reader, s_secureSettings);
-		parser(cache, xreader);
+		using XmlReader xmlReader = XmlReader.Create(reader, s_secureSettings);
+		parser(cache, xmlReader);
 		return cache;
 	}
 
-	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
+	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_AssemblyNameInvalid), assemblyName), ex);
 
-	internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_FromXml_AttributeMissing, parentNodeName, Globals.AssemblyNameKey));
+	internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_FromXml_AttributeMissing), parentNodeName, GlobalStrings.AssemblyNameKey));
 
+#if NETFRAMEWORK
 	/// <summary>
 	/// Checks if the object is null.
 	/// </summary>
@@ -212,20 +193,31 @@ internal static class ExtensionHelper
 			throw new ArgumentNullException(nameof(reader));
 		}
 	}
+#else
 
 	/// <summary>
-	/// Checks if the path string is null or empty.
+	/// Checks if the object is null.
 	/// </summary>
-	/// <param name="path">The path to check.</param>
-	/// <exception cref="ArgumentException">The path is null or empty.</exception>
+	/// <exception cref="ArgumentNullException">The object is null.</exception>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertPath(string path)
-	{
-		if (string.IsNullOrWhiteSpace(path))
-		{
-			throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
-		}
-	}
+	internal static void AssertCache(object cache) => ArgumentNullException.ThrowIfNull(cache, nameof(cache));
+
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertXmlReader(XmlReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
+
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertTextReader(TextReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
+#endif
 
 	/// <summary>
 	/// Checks if the stream is null or not readable.
@@ -236,10 +228,14 @@ internal static class ExtensionHelper
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	private static void AssertStream(Stream stream)
 	{
+#if NETFRAMEWORK
 		if (stream == null)
 		{
 			throw new ArgumentNullException(nameof(stream));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+#endif
 		if (!stream.CanRead)
 		{
 			throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
@@ -290,7 +286,7 @@ internal static class ExtensionHelper
 	internal static List<T> FromXmlInternal<T, TValue>(XmlReader reader, string rootNodeName, string nodesName, string valueKey, string valueInvalidResourceKey, Func<string?, TValue> converter, Func<AssemblyIdentity, TValue, T> constructor)
 	{
 		reader.ReadStartElement(rootNodeName);
-		List<T> result = new();
+		List<T> result = [];
 		string? assemblyString, valueString;
 		AssemblyIdentity assembly;
 		TValue convertedValue;
@@ -299,7 +295,7 @@ internal static class ExtensionHelper
 		{
 			if (reader.Name == nodesName && reader.NodeType == XmlNodeType.Element)
 			{
-				assemblyString = reader.GetAttribute(Globals.AssemblyNameKey);
+				assemblyString = reader.GetAttribute(GlobalStrings.AssemblyNameKey);
 				if (assemblyString == null)
 				{
 					throw AssemblyNameAttributeMissingException(nodesName);

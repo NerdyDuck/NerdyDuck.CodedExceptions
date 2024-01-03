@@ -1,33 +1,6 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions.Configuration - Configures facility identifier
- * overrides and debug mode flags implemented in NerdyDuck.CodedExceptions.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace NerdyDuck.CodedExceptions.Configuration;
 
@@ -36,15 +9,15 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// </summary>
 internal class AssemblyFacilityOverrideElement : ConfigurationElement
 {
-	private static readonly ConfigurationPropertyCollection s_properties = new();
-	private static readonly ConfigurationProperty s_assemblyNameProp = new(Globals.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
-	private static readonly ConfigurationProperty s_identifierProp = new(Globals.IdentifierKey, typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
+	private static readonly ConfigurationPropertyCollection s_properties = [];
+	private static readonly ConfigurationProperty s_assemblyNameProp = new(GlobalStrings.AssemblyNameKey, typeof(string), "", ConfigurationPropertyOptions.IsKey | ConfigurationPropertyOptions.IsRequired);
+	private static readonly ConfigurationProperty s_identifierProp = new(GlobalStrings.IdentifierKey, typeof(int), 0, ConfigurationPropertyOptions.IsRequired);
 
 	/// <summary>
 	/// Gets or sets the fully or partially qualified name of the assembly to override the facility id for.
 	/// </summary>
-	[ConfigurationProperty(Globals.AssemblyNameKey)]
-	[StringValidator(InvalidCharacters = Globals.InvalidNameChars, MinLength = 1)]
+	[ConfigurationProperty(GlobalStrings.AssemblyNameKey)]
+	[StringValidator(InvalidCharacters = GlobalStrings.InvalidNameChars, MinLength = 1)]
 	public string AssemblyName
 	{
 		get => (string)base[s_assemblyNameProp];
@@ -59,7 +32,7 @@ internal class AssemblyFacilityOverrideElement : ConfigurationElement
 	/// <summary>
 	/// Gets or sets the overriding value for the facility id.
 	/// </summary>
-	[ConfigurationProperty(Globals.IdentifierKey)]
+	[ConfigurationProperty(GlobalStrings.IdentifierKey)]
 	[IntegerValidator(MinValue = 0, MaxValue = 2047)]
 	public int Identifier
 	{
@@ -103,7 +76,7 @@ internal class AssemblyFacilityOverrideElement : ConfigurationElement
 		}
 		catch (Exception ex) when (ex is ArgumentException or FormatException)
 		{
-			throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.FacilityOverrideElement_ToOverride_Invalid, AssemblyName), ex);
+			throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.FacilityOverrideElement_ToOverride_Invalid), AssemblyName), ex);
 		}
 	}
 }

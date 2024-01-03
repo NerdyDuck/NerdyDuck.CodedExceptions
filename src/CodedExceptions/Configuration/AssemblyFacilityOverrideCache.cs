@@ -1,33 +1,6 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -63,7 +36,7 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// </summary>
 	public AssemblyFacilityOverrideCache()
 	{
-		_facilityOverrides = new List<AssemblyFacilityOverride>();
+		_facilityOverrides = [];
 		_listLock = new ReaderWriterLockSlim();
 		_isDisposed = 0;
 	}
@@ -88,11 +61,22 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	public bool TryGetOverride(Assembly assembly, out int identifier)
 	{
 		identifier = 0;
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
+#if NETFRAMEWORK
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#endif
 
 		_listLock.EnterReadLock();
 		try
@@ -118,7 +102,14 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="type"/> is <see langword="null"/>.</exception>
 	public bool TryGetOverride(Type type, out int identifier)
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
 		return type == null ? throw new ArgumentNullException(nameof(type)) : TryGetOverride(type.Assembly, out identifier);
 	}
 
@@ -131,11 +122,22 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="facilityOverride"/> is <see langword="null"/>.</exception>
 	public void Add(AssemblyFacilityOverride facilityOverride)
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
+#if NETFRAMEWORK
 		if (facilityOverride == null)
 		{
 			throw new ArgumentNullException(nameof(facilityOverride));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(facilityOverride, nameof(facilityOverride));
+#endif
 
 		_listLock.EnterWriteLock();
 		try
@@ -174,7 +176,14 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ObjectDisposedException">The current object is already disposed.</exception>
 	public void AddRange(IEnumerable<AssemblyFacilityOverride> facilityOverrides)
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
 		if (facilityOverrides == null)
 		{
 			return;
@@ -214,7 +223,14 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ObjectDisposedException">The current object is already disposed.</exception>
 	public void Clear()
 	{
-		AssertDisposed();
+#if NET7_0_OR_GREATER
+		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+#else
+		if (_isDisposed == 1)
+		{
+			throw new ObjectDisposedException(GetType().Name);
+		}
+#endif
 		_listLock.EnterWriteLock();
 		try
 		{
@@ -223,19 +239,6 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 		finally
 		{
 			_listLock.ExitWriteLock();
-		}
-	}
-
-	/// <summary>
-	/// Checks if the object has already been disposed.
-	/// </summary>
-	/// <exception cref="ObjectDisposedException">The object is already disposed.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private void AssertDisposed()
-	{
-		if (_isDisposed == 1)
-		{
-			throw new ObjectDisposedException(GetType().Name);
 		}
 	}
 

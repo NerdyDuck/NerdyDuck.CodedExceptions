@@ -6,7 +6,6 @@
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DefineTrace>true</DefineTrace>
-    <DeployPath>$(MSBuildThisFileDirectory)../deploy/$(Configuration)/</DeployPath>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -19,12 +18,13 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../'))" Condition="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../')) != ''" />
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <CreateGitHubZip>true</CreateGitHubZip>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <CreateGitHubZip>false</CreateGitHubZip>
     <DefineDebug>true</DefineDebug>
     <DebugType>Full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <CreateGitHubZip>true</CreateGitHubZip>
     <DefineDebug>false</DefineDebug>
@@ -32,7 +32,7 @@
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <IsPackable>true</IsPackable>
-    <PackageOutputPath>$(DeployPath)NuGet/</PackageOutputPath>
+    <PackageOutputPath>$(ArtifactsPath)/NuGet/$(Configuration)/</PackageOutputPath>
     <MinClientVersion>4.9</MinClientVersion>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -46,11 +46,24 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Label="Github Release Zips">
-    <ZipOutputPath>$(DeployPath)Zip/</ZipOutputPath>
+    <ZipOutputPath>$(ArtifactsPath)/Zip/</ZipOutputPath>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Tasks.Pack">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
   <ItemGroup Label="NuGet package icon">
     <None Include="$(MSBuildThisFileDirectory)../media/NerdyDuck.CodedExceptions-128x128.png" Pack="true" PackagePath="\">
       <Link>NerdyDuck.CodedExceptions-128x128.png</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup Label="Global code">
+    <Compile Include="$(MSBuildThisFileDirectory)../shared/CompositeFormatCache.cs" />
   </ItemGroup>
 </Project>

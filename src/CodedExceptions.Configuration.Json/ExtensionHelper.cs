@@ -1,33 +1,6 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.Tests.CodedExceptions.Configuration - Unit tests for the
- * NerdyDuck.CodedExceptions.Configuration assembly
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 using System.Globalization;
 using System.Linq;
@@ -60,7 +33,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
 		{
-			throw new IOException(string.Format(CultureInfo.CurrentCulture, TextResources.Global_OpenFileFailed, path), ex);
+			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_OpenFileFailed), path), ex);
 		}
 
 		try
@@ -214,8 +187,9 @@ internal static class ExtensionHelper
 		return cache;
 	}
 
-	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, TextResources.Global_AssemblyNameInvalid, assemblyName), ex);
+	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_AssemblyNameInvalid), assemblyName), ex);
 
+#if NETFRAMEWORK
 	/// <summary>
 	/// Checks if the object is null.
 	/// </summary>
@@ -228,6 +202,15 @@ internal static class ExtensionHelper
 			throw new ArgumentNullException(nameof(cache));
 		}
 	}
+#else
+
+	/// <summary>
+	/// Checks if the object is null.
+	/// </summary>
+	/// <exception cref="ArgumentNullException">The object is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertCache(object cache) => ArgumentNullException.ThrowIfNull(cache, nameof(cache));
+#endif
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	internal static void AssertJsonValueKindObject(JsonElement jsonElement)
@@ -251,6 +234,7 @@ internal static class ExtensionHelper
 		return jsonElement;
 	}
 
+#if NETFRAMEWORK
 	/// <summary>
 	/// Checks if the reader is null.
 	/// </summary>
@@ -264,6 +248,16 @@ internal static class ExtensionHelper
 			throw new ArgumentNullException(nameof(reader));
 		}
 	}
+#else
+
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertTextReader(TextReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
+#endif
 
 	/// <summary>
 	/// Checks if the path string is null or empty.
@@ -288,10 +282,14 @@ internal static class ExtensionHelper
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	private static void AssertStream(Stream stream)
 	{
+#if NETFRAMEWORK
 		if (stream == null)
 		{
 			throw new ArgumentNullException(nameof(stream));
 		}
+#else
+		ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+#endif
 		if (!stream.CanRead)
 		{
 			throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
@@ -317,7 +315,7 @@ internal static class ExtensionHelper
 
 		jsonElement = ExtensionHelper.GetParentElement(jsonElement);
 
-		List<T> result = new();
+		List<T> result = [];
 		AssemblyIdentity assembly;
 		TValue convertedValue;
 

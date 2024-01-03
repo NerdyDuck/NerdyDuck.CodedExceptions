@@ -1,14 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
-MinimumVisualStudioVersion = 17.0.31903.59
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 17.8.34309.116
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4C20F63-7D94-48F2-864F-44A519B8B24F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		exclusion.dic = exclusion.dic
 		global.json = global.json
 		LICENSE = LICENSE
 		nuget.config = nuget.config
@@ -27,6 +29,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{DC1FB30E-7C2D-41BA-B2BB-4B7515DD6703}"
 	ProjectSection(SolutionItems) = preProject
 		shared\AnalysisDictionary.xml = shared\AnalysisDictionary.xml
+		shared\ArtifactsOverrides.props = shared\ArtifactsOverrides.props
+		shared\CompositeFormatCache.cs = shared\CompositeFormatCache.cs
 		shared\NerdyDuck.CodedExceptions.snk = shared\NerdyDuck.CodedExceptions.snk
 	EndProjectSection
 EndProject
@@ -42,51 +46,51 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D3934321-5
 		test\Directory.Build.props = test\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions", "src\CodedExceptions\CodedExceptions.csproj", "{D1D60D99-9E0E-4144-9488-08BAFF01D7C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions", "src\CodedExceptions\CodedExceptions.csproj", "{D1D60D99-9E0E-4144-9488-08BAFF01D7C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions.Configuration.AppConfig", "src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj", "{1E3FB77A-21C3-4F36-94BB-10987DBD5E14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions.Configuration.AppConfig", "src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj", "{1E3FB77A-21C3-4F36-94BB-10987DBD5E14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions.Configuration.ConfigSection", "src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj", "{8BF527D7-F744-4748-80BE-C0EAD7E2EB49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions.Configuration.ConfigSection", "src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj", "{8BF527D7-F744-4748-80BE-C0EAD7E2EB49}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions.Configuration.Json", "src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj", "{D831C610-70DC-4045-843C-E06394713A9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions.Configuration.Json", "src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj", "{D831C610-70DC-4045-843C-E06394713A9B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodedException", "CodedException", "{C247FBFB-D2D8-47F5-8745-2834022B2855}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodedExceptions.Configuration", "CodedExceptions.Configuration", "{8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdyDuck.TestAssembly.NoStrongKey", "test\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj", "{3C8282CC-F775-406A-ACED-2DF8B94E4BD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdyDuck.TestAssembly.NoStrongKey", "test\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj", "{3C8282CC-F775-406A-ACED-2DF8B94E4BD5}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Tests.CodedExceptions", "test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.shproj", "{8EE576C1-D042-4BC0-BDA1-F0BE342F501A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net472", "test\CodedExceptions\Tests.CodedExceptions.Net472.csproj", "{1BBCC980-03AA-420C-BA83-9E66CA9DB795}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Net48", "test\CodedExceptions\Tests.Net48\Tests.CodedExceptions.Net48.csproj", "{1BBCC980-03AA-420C-BA83-9E66CA9DB795}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net70", "test\CodedExceptions\Tests.CodedExceptions.Net70.csproj", "{134061D7-D708-43E4-AD72-70F16626D8CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Net60", "test\CodedExceptions\Tests.Net60\Tests.CodedExceptions.Net60.csproj", "{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net80", "test\CodedExceptions\Tests.CodedExceptions.Net80.csproj", "{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.NetCore31", "test\CodedExceptions\Tests.NetCore31\Tests.CodedExceptions.NetCore31.csproj", "{05A0D646-ED83-402E-9810-6EB19C1371FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net472", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net472.csproj", "{80719BFC-9F9C-4DCD-A732-55A0A12C6448}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Tests.CodedExceptions.Configuration", "test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.shproj", "{AFA8C57E-55AF-4D12-9D44-4AA855B877A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net70", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net70.csproj", "{907E5DE5-4D89-40C4-8001-DEA71B08AC37}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Configuration.Net48", "test\CodedExceptions.Configuration\Tests.Net48\Tests.CodedExceptions.Configuration.Net48.csproj", "{80719BFC-9F9C-4DCD-A732-55A0A12C6448}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Configuration.Net60", "test\CodedExceptions.Configuration\Tests.Net60\Tests.CodedExceptions.Configuration.Net60.csproj", "{411754AD-2749-47A2-870E-4DCE784F5B46}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Configuration.NetCore31", "test\CodedExceptions.Configuration\Tests.NetCore31\Tests.CodedExceptions.Configuration.NetCore31.csproj", "{5F1B8AC7-9368-42AD-A3F8-679731C6138A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net80", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net80.csproj", "{411754AD-2749-47A2-870E-4DCE784F5B46}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{58609FCA-D021-42B6-BBE0-DBCC9B92D188}"
 EndProject
-Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "CodedExceptions.Doc", "doc\CodedExceptions.Doc\CodedExceptions.Doc.shfbproj", "{4499FD9C-9903-4F73-823D-5C4536974547}"
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "CodedExceptions.Doc", "doc\CodedExceptions.Doc\CodedExceptions.Doc.shfbproj", "{5EDF7E71-E8F1-4908-B496-8B9B03A7DECE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{62A322CB-988A-454B-B7BB-45AF09912A70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{58712751-CF9E-4707-9E4B-09D83BFAB411}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{D1E77BA5-5A91-44C6-89E4-F830B747F907}"
+	ProjectSection(SolutionItems) = preProject
+		doc\Examples\AssemblyFacilityIdentifierAttribute.cs = doc\Examples\AssemblyFacilityIdentifierAttribute.cs
+		doc\Examples\CodedExceptionAttribute.cs = doc\Examples\CodedExceptionAttribute.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net60", "test\CodedExceptions\Tests.CodedExceptions.Net60.csproj", "{72132982-7FC8-49B1-99E3-FEDE6EC9FE04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net60", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net60.csproj", "{4F7FEDC2-BA23-4966-9A96-50A13C3DF985}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.projitems*{05a0d646-ed83-402e-9810-6eb19c1371fa}*SharedItemsImports = 5
-		test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.projitems*{1bbcc980-03aa-420c-ba83-9e66ca9db795}*SharedItemsImports = 5
-		test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.projitems*{411754ad-2749-47a2-870e-4dce784f5b46}*SharedItemsImports = 5
-		test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.projitems*{5f1b8ac7-9368-42ad-a3f8-679731c6138a}*SharedItemsImports = 5
-		test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.projitems*{80719bfc-9f9c-4dcd-a732-55a0a12c6448}*SharedItemsImports = 5
-		test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.projitems*{8ee576c1-d042-4bc0-bda1-f0be342f501a}*SharedItemsImports = 13
-		test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.projitems*{96a9cb5e-6f4f-46fb-9c4a-6d72feee2990}*SharedItemsImports = 5
-		test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.projitems*{afa8c57e-55af-4d12-9d44-4aa855b877a7}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -116,30 +120,38 @@ Global
 		{1BBCC980-03AA-420C-BA83-9E66CA9DB795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BBCC980-03AA-420C-BA83-9E66CA9DB795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BBCC980-03AA-420C-BA83-9E66CA9DB795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134061D7-D708-43E4-AD72-70F16626D8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134061D7-D708-43E4-AD72-70F16626D8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134061D7-D708-43E4-AD72-70F16626D8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134061D7-D708-43E4-AD72-70F16626D8CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05A0D646-ED83-402E-9810-6EB19C1371FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05A0D646-ED83-402E-9810-6EB19C1371FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05A0D646-ED83-402E-9810-6EB19C1371FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05A0D646-ED83-402E-9810-6EB19C1371FA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80719BFC-9F9C-4DCD-A732-55A0A12C6448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{80719BFC-9F9C-4DCD-A732-55A0A12C6448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80719BFC-9F9C-4DCD-A732-55A0A12C6448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80719BFC-9F9C-4DCD-A732-55A0A12C6448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{907E5DE5-4D89-40C4-8001-DEA71B08AC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{907E5DE5-4D89-40C4-8001-DEA71B08AC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{907E5DE5-4D89-40C4-8001-DEA71B08AC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{907E5DE5-4D89-40C4-8001-DEA71B08AC37}.Release|Any CPU.Build.0 = Release|Any CPU
 		{411754AD-2749-47A2-870E-4DCE784F5B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{411754AD-2749-47A2-870E-4DCE784F5B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411754AD-2749-47A2-870E-4DCE784F5B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{411754AD-2749-47A2-870E-4DCE784F5B46}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F1B8AC7-9368-42AD-A3F8-679731C6138A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F1B8AC7-9368-42AD-A3F8-679731C6138A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F1B8AC7-9368-42AD-A3F8-679731C6138A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F1B8AC7-9368-42AD-A3F8-679731C6138A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4499FD9C-9903-4F73-823D-5C4536974547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4499FD9C-9903-4F73-823D-5C4536974547}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4499FD9C-9903-4F73-823D-5C4536974547}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4499FD9C-9903-4F73-823D-5C4536974547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDF7E71-E8F1-4908-B496-8B9B03A7DECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDF7E71-E8F1-4908-B496-8B9B03A7DECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDF7E71-E8F1-4908-B496-8B9B03A7DECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDF7E71-E8F1-4908-B496-8B9B03A7DECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72132982-7FC8-49B1-99E3-FEDE6EC9FE04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72132982-7FC8-49B1-99E3-FEDE6EC9FE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72132982-7FC8-49B1-99E3-FEDE6EC9FE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72132982-7FC8-49B1-99E3-FEDE6EC9FE04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F7FEDC2-BA23-4966-9A96-50A13C3DF985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F7FEDC2-BA23-4966-9A96-50A13C3DF985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F7FEDC2-BA23-4966-9A96-50A13C3DF985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F7FEDC2-BA23-4966-9A96-50A13C3DF985}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,17 +164,28 @@ Global
 		{C247FBFB-D2D8-47F5-8745-2834022B2855} = {D3934321-5FA2-4524-9DB8-2F6B6E3A1679}
 		{8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9} = {D3934321-5FA2-4524-9DB8-2F6B6E3A1679}
 		{3C8282CC-F775-406A-ACED-2DF8B94E4BD5} = {D3934321-5FA2-4524-9DB8-2F6B6E3A1679}
-		{8EE576C1-D042-4BC0-BDA1-F0BE342F501A} = {C247FBFB-D2D8-47F5-8745-2834022B2855}
 		{1BBCC980-03AA-420C-BA83-9E66CA9DB795} = {C247FBFB-D2D8-47F5-8745-2834022B2855}
+		{134061D7-D708-43E4-AD72-70F16626D8CF} = {C247FBFB-D2D8-47F5-8745-2834022B2855}
 		{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990} = {C247FBFB-D2D8-47F5-8745-2834022B2855}
-		{05A0D646-ED83-402E-9810-6EB19C1371FA} = {C247FBFB-D2D8-47F5-8745-2834022B2855}
-		{AFA8C57E-55AF-4D12-9D44-4AA855B877A7} = {8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}
 		{80719BFC-9F9C-4DCD-A732-55A0A12C6448} = {8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}
+		{907E5DE5-4D89-40C4-8001-DEA71B08AC37} = {8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}
 		{411754AD-2749-47A2-870E-4DCE784F5B46} = {8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}
-		{5F1B8AC7-9368-42AD-A3F8-679731C6138A} = {8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}
-		{4499FD9C-9903-4F73-823D-5C4536974547} = {58609FCA-D021-42B6-BBE0-DBCC9B92D188}
+		{5EDF7E71-E8F1-4908-B496-8B9B03A7DECE} = {58609FCA-D021-42B6-BBE0-DBCC9B92D188}
+		{62A322CB-988A-454B-B7BB-45AF09912A70} = {58609FCA-D021-42B6-BBE0-DBCC9B92D188}
+		{58712751-CF9E-4707-9E4B-09D83BFAB411} = {62A322CB-988A-454B-B7BB-45AF09912A70}
+		{D1E77BA5-5A91-44C6-89E4-F830B747F907} = {58712751-CF9E-4707-9E4B-09D83BFAB411}
+		{72132982-7FC8-49B1-99E3-FEDE6EC9FE04} = {C247FBFB-D2D8-47F5-8745-2834022B2855}
+		{4F7FEDC2-BA23-4966-9A96-50A13C3DF985} = {8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8C90DD5-6748-490F-B384-774371C1393D}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.projitems*{134061d7-d708-43e4-ad72-70f16626d8cf}*SharedItemsImports = 5
+		test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.projitems*{1bbcc980-03aa-420c-ba83-9e66ca9db795}*SharedItemsImports = 5
+		test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.projitems*{411754ad-2749-47a2-870e-4dce784f5b46}*SharedItemsImports = 5
+		test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.projitems*{80719bfc-9f9c-4dcd-a732-55a0a12c6448}*SharedItemsImports = 5
+		test\CodedExceptions.Configuration\Tests.Shared\Tests.CodedExceptions.Configuration.projitems*{907e5de5-4d89-40c4-8001-dea71b08ac37}*SharedItemsImports = 5
+		test\CodedExceptions\Tests.Shared\Tests.CodedExceptions.projitems*{96a9cb5e-6f4f-46fb-9c4a-6d72feee2990}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

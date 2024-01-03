@@ -1,55 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<topic id="a109b326-3ad7-4f74-a177-6540e9dfd0e1" revisionNumber="1">
+<topic id="c8b04c1b-1b57-4701-a2fc-5a589193c22a" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>This is a sample conceptual topic.  You can use this as a starting point for adding more conceptual
-content to your help project.</para>
+			<para>This wiki is thought to provide information on the purpose of the NerdyDuck.CodedExceptions library, as well as a comprehensive guide of usage, including examples, and notes about forking and compiling the project.</para>
 		</introduction>
 
 		<section>
-			<title>Getting Started</title>
+			<title>Sections</title>
 			<content>
-				<para>To get started, add a documentation source to the project (a Visual Studio solution, project, or
-assembly and XML comments file).  See the <legacyBold>Getting Started</legacyBold> topics in the Sandcastle Help
-File Builder's help file for more information.  The following default items are included in this project:</para>
-
 				<list class="bullet">
 					<listItem>
-						<para><localUri>ContentLayout.content</localUri> - Use the content layout file to manage the
-conceptual content in the project and define its layout in the table of contents.</para>
+						<para>
+							<link xlink:href="2631cf6c-c929-4d9d-aa74-f3fbf0c01c2b" /> - Describes the origin and purpose of the project.
+						</para>
 					</listItem>
-
 					<listItem>
-						<para>The <localUri>.\media</localUri> folder - Place images in this folder that you will reference
-from conceptual content using <codeInline>medialLink</codeInline> or <codeInline>mediaLinkInline</codeInline>
-elements.  If you will not have any images in the file, you may remove this folder.</para>
+						<para>
+							<link xlink:href="511edc3b-15cc-4b17-bd52-91096110d05b" /> - The programming platforms the libraries are available for, and how to get the libraries.
+						</para>
 					</listItem>
-
 					<listItem>
-						<para>The <localUri>.\icons</localUri> folder - This contains a default logo for the help file.  You
-may replace it or remove it and the folder if not wanted.  If removed or if you change the file name, update
-the <ui>Transform Args</ui> project properties page by removing or changing the filename in the
-<codeInline>logoFile</codeInline> transform argument.  Note that unlike images referenced from conceptual topics,
-the logo file should have its <legacyBold>BuildAction</legacyBold> property set to <codeInline>Content</codeInline>.</para>
+						<para>
+							<link xlink:href="41badca4-aaab-4613-a0b7-d1c16482fc45" /> - A brief manual on how to use the types of the project, with examples.
+						</para>
 					</listItem>
-
 					<listItem>
-						<para>The <localUri>.\Content</localUri> folder - Use this to store your conceptual topics.  You may
-name the files and organize them however you like.  One suggestion is to lay the files out on disk as you have
-them in the content layout file as shown in this project but the choice is yours.  Files can be added via the
-Solution Explorer or from within the content layout file editor.  Files must appear in the content layout file
-in order to be compiled into the help file.</para>
+						<para>
+							<link xlink:href="c9e1497e-2117-4027-9a82-64139f3ce748" /> - A reference of all types of the desktop version of the library.
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="b3615815-e598-4585-8e45-83c1ba19bf01" />
+						</para>
 					</listItem>
 				</list>
-
-				<para>See the <legacyBold>Conceptual Content</legacyBold> topics in the Sandcastle Help File Builder's
-help file for more information.  See the <legacyBold> Sandcastle MAML Guide</legacyBold> for details on Microsoft
-Assistance Markup Language (MAML) which is used to create these topics.</para>
 			</content>
 		</section>
 
 		<relatedTopics>
-			<link xlink:href="6f91fe3f-4101-4b91-b3bd-18de54ef1b3c" />
+			<link xlink:href="b3615815-e598-4585-8e45-83c1ba19bf01" />
 		</relatedTopics>
 	</developerConceptualDocument>
 </topic>

@@ -1,33 +1,8 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+// Ignore Spelling: hresult
 
 using System.Net.Sockets;
 
@@ -38,7 +13,9 @@ namespace NerdyDuck.CodedExceptions;
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
 /// <remarks>This exception is not derived from <see cref="SocketException"/>, because that class provides only a minimum of constructors.</remarks>
+#if NETFRAMEWORK
 [Serializable]
+#endif
 [CodedException]
 public class CodedSocketException : CodedException
 {
@@ -127,22 +104,12 @@ public class CodedSocketException : CodedException
 	}
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="CodedSocketException"/> class with serialized data.
-	/// </summary>
-	/// <param name="info">The object that holds the serialized object data.</param>
-	/// <param name="context">The contextual information about the source or destination.</param>
-	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
-	/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
-	protected CodedSocketException(SerializationInfo info, StreamingContext context)
-		: base(info, context) => SocketErrorCode = (SocketError)info.GetInt32(nameof(SocketErrorCode));
-
-	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedSocketException"/> class with a specified HRESULT value.
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "A socket error occurred". This message takes into account the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult)
 		: base(TextResources.CodedSocketException_Message)
 	{
@@ -156,8 +123,8 @@ public class CodedSocketException : CodedException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="errorCode">The error code that indicates the error that occurred.</param>
 	/// <remarks><para>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "A socket error occurred". This message takes into account the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult, SocketError errorCode)
 		: base(TextResources.CodedSocketException_Message)
 	{
@@ -171,8 +138,8 @@ public class CodedSocketException : CodedException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult, string? message)
 		: base(message)
 	{
@@ -187,8 +154,8 @@ public class CodedSocketException : CodedException
 	/// <param name="errorCode">The error code that indicates the error that occurred.</param>
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult, SocketError errorCode, string? message)
 		: base(message)
 	{
@@ -203,8 +170,8 @@ public class CodedSocketException : CodedException
 	/// <param name="message">The message that describes the error.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult, string? message, Exception? innerException)
 		: base(message, innerException)
 	{
@@ -220,8 +187,8 @@ public class CodedSocketException : CodedException
 	/// <param name="message">The message that describes the error.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult, SocketError errorCode, string? message, Exception? innerException)
 		: base(message, innerException)
 	{
@@ -233,7 +200,18 @@ public class CodedSocketException : CodedException
 	/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 	/// </summary>
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.</returns>
-	public override string ToString() => HResultHelper.CreateToString(this, string.Format(CultureInfo.CurrentCulture, TextResources.CodedSocketException_ToString_SocketErrorCode, SocketErrorCode));
+	public override string ToString() => HResultHelper.CreateToString(this, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.CodedSocketException_ToString_SocketErrorCode), SocketErrorCode));
+
+#if NETFRAMEWORK
+	/// <summary>
+	/// Initializes a new instance of the <see cref="CodedSocketException"/> class with serialized data.
+	/// </summary>
+	/// <param name="info">The object that holds the serialized object data.</param>
+	/// <param name="context">The contextual information about the source or destination.</param>
+	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
+	/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
+	protected CodedSocketException(SerializationInfo info, StreamingContext context)
+		: base(info, context) => SocketErrorCode = (SocketError)info.GetInt32(nameof(SocketErrorCode));
 
 	/// <summary>
 	/// Sets the <see cref="SerializationInfo"/> with information about the exception.
@@ -245,4 +223,5 @@ public class CodedSocketException : CodedException
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(SocketErrorCode), SocketErrorCode);
 	}
+#endif
 }

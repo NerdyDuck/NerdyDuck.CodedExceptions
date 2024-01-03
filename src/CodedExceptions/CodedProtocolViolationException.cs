@@ -1,33 +1,6 @@
-﻿#region Copyright
-/*******************************************************************************
- * NerdyDuck.CodedExceptions - Exceptions with custom HRESULTs to identify the 
- * origins of errors.
- * 
- * The MIT License (MIT)
- *
- * Copyright (c) Daniel Kopp, dak@nerdyduck.de
- *
- * All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- ******************************************************************************/
-#endregion
+﻿// Copyright (c) Daniel Kopp, dak@nerdyduck.de. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace NerdyDuck.CodedExceptions;
 
@@ -35,7 +8,9 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when an error is made while using a network protocol.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
+#if NETFRAMEWORK
 [Serializable]
+#endif
 [CodedException]
 [ComVisible(false)]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1032:Implement standard exception constructors", Justification = "Base class does not have ctor(string,Exception)")]
@@ -60,6 +35,7 @@ public class CodedProtocolViolationException : System.Net.ProtocolViolationExcep
 	{
 	}
 
+#if NETFRAMEWORK
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedProtocolViolationException"/> class with serialized data.
 	/// </summary>
@@ -71,14 +47,15 @@ public class CodedProtocolViolationException : System.Net.ProtocolViolationExcep
 		: base(info, context)
 	{
 	}
+#endif
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedProtocolViolationException"/> class with a specified HRESULT value.
 	/// </summary>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <remarks><para>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "The requested operation cannot be performed." This message takes into account the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedProtocolViolationException(int hresult)
 		: base() => HResult = hresult;
 
@@ -88,8 +65,8 @@ public class CodedProtocolViolationException : System.Net.ProtocolViolationExcep
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="message">The message that describes the error.</param>
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance using the value of the <paramref name="message"/> parameter. The content of the message parameter is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</para>
-	/// <para>See the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</a> for
-	/// more information about the definition of HRESULT values.</para></remarks>
+	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
+	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedProtocolViolationException(int hresult, string? message)
 		: base(message) => HResult = hresult;
 

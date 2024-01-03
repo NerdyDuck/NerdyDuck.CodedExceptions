@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="258842f3-75f5-41cd-9bc1-4bcc268481bd" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>Version 2.0.0 was released on [TODO: Date].</para>
+		</introduction>
+		<section>
+			<title>Changes in This Release</title>
+			<content>
+				<list class="bullet">
+					<listItem>
+						<para>Upgraded platform to and .NET 7, .NET 8 and .NET Framework 4.7.2</para>
+					</listItem>
+					<listItem>
+						<para>Split `Configuration` namespace into three libraries, one for each type of configuration source:</para>
+						<list class="bullet">
+							<listItem>
+								<para><application>NerdyDuck.CodedExceptions.Configuration.AppConfig</application>, for configurations in the <localUri>app.config</localUri> file, with additional platform .NET Framework 4.7.2 .</para>
+							</listItem>
+							<listItem>
+								<para><application>NerdyDuck.CodedExceptions.Configuration.ConfigSection</application>, for <externalLink>
+									<linkText>Microsoft.Extensions.Configuration.IConfigurationSection</linkText>
+									<linkUri>https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationsection</linkUri>
+								</externalLink> support.</para>
+							</listItem>
+							<listItem>
+								<para><application>NerdyDuck.CodedExceptions.Configuration.Json</application>, for JSON file support.</para>
+							</listItem>
+							<listItem>
+								<para><application>NerdyDuck.CodedExceptions</application> still offers support for XML files, as it is available on all platforms without additional dependencies.</para>
+							</listItem>
+						</list>
+					</listItem>
+					<listItem>
+						<para>Removed separate binaries for UWP (use .NET Standard 2.0 instead).</para>
+					</listItem>
+					<listItem>
+						<para>`SerializableAttribute`, `ISerializable` and corresponding constructors and methods are only available for net472 version.</para>
+					</listItem>
+					<listItem>
+						<para>Changed German resources from <literal>de-DE</literal> to just <literal>de</literal>.</para>
+					</listItem>
+					<listItem>
+						<para>Restructured repository, using <localUri>Directory.Build.props</localUri>/<localUri>.targets</localUri> for common configuration.</para>
+					</listItem>
+					<listItem>
+						<para>Renamed central branch from <literal>master</literal> to <literal>main</literal>.</para>
+					</listItem>
+					<listItem>
+						<para>Switched license from Apache 2.0 to MIT.</para>
+					</listItem>
+				</list>
+			</content>
+		</section>
+		<relatedTopics>
+			<link xlink:href="b3615815-e598-4585-8e45-83c1ba19bf01" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>

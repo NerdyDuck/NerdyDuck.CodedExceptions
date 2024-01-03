@@ -1,0 +1,7 @@
+﻿<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ArtifactsPivots>$(Configuration.ToLowerInvariant())</ArtifactsPivots>
+    <ArtifactsPivots Condition="'$(TargetFrameworks)' != '' And '$(TargetFramework)' != ''">$(ArtifactsPivots)\$(TargetFramework.ToLowerInvariant())</ArtifactsPivots>
+    <ArtifactsPivots Condition="'$(RuntimeIdentifier)' != '' And !('$(RuntimeIdentifier)' == 'browser-wasm' And '$(AppendRuntimeIdentifierToOutputPath)' == 'false')">$(ArtifactsPivots)_$(RuntimeIdentifier.ToLowerInvariant())</ArtifactsPivots>
+  </PropertyGroup>
+</Project>
