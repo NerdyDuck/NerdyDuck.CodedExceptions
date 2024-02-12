@@ -11,7 +11,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Company>NerdyDuck</Company>
-    <Copyright>Copyright (c) 2018-2023 Daniel Kopp</Copyright>
+    <Copyright>Copyright (c) 2018-2024 Daniel Kopp</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Product>NerdyDuck Libraries</Product>
   </PropertyGroup>
@@ -21,11 +21,6 @@
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
-  <ItemGroup Label="Code analysis">
-    <CodeAnalysisDictionary Include="$(MSBuildThisFileDirectory)shared\AnalysisDictionary.xml">
-      <Link>AnalysisDictionary.xml</Link>
-    </CodeAnalysisDictionary>
-  </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)Versions.props"/>
   <PropertyGroup Label="Versions">
     <FileVersion>$(Version).0</FileVersion>

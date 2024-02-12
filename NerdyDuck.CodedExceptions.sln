@@ -28,7 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media", "media", "{DAA9D4BA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{DC1FB30E-7C2D-41BA-B2BB-4B7515DD6703}"
 	ProjectSection(SolutionItems) = preProject
-		shared\AnalysisDictionary.xml = shared\AnalysisDictionary.xml
 		shared\ArtifactsOverrides.props = shared\ArtifactsOverrides.props
 		shared\CompositeFormatCache.cs = shared\CompositeFormatCache.cs
 		shared\NerdyDuck.CodedExceptions.snk = shared\NerdyDuck.CodedExceptions.snk
@@ -46,31 +45,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D3934321-5
 		test\Directory.Build.props = test\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions", "src\CodedExceptions\CodedExceptions.csproj", "{D1D60D99-9E0E-4144-9488-08BAFF01D7C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions", "src\CodedExceptions\CodedExceptions.csproj", "{D1D60D99-9E0E-4144-9488-08BAFF01D7C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions.Configuration.AppConfig", "src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj", "{1E3FB77A-21C3-4F36-94BB-10987DBD5E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions.Configuration.AppConfig", "src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj", "{1E3FB77A-21C3-4F36-94BB-10987DBD5E14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions.Configuration.ConfigSection", "src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj", "{8BF527D7-F744-4748-80BE-C0EAD7E2EB49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions.Configuration.ConfigSection", "src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj", "{8BF527D7-F744-4748-80BE-C0EAD7E2EB49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions.Configuration.Json", "src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj", "{D831C610-70DC-4045-843C-E06394713A9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedExceptions.Configuration.Json", "src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj", "{D831C610-70DC-4045-843C-E06394713A9B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodedException", "CodedException", "{C247FBFB-D2D8-47F5-8745-2834022B2855}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodedExceptions.Configuration", "CodedExceptions.Configuration", "{8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdyDuck.TestAssembly.NoStrongKey", "test\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj", "{3C8282CC-F775-406A-ACED-2DF8B94E4BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdyDuck.TestAssembly.NoStrongKey", "test\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj", "{3C8282CC-F775-406A-ACED-2DF8B94E4BD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net472", "test\CodedExceptions\Tests.CodedExceptions.Net472.csproj", "{1BBCC980-03AA-420C-BA83-9E66CA9DB795}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Net472", "test\CodedExceptions\Tests.CodedExceptions.Net472.csproj", "{1BBCC980-03AA-420C-BA83-9E66CA9DB795}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net70", "test\CodedExceptions\Tests.CodedExceptions.Net70.csproj", "{134061D7-D708-43E4-AD72-70F16626D8CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Net70", "test\CodedExceptions\Tests.CodedExceptions.Net70.csproj", "{134061D7-D708-43E4-AD72-70F16626D8CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net80", "test\CodedExceptions\Tests.CodedExceptions.Net80.csproj", "{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Net80", "test\CodedExceptions\Tests.CodedExceptions.Net80.csproj", "{96A9CB5E-6F4F-46FB-9C4A-6D72FEEE2990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net472", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net472.csproj", "{80719BFC-9F9C-4DCD-A732-55A0A12C6448}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Configuration.Net472", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net472.csproj", "{80719BFC-9F9C-4DCD-A732-55A0A12C6448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net70", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net70.csproj", "{907E5DE5-4D89-40C4-8001-DEA71B08AC37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Configuration.Net70", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net70.csproj", "{907E5DE5-4D89-40C4-8001-DEA71B08AC37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net80", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net80.csproj", "{411754AD-2749-47A2-870E-4DCE784F5B46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Configuration.Net80", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net80.csproj", "{411754AD-2749-47A2-870E-4DCE784F5B46}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{58609FCA-D021-42B6-BBE0-DBCC9B92D188}"
 EndProject
@@ -86,9 +85,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{D1
 		doc\Examples\CodedExceptionAttribute.cs = doc\Examples\CodedExceptionAttribute.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net60", "test\CodedExceptions\Tests.CodedExceptions.Net60.csproj", "{72132982-7FC8-49B1-99E3-FEDE6EC9FE04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Net60", "test\CodedExceptions\Tests.CodedExceptions.Net60.csproj", "{72132982-7FC8-49B1-99E3-FEDE6EC9FE04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net60", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net60.csproj", "{4F7FEDC2-BA23-4966-9A96-50A13C3DF985}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CodedExceptions.Configuration.Net60", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net60.csproj", "{4F7FEDC2-BA23-4966-9A96-50A13C3DF985}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
