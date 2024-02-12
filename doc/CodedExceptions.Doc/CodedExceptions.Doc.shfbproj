@@ -43,10 +43,10 @@
 			<Argument Key="RequestExampleUrl" Value="https://github.com/NerdyDuck/NerdyDuck.CodedExceptions/issues/new " />
 		</TransformComponentArguments>
 		<DocumentationSources>
-			<DocumentationSource sourceFile="..\..\src\CodedExceptions\CodedExceptions.csproj" xmlns="" />
-			<DocumentationSource sourceFile="..\..\src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj" />
-			<DocumentationSource sourceFile="..\..\src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj" />
-			<DocumentationSource sourceFile="..\..\src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj" />
+			<DocumentationSource sourceFile="..\..\src\CodedExceptions\CodedExceptions.csproj" targetFramework="net8.0" />
+			<DocumentationSource sourceFile="..\..\src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj" targetFramework="net8.0" />
+			<DocumentationSource sourceFile="..\..\src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj" targetFramework="net8.0" />
+			<DocumentationSource sourceFile="..\..\src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj" targetFramework="net8.0" />
 			<DocumentationSource sourceFile="Content\ProjNamespaceComments.xml" />
 		</DocumentationSources>
 		<HelpFileFormat>Website</HelpFileFormat>
