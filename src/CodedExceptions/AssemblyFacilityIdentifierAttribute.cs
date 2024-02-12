@@ -52,6 +52,7 @@ public sealed class AssemblyFacilityIdentifierAttribute : System.Attribute
 		{
 			throw new ArgumentOutOfRangeException(nameof(facilityId), TextResources.Global_FacilityId_OutOfRange);
 		}
+
 		FacilityId = facilityId;
 	}
 

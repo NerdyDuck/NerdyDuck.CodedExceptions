@@ -44,6 +44,7 @@ internal static class ExtensionHelper
 		{
 			stream.Close();
 		}
+
 		return cache;
 	}
 
@@ -77,6 +78,7 @@ internal static class ExtensionHelper
 		{
 			jsonDocument.Dispose();
 		}
+
 		return cache;
 	}
 
@@ -110,6 +112,7 @@ internal static class ExtensionHelper
 		{
 			jsonDocument.Dispose();
 		}
+
 		return cache;
 	}
 
@@ -142,6 +145,7 @@ internal static class ExtensionHelper
 		{
 			jsonDocument.Dispose();
 		}
+
 		return cache;
 	}
 
@@ -184,6 +188,7 @@ internal static class ExtensionHelper
 		{
 			jsonDocument.Dispose();
 		}
+
 		return cache;
 	}
 
@@ -231,6 +236,7 @@ internal static class ExtensionHelper
 				return jsonTemp;
 			}
 		}
+
 		return jsonElement;
 	}
 

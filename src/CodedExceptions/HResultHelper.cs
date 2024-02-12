@@ -140,10 +140,12 @@ public static class HResultHelper
 		{
 			_ = sb.Append(Environment.NewLine).Append(customText);
 		}
+
 		if (ex.InnerException != null)
 		{
 			_ = sb.Append(ExceptionConcatFormat).Append(ex.InnerException.ToString());
 		}
+
 		if (ex.StackTrace != null)
 		{
 			_ = sb.Append(Environment.NewLine).Append(ex.StackTrace);
@@ -198,6 +200,7 @@ public static class HResultHelper
 				return cachedInstance;
 			}
 		}
+
 		return new StringBuilder(capacity);
 	}
 

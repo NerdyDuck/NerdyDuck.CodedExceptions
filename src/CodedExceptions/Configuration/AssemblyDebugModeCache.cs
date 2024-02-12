@@ -45,7 +45,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// </summary>
 	public AssemblyDebugModeCache()
 	{
-		_debugModes = new List<AssemblyDebugMode>();
+		_debugModes = [];
 		_listLock = new ReaderWriterLockSlim();
 		_isDisposed = 0;
 		_canNotifyChange = true;
@@ -115,6 +115,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 		{
 			_listLock.ExitReadLock();
 		}
+
 		return result;
 	}
 
@@ -178,6 +179,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 					return;
 				}
 			}
+
 			_debugModes.Add(debugMode);
 			raiseEvent = true;
 		}
@@ -233,6 +235,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 						break;
 					}
 				}
+
 				if (!alreadyExists)
 				{
 					_debugModes.Add(debugMode);
@@ -274,6 +277,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 		{
 			_listLock.ExitWriteLock();
 		}
+
 		OnCollectionChanged();
 	}
 

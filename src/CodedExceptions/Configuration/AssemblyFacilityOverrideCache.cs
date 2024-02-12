@@ -88,6 +88,7 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 		{
 			_listLock.ExitReadLock();
 		}
+
 		return identifier > 0;
 	}
 
@@ -150,6 +151,7 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 					return;
 				}
 			}
+
 			_facilityOverrides.Add(facilityOverride);
 		}
 		finally
@@ -205,6 +207,7 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 						break;
 					}
 				}
+
 				if (!alreadyExists)
 				{
 					_facilityOverrides.Add(facilityOverride);

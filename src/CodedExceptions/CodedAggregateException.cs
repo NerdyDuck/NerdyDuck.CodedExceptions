@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-// Ignore Spelling: hresult
-
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -211,6 +209,7 @@ public class CodedAggregateException : AggregateException
 			customText = string.Format(CultureInfo.InvariantCulture, CompositeFormatCache.Default.Get(TextResources.CodedAggregateException_ToString),
 				customText, Environment.NewLine, i, InnerExceptions[i].ToString());
 		}
+
 		return HResultHelper.CreateToString(this, customText);
 	}
 }

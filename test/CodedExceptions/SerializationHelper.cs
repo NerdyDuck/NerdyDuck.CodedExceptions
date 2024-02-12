@@ -15,8 +15,8 @@ namespace NerdyDuck.Tests.CodedExceptions;
 [ExcludeFromCodeCoverage]
 public static class SerializationHelper
 {
-#if NETFRAMEWORK
 #pragma warning disable IDE0079 // that next suppression is not unnecessary!
+#if NETFRAMEWORK
 #pragma warning disable SYSLIB0011 // the only simple way for serialization is still binary
 	/// <summary>
 	/// Serializes an object.
@@ -46,15 +46,16 @@ public static class SerializationHelper
 		return (T)formatter.Deserialize(buffer);
 	}
 #pragma warning restore SYSLIB0011
-#pragma warning restore IDE0079
 #endif
 
 	public static void InvokeSerializationConstructorWithNullContext(Type type)
 	{
+#pragma warning disable CA1510 // Use ArgumentNullException throw helper
 		if (type == null)
 		{
 			throw new ArgumentNullException(nameof(type));
 		}
+#pragma warning restore CA1510 // Use ArgumentNullException throw helper
 
 		ConstructorInfo ci = type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.HasThis, new Type[] { typeof(SerializationInfo), typeof(StreamingContext) }, null);
 		try
@@ -66,4 +67,5 @@ public static class SerializationHelper
 			throw ex.InnerException;
 		}
 	}
+#pragma warning restore IDE0079
 }

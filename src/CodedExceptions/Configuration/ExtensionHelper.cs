@@ -57,6 +57,7 @@ internal static class ExtensionHelper
 		{
 			stream.Close();
 		}
+
 		return cache;
 	}
 

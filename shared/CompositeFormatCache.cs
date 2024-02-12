@@ -2,11 +2,9 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NerdyDuck.CodedExceptions;
 internal class CompositeFormatCache
@@ -27,6 +25,7 @@ internal class CompositeFormatCache
 			{
 				return compositeFormat;
 			}
+
 			compositeFormat = CompositeFormat.Parse(compositeText);
 			_cache.Add(compositeText, compositeFormat);
 			return compositeFormat;
@@ -34,6 +33,7 @@ internal class CompositeFormatCache
 	}
 #else
 #pragma warning disable CA1822 // Required to keep interface symmetric to .NET 8 version
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public string Get(string compositeText) => compositeText;
 #pragma warning restore CA1822 // Mark members as static
 #endif

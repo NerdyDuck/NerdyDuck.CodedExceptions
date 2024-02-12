@@ -158,8 +158,10 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 				{
 					throw new FormatException(TextResources.AssemblyIdentifier_ctor_VersionInvalid);
 				}
+
 				Version = version;
 			}
+
 			temp = match.Result("${pkt}");
 			if (!string.IsNullOrEmpty(temp))
 			{
@@ -172,6 +174,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 					throw new FormatException(TextResources.AssemblyIdentity_ctor_KeyTokenInvalid, ex);
 				}
 			}
+
 			temp = match.Result("${culture}");
 			if (!string.IsNullOrEmpty(temp))
 			{
@@ -291,6 +294,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 			{
 				return false;
 			}
+
 			if (!CompareKeyTokens(_publicKeyToken, pkt))
 			{
 				return false;
@@ -442,6 +446,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 			{
 				return -4;
 			}
+
 			if (CompareKeyTokens(_publicKeyToken, pkt))
 			{
 				returnValue += 2;
@@ -472,14 +477,17 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 		{
 			_ = sb.Append(Name);
 		}
+
 		if (Version != null)
 		{
 			_ = sb.AppendFormat(CultureInfo.InvariantCulture, ", Version={0}", Version.ToString(4));
 		}
+
 		if (Culture != null)
 		{
 			_ = sb.AppendFormat(CultureInfo.InvariantCulture, ", Culture={0}", string.IsNullOrEmpty(Culture) ? NeutralLanguage : Culture);
 		}
+
 		if (_publicKeyToken != null)
 		{
 			_ = sb.Append(", PublicKeyToken=");
@@ -488,6 +496,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 				_ = sb.AppendFormat(CultureInfo.InvariantCulture, "{0:x2}", b);
 			}
 		}
+
 		return HResultHelper.GetStringAndRelease(sb);
 	}
 
@@ -562,10 +571,12 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 		{
 			return false;
 		}
+
 		if (current.Length != other.Length)
 		{
 			return false;
 		}
+
 		for (int i = 0; i < current.Length; i++)
 		{
 			if (current[i] != other[i])
@@ -573,6 +584,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -588,14 +600,17 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 		{
 			Culture = string.IsNullOrEmpty(assemblyName.CultureName) ? NeutralLanguage : assemblyName.CultureName;
 		}
+
 		if (assemblyNameElements.HasFlag(AssemblyNameElements.Name))
 		{
 			Name = assemblyName.Name ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assemblyName));
 		}
+
 		if (assemblyNameElements.HasFlag(AssemblyNameElements.PublicKeyToken))
 		{
 			_publicKeyToken = assemblyName.GetPublicKeyToken();
 		}
+
 		if (assemblyNameElements.HasFlag(AssemblyNameElements.Version))
 		{
 			Version = (Version?)assemblyName.Version?.Clone();
@@ -633,6 +648,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 				}
 			}
 		}
+
 		return true;
 	}
 

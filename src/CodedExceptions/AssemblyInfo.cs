@@ -9,7 +9,6 @@ global using System.Runtime.InteropServices;
 global using System.Runtime.Serialization;
 
 using System.Runtime.CompilerServices;
-
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(true)]
 [assembly: AssemblyTrademark("Covered by MIT License")]
