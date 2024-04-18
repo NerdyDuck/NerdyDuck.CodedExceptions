@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="17.0">
+<Project Sdk="MSTest.Sdk/3.3.1" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Compilation">
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
   </PropertyGroup>
+  <Import Project="..\..\shared\ArtifactsOverrides.props" />
   <PropertyGroup Label="Assembly info">
     <Description>Unit test for NerdyDuck.CodedExceptions library</Description>
   </PropertyGroup>
