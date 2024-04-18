@@ -47,7 +47,6 @@ public class AssemblyDebugModeCacheTests
 		GC.WaitForPendingFinalizers();
 	}
 
-
 	[TestMethod]
 	public void IsDebugModeEnabled_Success()
 	{
@@ -131,12 +130,12 @@ public class AssemblyDebugModeCacheTests
 	[TestMethod]
 	public void AddRange_Success()
 	{
-		AssemblyDebugMode[] modes = new AssemblyDebugMode[]
-		{
+		AssemblyDebugMode[] modes =
+		[
 					new AssemblyDebugMode(s_thisAssemblyIdentity, true),
 					new AssemblyDebugMode(s_otherAssemblyIdentity, false),
 					new AssemblyDebugMode(s_otherAssemblyIdentity, true)
-		};
+		];
 
 		using AssemblyDebugModeCache cache = new();
 		cache.AddRange(null);
@@ -189,6 +188,6 @@ public class AssemblyDebugModeCacheTests
 
 		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.IsDebugModeEnabled(Globals.ThisAssembly));
 		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true)));
-		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.Clear());
+		_ = Assert.ThrowsException<ObjectDisposedException>(cache.Clear);
 	}
 }

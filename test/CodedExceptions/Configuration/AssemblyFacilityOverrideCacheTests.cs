@@ -109,12 +109,12 @@ public class AssemblyFacilityOverrideCacheTests
 	[TestMethod]
 	public void AddRange_Success()
 	{
-		AssemblyFacilityOverride[] overrides = new AssemblyFacilityOverride[]
-		{
-					new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42),
-					new AssemblyFacilityOverride(s_otherAssemblyIdentity, 17),
-					new AssemblyFacilityOverride(s_otherAssemblyIdentity, 10)
-		};
+		AssemblyFacilityOverride[] overrides =
+		[
+					new(s_thisAssemblyIdentity, 42),
+					new(s_otherAssemblyIdentity, 17),
+					new(s_otherAssemblyIdentity, 10)
+		];
 
 		using AssemblyFacilityOverrideCache cache = new();
 		cache.AddRange(null);
@@ -150,6 +150,6 @@ public class AssemblyFacilityOverrideCacheTests
 
 		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.Add(new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42)));
 
-		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.Clear());
+		_ = Assert.ThrowsException<ObjectDisposedException>(cache.Clear);
 	}
 }

@@ -60,6 +60,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		{
 			_ = cache.LoadXml(stream);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
@@ -92,6 +93,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		{
 			_ = cache.LoadXml(reader);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
@@ -123,6 +125,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		{
 			_ = cache.FromXml(reader);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
