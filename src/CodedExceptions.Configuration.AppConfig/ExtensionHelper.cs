@@ -17,10 +17,10 @@ internal static class ExtensionHelper
 	/// <exception cref="ArgumentNullException">The object is null.</exception>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	internal static void AssertCache(object cache) =>
-#if NETFRAMEWORK
-		_ = (cache == null) ? throw new ArgumentNullException(nameof(cache)) : 0;
-#else
+#if NET6_0_OR_GREATER
 		ArgumentNullException.ThrowIfNull(cache, nameof(cache));
+#else
+		_ = (cache == null) ? throw new ArgumentNullException(nameof(cache)) : 0;
 #endif
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

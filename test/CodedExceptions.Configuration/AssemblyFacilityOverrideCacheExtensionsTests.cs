@@ -102,6 +102,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		{
 			_ = cache.LoadJson(stream);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
@@ -134,6 +135,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		{
 			_ = cache.LoadJson(reader);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 

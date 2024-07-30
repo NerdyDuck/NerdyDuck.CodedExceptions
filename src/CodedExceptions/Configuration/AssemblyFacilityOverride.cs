@@ -112,6 +112,7 @@ public sealed class AssemblyFacilityOverride : IEquatable<AssemblyFacilityOverri
 		{
 			throw new ArgumentNullException(nameof(info));
 		}
+
 		info.AddValue(nameof(AssemblyName), AssemblyName);
 		info.AddValue(nameof(Identifier), Identifier);
 	}

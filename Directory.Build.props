@@ -8,6 +8,7 @@
     <LangVersion>latest</LangVersion>
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <ArtifactsPath>$(MSBuildThisFileDirectory).artifacts</ArtifactsPath>
+    <!--<ArtifactsPivots>$(Configuration.ToLowerInvariant())</ArtifactsPivots>-->
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Company>NerdyDuck</Company>
@@ -20,6 +21,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)Versions.props"/>
   <PropertyGroup Label="Versions">

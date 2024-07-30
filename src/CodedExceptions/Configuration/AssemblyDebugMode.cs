@@ -93,6 +93,7 @@ public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>
 		{
 			throw new ArgumentNullException(nameof(info));
 		}
+
 		AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(TextResources.Global_ctor_MissingAssemblyIdentifier));
 		IsEnabled = info.GetBoolean(nameof(IsEnabled));
 	}
@@ -109,6 +110,7 @@ public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>
 		{
 			throw new ArgumentNullException(nameof(info));
 		}
+
 		info.AddValue(nameof(AssemblyName), AssemblyName);
 		info.AddValue(nameof(IsEnabled), IsEnabled);
 	}

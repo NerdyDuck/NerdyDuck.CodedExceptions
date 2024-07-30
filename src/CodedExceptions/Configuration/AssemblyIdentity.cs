@@ -29,7 +29,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	[GeneratedRegex("^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?")]
 	private static partial Regex CreateAssemblyIdentityRegex();
 	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(CreateAssemblyIdentityRegex);
-#else
+#else 
 	private const string AssemblyIdentityRegexString = "^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?";
 	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(() => new Regex(AssemblyIdentityRegexString));
 #endif
@@ -106,13 +106,13 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	public AssemblyIdentity(Assembly assembly, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#else
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
 #endif
 
 		AssemblyName assemblyName = assembly.GetName() ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assembly));
@@ -128,13 +128,13 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	public AssemblyIdentity(AssemblyName assemblyName, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(assemblyName, nameof(assemblyName));
+#else
 		if (assemblyName == null)
 		{
 			throw new ArgumentNullException(nameof(assemblyName));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(assemblyName, nameof(assemblyName));
 #endif
 
 		CopyFromAssemblyName(assemblyName, assemblyNameElements);
@@ -218,10 +218,10 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	/// </summary>
 	/// <returns>A hash code for the current object.</returns>
 	public override int GetHashCode() =>
-#if !NETFRAMEWORK
-			ToString().GetHashCode(StringComparison.Ordinal);
-#else
+#if NETFRAMEWORK
 			ToString().GetHashCode();
+#else
+			ToString().GetHashCode(StringComparison.Ordinal);
 #endif
 
 	/// <summary>
@@ -548,6 +548,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 		{
 			throw new ArgumentNullException(nameof(info));
 		}
+
 		info.AddValue(nameof(Culture), Culture);
 		info.AddValue(nameof(Name), Name);
 		info.AddValue(PublicKeyTokenName, _publicKeyToken);

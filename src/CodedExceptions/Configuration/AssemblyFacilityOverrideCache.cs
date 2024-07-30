@@ -69,13 +69,13 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#else
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
 #endif
 
 		_listLock.EnterReadLock();
@@ -131,13 +131,14 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NETFRAMEWORK
+
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(facilityOverride, nameof(facilityOverride));
+#else
 		if (facilityOverride == null)
 		{
 			throw new ArgumentNullException(nameof(facilityOverride));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(facilityOverride, nameof(facilityOverride));
 #endif
 
 		_listLock.EnterWriteLock();

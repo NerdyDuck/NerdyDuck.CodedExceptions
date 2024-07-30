@@ -117,6 +117,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		{
 			_ = cache.LoadJson(stream);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
@@ -149,6 +150,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		{
 			_ = cache.LoadJson(reader);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
@@ -339,7 +341,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	public void LoadJson_InvalidMemory_Throw()
 	{
 		using AssemblyDebugModeCache cache = new();
-		Memory<byte> ms = new(new byte[] { 0x7b, 0x7c, 0x7d }); // = {|}
+		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
 		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms));
 	}
 
@@ -347,7 +349,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	public void LoadJson_InvalidSequence_Throw()
 	{
 		using AssemblyDebugModeCache cache = new();
-		Memory<byte> ms = new(new byte[] { 0x7b, 0x7c, 0x7d }); // = {|}
+		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
 		ReadOnlySequence<byte> ms2 = new(ms);
 		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms2));
 	}

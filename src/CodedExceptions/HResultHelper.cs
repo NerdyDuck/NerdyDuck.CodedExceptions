@@ -126,13 +126,13 @@ public static class HResultHelper
 	/// <exception cref="ArgumentNullException">ex is null.</exception>
 	public static string CreateToString(Exception ex, string? customText)
 	{
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(ex, nameof(ex));
+#else
 		if (ex == null)
 		{
 			throw new ArgumentNullException(nameof(ex));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(ex, nameof(ex));
 #endif
 		StringBuilder sb = AcquireStringBuilder();
 		_ = sb.AppendFormat(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(ExceptionBaseFormat), ex.GetType().FullName, ex.HResult, ex.Message);

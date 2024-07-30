@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Compilation">
-    <TargetFrameworks>net6.0;net7.0;net8.0;net472</TargetFrameworks>
+    <TargetFrameworks>net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <RootNamespace>NerdyDuck.CodedExceptions.Configuration</RootNamespace>
     <AssemblyName>$(RootNamespace).ConfigSection</AssemblyName>
   </PropertyGroup>
-  <Import Project="..\..\shared\ArtifactsOverrides.props" />
   <PropertyGroup Label="Assembly info">
     <AssemblyTitle>Configuration for NerdyDuck CodedExceptions</AssemblyTitle>
     <Description>Configures facility identifier overrides and debug mode flags implemented in NerdyDuck.CodedExceptions.</Description>

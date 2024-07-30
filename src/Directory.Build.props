@@ -8,6 +8,9 @@
     <DefineTrace>true</DefineTrace>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <Nullable>enable</Nullable>
+    <ArtifactsBinOutputName>bin\output</ArtifactsBinOutputName>
+    <!--<ArtifactsPath>$(ArtifactsPath)\output\$(Configuration.ToLowerInvariant())</ArtifactsPath>-->
+    <ArtifactsPivots>$(Configuration.ToLowerInvariant())\$(TargetFramework.ToLowerInvariant())</ArtifactsPivots>
   </PropertyGroup>
   <PropertyGroup Label="Code Analysis">
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
@@ -18,8 +21,8 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../'))" Condition="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../')) != ''" />
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <CreateGitHubZip>false</CreateGitHubZip>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <CreateGitHubZip>true</CreateGitHubZip>
     <DefineDebug>true</DefineDebug>
     <DebugType>Full</DebugType>
   </PropertyGroup>

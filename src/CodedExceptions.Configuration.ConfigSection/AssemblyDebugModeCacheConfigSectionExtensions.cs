@@ -20,18 +20,19 @@ public static class AssemblyDebugModeCacheConfigSectionExtensions
 	[CLSCompliant(false)]
 	public static AssemblyDebugModeCache LoadConfigurationSection(this AssemblyDebugModeCache cache, IConfiguration configuration)
 	{
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache, nameof(cache));
+		ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
+#else
 		if (cache == null)
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
+
 		if (configuration == null)
 		{
 			throw new ArgumentNullException(nameof(configuration));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(cache, nameof(cache));
-		ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
 #endif
 		cache.AddRange(ExtensionHelper.LoadConfigurationSection(configuration, (assembly, debugMode) => new AssemblyDebugMode(assembly, debugMode), (stringValue) => Convert.ToBoolean(stringValue, CultureInfo.InvariantCulture)));
 		return cache;

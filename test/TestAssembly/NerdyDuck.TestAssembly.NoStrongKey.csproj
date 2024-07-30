@@ -6,7 +6,6 @@
     <AssemblyName>TestAssembly</AssemblyName>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
-  <Import Project="..\..\shared\ArtifactsOverrides.props" />
   <ItemGroup>
     <Using Remove="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>

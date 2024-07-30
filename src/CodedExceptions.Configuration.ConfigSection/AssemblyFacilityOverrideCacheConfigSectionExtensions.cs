@@ -22,18 +22,19 @@ public static class AssemblyFacilityOverrideCacheConfigSectionExtensions
 	[CLSCompliant(false)]
 	public static AssemblyFacilityOverrideCache LoadConfigurationSection(this AssemblyFacilityOverrideCache cache, IConfiguration configuration)
 	{
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache, nameof(cache));
+		ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
+#else
 		if (cache == null)
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
+
 		if (configuration == null)
 		{
 			throw new ArgumentNullException(nameof(configuration));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(cache, nameof(cache));
-		ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
 #endif
 		cache.AddRange(ExtensionHelper.LoadConfigurationSection(configuration, (assembly, identifier) => new AssemblyFacilityOverride(assembly, identifier), (stringValue) => Convert.ToInt32(stringValue, CultureInfo.InvariantCulture)));
 		return cache;

@@ -96,13 +96,13 @@ public sealed class AssemblyDebugModeCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#else
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
 #endif
 
 		bool result = false;
@@ -157,13 +157,13 @@ public sealed class AssemblyDebugModeCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(debugMode, nameof(debugMode));
+#else
 		if (debugMode == null)
 		{
 			throw new ArgumentNullException(nameof(debugMode));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(debugMode, nameof(debugMode));
 #endif
 
 		bool raiseEvent = false;
@@ -297,13 +297,14 @@ public sealed class AssemblyDebugModeCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NETFRAMEWORK
+
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(identity, nameof(identity));
+#else
 		if (identity == null)
 		{
 			throw new ArgumentNullException(nameof(identity));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(identity, nameof(identity));
 #endif
 
 		bool raiseEvent = false;

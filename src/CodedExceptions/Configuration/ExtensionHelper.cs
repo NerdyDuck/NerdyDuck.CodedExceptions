@@ -153,7 +153,30 @@ internal static class ExtensionHelper
 
 	internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_FromXml_AttributeMissing), parentNodeName, GlobalStrings.AssemblyNameKey));
 
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+	/// <summary>
+	/// Checks if the object is null.
+	/// </summary>
+	/// <exception cref="ArgumentNullException">The object is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertCache(object cache) => ArgumentNullException.ThrowIfNull(cache, nameof(cache));
+
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal static void AssertXmlReader(XmlReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
+
+	/// <summary>
+	/// Checks if the reader is null.
+	/// </summary>
+	/// <param name="reader">The reader to check.</param>
+	/// <exception cref="ArgumentNullException">The reader is null.</exception>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	private static void AssertTextReader(TextReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
+#else
 	/// <summary>
 	/// Checks if the object is null.
 	/// </summary>
@@ -194,30 +217,6 @@ internal static class ExtensionHelper
 			throw new ArgumentNullException(nameof(reader));
 		}
 	}
-#else
-
-	/// <summary>
-	/// Checks if the object is null.
-	/// </summary>
-	/// <exception cref="ArgumentNullException">The object is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertCache(object cache) => ArgumentNullException.ThrowIfNull(cache, nameof(cache));
-
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertXmlReader(XmlReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
-
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertTextReader(TextReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
 #endif
 
 	/// <summary>
@@ -229,13 +228,13 @@ internal static class ExtensionHelper
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	private static void AssertStream(Stream stream)
 	{
-#if NETFRAMEWORK
+#if NET6_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+#else
 		if (stream == null)
 		{
 			throw new ArgumentNullException(nameof(stream));
 		}
-#else
-		ArgumentNullException.ThrowIfNull(stream, nameof(stream));
 #endif
 		if (!stream.CanRead)
 		{
