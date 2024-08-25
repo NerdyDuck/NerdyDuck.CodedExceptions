@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security;
 using System.Xml;
-#if !NETFRAMEWORK
+#if NET5_0_OR_GREATER
 using System.Buffers;
 #endif
 
@@ -95,7 +95,7 @@ internal static class ExtensionHelper
 		return cache;
 	}
 
-#if !NETFRAMEWORK
+#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
 	/// </summary>

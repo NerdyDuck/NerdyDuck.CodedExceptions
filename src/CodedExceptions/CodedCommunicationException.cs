@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// Represents a communication error in either the service or client application.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [CodedException]
@@ -42,7 +42,7 @@ public class CodedCommunicationException : CodedException
 	{
 	}
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedCommunicationException"/> class with serialized data.
 	/// </summary>

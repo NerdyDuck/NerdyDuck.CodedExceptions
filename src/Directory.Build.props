@@ -9,7 +9,6 @@
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <Nullable>enable</Nullable>
     <ArtifactsBinOutputName>bin\output</ArtifactsBinOutputName>
-    <!--<ArtifactsPath>$(ArtifactsPath)\output\$(Configuration.ToLowerInvariant())</ArtifactsPath>-->
     <ArtifactsPivots>$(Configuration.ToLowerInvariant())\$(TargetFramework.ToLowerInvariant())</ArtifactsPivots>
   </PropertyGroup>
   <PropertyGroup Label="Code Analysis">
@@ -47,6 +46,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup Label="Github Release Zips">
     <ZipOutputPath>$(ArtifactsPath)/Zip/</ZipOutputPath>
@@ -61,12 +61,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup Label="NuGet package icon">
+  <ItemGroup Label="NuGet package items">
     <None Include="$(MSBuildThisFileDirectory)../media/NerdyDuck.CodedExceptions-128x128.png" Pack="true" PackagePath="\">
       <Link>NerdyDuck.CodedExceptions-128x128.png</Link>
     </None>
+    <None Include="readme.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
   <ItemGroup Label="Global code">
-    <Compile Include="$(MSBuildThisFileDirectory)../shared/CompositeFormatCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)shared/*.cs" />
   </ItemGroup>
 </Project>

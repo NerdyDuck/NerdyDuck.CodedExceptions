@@ -9,7 +9,7 @@ namespace NerdyDuck.CodedExceptions.IO;
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
 /// <remarks>The class is not derived from <see cref="System.IO.InvalidDataException"/>, because it is sealed.</remarks>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [CodedException]
@@ -45,7 +45,7 @@ public class CodedInvalidDataException : CodedIOException
 	{
 	}
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedInvalidDataException"/> class with serialized data.
 	/// </summary>

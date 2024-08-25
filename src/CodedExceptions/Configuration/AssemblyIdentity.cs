@@ -11,16 +11,16 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// Specifies the identity of an assembly.
 /// </summary>
 /// <remarks>This class can contain a fully qualified assembly name, or parts of it.</remarks>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [ComVisible(false)]
 public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	, ISerializable
 #endif
 {
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	private const string PublicKeyTokenName = "PublicKeyToken";
 #endif
 	private const string NeutralLanguage = "neutral";
@@ -29,7 +29,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	[GeneratedRegex("^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?")]
 	private static partial Regex CreateAssemblyIdentityRegex();
 	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(CreateAssemblyIdentityRegex);
-#else 
+#else
 	private const string AssemblyIdentityRegexString = "^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?";
 	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(() => new Regex(AssemblyIdentityRegexString));
 #endif
@@ -218,10 +218,10 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	/// </summary>
 	/// <returns>A hash code for the current object.</returns>
 	public override int GetHashCode() =>
-#if NETFRAMEWORK
-			ToString().GetHashCode();
-#else
+#if NET5_0_OR_GREATER
 			ToString().GetHashCode(StringComparison.Ordinal);
+#else
+			ToString().GetHashCode();
 #endif
 
 	/// <summary>
@@ -516,7 +516,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	/// <returns><see langword="true"/>, if <paramref name="identity1"/> and <paramref name="identity2"/> do not represent the same byte array; otherwise, <see langword="false"/>.</returns>
 	public static bool operator !=(AssemblyIdentity? identity1, AssemblyIdentity? identity2) => identity1 is null ? identity2 is not null : !identity1.Equals(identity2);
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AssemblyIdentity"/> class with serialized data.
 	/// </summary>

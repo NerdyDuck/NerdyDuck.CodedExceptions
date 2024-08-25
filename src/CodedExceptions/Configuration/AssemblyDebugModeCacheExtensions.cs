@@ -7,7 +7,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Xml;
-#if !NETFRAMEWORK
+#if NET5_0_OR_GREATER
 using System.Buffers;
 #endif
 
@@ -53,7 +53,7 @@ public static class AssemblyDebugModeCacheExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the debug mode settings specified in the XML data of the <paramref name="reader"/>.</returns>
 	public static AssemblyDebugModeCache LoadXml(this AssemblyDebugModeCache cache, TextReader reader) => ExtensionHelper.LoadXml(cache, reader, FromXmlInternal);
 
-#if !NETFRAMEWORK
+#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Loads a list of assembly debug mode settings from the specified sequence of bytes containing XML data, and adds them to the cache.
 	/// </summary>

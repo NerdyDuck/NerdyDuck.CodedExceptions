@@ -165,7 +165,29 @@
 	<ItemGroup>
 		<Content Include="icons\Help.png" />
 	</ItemGroup>
-	<!-- Import the common build targets during NuGet restore because before the packages are being installed, $(SHFBROOT) is not set yet -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <Project>D1D60D99-9E0E-4144-9488-08BAFF01D7C1</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\CodedExceptions.Configuration.AppConfig\CodedExceptions.Configuration.AppConfig.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <Project>1E3FB77A-21C3-4F36-94BB-10987DBD5E14</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\CodedExceptions.Configuration.ConfigSection\CodedExceptions.Configuration.ConfigSection.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <Project>8BF527D7-F744-4748-80BE-C0EAD7E2EB49</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <Project>D831C610-70DC-4045-843C-E06394713A9B</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- Import the common build targets during NuGet restore because before the packages are being installed, $(SHFBROOT) is not set yet -->
 	<Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="'$(MSBuildRestoreSessionId)' != ''" />
 	<!-- Import the SHFB build targets during build -->
 	<Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" Condition="'$(MSBuildRestoreSessionId)' == ''" />

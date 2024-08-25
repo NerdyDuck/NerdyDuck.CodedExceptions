@@ -9,7 +9,7 @@ namespace NerdyDuck.CodedExceptions.IO;
 /// The exception that is thrown when an attempt to access a file that does not exist on disk fails.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [CodedException]
@@ -127,7 +127,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	public CodedFileNotFoundException(int hresult, string? message, string? fileName, Exception? innerException)
 		: base(message, fileName, innerException) => HResult = hresult;
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedFileNotFoundException"/> class with serialized data.
 	/// </summary>

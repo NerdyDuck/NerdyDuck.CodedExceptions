@@ -20,7 +20,7 @@ public static class HResultHelper
 	/// </summary>
 	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
-	public const int HResultBase = unchecked((int)0x20000000);
+	public const int HResultBase = 0x20000000;
 
 	/// <summary>
 	/// The base value for all custom HRESULT values, to unambiguously distinguish the exceptions from Microsoft error codes.

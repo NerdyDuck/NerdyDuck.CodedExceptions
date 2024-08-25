@@ -6,12 +6,12 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// <summary>
 /// Represents an override for a facility identifier.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [ComVisible(false)]
 public sealed class AssemblyFacilityOverride : IEquatable<AssemblyFacilityOverride>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	, ISerializable
 #endif
 {
@@ -82,7 +82,7 @@ public sealed class AssemblyFacilityOverride : IEquatable<AssemblyFacilityOverri
 	/// <returns><see langword="true" /> if the specified <see cref="AssemblyFacilityOverride" /> is equal to the current instance; otherwise, <see langword="false" />. </returns>
 	public bool Equals(AssemblyFacilityOverride? other) => other is not null && AssemblyName.Equals(other.AssemblyName) && Identifier == other.Identifier;
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AssemblyFacilityOverride"/> class with serialized data.
 	/// </summary>

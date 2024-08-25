@@ -2,7 +2,8 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace NerdyDuck.CodedExceptions.Configuration;
+namespace NerdyDuck.CodedExceptions;
+
 /// <summary>
 /// Specifies global constants and objects.
 /// </summary>
@@ -15,4 +16,5 @@ internal static class GlobalStrings
 	internal const string OverridesNode = "facilityIdentifierOverrides";
 	internal const string OverrideNode = "override";
 	internal const string IdentifierKey = "identifier";
+	internal const string InvalidNameChars = "~!@#$%^&*()[]{}/'\"|\\";
 }

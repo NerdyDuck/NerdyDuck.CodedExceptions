@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when an error is made while using a network protocol.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [CodedException]
@@ -35,7 +35,7 @@ public class CodedProtocolViolationException : System.Net.ProtocolViolationExcep
 	{
 	}
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedProtocolViolationException"/> class with serialized data.
 	/// </summary>

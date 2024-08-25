@@ -44,7 +44,7 @@ public static class AssemblyFacilityOverrideCacheJsonExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the overrides specified in the JSON data of the <paramref name="reader"/>.</returns>
 	public static AssemblyFacilityOverrideCache LoadJson(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader ?? throw new ArgumentNullException(nameof(reader)), FromJsonInternal);
 
-#if !NETFRAMEWORK
+#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Loads a list of assembly debug mode settings from the specified sequence of bytes containing JSON data, and adds them to the cache.
 	/// </summary>

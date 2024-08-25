@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when the format of an argument does not meet the parameter specifications of the invoked method.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [CodedException]
@@ -44,7 +44,7 @@ public class CodedFormatException : FormatException
 	{
 	}
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedFormatException"/> class with serialized data.
 	/// </summary>

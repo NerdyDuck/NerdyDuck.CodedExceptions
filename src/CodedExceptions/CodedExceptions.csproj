@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Compilation">
-    <TargetFrameworks>net472;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net472;net6.0;net8.0;net9.0</TargetFrameworks>
     <RootNamespace>NerdyDuck.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
   </PropertyGroup>
@@ -14,7 +14,7 @@
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
-      - Upgraded platforms to .NET 6/7/8 and .NET Framework 4.7.2
+      - Upgraded platforms to .NET 6/7/8/9 and .NET Framework 4.7.2
       - Removed separate binaries for UWP.
       - Switched license from Apache 2.0 to MIT.
       - Split Configuration namespace into three separate packages libraries

@@ -116,6 +116,7 @@ internal static class ExtensionHelper
 		return cache;
 	}
 
+#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
 	/// </summary>
@@ -157,6 +158,7 @@ internal static class ExtensionHelper
 	/// <param name="utf8Json">A sequence of bytes containing UTF8-encoded, JSON-formatted data representing configuration data.</param>
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, JsonElement> parser) where T : class => LoadJson(cache, new ReadOnlySequence<byte>(utf8Json), parser);
+#endif
 
 	/// <summary>
 	/// Loads configuration data into a cache from the specified string, using the specified method.

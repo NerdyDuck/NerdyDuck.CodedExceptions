@@ -252,7 +252,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		Assert.AreEqual(7, cache.Count);
 	}
 
-#if !NETFRAMEWORK
+#if !NETFRAMEWORK && !NETSTANDARD20TEST
 	[TestMethod]
 	public void LoadJson_ReadOnlySequence_Success()
 	{

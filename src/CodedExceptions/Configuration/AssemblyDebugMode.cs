@@ -7,12 +7,12 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// <summary>
 /// Represents a debug mode setting for an assembly.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [ComVisible(false)]
 public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	, ISerializable
 #endif
 {
@@ -79,7 +79,7 @@ public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>
 	/// <returns><see langword="true" /> if the specified <see cref="AssemblyDebugMode" /> is equal to the current instance; otherwise, <see langword="false" />. </returns>
 	public bool Equals(AssemblyDebugMode? other) => other is not null && AssemblyName.Equals(other.AssemblyName) && IsEnabled == other.IsEnabled;
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AssemblyDebugMode"/> class with serialized data.
 	/// </summary>

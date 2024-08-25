@@ -9,7 +9,7 @@ namespace NerdyDuck.CodedExceptions.IO;
 /// The exception that is thrown when a file content is in an invalid format.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [CodedException]
@@ -157,7 +157,7 @@ public class CodedInvalidFileException : System.IO.IOException
 		return HResultHelper.CreateToString(this, customText);
 	}
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedInvalidFileException"/> class with serialized data.
 	/// </summary>

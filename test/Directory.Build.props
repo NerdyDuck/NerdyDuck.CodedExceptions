@@ -6,7 +6,6 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <DefineTrace>true</DefineTrace>
     <ArtifactsBinOutputName>bin\test</ArtifactsBinOutputName>
-    <!--<ArtifactsPath>$(ArtifactsPath)\test\$(Configuration.ToLowerInvariant())</ArtifactsPath>-->
   </PropertyGroup>
   <PropertyGroup Label="Code Analysis">
     <AnalysisMode>Default</AnalysisMode>

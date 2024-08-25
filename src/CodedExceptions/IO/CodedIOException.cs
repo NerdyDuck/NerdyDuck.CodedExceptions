@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions.IO;
 /// The exception that is thrown when an I/O error occurs.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 [Serializable]
 #endif
 [CodedException]
@@ -45,7 +45,7 @@ public class CodedIOException : System.IO.IOException
 	{
 	}
 
-#if NETFRAMEWORK
+#if !NET5_0_OR_GREATER
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedIOException"/> class with serialized data.
 	/// </summary>
