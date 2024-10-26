@@ -10,36 +10,37 @@
     <Description>Exceptions with custom HRESULTs to identify the origins of errors.</Description>
   </PropertyGroup>
   <PropertyGroup Label="Code analysis">
-    <NoWarn>NU5118</NoWarn>
+    <!--<NoWarn>NU5118</NoWarn>-->
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
-      - Upgraded platforms to .NET 6/7/8/9 and .NET Framework 4.7.2
+      - Upgraded platforms to .NET 6/8/9, .NET Standard 2.0 and .NET Framework 4.7.2
       - Removed separate binaries for UWP.
       - Switched license from Apache 2.0 to MIT.
-      - Split Configuration namespace into three separate packages libraries
+      - Split Configuration namespace into three separate packages libraries.
       - Changed German resources from de-DE to just de.
-      - Updated all signatures for nullability
+      - Updated all signatures for nullability.
+      - Added new exceptions and throw helper methods.
     </PackageReleaseNotes>
     <PackageTags>Exception HRESULT</PackageTags>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Update="TextResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TextResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="TextResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
   <ItemGroup>
     <Content Include="contentFiles/**/*">
       <PackagePath>contentFiles</PackagePath>
       <BuildAction>Compile</BuildAction>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

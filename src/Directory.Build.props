@@ -35,7 +35,7 @@
   <PropertyGroup Label="NuGet package settings">
     <IsPackable>true</IsPackable>
     <PackageOutputPath>$(ArtifactsPath)/NuGet/$(Configuration)/</PackageOutputPath>
-    <MinClientVersion>4.9</MinClientVersion>
+    <MinClientVersion>6.0</MinClientVersion>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Authors>Daniel Kopp</Authors>

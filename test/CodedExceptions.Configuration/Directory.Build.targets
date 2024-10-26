@@ -8,8 +8,7 @@
   </Target>
   <Target Name="CopyExtraFiles" AfterTargets="Build" DependsOnTargets="Build">
     <ItemGroup>
-      <SourceFiles Include="$(OutputPath)$(AssemblyName).exe.config" Condition="'$(TargetFramework)' == 'net472'" />
-      <SourceFiles Include="$(OutputPath)$(AssemblyName).dll.config" Condition="'$(TargetFramework)' != 'net472'" />
+      <SourceFiles Include="$(OutputPath)$(AssemblyName).dll.config" />
       <SourceFiles Include="$(OutputPath)TestFiles/FacilityIdentifierOverrides.json" />
       <SourceFiles Include="$(OutputPath)TestFiles/AssemblyDebugModes.json" />
     </ItemGroup>

@@ -25,16 +25,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="TextResources.Designer.cs">
+    <Compile Update="SR.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>TextResources.resx</DependentUpon>
+      <DependentUpon>SR.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="TextResources.resx">
+    <EmbeddedResource Update="SR.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">

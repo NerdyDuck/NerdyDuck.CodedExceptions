@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.8.34309.116
-MinimumVisualStudioVersion = 17.8.34309.116
+VisualStudioVersion = 17.12.35323.107
+MinimumVisualStudioVersion = 17.12.35323.107
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4C20F63-7D94-48F2-864F-44A519B8B24F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -96,6 +96,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Netstandard20", "test\CodedExceptions\Tests.CodedExceptions.Netstandard20.csproj", "{823EAAE2-2FA5-4203-8EAF-A3B5DBCEDCC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Netstandard20", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Netstandard20.csproj", "{2088B0E0-2F6C-4118-B251-CC76B6AB6DA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{76FAB074-307E-48C3-82F0-E04C8F38848A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F4C86CEB-A440-48FB-AB9C-4D8589ABE961}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -194,6 +201,7 @@ Global
 		{1A4C296B-4477-4BC8-9F83-21B0C60BBCE1} = {4E9FDBF4-8F58-4B3E-8B67-E573BED2CA91}
 		{823EAAE2-2FA5-4203-8EAF-A3B5DBCEDCC5} = {C247FBFB-D2D8-47F5-8745-2834022B2855}
 		{2088B0E0-2F6C-4118-B251-CC76B6AB6DA4} = {8E6AFD4D-FD87-4B5D-B0E1-27886890A7E9}
+		{F4C86CEB-A440-48FB-AB9C-4D8589ABE961} = {76FAB074-307E-48C3-82F0-E04C8F38848A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8C90DD5-6748-490F-B384-774371C1393D}
