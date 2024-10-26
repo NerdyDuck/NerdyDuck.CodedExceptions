@@ -1,1 +1,19 @@
-# NerdyDuck CodedExceptions
+# CodedExceptions
+
+Start with a clear and concise description: A brief overview of what your package is and does, also what problem it solves.
+
+## Getting started
+
+Explain how to use your package, provide clear and concise getting started instructions, including any necessary steps.
+
+## Usage
+
+After installing via [NuGet](https://www.nuget.org/packages/NerdyDuck.CodedExceptions):
+
+## Additional documentation
+
+Find the full documentation, including class reference, at [GitHub.io](https://nerdyduck.github.io/CodedExceptions).
+
+## Feedback
+
+You can leave feedback, or open issues at the project's [GitHub repository](https://github.com/NerdyDuck/NerdyDuck.CodedExceptions).
