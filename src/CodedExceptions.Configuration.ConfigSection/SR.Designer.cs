@@ -19,17 +19,17 @@ namespace NerdyDuck.CodedExceptions.Configuration {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class TextResources {
+    internal class SR {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal TextResources() {
+        internal SR() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NerdyDuck.CodedExceptions.Configuration {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdyDuck.CodedExceptions.Configuration.TextResources", typeof(TextResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdyDuck.CodedExceptions.Configuration.SR", typeof(SR).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,29 @@ namespace NerdyDuck.CodedExceptions.Configuration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid assembly debug mode element in application configuration. Assembly name: &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Assembly name &apos;{0}&apos; is invalid..
         /// </summary>
-        internal static string DebugModeElement_ToAssemblyIdentity_Invalid {
+        internal static string Load_AssemblyNameInvalid {
             get {
-                return ResourceManager.GetString("DebugModeElement_ToAssemblyIdentity_Invalid", resourceCulture);
+                return ResourceManager.GetString("Load_AssemblyNameInvalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid facility identifier override element in application configuration. Assembly name: &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Facility identifier is empty..
         /// </summary>
-        internal static string FacilityOverrideElement_ToOverride_Invalid {
+        internal static string Load_IdentifierEmpty {
             get {
-                return ResourceManager.GetString("FacilityOverrideElement_ToOverride_Invalid", resourceCulture);
+                return ResourceManager.GetString("Load_IdentifierEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuration section name may not be null, empty or white-space only..
+        ///   Looks up a localized string similar to Identifier override of assembly &apos;{0}&apos; is invalid..
         /// </summary>
-        internal static string Global_FromApplicationConfiguration_NoSection {
+        internal static string Load_IdentifierInvalid {
             get {
-                return ResourceManager.GetString("Global_FromApplicationConfiguration_NoSection", resourceCulture);
+                return ResourceManager.GetString("Load_IdentifierInvalid", resourceCulture);
             }
         }
     }

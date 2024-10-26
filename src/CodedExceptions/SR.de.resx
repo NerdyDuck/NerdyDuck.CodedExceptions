@@ -117,94 +117,127 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssemblyIdentifier_ctor_VersionInvalid" xml:space="preserve">
-    <value>The version number part of assembly identifier is invalid.</value>
+  <data name="ArgumentOutOfRange_MustBeEqual" xml:space="preserve">
+    <value>{0} ('{1}') muss gleich sein zu '{2}'.</value>
   </data>
-  <data name="AssemblyIdentity_ctor_KeyTokenInvalid" xml:space="preserve">
-    <value>The public key token part of assembly identifier is invalid.</value>
+  <data name="ArgumentOutOfRange_MustBeGreater" xml:space="preserve">
+    <value>{0} ('{1}') muss größer sein als '{2}'.</value>
   </data>
-  <data name="AssemblyIdentity_ctor_NoAssemblyName" xml:space="preserve">
-    <value>Assembly has no name.</value>
+  <data name="ArgumentOutOfRange_MustBeGreaterOrEqual" xml:space="preserve">
+    <value>{0} ('{1}') muss größer als oder gleich sein zu '{2}'.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustBeLess" xml:space="preserve">
+    <value>{0} ('{1}') muss kleiner sein als '{2}'.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustBeLessOrEqual" xml:space="preserve">
+    <value>{0} ('{1}') muss kleiner als oder gleich sein zu '{2}'.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustBeMultiple" xml:space="preserve">
+    <value>{0} ('{1}') muss ein Vielfaches von '{2}' sein.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustBeNonNegative" xml:space="preserve">
+    <value>{0} ('{1}') muss ein nicht-negativer Wert sein.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustBeNonNegativeNonZero" xml:space="preserve">
+    <value>{0} ('{1}') muss ein nicht-negativer Wert sein, und darf nicht 0 sein</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustBeNonZero" xml:space="preserve">
+    <value>{0} ('{1}') darf nicht 0 sein.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustBeNotEqual" xml:space="preserve">
+    <value>{0} ('{1}') darf nicht gleich zu '{2}' sein.</value>
+  </data>
+  <data name="ArgumentOutOfRange_MustNotBeOutOfRange" xml:space="preserve">
+    <value>{0} ('{1}') darf nicht kleiner sein als '{2}', und nicht größer als '{3}'.</value>
+  </data>
+  <data name="AssemblyIdentifier_VersionInvalid" xml:space="preserve">
+    <value>Die Versions-Nummer der Assembly-Identifikation ist ungültig.</value>
+  </data>
+  <data name="AssemblyIdentity_KeyTokenInvalid" xml:space="preserve">
+    <value>Der Public Key Token der Assembly-Identifikation is ungültig.</value>
+  </data>
+  <data name="AssemblyIdentity_NoAssemblyName" xml:space="preserve">
+    <value>Assembly hat keinen Namen.</value>
   </data>
   <data name="CodedAggregateException_ToString" xml:space="preserve">
-    <value>{0}{1}---&gt; (Inner exception #{2}) {3}&lt;---{1}</value>
+    <value>{0}{1}---&amp;gt; (Interne Ausnahme #{2}) {3}&amp;lt;---{1}</value>
+  </data>
+  <data name="CodedArgumentException_EmptyMessage" xml:space="preserve">
+    <value>Argument darf keine leere Zeichenkette sein.</value>
+  </data>
+  <data name="CodedArgumentException_WhitespaceMessage" xml:space="preserve">
+    <value>Argument darf nicht null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
   </data>
   <data name="CodedArgumentNullOrEmptyException_Message" xml:space="preserve">
-    <value>Argument cannot be null or empty.</value>
+    <value>Argument darf nicht null oder leer sein.</value>
   </data>
   <data name="CodedArgumentNullOrWhiteSpaceException_Message" xml:space="preserve">
-    <value>Argument cannot be null or empty, or contains only white-space characters.</value>
+    <value>Argument darf nicht null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
   </data>
   <data name="CodedDataException_Message" xml:space="preserve">
-    <value>The data is invalid.</value>
+    <value>Die Daten sind ungültig.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_Message" xml:space="preserve">
-    <value>Could not find the specified directory.</value>
+    <value>Das angegebene Verzeichnis wurde nicht gefunden.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_MessageDirectory" xml:space="preserve">
-    <value>Could not find directory '{0}'.</value>
+    <value>Das Verzeichnis '{0}' konnte nicht gefunden werden.</value>
   </data>
   <data name="CodedFileExistsException_Message" xml:space="preserve">
-    <value>The specified file already exists.</value>
+    <value>Die angegebene Datei existiert bereits.</value>
   </data>
   <data name="CodedFileExistsException_MessageFile" xml:space="preserve">
-    <value>File '{0}' already exists.</value>
+    <value>Datei '{0}' existiert bereits.</value>
   </data>
   <data name="CodedInvalidFileException_Message" xml:space="preserve">
-    <value>The specified file is invalid.</value>
+    <value>Die angegebene Datei ist ungültig.</value>
   </data>
   <data name="CodedInvalidFileException_MessageFile" xml:space="preserve">
-    <value>File '{0}' is invalid.</value>
+    <value>Datei '{0}' ist ungültig.</value>
   </data>
   <data name="CodedSocketException_Message" xml:space="preserve">
-    <value>A socket error occurred.</value>
+    <value>Ein Socket-Fehler is aufgetreten.</value>
   </data>
   <data name="CodedSocketException_ToString_SocketErrorCode" xml:space="preserve">
-    <value>(Socket error: {0} ({0:d}))</value>
+    <value>(Socket-Fehler: {0} ({0:d}))</value>
   </data>
-  <data name="Global_AssemblyNameInvalid" xml:space="preserve">
-    <value>Assembly name '{0}' is invalid.</value>
+  <data name="ctor_NotAssemblyIdentifier" xml:space="preserve">
+    <value>Serialisierte Daten beinhalten kein Objekt vom Typ AssemblyIdentifier.</value>
   </data>
-  <data name="Global_ctor_MissingAssemblyIdentifier" xml:space="preserve">
-    <value>Serialized data does not contain an object of type AssemblyIdentifier.</value>
+  <data name="FacilityId_OutOfRange" xml:space="preserve">
+    <value>Die Facility-ID muß zwischen 0 und 2047 liegen.</value>
+  </data>
+  <data name="FromXml_AttributeMissing" xml:space="preserve">
+    <value>Element '{0}' hat kein Attribut '{1}'.</value>
+  </data>
+  <data name="FromXml_IsEnabledInvalid" xml:space="preserve">
+    <value>IsEnabled-Einstellung für Assembly '{0}' ist ungültig.</value>
   </data>
   <data name="Global_DirectoryName" xml:space="preserve">
-    <value>Directory name: '{0}'</value>
-  </data>
-  <data name="Global_FacilityId_OutOfRange" xml:space="preserve">
-    <value>Facility id must range between 0 and 2047.</value>
+    <value>Verzeichnis-Name: '{0}'</value>
   </data>
   <data name="Global_FileName" xml:space="preserve">
-    <value>File name: '{0}'</value>
+    <value>Datei-Name: '{0}'</value>
   </data>
-  <data name="Global_FromXml_AttributeMissing" xml:space="preserve">
-    <value>Element '{0}' has no attribute '{1}'.</value>
-  </data>
-  <data name="Global_IdentifierInvalid" xml:space="preserve">
-    <value>Identifier override of assembly '{0}' is invalid.</value>
-  </data>
-  <data name="Global_IsEnabledInvalid" xml:space="preserve">
-    <value>IsEnabled setting of assembly '{0}' is invalid.</value>
-  </data>
-  <data name="Global_NoContent" xml:space="preserve">
-    <value>Content may not be null, empty or white-space only.</value>
-  </data>
-  <data name="Global_NoPath" xml:space="preserve">
-    <value>Path may not be null, empty or white-space only.</value>
-  </data>
-  <data name="Global_OpenFileFailed" xml:space="preserve">
-    <value>Cannot open file '{0}' for reading.</value>
-  </data>
-  <data name="Global_StreamNoRead" xml:space="preserve">
-    <value>Stream does not support reading.</value>
-  </data>
-  <data name="HResultHelper_HexToInt_InvalidChar" xml:space="preserve">
-    <value>'{0}' is not a hexadecimal digit.</value>
+  <data name="HexToInt_InvalidChar" xml:space="preserve">
+    <value>'{0}' ist keine hexadezimale Ziffer.</value>
   </data>
   <data name="InsufficientStorageSpaceException_Message" xml:space="preserve">
-    <value>Not enough free space in data storage.</value>
+    <value>Nicht genügend freier Platz im Datenspeicher.</value>
   </data>
   <data name="InsufficientStorageSpaceException_MessagePath" xml:space="preserve">
-    <value>Not enough free space in data storage "{0}".</value>
+    <value>Nicht genügend freier Platz im Datenspeicher '{0}'.</value>
+  </data>
+  <data name="Load_AssemblyNameInvalid" xml:space="preserve">
+    <value>Assembly-Name '{0}' ist ungültig.</value>
+  </data>
+  <data name="Load_NullOrEmpty" xml:space="preserve">
+    <value>Zeichenkette darf nicht Null oder leer sein.</value>
+  </data>
+  <data name="Load_OpenFileFailed" xml:space="preserve">
+    <value>Kann Datei '{0}' nicht zum Lesen öffnen.</value>
+  </data>
+  <data name="Load_StreamNoRead" xml:space="preserve">
+    <value>Der Stream unterstützt keine Lese-Vorgänge.</value>
   </data>
 </root>

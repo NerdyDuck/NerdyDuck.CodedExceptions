@@ -117,31 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Global_AssemblyNameInvalid" xml:space="preserve">
+  <data name="FromJson_AssemblyNameInvalid" xml:space="preserve">
     <value>Assembly-Name '{0}' ist ungültig.</value>
   </data>
-  <data name="Global_FromJson_NotABool" xml:space="preserve">
+  <data name="FromJson_NotABool" xml:space="preserve">
     <value>Wert muss ein Boole'scher Wert sein.</value>
   </data>
-  <data name="Global_FromJson_NotAnObject" xml:space="preserve">
-    <value>Argument muss ein JSON-Objekt sein.</value>
-  </data>
-  <data name="Global_FromJson_NotANumber" xml:space="preserve">
+  <data name="FromJson_NotANumber" xml:space="preserve">
     <value>Wert muss eine Zahl sein.</value>
   </data>
-  <data name="Global_FromJson_ParseFailed" xml:space="preserve">
+  <data name="FromJson_ParseFailed" xml:space="preserve">
     <value>Kann JSON-Daten nicht lesen.</value>
   </data>
-  <data name="Global_NoPath" xml:space="preserve">
-    <value>Der Datei-Pfad darf nicht Null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
+  <data name="LoadJson_NullOrEmpty" xml:space="preserve">
+    <value>Zeichenkette darf nicht Null oder leer sein.</value>
   </data>
-  <data name="Global_OpenFileFailed" xml:space="preserve">
+  <data name="Load_OpenFileFailed" xml:space="preserve">
     <value>Kann Datei '{0}' nicht zum Lesen öffnen.</value>
   </data>
-  <data name="Global_StreamNoRead" xml:space="preserve">
+  <data name="Load_StreamNoRead" xml:space="preserve">
     <value>Der Stream unterstützt keine Lese-Vorgänge.</value>
-  </data>
-  <data name="Global_NoContent" xml:space="preserve">
-    <value>Der Inhalt darf nicht Null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
   </data>
 </root>

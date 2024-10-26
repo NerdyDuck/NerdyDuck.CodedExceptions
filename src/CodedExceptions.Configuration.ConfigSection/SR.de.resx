@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Global_AssemblyNameInvalid" xml:space="preserve">
-    <value>Assembly name '{0}' is invalid.</value>
+  <data name="Load_AssemblyNameInvalid" xml:space="preserve">
+    <value>Assembly-Name '{0}' ist ungültig.</value>
   </data>
-  <data name="Global_FromJson_NotABool" xml:space="preserve">
-    <value>Value must be boolean.</value>
+  <data name="Load_IdentifierEmpty" xml:space="preserve">
+    <value>Facility-ID ist leer.</value>
   </data>
-  <data name="Global_FromJson_NotAnObject" xml:space="preserve">
-    <value>Argument must be a JSON object.</value>
-  </data>
-  <data name="Global_FromJson_NotANumber" xml:space="preserve">
-    <value>Value must be a number.</value>
-  </data>
-  <data name="Global_FromJson_ParseFailed" xml:space="preserve">
-    <value>Cannot parse JSON data.</value>
-  </data>
-  <data name="Global_NoContent" xml:space="preserve">
-    <value>Content may not be null, empty or white-space only.</value>
-  </data>
-  <data name="Global_NoPath" xml:space="preserve">
-    <value>Path may not be null, empty or white-space only.</value>
-  </data>
-  <data name="Global_OpenFileFailed" xml:space="preserve">
-    <value>Cannot open file '{0}' for reading.</value>
-  </data>
-  <data name="Global_StreamNoRead" xml:space="preserve">
-    <value>Stream does not support reading.</value>
+  <data name="Load_IdentifierInvalid" xml:space="preserve">
+    <value>Facility-ID für Assembly '{0}' ist ungültig.</value>
   </data>
 </root>

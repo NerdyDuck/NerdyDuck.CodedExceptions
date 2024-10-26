@@ -22,14 +22,14 @@ namespace NerdyDuck.CodedExceptions.Configuration {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class TextResources {
+    internal class SR {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal TextResources() {
+        internal SR() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace NerdyDuck.CodedExceptions.Configuration {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdyDuck.CodedExceptions.Configuration.TextResources", typeof(TextResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NerdyDuck.CodedExceptions.Configuration.SR", typeof(SR).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,81 +63,63 @@ namespace NerdyDuck.CodedExceptions.Configuration {
         /// <summary>
         ///   Looks up a localized string similar to Assembly name &apos;{0}&apos; is invalid..
         /// </summary>
-        internal static string Global_AssemblyNameInvalid {
+        internal static string FromJson_AssemblyNameInvalid {
             get {
-                return ResourceManager.GetString("Global_AssemblyNameInvalid", resourceCulture);
+                return ResourceManager.GetString("FromJson_AssemblyNameInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Value must be boolean..
         /// </summary>
-        internal static string Global_FromJson_NotABool {
+        internal static string FromJson_NotABool {
             get {
-                return ResourceManager.GetString("Global_FromJson_NotABool", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argument must be a JSON object..
-        /// </summary>
-        internal static string Global_FromJson_NotAnObject {
-            get {
-                return ResourceManager.GetString("Global_FromJson_NotAnObject", resourceCulture);
+                return ResourceManager.GetString("FromJson_NotABool", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Value must be a number..
         /// </summary>
-        internal static string Global_FromJson_NotANumber {
+        internal static string FromJson_NotANumber {
             get {
-                return ResourceManager.GetString("Global_FromJson_NotANumber", resourceCulture);
+                return ResourceManager.GetString("FromJson_NotANumber", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cannot parse JSON data..
         /// </summary>
-        internal static string Global_FromJson_ParseFailed {
+        internal static string FromJson_ParseFailed {
             get {
-                return ResourceManager.GetString("Global_FromJson_ParseFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Content may not be null, empty or white-space only..
-        /// </summary>
-        internal static string Global_NoContent {
-            get {
-                return ResourceManager.GetString("Global_NoContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Path may not be null, empty or white-space only..
-        /// </summary>
-        internal static string Global_NoPath {
-            get {
-                return ResourceManager.GetString("Global_NoPath", resourceCulture);
+                return ResourceManager.GetString("FromJson_ParseFailed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cannot open file &apos;{0}&apos; for reading..
         /// </summary>
-        internal static string Global_OpenFileFailed {
+        internal static string Load_OpenFileFailed {
             get {
-                return ResourceManager.GetString("Global_OpenFileFailed", resourceCulture);
+                return ResourceManager.GetString("Load_OpenFileFailed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stream does not support reading..
         /// </summary>
-        internal static string Global_StreamNoRead {
+        internal static string Load_StreamNoRead {
             get {
-                return ResourceManager.GetString("Global_StreamNoRead", resourceCulture);
+                return ResourceManager.GetString("Load_StreamNoRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String may not be null or empty..
+        /// </summary>
+        internal static string LoadJson_NullOrEmpty {
+            get {
+                return ResourceManager.GetString("LoadJson_NullOrEmpty", resourceCulture);
             }
         }
     }
