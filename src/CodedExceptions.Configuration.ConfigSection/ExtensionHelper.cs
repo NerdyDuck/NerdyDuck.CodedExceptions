@@ -9,8 +9,6 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// </summary>
 internal static class ExtensionHelper
 {
-	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_AssemblyNameInvalid), assemblyName), ex);
-
 	internal static List<TTarget> LoadConfigurationSection<TTarget, TValue>(IConfiguration source, Func<AssemblyIdentity, TValue, TTarget> constructor, Func<string, TValue> converter)
 	{
 		List<TTarget> result = [];
@@ -25,12 +23,12 @@ internal static class ExtensionHelper
 			}
 			catch (FormatException ex)
 			{
-				throw InvalidAssemblyNameException(pair.Key, ex);
+				throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_AssemblyNameInvalid), pair.Key), ex);
 			}
 
 			if (string.IsNullOrWhiteSpace(pair.Value))
 			{
-				throw new FormatException(TextResources.Global_IdentifierEmpty);
+				throw new FormatException(SR.Load_IdentifierEmpty);
 			}
 			else
 			{
@@ -40,7 +38,7 @@ internal static class ExtensionHelper
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_IdentifierInvalid), pair.Key), ex);
+					throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_IdentifierInvalid), pair.Key), ex);
 				}
 			}
 

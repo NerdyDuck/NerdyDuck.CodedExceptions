@@ -87,8 +87,20 @@ public static class AssemblyDebugModeCacheExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the debug mode settings specified in the XML data of the <paramref name="reader"/>.</returns>
 	public static AssemblyDebugModeCache FromXml(this AssemblyDebugModeCache cache, XmlReader reader)
 	{
-		ExtensionHelper.AssertCache(cache);
-		ExtensionHelper.AssertXmlReader(reader);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentNullException.ThrowIfNull(reader);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+
+		if (reader == null)
+		{
+			throw new ArgumentNullException(nameof(reader));
+		}
+#endif
 
 		FromXmlInternal(cache, reader);
 		return cache;
@@ -99,5 +111,5 @@ public static class AssemblyDebugModeCacheExtensions
 	/// </summary>
 	/// <param name="cache">The cache to add the settings to.</param>
 	/// <param name="reader">A <see cref="XmlReader"/> containing debug mode settings.</param>
-	private static void FromXmlInternal(this AssemblyDebugModeCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, GlobalStrings.DebugModesNode, GlobalStrings.DebugModeNode, GlobalStrings.IsEnabledKey, nameof(TextResources.Global_IsEnabledInvalid), (stringValue) => string.IsNullOrWhiteSpace(stringValue) || XmlConvert.ToBoolean(stringValue), (assembly, convertedValue) => new AssemblyDebugMode(assembly, convertedValue)));
+	private static void FromXmlInternal(this AssemblyDebugModeCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, GlobalStrings.DebugModesNode, GlobalStrings.DebugModeNode, GlobalStrings.IsEnabledKey, nameof(SR.FromXml_IsEnabledInvalid), (stringValue) => string.IsNullOrWhiteSpace(stringValue) || XmlConvert.ToBoolean(stringValue), (assembly, convertedValue) => new AssemblyDebugMode(assembly, convertedValue)));
 }

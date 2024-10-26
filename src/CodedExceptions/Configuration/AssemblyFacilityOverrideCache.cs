@@ -68,8 +68,8 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(assembly);
 #else
 		if (assembly == null)
 		{
@@ -131,8 +131,8 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 		}
 #endif
 
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(facilityOverride, nameof(facilityOverride));
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(facilityOverride);
 #else
 		if (facilityOverride == null)
 		{

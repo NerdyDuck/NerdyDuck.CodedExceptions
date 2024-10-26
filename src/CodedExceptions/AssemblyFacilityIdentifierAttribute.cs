@@ -50,7 +50,7 @@ public sealed class AssemblyFacilityIdentifierAttribute : System.Attribute
 	{
 		if (facilityId is < 0 or > 2047)
 		{
-			throw new ArgumentOutOfRangeException(nameof(facilityId), TextResources.Global_FacilityId_OutOfRange);
+			throw new ArgumentOutOfRangeException(nameof(facilityId), SR.FacilityId_OutOfRange);
 		}
 
 		FacilityId = facilityId;

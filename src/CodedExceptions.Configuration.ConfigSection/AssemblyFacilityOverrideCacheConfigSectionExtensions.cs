@@ -21,8 +21,8 @@ public static class AssemblyFacilityOverrideCacheConfigSectionExtensions
 	public static AssemblyFacilityOverrideCache LoadConfigurationSection(this AssemblyFacilityOverrideCache cache, IConfiguration configuration)
 	{
 #if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(cache, nameof(cache));
-		ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
+		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentNullException.ThrowIfNull(configuration);
 #else
 		if (cache == null)
 		{

@@ -97,7 +97,14 @@ public static class AssemblyDebugModeCacheJsonExtensions
 	/// <exception cref="FormatException">The JSON data is invalid.</exception>
 	public static AssemblyDebugModeCache FromJson(this AssemblyDebugModeCache cache, JsonElement jsonElement)
 	{
-		ExtensionHelper.AssertCache(cache);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
 		FromJsonInternal(cache, jsonElement);
 		return cache;
 	}
@@ -114,6 +121,6 @@ public static class AssemblyDebugModeCacheJsonExtensions
 	{
 		cache.AddRange(ExtensionHelper.FromJsonInternal(jsonElement, CheckAndConvert, (assembly, debugMode) => new AssemblyDebugMode(assembly, debugMode)));
 		static bool CheckAndConvert(JsonProperty jsonProperty) => jsonProperty.Value.ValueKind is not JsonValueKind.True and not JsonValueKind.False ? throw NotABoolException() : jsonProperty.Value.GetBoolean();
-		static FormatException NotABoolException() => new(TextResources.Global_FromJson_NotABool);
+		static FormatException NotABoolException() => new(SR.FromJson_NotABool);
 	}
 }

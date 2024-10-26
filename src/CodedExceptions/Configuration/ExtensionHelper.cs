@@ -4,9 +4,9 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Security;
 using System.Xml;
+
 #if NET5_0_OR_GREATER
 using System.Buffers;
 #endif
@@ -29,13 +29,20 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, string path, Action<T, XmlReader> parser) where T : class
 	{
-		AssertCache(cache);
-#if NET8_0_OR_GREATER
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
+#if NET7_0_OR_GREATER
 		ArgumentException.ThrowIfNullOrWhiteSpace(path, nameof(path));
 #else
 		if (string.IsNullOrWhiteSpace(path))
 		{
-			throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
+			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(path));
 		}
 #endif
 
@@ -46,7 +53,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
 		{
-			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_OpenFileFailed), path), ex);
+			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_OpenFileFailed), path), ex);
 		}
 
 		try
@@ -70,8 +77,24 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, Stream stream, Action<T, XmlReader> parser) where T : class
 	{
-		AssertCache(cache);
-		AssertStream(stream);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentNullException.ThrowIfNull(stream);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+
+		if (stream == null)
+		{
+			throw new ArgumentNullException(nameof(stream));
+		}
+#endif
+		if (!stream.CanRead)
+		{
+			throw new ArgumentException(SR.Load_StreamNoRead, nameof(stream));
+		}
 
 		using XmlReader reader = XmlReader.Create(stream, s_secureSettings);
 		parser(cache, reader);
@@ -87,8 +110,20 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, TextReader reader, Action<T, XmlReader> parser) where T : class
 	{
-		AssertCache(cache);
-		AssertTextReader(reader);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentNullException.ThrowIfNull(reader);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+
+		if (reader == null)
+		{
+			throw new ArgumentNullException(nameof(reader));
+		}
+#endif
 
 		using XmlReader xmlReader = XmlReader.Create(reader, s_secureSettings);
 		parser(cache, xmlReader);
@@ -105,7 +140,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, XmlReader> parser) where T : class
 	{
-		AssertCache(cache);
+		ArgumentNullException.ThrowIfNull(cache);
 
 		using MemoryStream stream = new(utf8Json.ToArray());
 		using XmlReader xmlReader = XmlReader.Create(stream, s_secureSettings);
@@ -122,7 +157,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, XmlReader> parser) where T : class
 	{
-		AssertCache(cache);
+		ArgumentNullException.ThrowIfNull(cache);
 
 		using MemoryStream stream = new(utf8Json.ToArray());
 		using XmlReader xmlReader = XmlReader.Create(stream, s_secureSettings);
@@ -140,119 +175,35 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T ParseXml<T>(T cache, string content, Action<T, XmlReader> parser) where T : class
 	{
-		AssertCache(cache);
-		AssertContent(content);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
+#if NET7_0_OR_GREATER
+		ArgumentException.ThrowIfNullOrEmpty(content);
+#else
+		if (string.IsNullOrEmpty(content))
+		{
+#if NET5_0_OR_GREATER
+			ArgumentNullException.ThrowIfNull(content);
+#else
+			if (content == null)
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
+#endif
+			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(content));
+		}
+#endif
 
 		using StringReader reader = new(content);
 		using XmlReader xmlReader = XmlReader.Create(reader, s_secureSettings);
 		parser(cache, xmlReader);
 		return cache;
-	}
-
-	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_AssemblyNameInvalid), assemblyName), ex);
-
-	internal static XmlException AssemblyNameAttributeMissingException(string parentNodeName) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_FromXml_AttributeMissing), parentNodeName, GlobalStrings.AssemblyNameKey));
-
-#if NET6_0_OR_GREATER
-	/// <summary>
-	/// Checks if the object is null.
-	/// </summary>
-	/// <exception cref="ArgumentNullException">The object is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertCache(object cache) => ArgumentNullException.ThrowIfNull(cache, nameof(cache));
-
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertXmlReader(XmlReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
-
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertTextReader(TextReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
-#else
-	/// <summary>
-	/// Checks if the object is null.
-	/// </summary>
-	/// <exception cref="ArgumentNullException">The object is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertCache(object cache)
-	{
-		if (cache == null)
-		{
-			throw new ArgumentNullException(nameof(cache));
-		}
-	}
-
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertXmlReader(XmlReader reader)
-	{
-		if (reader == null)
-		{
-			throw new ArgumentNullException(nameof(reader));
-		}
-	}
-
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertTextReader(TextReader reader)
-	{
-		if (reader == null)
-		{
-			throw new ArgumentNullException(nameof(reader));
-		}
-	}
-#endif
-
-	/// <summary>
-	/// Checks if the stream is null or not readable.
-	/// </summary>
-	/// <param name="stream">The stream to check.</param>
-	/// <exception cref="ArgumentNullException">The stream is null.</exception>
-	/// <exception cref="ArgumentException">The stream is not readable.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertStream(Stream stream)
-	{
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(stream, nameof(stream));
-#else
-		if (stream == null)
-		{
-			throw new ArgumentNullException(nameof(stream));
-		}
-#endif
-		if (!stream.CanRead)
-		{
-			throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-		}
-	}
-
-	/// <summary>
-	/// Checks if the content string is null or empty.
-	/// </summary>
-	/// <param name="content">The content to check.</param>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertContent(string content)
-	{
-		if (string.IsNullOrWhiteSpace(content))
-		{
-			throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
-		}
 	}
 
 	/// <summary>
@@ -298,7 +249,7 @@ internal static class ExtensionHelper
 				assemblyString = reader.GetAttribute(GlobalStrings.AssemblyNameKey);
 				if (assemblyString == null)
 				{
-					throw AssemblyNameAttributeMissingException(nodesName);
+					throw new XmlException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.FromXml_AttributeMissing), reader.Name, GlobalStrings.AssemblyNameKey));
 				}
 
 				try
@@ -307,7 +258,7 @@ internal static class ExtensionHelper
 				}
 				catch (FormatException ex)
 				{
-					throw InvalidAssemblyNameException(assemblyString, ex);
+					throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_AssemblyNameInvalid), assemblyString), ex);
 				}
 
 				valueString = reader.GetAttribute(valueKey);
@@ -321,7 +272,7 @@ internal static class ExtensionHelper
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, TextResources.ResourceManager.GetString(valueInvalidResourceKey, CultureInfo.CurrentCulture) ?? string.Empty, assemblyString), ex);
+					throw new FormatException(string.Format(CultureInfo.CurrentCulture, SR.ResourceManager.GetString(valueInvalidResourceKey, CultureInfo.CurrentCulture) ?? string.Empty, assemblyString), ex);
 				}
 
 				result.Add(constructor(assembly, convertedValue));

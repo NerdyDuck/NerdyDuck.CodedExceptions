@@ -18,7 +18,14 @@ public static class AssemblyDebugModeCacheAppConfigExtensions
 	/// <remarks>The settings are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
 	public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache)
 	{
-		ExtensionHelper.AssertCache(cache);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
 		List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes();
 		if (adm is not null)
 		{
@@ -36,8 +43,23 @@ public static class AssemblyDebugModeCacheAppConfigExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the debug mode settings specified in the specified configuration section.</returns>
 	public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache, string sectionName)
 	{
-		ExtensionHelper.AssertCache(cache);
-		ExtensionHelper.AssertSectionName(sectionName);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
+#if NET7_0_OR_GREATER
+		ArgumentException.ThrowIfNullOrEmpty(sectionName);
+#else
+		if (string.IsNullOrWhiteSpace(sectionName))
+		{
+			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(sectionName));
+		}
+#endif
+
 		List<AssemblyDebugMode>? adm = CodedExceptionsSection.GetDebugModes(sectionName);
 		if (adm is not null)
 		{

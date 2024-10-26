@@ -18,7 +18,14 @@ public static class AssemblyFacilityOverrideCacheAppConfigExtensions
 	/// <remarks>The overrides are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
 	public static AssemblyFacilityOverrideCache LoadApplicationConfiguration(this AssemblyFacilityOverrideCache cache)
 	{
-		ExtensionHelper.AssertCache(cache);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
 		List<AssemblyFacilityOverride>? afc = CodedExceptionsSection.GetFacilityOverrides();
 		if (afc is not null)
 		{
@@ -36,8 +43,23 @@ public static class AssemblyFacilityOverrideCacheAppConfigExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the overrides specified in the specified configuration section.</returns>
 	public static AssemblyFacilityOverrideCache LoadApplicationConfiguration(this AssemblyFacilityOverrideCache cache, string sectionName)
 	{
-		ExtensionHelper.AssertCache(cache);
-		ExtensionHelper.AssertSectionName(sectionName);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
+#if NET7_0_OR_GREATER
+		ArgumentException.ThrowIfNullOrEmpty(sectionName);
+#else
+		if (string.IsNullOrWhiteSpace(sectionName))
+		{
+			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(sectionName));
+		}
+#endif
+
 		List<AssemblyFacilityOverride>? afc = CodedExceptionsSection.GetFacilityOverrides(sectionName);
 		if (afc is not null)
 		{

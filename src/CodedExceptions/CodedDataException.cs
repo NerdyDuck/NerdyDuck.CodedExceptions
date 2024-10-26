@@ -22,7 +22,7 @@ public class CodedDataException : System.Data.DataException
 	/// The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a message that describes the error, such as "Could not find the specified directory." This message takes into account the current system culture.
 	/// </remarks>
 	public CodedDataException()
-		: base(TextResources.CodedDataException_Message)
+		: base(SR.CodedDataException_Message)
 	{
 	}
 
@@ -32,7 +32,7 @@ public class CodedDataException : System.Data.DataException
 	/// <param name="message">A description of the error. The content of <paramref name="message"/> is intended to be understood by humans. The caller of this constructor is required to ensure that this string has been localized for the current system culture.</param>
 	/// <remarks>This constructor initializes the Message property of the new instance using <paramref name="message"/>.</remarks>
 	public CodedDataException(string? message)
-		: base(message ?? TextResources.CodedDataException_Message)
+		: base(message ?? SR.CodedDataException_Message)
 	{
 	}
 
@@ -42,7 +42,7 @@ public class CodedDataException : System.Data.DataException
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	public CodedDataException(string? message, Exception? innerException)
-		: base(message ?? TextResources.CodedDataException_Message, innerException)
+		: base(message ?? SR.CodedDataException_Message, innerException)
 	{
 	}
 
@@ -68,7 +68,7 @@ public class CodedDataException : System.Data.DataException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedDataException(int hresult)
-		: base(TextResources.CodedDataException_Message) => HResult = hresult;
+		: base(SR.CodedDataException_Message) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedDataException"/> class with a specified HRESULT value and error message.
@@ -78,7 +78,7 @@ public class CodedDataException : System.Data.DataException
 	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedDataException(int hresult, string? message)
-		: base(message ?? TextResources.CodedDataException_Message) => HResult = hresult;
+		: base(message ?? SR.CodedDataException_Message) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedDataException"/> class with a specified HRESULT value, error message and a reference to the inner exception that is the cause of this exception.
@@ -89,7 +89,7 @@ public class CodedDataException : System.Data.DataException
 	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedDataException(int hresult, string? message, Exception? innerException)
-		: base(message ?? TextResources.CodedDataException_Message, innerException) => HResult = hresult;
+		: base(message ?? SR.CodedDataException_Message, innerException) => HResult = hresult;
 
 	/// <summary>
 	/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.

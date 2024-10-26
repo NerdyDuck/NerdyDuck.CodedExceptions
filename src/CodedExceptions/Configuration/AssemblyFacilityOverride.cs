@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.CompilerServices;
+
 namespace NerdyDuck.CodedExceptions.Configuration;
 /// <summary>
 /// Represents an override for a facility identifier.
@@ -97,7 +99,7 @@ public sealed class AssemblyFacilityOverride : IEquatable<AssemblyFacilityOverri
 			throw new ArgumentNullException(nameof(info));
 		}
 
-		AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(TextResources.Global_ctor_MissingAssemblyIdentifier));
+		AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(SR.ctor_NotAssemblyIdentifier));
 		Identifier = info.GetInt32(nameof(Identifier));
 	}
 
@@ -122,11 +124,12 @@ public sealed class AssemblyFacilityOverride : IEquatable<AssemblyFacilityOverri
 	/// Checks if the identifier is within range (0 to 2047).
 	/// </summary>
 	/// <param name="identifier">The identifier to check.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	private static void AssertIdentifier(int identifier)
 	{
 		if (identifier is < 0 or > 2047)
 		{
-			throw new ArgumentOutOfRangeException(nameof(identifier), TextResources.Global_FacilityId_OutOfRange);
+			throw new ArgumentOutOfRangeException(nameof(identifier), SR.FacilityId_OutOfRange);
 		}
 	}
 }

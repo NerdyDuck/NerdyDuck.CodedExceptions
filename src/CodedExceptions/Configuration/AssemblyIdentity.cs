@@ -106,7 +106,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	public AssemblyIdentity(Assembly assembly, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER
 		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
 #else
 		if (assembly == null)
@@ -115,7 +115,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 		}
 #endif
 
-		AssemblyName assemblyName = assembly.GetName() ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assembly));
+		AssemblyName assemblyName = assembly.GetName() ?? throw new ArgumentException(SR.AssemblyIdentity_NoAssemblyName, nameof(assembly));
 		CopyFromAssemblyName(assemblyName, assemblyNameElements);
 	}
 
@@ -128,8 +128,8 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	public AssemblyIdentity(AssemblyName assemblyName, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(assemblyName, nameof(assemblyName));
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(assemblyName);
 #else
 		if (assemblyName == null)
 		{
@@ -156,7 +156,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 			{
 				if (!Version.TryParse(temp, out Version? version))
 				{
-					throw new FormatException(TextResources.AssemblyIdentifier_ctor_VersionInvalid);
+					throw new FormatException(SR.AssemblyIdentifier_VersionInvalid);
 				}
 
 				Version = version;
@@ -171,7 +171,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(TextResources.AssemblyIdentity_ctor_KeyTokenInvalid, ex);
+					throw new FormatException(SR.AssemblyIdentity_KeyTokenInvalid, ex);
 				}
 			}
 
@@ -532,7 +532,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 		}
 
 		Culture = info.GetString(nameof(Culture));
-		Name = info.GetString(nameof(Name)) ?? throw new SerializationException(TextResources.AssemblyIdentity_ctor_NoAssemblyName);
+		Name = info.GetString(nameof(Name)) ?? throw new SerializationException(SR.AssemblyIdentity_NoAssemblyName);
 		_publicKeyToken = (byte[]?)info.GetValue(PublicKeyTokenName, typeof(byte[]));
 		Version = (Version?)info.GetValue(nameof(Version), typeof(Version));
 	}
@@ -604,7 +604,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 
 		if (assemblyNameElements.HasFlag(AssemblyNameElements.Name))
 		{
-			Name = assemblyName.Name ?? throw new ArgumentException(TextResources.AssemblyIdentity_ctor_NoAssemblyName, nameof(assemblyName));
+			Name = assemblyName.Name ?? throw new ArgumentException(SR.AssemblyIdentity_NoAssemblyName, nameof(assemblyName));
 		}
 
 		if (assemblyNameElements.HasFlag(AssemblyNameElements.PublicKeyToken))

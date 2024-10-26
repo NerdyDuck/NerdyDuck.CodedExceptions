@@ -206,7 +206,7 @@ public class CodedAggregateException : AggregateException
 		string customText = string.Empty;
 		for (int i = 0; i < base.InnerExceptions.Count; i++)
 		{
-			customText = string.Format(CultureInfo.InvariantCulture, CompositeFormatCache.Default.Get(TextResources.CodedAggregateException_ToString),
+			customText = string.Format(CultureInfo.InvariantCulture, CompositeFormatCache.Default.Get(SR.CodedAggregateException_ToString),
 				customText, Environment.NewLine, i, InnerExceptions[i].ToString());
 		}
 

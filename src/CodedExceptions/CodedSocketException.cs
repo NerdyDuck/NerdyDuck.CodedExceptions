@@ -33,7 +33,7 @@ public class CodedSocketException : CodedException
 	/// </summary>
 	/// <remarks>This constructor initializes the <see cref="SocketErrorCode"/> property of the new instance with <see cref="SocketError.SocketError"/>, and the <see cref="Exception.Message"/> property with a message that describes the error, such as "A socket error occurred". For more information about socket error codes, see the Windows Sockets version 2 API error code documentation (https://msdn.microsoft.com/library/windows/desktop/ms740668.aspx).</remarks>
 	public CodedSocketException()
-		: base(TextResources.CodedSocketException_Message)
+		: base(SR.CodedSocketException_Message)
 	{
 		HResult = HResultHelper.E_FAIL;
 		SocketErrorCode = SocketError.SocketError;
@@ -45,7 +45,7 @@ public class CodedSocketException : CodedException
 	/// <param name="errorCode">The error code that indicates the error that occurred.</param>
 	/// <remarks>This constructor initializes the <see cref="SocketErrorCode"/> property of the new instance with <paramref name="errorCode"/>, and the <see cref="Exception.Message"/> property with a message that describes the error, such as "A socket error occurred". For more information about socket error codes, see the Windows Sockets version 2 API error code documentation (https://msdn.microsoft.com/library/windows/desktop/ms740668.aspx).</remarks>
 	public CodedSocketException(SocketError errorCode)
-		: base(TextResources.CodedSocketException_Message)
+		: base(SR.CodedSocketException_Message)
 	{
 		HResult = HResultHelper.E_FAIL;
 		SocketErrorCode = errorCode;
@@ -111,7 +111,7 @@ public class CodedSocketException : CodedException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult)
-		: base(TextResources.CodedSocketException_Message)
+		: base(SR.CodedSocketException_Message)
 	{
 		HResult = hresult;
 		SocketErrorCode = SocketError.SocketError;
@@ -126,7 +126,7 @@ public class CodedSocketException : CodedException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedSocketException(int hresult, SocketError errorCode)
-		: base(TextResources.CodedSocketException_Message)
+		: base(SR.CodedSocketException_Message)
 	{
 		HResult = hresult;
 		SocketErrorCode = errorCode;
@@ -200,7 +200,7 @@ public class CodedSocketException : CodedException
 	/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 	/// </summary>
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.</returns>
-	public override string ToString() => HResultHelper.CreateToString(this, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.CodedSocketException_ToString_SocketErrorCode), SocketErrorCode));
+	public override string ToString() => HResultHelper.CreateToString(this, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.CodedSocketException_ToString_SocketErrorCode), SocketErrorCode));
 
 #if !NET5_0_OR_GREATER
 	/// <summary>

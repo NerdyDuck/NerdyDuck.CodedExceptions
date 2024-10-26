@@ -82,7 +82,14 @@ public static class AssemblyFacilityOverrideCacheJsonExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the overrides specified in the <see cref="JsonElement"/>.</returns>
 	public static AssemblyFacilityOverrideCache FromJson(this AssemblyFacilityOverrideCache cache, JsonElement jsonElement)
 	{
-		ExtensionHelper.AssertCache(cache);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
 		FromJsonInternal(cache, jsonElement);
 		return cache;
 	}
@@ -97,6 +104,6 @@ public static class AssemblyFacilityOverrideCacheJsonExtensions
 		cache.AddRange(ExtensionHelper.FromJsonInternal(jsonElement, CheckAndConvert, (assembly, identifier) => new AssemblyFacilityOverride(assembly, identifier)));
 
 		static int CheckAndConvert(JsonProperty jsonProperty) => jsonProperty.Value.ValueKind != JsonValueKind.Number ? throw NotANumberException() : jsonProperty.Value.GetInt32();
-		static FormatException NotANumberException() => new(TextResources.Global_FromJson_NotANumber);
+		static FormatException NotANumberException() => new(SR.FromJson_NotANumber);
 	}
 }

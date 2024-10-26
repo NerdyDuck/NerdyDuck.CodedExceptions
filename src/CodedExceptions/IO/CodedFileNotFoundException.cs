@@ -150,7 +150,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 		string? customText = null;
 		if (!string.IsNullOrEmpty(FileName))
 		{
-			customText = string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_FileName), FileName);
+			customText = string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Global_FileName), FileName);
 		}
 
 		return HResultHelper.CreateToString(this, customText);

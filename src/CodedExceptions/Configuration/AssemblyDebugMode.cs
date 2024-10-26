@@ -94,7 +94,7 @@ public sealed class AssemblyDebugMode : IEquatable<AssemblyDebugMode>
 			throw new ArgumentNullException(nameof(info));
 		}
 
-		AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(TextResources.Global_ctor_MissingAssemblyIdentifier));
+		AssemblyName = (AssemblyIdentity)(info.GetValue(nameof(AssemblyName), typeof(AssemblyIdentity)) ?? throw new SerializationException(SR.ctor_NotAssemblyIdentifier));
 		IsEnabled = info.GetBoolean(nameof(IsEnabled));
 	}
 

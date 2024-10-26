@@ -4,7 +4,6 @@
 
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security;
 
 namespace NerdyDuck.CodedExceptions.Configuration;
@@ -23,8 +22,22 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, string path, Action<T, JsonElement> parser) where T : class
 	{
-		AssertCache(cache);
-		AssertPath(path);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
+#if NET7_0_OR_GREATER
+		ArgumentException.ThrowIfNullOrEmpty(path);
+#else
+		if (string.IsNullOrEmpty(path))
+		{
+			throw new ArgumentException(SR.LoadJson_NullOrEmpty, nameof(path));
+		}
+#endif
 
 		FileStream stream;
 		try
@@ -33,7 +46,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
 		{
-			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_OpenFileFailed), path), ex);
+			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_OpenFileFailed), path), ex);
 		}
 
 		try
@@ -57,8 +70,23 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, Stream stream, Action<T, JsonElement> parser) where T : class
 	{
-		AssertCache(cache);
-		AssertStream(stream);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentNullException.ThrowIfNull(stream);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+		if (stream == null)
+		{
+			throw new ArgumentNullException(nameof(stream));
+		}
+#endif
+		if (!stream.CanRead)
+		{
+			throw new ArgumentException(SR.Load_StreamNoRead, nameof(stream));
+		}
 
 		JsonDocument jsonDocument;
 		try
@@ -67,7 +95,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
 		{
-			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			throw new IOException(SR.FromJson_ParseFailed, ex);
 		}
 
 		try
@@ -91,8 +119,20 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, TextReader reader, Action<T, JsonElement> parser) where T : class
 	{
-		AssertCache(cache);
-		AssertTextReader(reader);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentNullException.ThrowIfNull(reader);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+
+		if (reader == null)
+		{
+			throw new ArgumentNullException(nameof(reader));
+		}
+#endif
 
 		JsonDocument jsonDocument;
 		try
@@ -101,7 +141,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
 		{
-			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			throw new IOException(SR.FromJson_ParseFailed, ex);
 		}
 
 		try
@@ -126,7 +166,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, JsonElement> parser) where T : class
 	{
-		AssertCache(cache);
+		ArgumentNullException.ThrowIfNull(cache);
 
 		JsonDocument jsonDocument;
 		try
@@ -135,7 +175,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
 		{
-			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			throw new IOException(SR.FromJson_ParseFailed, ex);
 		}
 
 		try
@@ -169,8 +209,30 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T ParseJson<T>(T cache, string content, Action<T, JsonElement> parser) where T : class
 	{
-		AssertCache(cache);
-		AssertContent(content);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
+#if NET7_0_OR_GREATER
+		ArgumentException.ThrowIfNullOrEmpty(content);
+#else
+		if (string.IsNullOrEmpty(content))
+		{
+#if NET5_0_OR_GREATER
+			ArgumentNullException.ThrowIfNull(content);
+#else
+			if (content == null)
+			{
+				throw new ArgumentNullException(nameof(content));
+			}
+#endif
+			throw new ArgumentException(SR.LoadJson_NullOrEmpty, nameof(content));
+		}
+#endif
 
 		JsonDocument jsonDocument;
 		try
@@ -179,7 +241,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is ArgumentException or FormatException or JsonException)
 		{
-			throw new IOException(TextResources.Global_FromJson_ParseFailed, ex);
+			throw new IOException(SR.FromJson_ParseFailed, ex);
 		}
 
 		try
@@ -194,132 +256,21 @@ internal static class ExtensionHelper
 		return cache;
 	}
 
-	internal static FormatException InvalidAssemblyNameException(string assemblyName, Exception ex) => new(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_AssemblyNameInvalid), assemblyName), ex);
-
-#if NET6_0_OR_GREATER
-	/// <summary>
-	/// Checks if the object is null.
-	/// </summary>
-	/// <exception cref="ArgumentNullException">The object is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertCache(object cache) => ArgumentNullException.ThrowIfNull(cache, nameof(cache));
-#else
-	/// <summary>
-	/// Checks if the object is null.
-	/// </summary>
-	/// <exception cref="ArgumentNullException">The object is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertCache(object cache)
-	{
-		if (cache == null)
-		{
-			throw new ArgumentNullException(nameof(cache));
-		}
-	}
-#endif
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	internal static void AssertJsonValueKindObject(JsonElement jsonElement)
+	internal static List<T> FromJsonInternal<T, TValue>(JsonElement jsonElement, Func<JsonProperty, TValue> converter, Func<AssemblyIdentity, TValue, T> constructor)
 	{
 		if (jsonElement.ValueKind != JsonValueKind.Object)
 		{
-			throw new ArgumentException(TextResources.Global_FromJson_NotAnObject, nameof(jsonElement));
+			throw new ArgumentException(SR.FromJson_ParseFailed, nameof(jsonElement));
 		}
-	}
 
-	internal static JsonElement GetParentElement(JsonElement jsonElement)
-	{
 		if (jsonElement.EnumerateObject().Count() == 1)
 		{
 			JsonElement jsonTemp = jsonElement.EnumerateObject().First().Value;
 			if (jsonTemp.ValueKind == JsonValueKind.Object)
 			{
-				return jsonTemp;
+				jsonElement = jsonTemp;
 			}
 		}
-
-		return jsonElement;
-	}
-
-#if NET6_0_OR_GREATER
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertTextReader(TextReader reader) => ArgumentNullException.ThrowIfNull(reader, nameof(reader));
-#else
-	/// <summary>
-	/// Checks if the reader is null.
-	/// </summary>
-	/// <param name="reader">The reader to check.</param>
-	/// <exception cref="ArgumentNullException">The reader is null.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertTextReader(TextReader reader)
-	{
-		if (reader == null)
-		{
-			throw new ArgumentNullException(nameof(reader));
-		}
-	}
-#endif
-
-	/// <summary>
-	/// Checks if the path string is null or empty.
-	/// </summary>
-	/// <param name="path">The path to check.</param>
-	/// <exception cref="ArgumentException">The path is null or empty.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertPath(string path)
-	{
-		if (string.IsNullOrWhiteSpace(path))
-		{
-			throw new ArgumentException(TextResources.Global_NoPath, nameof(path));
-		}
-	}
-
-	/// <summary>
-	/// Checks if the stream is null or not readable.
-	/// </summary>
-	/// <param name="stream">The stream to check.</param>
-	/// <exception cref="ArgumentNullException">The stream is null.</exception>
-	/// <exception cref="ArgumentException">The stream is not readable.</exception>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertStream(Stream stream)
-	{
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(stream, nameof(stream));
-#else
-		if (stream == null)
-		{
-			throw new ArgumentNullException(nameof(stream));
-		}
-#endif
-		if (!stream.CanRead)
-		{
-			throw new ArgumentException(TextResources.Global_StreamNoRead, nameof(stream));
-		}
-	}
-
-	/// <summary>
-	/// Checks if the content string is null or empty.
-	/// </summary>
-	/// <param name="content">The content to check.</param>
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private static void AssertContent(string content)
-	{
-		if (string.IsNullOrWhiteSpace(content))
-		{
-			throw new ArgumentException(TextResources.Global_NoContent, nameof(content));
-		}
-	}
-
-	internal static List<T> FromJsonInternal<T, TValue>(JsonElement jsonElement, Func<JsonProperty, TValue> converter, Func<AssemblyIdentity, TValue, T> constructor)
-	{
-		ExtensionHelper.AssertJsonValueKindObject(jsonElement);
-
-		jsonElement = ExtensionHelper.GetParentElement(jsonElement);
 
 		List<T> result = [];
 		AssemblyIdentity assembly;
@@ -333,7 +284,7 @@ internal static class ExtensionHelper
 			}
 			catch (FormatException ex)
 			{
-				throw ExtensionHelper.InvalidAssemblyNameException(jsonProperty.Name, ex);
+				throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.FromJson_AssemblyNameInvalid), jsonProperty.Name), ex);
 			}
 
 			convertedValue = converter(jsonProperty);

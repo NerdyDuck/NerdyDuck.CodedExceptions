@@ -87,8 +87,20 @@ public static class AssemblyFacilityOverrideCacheExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the overrides specified in the XML data of the <paramref name="reader"/>.</returns>
 	public static AssemblyFacilityOverrideCache FromXml(this AssemblyFacilityOverrideCache cache, XmlReader reader)
 	{
-		ExtensionHelper.AssertCache(cache);
-		ExtensionHelper.AssertXmlReader(reader);
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentNullException.ThrowIfNull(reader);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+
+		if (reader == null)
+		{
+			throw new ArgumentNullException(nameof(reader));
+		}
+#endif
 
 		FromXmlInternal(cache, reader);
 		return cache;
@@ -99,5 +111,5 @@ public static class AssemblyFacilityOverrideCacheExtensions
 	/// </summary>
 	/// <param name="cache">The cache to add the overrides to.</param>
 	/// <param name="reader">A <see cref="XmlReader"/> containing overrides.</param>
-	private static void FromXmlInternal(AssemblyFacilityOverrideCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, GlobalStrings.OverridesNode, GlobalStrings.OverrideNode, GlobalStrings.IdentifierKey, nameof(TextResources.Global_FromXml_AttributeMissing), (stringValue) => string.IsNullOrWhiteSpace(stringValue) ? throw new XmlException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(TextResources.Global_FromXml_AttributeMissing), GlobalStrings.OverrideNode, GlobalStrings.IdentifierKey)) : XmlConvert.ToInt32(stringValue), (assembly, convertedValue) => new AssemblyFacilityOverride(assembly, convertedValue)));
+	private static void FromXmlInternal(AssemblyFacilityOverrideCache cache, XmlReader reader) => cache.AddRange(ExtensionHelper.FromXmlInternal(reader, GlobalStrings.OverridesNode, GlobalStrings.OverrideNode, GlobalStrings.IdentifierKey, nameof(SR.FromXml_AttributeMissing), (stringValue) => string.IsNullOrWhiteSpace(stringValue) ? throw new XmlException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.FromXml_AttributeMissing), GlobalStrings.OverrideNode, GlobalStrings.IdentifierKey)) : XmlConvert.ToInt32(stringValue), (assembly, convertedValue) => new AssemblyFacilityOverride(assembly, convertedValue)));
 }

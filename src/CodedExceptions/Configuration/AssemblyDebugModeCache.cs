@@ -94,8 +94,8 @@ public sealed class AssemblyDebugModeCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(assembly);
 #else
 		if (assembly == null)
 		{
@@ -155,8 +155,8 @@ public sealed class AssemblyDebugModeCache : IDisposable
 			throw new ObjectDisposedException(GetType().Name);
 		}
 #endif
-#if NET6_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(debugMode, nameof(debugMode));
+#if NET5_0_OR_GREATER
+		ArgumentNullException.ThrowIfNull(debugMode);
 #else
 		if (debugMode == null)
 		{
@@ -296,7 +296,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 		}
 #endif
 
-#if NET6_0_OR_GREATER
+#if NET5_0_OR_GREATER
 		ArgumentNullException.ThrowIfNull(identity, nameof(identity));
 #else
 		if (identity == null)
