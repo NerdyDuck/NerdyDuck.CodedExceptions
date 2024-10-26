@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace NerdyDuck.Tests.CodedExceptions;
+namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 
 /// <summary>
 /// Contains methods to serialize and deserialize objects using the SerializableAttribute and/or ISerializable.

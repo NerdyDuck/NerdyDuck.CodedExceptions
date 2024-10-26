@@ -185,4 +185,53 @@ public class CodedArgumentNullExceptionsTests
 			StringAssert.Contains(str, Globals.ParamName);
 		}
 	}
+
+	[TestMethod]
+	public void ThrowIfNullOrEmpty_Success()
+	{
+		CodedArgumentNullException.ThrowIfNull(new object());
+		CodedArgumentNullException.ThrowIfNull(new object(), "arg");
+	}
+
+	[TestMethod]
+	public void ThrowIfNull_ObjectNull_Fail()
+	{
+		string text = null;
+		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(text));
+		Assert.AreEqual(Globals.COR_E_NULLREFERENCE, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNull_StringString_Fail()
+	{
+		string argName = "myArg";
+		string text = null;
+		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(text, argName));
+		Assert.AreEqual(Globals.COR_E_NULLREFERENCE, ex.HResult);
+		Assert.AreEqual(argName, ex.ParamName);
+	}
+
+	[TestMethod]
+	public void ThrowIfNull_StringIntNull_Fail()
+	{
+		string text = null;
+		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(text, Globals.CustomHResult));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNull_StringIntString_Fail()
+	{
+		string argName = "myArg";
+		string text = null;
+		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(text, Globals.CustomHResult, argName));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		Assert.AreEqual(argName, ex.ParamName);
+	}
 }

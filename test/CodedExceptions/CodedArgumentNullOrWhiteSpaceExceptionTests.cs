@@ -184,4 +184,76 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 			StringAssert.Contains(str, Globals.ParamName);
 		}
 	}
+
+	[TestMethod]
+	public void ThrowIfNullOrWhitespace_Success()
+	{
+		string text = "Hi!";
+		CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text);
+		CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, Globals.CustomHResult);
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrWhitespace_StringNull_FailNull()
+	{
+		string text = null;
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
+		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrWhitespace_StringNull_FailEmpty()
+	{
+		string text = string.Empty;
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
+		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrWhitespace_StringNull_FailWhite()
+	{
+		string text = "   ";
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
+		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrWhitespace_StringString_FailEmpty()
+	{
+		string argName = "myArg";
+		string text = string.Empty;
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, argName));
+		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		Assert.AreEqual(argName, ex.ParamName);
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrWhitespace_StringIntNull_FailNull()
+	{
+		string text = null;
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, Globals.CustomHResult));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrWhitespace_StringIntString_FailNull()
+	{
+		string argName = "myArg";
+		string text = null;
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, Globals.CustomHResult, argName));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		Assert.AreEqual(argName, ex.ParamName);
+	}
 }

@@ -187,10 +187,4 @@ public class HResultHelperTests
 	{
 		_ = Assert.ThrowsException<ArgumentNullException>(() => HResultHelper.CreateToString(null, null));
 	}
-
-	[TestMethod]
-	public void ExtensionHelper_AssertCache_Throw()
-	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => ExtensionHelper.AssertCache(null));
-	}
 }

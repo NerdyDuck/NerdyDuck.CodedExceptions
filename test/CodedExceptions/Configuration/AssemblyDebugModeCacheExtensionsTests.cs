@@ -142,7 +142,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void ParseXml_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsException<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.ParseXml(null);

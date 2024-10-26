@@ -138,7 +138,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void ParseXml_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsException<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.ParseXml(null);

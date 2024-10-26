@@ -16,4 +16,9 @@ public static class Globals
 	public static readonly AssemblyName ThisAssemblyName = ThisAssembly.GetName();
 	public static readonly string ThisAssemblyNameString = ThisAssembly.FullName;
 	public static readonly Assembly OtherAssembly = typeof(TestClassAttribute).Assembly;
+	public const string TestMessage = "[TestMessage]";
+	public const string TestPath = @"c:\test\my.json";
+	public const int CustomHResult = unchecked((int)0xa7ff1234);
+	public const string CustomHResultString = "0xa7ff1234";
+	public const string DefaultToStringFormat = "{0}: ({1}) {2}";
 }

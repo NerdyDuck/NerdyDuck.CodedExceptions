@@ -44,7 +44,7 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					List<Exception> exs = new() { ex, ex2 };
+					List<Exception> exs = [ex, ex2];
 					throw new CodedAggregateException(exs);
 				}
 			}
@@ -138,7 +138,7 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					List<Exception> exs = new() { ex, ex2 };
+					List<Exception> exs = [ex, ex2];
 					throw new CodedAggregateException(Globals.TestMessage, exs);
 				}
 			}
@@ -211,7 +211,7 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					List<Exception> exs = new() { ex, ex2 };
+					List<Exception> exs = [ex, ex2];
 					throw new CodedAggregateException(Globals.CustomHResult, exs);
 				}
 			}
@@ -305,7 +305,7 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					List<Exception> exs = new() { ex, ex2 };
+					List<Exception> exs = [ex, ex2];
 					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, exs);
 				}
 			}

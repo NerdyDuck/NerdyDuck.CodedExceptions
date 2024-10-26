@@ -14,7 +14,7 @@ public class AssemblyDebugModeCollectionTests
 	[TestMethod]
 	public void Add_Index_Remove_ByElement_Success()
 	{
-		AssemblyDebugModeCollection debugModeCollection = new();
+		AssemblyDebugModeCollection debugModeCollection = [];
 		AssemblyDebugModeElement debugModeElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,
@@ -31,7 +31,7 @@ public class AssemblyDebugModeCollectionTests
 	[TestMethod]
 	public void Add_Remove_ByName_Success()
 	{
-		AssemblyDebugModeCollection debugModeCollection = new();
+		AssemblyDebugModeCollection debugModeCollection = [];
 		AssemblyDebugModeElement debugModeElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,
@@ -48,7 +48,7 @@ public class AssemblyDebugModeCollectionTests
 	public void Add_Remove_ByIndex_Success()
 	{
 
-		AssemblyDebugModeCollection debugModeCollection = new();
+		AssemblyDebugModeCollection debugModeCollection = [];
 		AssemblyDebugModeElement debugModeElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,
@@ -64,7 +64,7 @@ public class AssemblyDebugModeCollectionTests
 	[TestMethod]
 	public void Clear_Success()
 	{
-		AssemblyDebugModeCollection debugModeCollection = new();
+		AssemblyDebugModeCollection debugModeCollection = [];
 		AssemblyDebugModeElement debugModeElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,

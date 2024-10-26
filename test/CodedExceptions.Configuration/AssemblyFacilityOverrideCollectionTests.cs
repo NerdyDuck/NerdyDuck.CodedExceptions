@@ -14,7 +14,7 @@ public class AssemblyFacilityOverrideCollectionTests
 	[TestMethod]
 	public void Add_Index_Remove_ByElement_Success()
 	{
-		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideCollection overrideCollection = [];
 		AssemblyFacilityOverrideElement overrideElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,
@@ -31,7 +31,7 @@ public class AssemblyFacilityOverrideCollectionTests
 	[TestMethod]
 	public void Add_Remove_ByName_Success()
 	{
-		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideCollection overrideCollection = [];
 		AssemblyFacilityOverrideElement overrideElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,
@@ -48,7 +48,7 @@ public class AssemblyFacilityOverrideCollectionTests
 	public void Add_Remove_ByIndex_Success()
 	{
 
-		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideCollection overrideCollection = [];
 		AssemblyFacilityOverrideElement overrideElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,
@@ -64,7 +64,7 @@ public class AssemblyFacilityOverrideCollectionTests
 	[TestMethod]
 	public void Clear_Success()
 	{
-		AssemblyFacilityOverrideCollection overrideCollection = new();
+		AssemblyFacilityOverrideCollection overrideCollection = [];
 		AssemblyFacilityOverrideElement overrideElement = new()
 		{
 			AssemblyName = Globals.ThisAssemblyNameString,

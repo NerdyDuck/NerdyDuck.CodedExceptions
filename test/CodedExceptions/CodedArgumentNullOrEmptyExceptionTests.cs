@@ -184,4 +184,56 @@ public class CodedArgumentNullOrEmptyExceptionTests
 			StringAssert.Contains(str, Globals.ParamName);
 		}
 	}
+
+	[TestMethod]
+	public void ThrowIfNullOrEmpty_Success()
+	{
+		string text = "Hi!";
+		CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text);
+		CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, Globals.CustomHResult);
+		text = "   ";
+		CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text);
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrEmpty_StringNull_Fail()
+	{
+		string text = string.Empty;
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text));
+		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrEmpty_StringString_Fail()
+	{
+		string argName = "myArg";
+		string text = string.Empty;
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, argName));
+		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		Assert.AreEqual(argName, ex.ParamName);
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrEmpty_StringIntNull_Fail()
+	{
+		string text = string.Empty;
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, Globals.CustomHResult));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(text), ex.ParamName);
+#endif
+	}
+
+	[TestMethod]
+	public void ThrowIfNullOrEmpty_StringIntString_Fail()
+	{
+		string argName = "myArg";
+		string text = string.Empty;
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, Globals.CustomHResult, argName));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		Assert.AreEqual(argName, ex.ParamName);
+	}
 }

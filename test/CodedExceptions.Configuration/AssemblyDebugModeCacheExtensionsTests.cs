@@ -226,7 +226,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void ParseJson_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsException<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.ParseJson(null);
@@ -252,7 +252,8 @@ public class AssemblyDebugModeCacheExtensionsTests
 		Assert.AreEqual(7, cache.Count);
 	}
 
-#if !NETFRAMEWORK && !NETSTANDARD20TEST
+#if !NETFRAMEWORK
+#if !NETSTANDARD20TEST
 	[TestMethod]
 	public void LoadJson_ReadOnlySequence_Success()
 	{
@@ -273,6 +274,23 @@ public class AssemblyDebugModeCacheExtensionsTests
 		Assert.AreEqual(7, cache.Count);
 	}
 
+	[TestMethod]
+	public void LoadJson_InvalidMemory_Throw()
+	{
+		using AssemblyDebugModeCache cache = new();
+		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
+		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms));
+	}
+
+	[TestMethod]
+	public void LoadJson_InvalidSequence_Throw()
+	{
+		using AssemblyDebugModeCache cache = new();
+		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
+		ReadOnlySequence<byte> ms2 = new(ms);
+		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms2));
+	}
+#endif
 	[TestMethod]
 	public void FromConfigurationSection_Success()
 	{
@@ -335,23 +353,6 @@ public class AssemblyDebugModeCacheExtensionsTests
 			  IConfiguration config = new ConfigurationBuilder().AddInMemoryCollection(modes).Build();
 			  _ = cache.LoadConfigurationSection(config.GetSection("debugModes"));
 		  });
-	}
-
-	[TestMethod]
-	public void LoadJson_InvalidMemory_Throw()
-	{
-		using AssemblyDebugModeCache cache = new();
-		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
-		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms));
-	}
-
-	[TestMethod]
-	public void LoadJson_InvalidSequence_Throw()
-	{
-		using AssemblyDebugModeCache cache = new();
-		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
-		ReadOnlySequence<byte> ms2 = new(ms);
-		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms2));
 	}
 #endif
 }

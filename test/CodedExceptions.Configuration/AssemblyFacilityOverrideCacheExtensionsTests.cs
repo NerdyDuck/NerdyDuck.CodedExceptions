@@ -211,7 +211,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void ParseJson_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsException<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.ParseJson(null);
@@ -237,7 +237,8 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		Assert.AreEqual(7, cache.Count);
 	}
 
-#if !NETFRAMEWORK && !NETSTANDARD20TEST
+#if !NETFRAMEWORK
+#if !NETSTANDARD20TEST
 	[TestMethod]
 	public void LoadJson_ReadOnlySequence_Success()
 	{
@@ -257,6 +258,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		_ = cache.LoadJson(buffer);
 		Assert.AreEqual(7, cache.Count);
 	}
+#endif
 
 	[TestMethod]
 	public void LoadConfigurationSection_Success()
