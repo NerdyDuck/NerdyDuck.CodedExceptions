@@ -2,7 +2,9 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-// Ignore Spelling: hresult
+#if NET5_0_OR_GREATER
+using System.Runtime.CompilerServices;
+#endif
 
 namespace NerdyDuck.CodedExceptions;
 
@@ -126,4 +128,45 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// </summary>
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace. </returns>
 	public override string ToString() => HResultHelper.CreateToString(this, null);
+
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
+	/// <summary>
+	/// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// </summary>
+	/// <param name="argument">The reference type argument to validate as non-null.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+#if NET5_0_OR_GREATER
+	public static new void ThrowIfNull(object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
+#else
+	public static new void ThrowIfNull(object? argument, string? paramName = default)
+#endif
+	{
+		if (argument is null)
+		{
+			throw new CodedArgumentNullException(paramName);
+		}
+	}
+
+	/// <summary>
+	/// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// </summary>
+	/// <param name="argument">The reference type argument to validate as non-null.</param>
+	/// <param name="hresult">The HRESULT that describes the error.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+#if NET5_0_OR_GREATER
+	public static void ThrowIfNull(object? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
+#else
+	public static void ThrowIfNull(object? argument, int hresult, string? paramName = default)
+#endif
+	{
+		if (argument is null)
+		{
+			throw new CodedArgumentNullException(hresult, paramName);
+		}
+	}
+#pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 }

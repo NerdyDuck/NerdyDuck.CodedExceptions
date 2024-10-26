@@ -2,6 +2,10 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if NET5_0_OR_GREATER
+using System.Runtime.CompilerServices;
+#endif
+
 namespace NerdyDuck.CodedExceptions;
 
 /// <summary>
@@ -19,7 +23,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// </summary>
 	/// <remarks>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null oe empty." This message takes into account the current system culture.</remarks>
 	public CodedArgumentNullOrWhiteSpaceException()
-		: base(TextResources.CodedArgumentNullOrWhiteSpaceException_Message)
+		: base(SR.CodedArgumentNullOrWhiteSpaceException_Message)
 	{
 	}
 
@@ -30,7 +34,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null oe empty." This message takes into account the current system culture.</para>
 	/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using the <paramref name="paramName"/> parameter. The content of <paramref name="paramName"/> is intended to be understood by humans.</para></remarks>
 	public CodedArgumentNullOrWhiteSpaceException(string? paramName)
-		: base(TextResources.CodedArgumentNullOrWhiteSpaceException_Message, paramName)
+		: base(SR.CodedArgumentNullOrWhiteSpaceException_Message, paramName)
 	{
 	}
 
@@ -80,7 +84,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedArgumentNullOrWhiteSpaceException(int hresult)
-		: base(TextResources.CodedArgumentNullOrWhiteSpaceException_Message) => HResult = hresult;
+		: base(SR.CodedArgumentNullOrWhiteSpaceException_Message) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified HRESULT value and the name of the parameter that causes this exception.
@@ -92,7 +96,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedArgumentNullOrWhiteSpaceException(int hresult, string? paramName)
-		: base(TextResources.CodedArgumentNullOrWhiteSpaceException_Message, paramName) => HResult = hresult;
+		: base(SR.CodedArgumentNullOrWhiteSpaceException_Message, paramName) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with a specified HRESULT value, an error message and a reference to the inner exception that is the cause of this exception.
@@ -124,4 +128,46 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// </summary>
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace. </returns>
 	public override string ToString() => HResultHelper.CreateToString(this, null);
+
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
+	/// <summary>
+	/// Throws an exception if <paramref name="argument"/> is <see langword="null"/>, empty, or consists only of white-space characters.
+	/// </summary>
+	/// <param name="argument">The string argument to validate.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullOrWhiteSpaceException"><paramref name="argument"/> is <see langword="null"/>, empty or consists only of white-space characters.</exception>
+#if NET5_0_OR_GREATER
+	public static new void ThrowIfNullOrWhiteSpace(string? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
+#else
+	public static void ThrowIfNullOrWhiteSpace(string? argument, string? paramName = default)
+#endif
+	{
+		if (string.IsNullOrWhiteSpace(argument))
+		{
+			throw new CodedArgumentNullOrWhiteSpaceException(paramName);
+		}
+	}
+
+
+	/// <summary>
+	/// Throws an exception if <paramref name="argument"/> is <see langword="null"/>, empty, or consists only of white-space characters.
+	/// </summary>
+	/// <param name="argument">The string argument to validate.</param>
+	/// <param name="hresult">The HRESULT that describes the error.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullOrWhiteSpaceException"><paramref name="argument"/> is <see langword="null"/>, empty or consists only of white-space characters.</exception>
+#if NET5_0_OR_GREATER
+	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
+#else
+	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, string? paramName = default)
+#endif
+	{
+		if (string.IsNullOrWhiteSpace(argument))
+		{
+			throw new CodedArgumentNullOrWhiteSpaceException(hresult, paramName);
+		}
+	}
+#pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 }

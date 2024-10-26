@@ -2,7 +2,9 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-// Ignore Spelling: hresult
+#if NET5_0_OR_GREATER
+using System.Runtime.CompilerServices;
+#endif
 
 namespace NerdyDuck.CodedExceptions;
 
@@ -16,6 +18,8 @@ namespace NerdyDuck.CodedExceptions;
 [CodedException]
 public class CodedArgumentException : ArgumentException
 {
+	internal const int COR_E_ARGUMENT = unchecked((int)0x80070057);
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentException"/> class.
 	/// </summary>
@@ -151,4 +155,96 @@ public class CodedArgumentException : ArgumentException
 	/// </summary>
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace. </returns>
 	public override string ToString() => HResultHelper.CreateToString(this, null);
+
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
+	/// <summary>
+	/// Throws an exception if <paramref name="argument"/> is <see langword="null"/> or empty.
+	/// </summary>
+	/// <param name="argument">The string argument to validate as non-<see langword="null"/> and non-empty.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty.</exception>
+#if NET5_0_OR_GREATER
+	public static new void ThrowIfNullOrEmpty(string? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrEmptyException(argument, null, paramName);
+#else
+	public static new void ThrowIfNullOrEmpty(string? argument, string? paramName = default) => ThrowNullOrEmptyException(argument, null, paramName);
+#endif
+
+	/// <summary>
+	/// Throws an exception if <paramref name="argument"/> is <see langword="null"/> or empty.
+	/// </summary>
+	/// <param name="argument">The string argument to validate as non-<see langword="null"/> and non-empty.</param>
+	/// <param name="hresult">The HRESULT that describes the error.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty.</exception>
+#if NET5_0_OR_GREATER
+	public static void ThrowIfNullOrEmpty(string? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrEmptyException(argument, hresult, paramName);
+#else
+	public static void ThrowIfNullOrEmpty(string? argument, int hresult, string? paramName = default) => ThrowNullOrEmptyException(argument, hresult, paramName);
+#endif
+
+	/// <summary>
+	/// Throws an exception if <paramref name="argument"/> is <see langword="null"/>, empty, or consists only of white-space characters.
+	/// </summary>
+	/// <param name="argument">The string argument to validate.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty or consists only of white-space characters.</exception>
+#if NET5_0_OR_GREATER
+	public static new void ThrowIfNullOrWhiteSpace(string? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, null, paramName);
+#else
+	public static new void ThrowIfNullOrWhiteSpace(string? argument, string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, null, paramName);
+#endif
+
+	/// <summary>
+	/// Throws an exception if <paramref name="argument"/> is <see langword="null"/>, empty, or consists only of white-space characters.
+	/// </summary>
+	/// <param name="argument">The string argument to validate.</param>
+	/// <param name="hresult">The HRESULT that describes the error.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty or consists only of white-space characters.</exception>
+#if NET5_0_OR_GREATER
+	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, hresult, paramName);
+#else
+	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, hresult, paramName);
+#endif
+#pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
+#pragma warning restore IDE0079 // Remove unnecessary suppression
+
+	private static void ThrowNullOrEmptyException(string? argument, int? hresult, string? paramName)
+	{
+		if (string.IsNullOrEmpty(argument))
+		{
+			if (hresult is null)
+			{
+				CodedArgumentNullException.ThrowIfNull(argument, paramName);
+				throw new CodedArgumentException(SR.CodedArgumentException_EmptyMessage, paramName);
+			}
+			else
+			{
+				CodedArgumentNullException.ThrowIfNull(argument, hresult.Value, paramName);
+				throw new CodedArgumentException(hresult.Value, SR.CodedArgumentException_EmptyMessage, paramName);
+			}
+		}
+	}
+
+	private static void ThrowNullOrWhiteSpaceException(string? argument, int? hresult, string? paramName)
+	{
+		if (string.IsNullOrWhiteSpace(argument))
+		{
+			if (hresult is null)
+			{
+				CodedArgumentNullException.ThrowIfNull(argument, paramName);
+				throw new CodedArgumentException(SR.CodedArgumentException_WhitespaceMessage, paramName);
+			}
+			else
+			{
+				CodedArgumentNullException.ThrowIfNull(argument, hresult.Value, paramName);
+				throw new CodedArgumentException(hresult.Value, SR.CodedArgumentException_WhitespaceMessage, paramName);
+			}
+		}
+	}
 }
