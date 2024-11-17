@@ -30,7 +30,7 @@ public class CodedAggregateException : AggregateException
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error,
 	/// such as "One or more errors occurred." This message takes into account the current system culture.</remarks>
 	public CodedAggregateException()
-		: base()
+		: base(SR.AggregateException_Message)
 	{
 	}
 
@@ -41,7 +41,7 @@ public class CodedAggregateException : AggregateException
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 	public CodedAggregateException(IEnumerable<Exception> innerExceptions)
-		: base(innerExceptions)
+		: base(SR.AggregateException_Message, innerExceptions)
 	{
 	}
 
@@ -52,7 +52,7 @@ public class CodedAggregateException : AggregateException
 	/// <exception cref="ArgumentNullException">The <paramref name="innerExceptions"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 	public CodedAggregateException(params Exception[] innerExceptions)
-		: base(innerExceptions)
+		: base(SR.AggregateException_Message, innerExceptions)
 	{
 	}
 
@@ -123,7 +123,7 @@ public class CodedAggregateException : AggregateException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult)
-		: base() => HResult = hresult;
+		: base(SR.AggregateException_Message) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value and references to the inner exceptions that are the cause of this exception.
@@ -135,7 +135,7 @@ public class CodedAggregateException : AggregateException
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, IEnumerable<Exception> innerExceptions)
-		: base(innerExceptions) => HResult = hresult;
+		: base(SR.AggregateException_Message, innerExceptions) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value and references to the inner exceptions that are the cause of this exception.
@@ -147,7 +147,7 @@ public class CodedAggregateException : AggregateException
 	/// <exception cref="ArgumentException">An element of <paramref name="innerExceptions"/> is <see langword="null"/>.</exception>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedAggregateException(int hresult, params Exception[] innerExceptions)
-		: base(innerExceptions) => HResult = hresult;
+		: base(SR.AggregateException_Message, innerExceptions) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedAggregateException"/> class with a specified HRESULT value and a message that describes the error.
@@ -206,7 +206,7 @@ public class CodedAggregateException : AggregateException
 		string customText = string.Empty;
 		for (int i = 0; i < base.InnerExceptions.Count; i++)
 		{
-			customText = string.Format(CultureInfo.InvariantCulture, CompositeFormatCache.Default.Get(SR.CodedAggregateException_ToString),
+			customText = CompositeFormatCache.Default.Format(nameof(SR.CodedAggregateException_ToString),
 				customText, Environment.NewLine, i, InnerExceptions[i].ToString());
 		}
 

@@ -26,7 +26,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// </summary>
 	/// <remarks>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "Nonnegative number required." This message takes into account the current system culture.</remarks>
 	public CodedArgumentOutOfRangeException()
-		: base()
+		: base(null, SR.Arg_ArgumentOutOfRangeException)
 	{
 	}
 
@@ -37,7 +37,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Nonnegative number required." This message takes into account the current system culture.</para>
 	/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using the <paramref name="paramName"/> parameter. The content of <paramref name="paramName"/> is intended to be understood by humans.</para></remarks>
 	public CodedArgumentOutOfRangeException(string? paramName)
-		: base(paramName)
+		: base(paramName, SR.Arg_ArgumentOutOfRangeException)
 	{
 	}
 
@@ -101,7 +101,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedArgumentOutOfRangeException(int hresult)
-		: base() => HResult = hresult;
+		: base(null, SR.Arg_ArgumentOutOfRangeException) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentOutOfRangeException"/> class with a specified HRESULT value and the name of the parameter that causes this exception.
@@ -113,7 +113,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedArgumentOutOfRangeException(int hresult, string? paramName)
-		: base(paramName) => HResult = hresult;
+		: base(paramName, SR.Arg_ArgumentOutOfRangeException) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentOutOfRangeException"/> class with a specified HRESULT value, an error message and a reference to the inner exception that is the cause of this exception.
@@ -167,6 +167,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as not equal to <paramref name="other"/>.</param>
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static new void ThrowIfEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
@@ -176,7 +177,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (EqualityComparer<T>.Default.Equals(value, other))
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNotEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNotEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
 		}
 	}
 
@@ -187,6 +188,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static void ThrowIfEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
@@ -196,7 +198,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (EqualityComparer<T>.Default.Equals(value, other))
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNotEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNotEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
 		}
 	}
 
@@ -206,6 +208,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as less or equal than <paramref name="other"/>.</param>
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static new void ThrowIfGreaterThan<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -215,7 +218,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) > 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeLessOrEqual), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeLessOrEqual), paramName, value, other));
 		}
 	}
 
@@ -226,6 +229,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static void ThrowIfGreaterThan<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -235,7 +239,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) > 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeLessOrEqual), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeLessOrEqual), paramName, value, other));
 		}
 	}
 
@@ -245,6 +249,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as less than <paramref name="other"/>.</param>
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than or equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static new void ThrowIfGreaterThanOrEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -254,7 +259,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) >= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeLess), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeLess), paramName, value, other));
 		}
 	}
 
@@ -265,6 +270,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than or equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static void ThrowIfGreaterThanOrEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -274,7 +280,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) >= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeLess), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeLess), paramName, value, other));
 		}
 	}
 
@@ -285,6 +291,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="minimum">The minimum value that is valid for <paramref name="value"/>.</param>
 	/// <param name="maximum">The maximum value that is valid for <paramref name="value"/>.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="minimum"/> or greater than <paramref name="maximum"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static new void ThrowIfLessOrGreaterThan<T>(T value, T minimum, T maximum, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -294,7 +301,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(minimum) < 0 || value.CompareTo(maximum) > 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustNotBeOutOfRange), paramName, value, minimum, maximum));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustNotBeOutOfRange), paramName, value, minimum, maximum));
 		}
 	}
 
@@ -306,6 +313,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="maximum">The maximum value that is valid for <paramref name="value"/>.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="minimum"/> or greater than <paramref name="maximum"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static void ThrowIfLessOrGreaterThan<T>(T value, T minimum, T maximum, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -315,7 +323,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(minimum) < 0 || value.CompareTo(maximum) > 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustNotBeOutOfRange), paramName, value, minimum, maximum));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustNotBeOutOfRange), paramName, value, minimum, maximum));
 		}
 	}
 
@@ -325,6 +333,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as greater than or equal to <paramref name="other"/>.</param>
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static new void ThrowIfLessThan<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -334,7 +343,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeGreaterOrEqual), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeGreaterOrEqual), paramName, value, other));
 		}
 	}
 
@@ -345,6 +354,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static void ThrowIfLessThan<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -354,7 +364,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeGreaterOrEqual), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeGreaterOrEqual), paramName, value, other));
 		}
 	}
 
@@ -364,6 +374,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as greater than <paramref name="other"/>.</param>
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static new void ThrowIfLessThanOrEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -373,7 +384,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeGreater), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeGreater), paramName, value, other));
 		}
 	}
 
@@ -384,6 +395,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static void ThrowIfLessThanOrEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
@@ -393,7 +405,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value.CompareTo(other) <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeGreater), paramName, value, other));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeGreater), paramName, value, other));
 		}
 	}
 
@@ -403,6 +415,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as equal to <paramref name="other"/>.</param>
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is not equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static new void ThrowIfNotEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
@@ -412,7 +425,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (!EqualityComparer<T>.Default.Equals(value, other))
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
 		}
 	}
 
@@ -423,6 +436,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="other">The value to compare with <paramref name="value"/>.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is not equal to <paramref name="other"/>.</exception>
 #if NET5_0_OR_GREATER
 	public static void ThrowIfNotEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
@@ -432,7 +446,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (!EqualityComparer<T>.Default.Equals(value, other))
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeEqual), paramName, (object?)value ?? "null", (object?)other ?? "null"));
 		}
 	}
 
@@ -442,12 +456,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// </summary>
 	/// <param name="value">The argument to validate as non-negative.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is negative.</exception>
 	public static new void ThrowIfNegative<T>(T value, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.INumberBase<T>
 	{
 		if (T.IsNegative(value))
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -457,12 +472,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as non-negative.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is negative.</exception>
 	public static void ThrowIfNegative<T>(T value, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.INumberBase<T>
 	{
 		if (T.IsNegative(value))
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -471,12 +487,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// </summary>
 	/// <param name="value">The argument to validate as non-zero or non-negative.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is negative or zero.</exception>
 	public static new void ThrowIfNegativeOrZero<T>(T value, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.INumberBase<T>
 	{
 		if (T.IsNegative(value) || T.IsZero(value))
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -486,12 +503,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as non-zero or non-negative.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is negative or zero.</exception>
 	public static void ThrowIfNegativeOrZero<T>(T value, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.INumberBase<T>
 	{
 		if (T.IsNegative(value) || T.IsZero(value))
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -501,12 +519,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as non-negative.</param>
 	/// <param name="multiple">The value that <paramref name="value"/> must be a multiple of.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is negative.</exception>
 	public static new void ThrowIfNotMultiple<T>(T value, T multiple, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.IBinaryInteger<T>
 	{
 		if ((value % multiple) != T.Zero)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -517,12 +536,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="multiple">The value that <paramref name="value"/> must be a multiple of.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is negative.</exception>
 	public static void ThrowIfNotMultiple<T>(T value, T multiple, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.IBinaryInteger<T>
 	{
 		if ((value % multiple) != T.Zero)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -531,12 +551,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// </summary>
 	/// <param name="value">The argument to validate as non-zero.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is zero.</exception>
 	public static new void ThrowIfZero<T>(T value, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.INumberBase<T>
 	{
 		if (T.IsZero(value))
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -546,12 +567,13 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="value">The argument to validate as non-zero.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
+	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is zero.</exception>
 	public static void ThrowIfZero<T>(T value, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : System.Numerics.INumberBase<T>
 	{
 		if (T.IsZero(value))
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 #else
@@ -566,7 +588,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -582,7 +604,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 	/// <summary>
@@ -595,7 +617,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -610,7 +632,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -624,7 +646,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -639,7 +661,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -653,7 +675,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -668,7 +690,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -682,7 +704,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -697,7 +719,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -711,7 +733,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -726,7 +748,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value < 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegative), paramName, value));
 		}
 	}
 
@@ -741,7 +763,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -757,7 +779,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -771,7 +793,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -786,7 +808,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -800,7 +822,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -815,7 +837,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -829,7 +851,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -844,7 +866,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -858,7 +880,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -873,7 +895,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -887,7 +909,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -902,7 +924,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value <= 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonNegativeNonZero), paramName, value));
 		}
 	}
 
@@ -917,7 +939,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -933,7 +955,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -948,7 +970,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -964,7 +986,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -979,7 +1001,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -995,7 +1017,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1010,7 +1032,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1026,7 +1048,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1042,7 +1064,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1059,7 +1081,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1075,7 +1097,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1092,7 +1114,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1108,7 +1130,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1125,7 +1147,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1141,7 +1163,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1158,7 +1180,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if ((value % multiple) != 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeMultiple), paramName, value, multiple));
 		}
 	}
 
@@ -1173,7 +1195,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1189,7 +1211,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1203,7 +1225,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1218,7 +1240,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1232,7 +1254,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1247,7 +1269,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1261,7 +1283,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1276,7 +1298,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1290,7 +1312,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1305,7 +1327,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1319,7 +1341,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1334,7 +1356,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1348,7 +1370,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1363,7 +1385,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1378,7 +1400,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1394,7 +1416,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1409,7 +1431,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1425,7 +1447,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1440,7 +1462,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1456,7 +1478,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1470,7 +1492,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 
@@ -1485,7 +1507,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 		if (value == 0)
 		{
-			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
+			throw new CodedArgumentOutOfRangeException(hresult, paramName, value, CompositeFormatCache.Default.Format(nameof(SR.ArgumentOutOfRange_MustBeNonZero), paramName, value));
 		}
 	}
 #endif

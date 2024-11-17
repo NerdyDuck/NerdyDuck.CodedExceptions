@@ -1,30 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="511edc3b-15cc-4b17-bd52-91096110d05b" revisionNumber="1">
+<topic id="3f49209e-6e61-4623-bd92-47caa0808f2e" revisionNumber="1">
 	<developerConceptualDocument
 		xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
 		xmlns:xlink="http://www.w3.org/1999/xlink">
+
 		<introduction>
 			<para>This section specifies the programming platforms that the libraries are targeting, and the packages that contain the libraries.</para>
 		</introduction>
 
 		<section address="Platforms">
-			<title>Platforms</title>
+			<title>Target Platforms</title>
 			<content>
-				<para>The project is aimed at three platforms:</para>
+				<para>The project is currently built for five target platforms:</para>
 				<list class="bullet">
 					<listItem>
-						<para>The Universal Windows Platform (UWP) for Windows® 10 and later, to be used in Windows® Store Apps and Windows® 10 IoT.</para>
+						<para>.NET 6 (net6.0)</para>
 					</listItem>
 					<listItem>
-						<para>The .NET Core 1.0 platform for platform independent projects, e.g. with ASP.NET Core.</para>
+						<para>.NET 8 (net8.0)</para>
 					</listItem>
 					<listItem>
-						<para>Classic desktop applications using .NET Framework 4.6.0 and later, for services and desktop clients.</para>
+						<para>.NET 9 (net9.0)</para>
+					</listItem>
+					<listItem>
+						<para>.NET Framework 4.7.2 and higher (net472) for classic desktop applications and services.</para>
+					</listItem>
+					<listItem>
+						<para>.NET Standard 2.0 (netstandard2.0) for any other platform not covered by the previous.</para>					
 					</listItem>
 				</list>
 				<para>
-					To use the full potential of both platforms, while avoiding redundant duplication of code, the source code of all classes resides in the .NET Core project (CodedExceptionsCore) and is linked into the desktop and UWP projects (CodedExceptionsDesktop, CodedExceptionsUniversal), with the exception of some types that are specific to the individual platform, namely the Configuration namespace.
-					Differences between the platforms in shared types (mainly the ability to serialize classes in desktop applications) are included (or excluded) using the WINDOWS_DESKTOP, WINDOWS_UWP and NETCORE conditional compilation symbols.
+					While the libraries are almost identical in functionality for every platform, there are some differences, to provide the best possible support for every platform,
+					and also adhere to best practices for every platform.
+					For example, while the versions for net472 and netstandard2.0 support serialization via SerializableAttribute and ISerializable, the other platforms do not,
+					at is is being considered deprecated. On the other hand, versions for net60, net80 and net90 have methods to read configurations from Spans.
+					All versions support ThrowIf* methods on various Exception classes that were incrementally introduced beginning with net50.
 				</para>
 			</content>
 		</section>
@@ -33,65 +43,51 @@
 			<title>Packages</title>
 			<content>
 				<para>
-					The project creates several NuGet packages.
-					Use the NuGet package from my MyGet feed: https://www.myget.org/F/nerdyduck-release/api/v3/index.json.
-					The package is designed to reference the assemblies matching your project type.
-					If you need to debug the library, get the debug symbols from the same feed: https://www.myget.org/F/nerdyduck-release/symbols/.
+					The project creates several NuGet packages that can be found on nuget.org.
+					For debugging purposes, the packages support the SourceLink standard to access the sources on GitHub, but symbol packages (.snupkg) are also available on nuget.org
 				</para>
 				<para>Download the binaries from the Releases page.</para>
 				<list class="bullet">
 					<listItem>
-						<para>The Universal Windows Platform (UWP) for Windows® 10 and later, to be used in Windows® Store Apps and Windows® 10 IoT.</para>
+						<para>NerdyDuck.CodedExceptions is the central package and library containing the exceptions and accompanying helper classes, and configuration options (for facility identifier overrides and the debug mode) via XML files.</para>
 					</listItem>
 					<listItem>
-						<para>The .NET Core 1.0 platform for platform independent projects, e.g. with ASP.NET Core.</para>
+						<para>NerdyDuck.CodedExceptions.Configuration.AppConfig expands the configuration options to classic app.config/web.config files.</para>
 					</listItem>
 					<listItem>
-						<para>Classic desktop applications using .NET Framework 4.6.0 and later, for services and desktop clients.</para>
+						<para>NerdyDuck.CodedExceptions.Configuration.ConfigSection expands the configuration options to support IConfiguration (Microsoft.Extensions.Configuration).</para>
+					</listItem>
+					<listItem>
+						<para>NerdyDuck.CodedExceptions.Configuration.Json expands the configuration options to simple JSON files.</para>
 					</listItem>
 				</list>
 				<para>
-					All packages contain the assemblies for all platforms, as well as IntelliSense XML files. The UAP assemblies are available for the x86, x64 and ARM platforms. The desktop and core assemblies are compiled for "any platform".
+					All packages contain the assemblies for all platforms, as well as IntelliSense XML files.
 				</para>
 			</content>
 		</section>
 
-		<relatedTopics>
-			<!-- One or more of the following:
-					 - A local link
-					 - An external link
-					 - A code entity reference
+		<section address="Languages">
+			<title>Languages - Localization</title>
+			<content>
+				<para>
+					While texts in the Base Class Libraries (BCL) - mainly exception messages - are localized in .NET Framework, .NET Core and later only supplies English text resources.
+					The reasoning to remove the other languages seems to be that Microsoft does not expect exception messages to be visible for the end user.
+				</para>
+				<para>
+					I do not expect this to always be the case, and I do not expect every service professional in the world to be proficient in English.
+					That is why I provide localizations of all texts in the libraries. Unfortunately, at the time being, only in English (en-us) and German (de), both included in the NuGet package.
+				</para>
+				<para>
+					If you feel that it needs more languages, and are able to help, please contact me, or just clone the repository, add the translation, and send a pull request.
+				</para>
+				<para>
+					If you only need the English version (included in the base libraries), just remove the other resource libraries (*.resources.dll) from your build output.
+				</para>
+			</content>
+		</section>
 
-			<link xlink:href="Other Topic's ID"/>
-			<link xlink:href="Other Topic's ID">Link inner text</link>
+		<relatedTopics></relatedTopics>
 
-			<externalLink>
-					<linkText>Link text</linkText>
-					<linkAlternateText>Optional alternate link text</linkAlternateText>
-					<linkUri>URI</linkUri>
-			</externalLink>
-
-			<codeEntityReference>API member ID</codeEntityReference>
-
-			Examples:
-
-			<link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8270" />
-			<link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8278">Some other topic</link>
-
-			<externalLink>
-					<linkText>SHFB on GitHub</linkText>
-					<linkAlternateText>Go to GitHub</linkAlternateText>
-					<linkUri>https://GitHub.com/EWSoftware/SHFB</linkUri>
-			</externalLink>
-
-			<codeEntityReference>T:TestDoc.TestClass</codeEntityReference>
-			<codeEntityReference>P:TestDoc.TestClass.SomeProperty</codeEntityReference>
-			<codeEntityReference>M:TestDoc.TestClass.#ctor</codeEntityReference>
-			<codeEntityReference>M:TestDoc.TestClass.#ctor(System.String,System.Int32)</codeEntityReference>
-			<codeEntityReference>M:TestDoc.TestClass.ToString</codeEntityReference>
-			<codeEntityReference>M:TestDoc.TestClass.FirstMethod</codeEntityReference>
-			<codeEntityReference>M:TestDoc.TestClass.SecondMethod(System.Int32,System.String)</codeEntityReference>
-			-->
-		</relatedTopics>
 	</developerConceptualDocument>
 </topic>

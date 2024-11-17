@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AggregateException_Message" xml:space="preserve">
+    <value>Mindestens ein Fehler ist aufgetreten.</value>
+  </data>
+  <data name="ArgumentNull_Generic" xml:space="preserve">
+    <value>Der Wert darf nicht NULL sein.</value>
+  </data>
   <data name="ArgumentOutOfRange_MustBeEqual" xml:space="preserve">
     <value>{0} ('{1}') muss gleich sein zu '{2}'.</value>
   </data>
@@ -150,6 +156,39 @@
   <data name="ArgumentOutOfRange_MustNotBeOutOfRange" xml:space="preserve">
     <value>{0} ('{1}') darf nicht kleiner sein als '{2}', und nicht größer als '{3}'.</value>
   </data>
+  <data name="Argument_EmptyOrWhiteSpaceString" xml:space="preserve">
+    <value>Der Wert darf keine leere Zeichenkette sein, oder nur nicht-druckbare Zeichen beinhalten.</value>
+  </data>
+  <data name="Argument_EmptyString" xml:space="preserve">
+    <value>Der Wert darf keine leere Zeichenkette sein.</value>
+  </data>
+  <data name="ArgumentException_Message" xml:space="preserve">
+    <value>Der Wert liegt außerhalb des erwarteten Bereichs.</value>
+  </data>
+  <data name="Arg_ArgumentOutOfRangeException" xml:space="preserve">
+    <value>Das angegebene Argument liegt außerhalb des gültigen Wertebereichs.</value>
+  </data>
+  <data name="Arg_FormatException" xml:space="preserve">
+    <value>Ein identifiziertes Element hat ein ungültiges Format.</value>
+  </data>
+  <data name="Arg_InvalidCastException" xml:space="preserve">
+    <value>Die angegebene Umwandlung ist ungültig.</value>
+  </data>
+  <data name="Arg_InvalidOperationException" xml:space="preserve">
+    <value>Der Vorgang ist aufgrund des aktuellen Zustands des Objekts ungültig.</value>
+  </data>
+  <data name="Arg_IOException" xml:space="preserve">
+    <value>Ein E/A-Fehler ist aufgetreten.</value>
+  </data>
+  <data name="Arg_NotSupportedException" xml:space="preserve">
+    <value>Die angegebene Methode wird nicht unterstützt.</value>
+  </data>
+  <data name="Arg_TimeoutException" xml:space="preserve">
+    <value>Timeout für den Vorgang wurde überschritten.</value>
+  </data>
+  <data name="Arg_TypeLoadException" xml:space="preserve">
+    <value>Fehler beim Laden eines Typs.</value>
+  </data>
   <data name="AssemblyIdentifier_VersionInvalid" xml:space="preserve">
     <value>Die Versions-Nummer der Assembly-Identifikation ist ungültig.</value>
   </data>
@@ -162,23 +201,20 @@
   <data name="CodedAggregateException_ToString" xml:space="preserve">
     <value>{0}{1}---&amp;gt; (Interne Ausnahme #{2}) {3}&amp;lt;---{1}</value>
   </data>
-  <data name="CodedArgumentException_EmptyMessage" xml:space="preserve">
-    <value>Argument darf keine leere Zeichenkette sein.</value>
-  </data>
-  <data name="CodedArgumentException_WhitespaceMessage" xml:space="preserve">
-    <value>Argument darf nicht null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
-  </data>
   <data name="CodedArgumentNullOrEmptyException_Message" xml:space="preserve">
-    <value>Argument darf nicht null oder leer sein.</value>
+    <value>Der Wert darf nicht NULL sein, oder nur nicht-druckbare Zeichen beinhalten.</value>
   </data>
   <data name="CodedArgumentNullOrWhiteSpaceException_Message" xml:space="preserve">
-    <value>Argument darf nicht null oder leer sein, oder nur nicht-druckbare Zeichen enthalten.</value>
+    <value>Der Wert darf nicht NULL oder eine leere Zeichenkette sein, oder nur nicht-druckbare Zeichen beinhalten.</value>
+  </data>
+  <data name="CodedCommunicationException_Message" xml:space="preserve">
+    <value>Eine Kommunikations-Ausnahme wurde ausgelöst.</value>
   </data>
   <data name="CodedDataException_Message" xml:space="preserve">
-    <value>Die Daten sind ungültig.</value>
+    <value>Eine Daten-Ausnahme wurde ausgelöst.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_Message" xml:space="preserve">
-    <value>Das angegebene Verzeichnis wurde nicht gefunden.</value>
+    <value>Es wurde versucht, auf einen Pfad zuzugreifen, der sich nicht auf dem Laufwerk befindet.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_MessageDirectory" xml:space="preserve">
     <value>Das Verzeichnis '{0}' konnte nicht gefunden werden.</value>
@@ -204,6 +240,9 @@
   <data name="ctor_NotAssemblyIdentifier" xml:space="preserve">
     <value>Serialisierte Daten beinhalten kein Objekt vom Typ AssemblyIdentifier.</value>
   </data>
+  <data name="Exception_WasThrown" xml:space="preserve">
+    <value>Eine Ausnahme vom Typ "{0}" wurde ausgelöst.</value>
+  </data>
   <data name="FacilityId_OutOfRange" xml:space="preserve">
     <value>Die Facility-ID muß zwischen 0 und 2047 liegen.</value>
   </data>
@@ -212,6 +251,9 @@
   </data>
   <data name="FromXml_IsEnabledInvalid" xml:space="preserve">
     <value>IsEnabled-Einstellung für Assembly '{0}' ist ungültig.</value>
+  </data>
+  <data name="GenericInvalidData" xml:space="preserve">
+    <value>Beim Dekodieren wurden ungültige Daten gefunden.</value>
   </data>
   <data name="Global_DirectoryName" xml:space="preserve">
     <value>Verzeichnis-Name: '{0}'</value>
@@ -228,6 +270,9 @@
   <data name="InsufficientStorageSpaceException_MessagePath" xml:space="preserve">
     <value>Nicht genügend freier Platz im Datenspeicher '{0}'.</value>
   </data>
+  <data name="IO_FileNotFound" xml:space="preserve">
+    <value>Die angegebene Datei konnte nicht gefunden werden.</value>
+  </data>
   <data name="Load_AssemblyNameInvalid" xml:space="preserve">
     <value>Assembly-Name '{0}' ist ungültig.</value>
   </data>
@@ -239,5 +284,14 @@
   </data>
   <data name="Load_StreamNoRead" xml:space="preserve">
     <value>Der Stream unterstützt keine Lese-Vorgänge.</value>
+  </data>
+  <data name="ObjectDisposed_Generic" xml:space="preserve">
+    <value>Auf das verworfene Objekt kann nicht zugegriffen werden.</value>
+  </data>
+  <data name="SerializationException" xml:space="preserve">
+    <value>Serialisierungs-Fehler.</value>
+  </data>
+  <data name="Xml_DefaultException" xml:space="preserve">
+    <value>Ein XML-Fehler ist aufgetreten.</value>
   </data>
 </root>

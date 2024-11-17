@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 #if NET5_0_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 #endif
 
@@ -23,7 +24,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// </summary>
 	/// <remarks>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null." This message takes into account the current system culture.</remarks>
 	public CodedArgumentNullException()
-		: base()
+		: base(null, SR.ArgumentNull_Generic)
 	{
 	}
 
@@ -34,7 +35,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <remarks><para>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Argument cannot be null." This message takes into account the current system culture.</para>
 	/// <para>This constructor initializes the <see cref="ArgumentException.ParamName"/> property of the new instance using the <paramref name="paramName"/> parameter. The content of <paramref name="paramName"/> is intended to be understood by humans.</para></remarks>
 	public CodedArgumentNullException(string? paramName)
-		: base(paramName)
+		: base(paramName, SR.ArgumentNull_Generic)
 	{
 	}
 
@@ -84,7 +85,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedArgumentNullException(int hresult)
-		: base() => HResult = hresult;
+		: base(null, SR.ArgumentNull_Generic) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentNullException"/> class with a specified HRESULT value and the name of the parameter that causes this exception.
@@ -96,7 +97,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedArgumentNullException(int hresult, string? paramName)
-		: base(paramName) => HResult = hresult;
+		: base(paramName, SR.ArgumentNull_Generic) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentNullException"/> class with a specified HRESULT value, an error message and a reference to the inner exception that is the cause of this exception.
@@ -132,13 +133,13 @@ public class CodedArgumentNullException : ArgumentNullException
 #pragma warning disable IDE0079 // Remove unnecessary suppression
 #pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
 	/// <summary>
-	/// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// Throws an <see cref="CodedArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
 	/// </summary>
 	/// <param name="argument">The reference type argument to validate as non-null.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 #if NET5_0_OR_GREATER
-	public static new void ThrowIfNull(object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
+	public static new void ThrowIfNull([NotNull] object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
 #else
 	public static new void ThrowIfNull(object? argument, string? paramName = default)
 #endif
@@ -150,19 +151,95 @@ public class CodedArgumentNullException : ArgumentNullException
 	}
 
 	/// <summary>
-	/// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// Throws an <see cref="CodedArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
 	/// </summary>
 	/// <param name="argument">The reference type argument to validate as non-null.</param>
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 #if NET5_0_OR_GREATER
-	public static void ThrowIfNull(object? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
+	public static void ThrowIfNull([NotNull] object? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
 #else
 	public static void ThrowIfNull(object? argument, int hresult, string? paramName = default)
 #endif
 	{
 		if (argument is null)
+		{
+			throw new CodedArgumentNullException(hresult, paramName);
+		}
+	}
+
+	/// <summary>
+	/// Throws an <see cref="CodedArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// </summary>
+	/// <param name="argument">The pointer argument to validate as non-null.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+	[CLSCompliant(false)]
+#if NET5_0_OR_GREATER
+	public static new unsafe void ThrowIfNull([NotNull] void* argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+#else
+	public static new unsafe void ThrowIfNull(void* argument, string? paramName = null)
+#endif
+	{
+		if (argument is null)
+		{
+			throw new CodedArgumentNullException(paramName);
+		}
+	}
+
+	/// <summary>
+	/// Throws an <see cref="CodedArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// </summary>
+	/// <param name="argument">The pointer argument to validate as non-null.</param>
+	/// <param name="hresult">The HRESULT that describes the error.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+	[CLSCompliant(false)]
+#if NET5_0_OR_GREATER
+	public static new unsafe void ThrowIfNull([NotNull] void* argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+#else
+	public static new unsafe void ThrowIfNull(void* argument, int hresult, string? paramName = null)
+#endif
+	{
+		if (argument is null)
+		{
+			throw new CodedArgumentNullException(hresult, paramName);
+		}
+	}
+
+	/// <summary>
+	/// Throws an <see cref="CodedArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// </summary>
+	/// <param name="argument">The pointer argument to validate as non-null.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+#if NET5_0_OR_GREATER
+	public static unsafe void ThrowIfNull(IntPtr argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+#else
+	public static unsafe void ThrowIfNull(IntPtr argument, string? paramName = null)
+#endif
+	{
+		if (argument == IntPtr.Zero)
+		{
+			throw new CodedArgumentNullException(paramName);
+		}
+	}
+
+	/// <summary>
+	/// Throws an <see cref="CodedArgumentNullException"/> if <paramref name="argument"/> is <see langword="null"/>.
+	/// </summary>
+	/// <param name="argument">The pointer argument to validate as non-null.</param>
+	/// <param name="hresult">The HRESULT that describes the error.</param>
+	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
+#if NET5_0_OR_GREATER
+	public static unsafe void ThrowIfNull(IntPtr argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+#else
+	public static unsafe void ThrowIfNull(IntPtr argument, int hresult, string? paramName = null)
+#endif
+	{
+		if (argument == IntPtr.Zero)
 		{
 			throw new CodedArgumentNullException(hresult, paramName);
 		}

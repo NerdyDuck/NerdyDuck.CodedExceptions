@@ -1,45 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
-<topic id="c8b04c1b-1b57-4701-a2fc-5a589193c22a" revisionNumber="1">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="12a7c02b-8d6b-4417-b864-9a329d463151" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>This wiki is thought to provide information on the purpose of the NerdyDuck.CodedExceptions library, as well as a comprehensive guide of usage, including examples, and notes about forking and compiling the project.</para>
+			<para>This wiki is thought to provide information on the purpose of the NerdyDuck.CodedExceptions library, as well as a comprehensive guide of usage, including examples.</para>
 		</introduction>
 
-		<section>
+		<section address="Motivation">
+			<title>Motivation</title>
+			<content>
+				<para>
+					In any larger software project, clearly identifying errors is very important.
+					It helps customer service representatives to communicate with customers seeking for help, or forwarding bugs to the developers.
+					Using a knowledge-base to find help for a problem is much easier if you can use a unique identifier as a search pattern instead of a (possibly even localized) error message.
+				</para>
+				<para>
+					Since .NET 1.0, the
+					<codeEntityReference qualifyHint="true">T:System.Exception</codeEntityReference>
+					class and its derived classes contained the
+					<codeEntityReference qualifyHint="false">P:System.Exception.HResult</codeEntityReference>
+					property to provide a unique error identifier.
+					The framework uses it mainly for operating system related error codes. As it had no publicly accessible setter, and the exception classes had no public constructor that allowed setting
+					<codeEntityReference qualifyHint="false">P:System.Exception.HResult</codeEntityReference>, it was of little use for a developer to identify the exceptions in his own code, unless you did it the hard way, by overwriting the property entirely.
+					In .NET 4.5, things were improved, because <codeEntityReference qualifyHint="false">P:System.Exception.HResult</codeEntityReference> got a <languageKeyword>protected</languageKeyword> setter, which allowed developers to modify the property.
+					Still, there are no public constructors to set the property, so developers are forced to create their own exceptions, which may mean a lot of work.
+				</para>
+				<para>
+					To leverage the new behavior, and relieve the developer's burden, this project aims to provide a set of the most common exceptions, with constructors allowing to set the <codeEntityReference qualifyHint="false">P:System.Exception.HResult</codeEntityReference> value.
+					In addition, it provides methods to create standardized error codes (see 
+					<externalLink>
+						<linkText>here</linkText>
+						<linkUri>https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a</linkUri>
+					</externalLink>
+					for more information), and to discover if an exception is able to provide custom error codes.
+				</para>
+			</content>
+		</section>
+
+		<section address="Sections">
 			<title>Sections</title>
 			<content>
 				<list class="bullet">
 					<listItem>
 						<para>
-							<link xlink:href="2631cf6c-c929-4d9d-aa74-f3fbf0c01c2b" /> - Describes the origin and purpose of the project.
+							<link xlink:href="3f49209e-6e61-4623-bd92-47caa0808f2e" /> - The programming platforms the libraries are available for, and how to get the libraries.
 						</para>
 					</listItem>
 					<listItem>
 						<para>
-							<link xlink:href="511edc3b-15cc-4b17-bd52-91096110d05b" /> - The programming platforms the libraries are available for, and how to get the libraries.
+							<link xlink:href="763d815f-2643-44ea-a99a-90796865674b" /> - A manual on how to use the types of the project, with examples.
 						</para>
 					</listItem>
 					<listItem>
 						<para>
-							<link xlink:href="41badca4-aaab-4613-a0b7-d1c16482fc45" /> - A brief manual on how to use the types of the project, with examples.
+							<link xlink:href="597030e6-42f7-4e6b-a348-929801476a5e" /> - A reference of all types of the desktop version of the library.
 						</para>
 					</listItem>
 					<listItem>
 						<para>
-							<link xlink:href="c9e1497e-2117-4027-9a82-64139f3ce748" /> - A reference of all types of the desktop version of the library.
-						</para>
-					</listItem>
-					<listItem>
-						<para>
-							<link xlink:href="b3615815-e598-4585-8e45-83c1ba19bf01" />
+							<link xlink:href="9e29480c-423b-4df0-b7f4-10547ac66013" />
 						</para>
 					</listItem>
 				</list>
 			</content>
 		</section>
 
+
 		<relatedTopics>
-			<link xlink:href="b3615815-e598-4585-8e45-83c1ba19bf01" />
+			<link xlink:href="9e29480c-423b-4df0-b7f4-10547ac66013" />
 		</relatedTopics>
 	</developerConceptualDocument>
 </topic>

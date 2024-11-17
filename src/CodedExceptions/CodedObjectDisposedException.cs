@@ -21,7 +21,7 @@ public class CodedObjectDisposedException : ObjectDisposedException
 	/// <param name="objectName">A string containing the name of the disposed object.</param>
 	/// <remarks>The <see cref="Exception.Message"/> property is initialized to a system-supplied message that describes the error and includes the <paramref name="objectName"/> parameter. This message takes into account the current system culture. If <paramref name="objectName"/> is <see langword="null"/>, the Message property contains only an error message.</remarks>
 	public CodedObjectDisposedException(string? objectName)
-		: base(objectName)
+		: base(objectName, SR.ObjectDisposed_Generic)
 	{
 	}
 
@@ -70,7 +70,7 @@ public class CodedObjectDisposedException : ObjectDisposedException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedObjectDisposedException(int hresult, string? objectName)
-		: base(objectName) => HResult = hresult;
+		: base(objectName, SR.ObjectDisposed_Generic) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedObjectDisposedException"/> class with a specified HRESULT value, object name and message.

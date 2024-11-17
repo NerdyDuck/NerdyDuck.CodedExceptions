@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AggregateException_Message" xml:space="preserve">
+    <value>One or more errors occurred.</value>
+  </data>
+  <data name="ArgumentNull_Generic" xml:space="preserve">
+    <value>Value cannot be null.</value>
+  </data>
   <data name="ArgumentOutOfRange_MustBeEqual" xml:space="preserve">
     <value>{0} ('{1}') must be equal to '{2}'.</value>
   </data>
@@ -150,6 +156,39 @@
   <data name="ArgumentOutOfRange_MustNotBeOutOfRange" xml:space="preserve">
     <value>{0} ('{1}') must not be less than '{2}' or greater than '{3}'.</value>
   </data>
+  <data name="Argument_EmptyOrWhiteSpaceString" xml:space="preserve">
+    <value>The value cannot be an empty string or composed entirely of whitespace.</value>
+  </data>
+  <data name="Argument_EmptyString" xml:space="preserve">
+    <value>The value cannot be an empty string.</value>
+  </data>
+  <data name="ArgumentException_Message" xml:space="preserve">
+    <value>Value does not fall within the expected range.</value>
+  </data>
+  <data name="Arg_ArgumentOutOfRangeException" xml:space="preserve">
+    <value>Specified argument was out of the range of valid values.</value>
+  </data>
+  <data name="Arg_FormatException" xml:space="preserve">
+    <value>One of the identified items was in an invalid format.</value>
+  </data>
+  <data name="Arg_InvalidCastException" xml:space="preserve">
+    <value>Specified cast is not valid.</value>
+  </data>
+  <data name="Arg_InvalidOperationException" xml:space="preserve">
+    <value>Operation is not valid due to the current state of the object.</value>
+  </data>
+  <data name="Arg_IOException" xml:space="preserve">
+    <value>I/O error occurred.</value>
+  </data>
+  <data name="Arg_NotSupportedException" xml:space="preserve">
+    <value>Specified method is not supported.</value>
+  </data>
+  <data name="Arg_TimeoutException" xml:space="preserve">
+    <value>The operation has timed out.</value>
+  </data>
+  <data name="Arg_TypeLoadException" xml:space="preserve">
+    <value>Failure has occurred while loading a type.</value>
+  </data>
   <data name="AssemblyIdentifier_VersionInvalid" xml:space="preserve">
     <value>The version number part of assembly identifier is invalid.</value>
   </data>
@@ -162,23 +201,20 @@
   <data name="CodedAggregateException_ToString" xml:space="preserve">
     <value>{0}{1}---&amp;gt; (Inner exception #{2}) {3}&amp;lt;---{1}</value>
   </data>
-  <data name="CodedArgumentException_EmptyMessage" xml:space="preserve">
-    <value>The value cannot be an empty string.</value>
-  </data>
-  <data name="CodedArgumentException_WhitespaceMessage" xml:space="preserve">
-    <value>The value cannot be an empty string or composed entirely of whitespace.</value>
-  </data>
   <data name="CodedArgumentNullOrEmptyException_Message" xml:space="preserve">
-    <value>Argument cannot be null or an empty string.</value>
+    <value>The value cannot be null or an empty string.</value>
   </data>
   <data name="CodedArgumentNullOrWhiteSpaceException_Message" xml:space="preserve">
-    <value>Argument cannot be null or empty, or contains only white-space characters.</value>
+    <value>The value cannot be null or an empty string, or composed entirely of whitespace.</value>
+  </data>
+  <data name="CodedCommunicationException_Message" xml:space="preserve">
+    <value>Communication exception was thrown.</value>
   </data>
   <data name="CodedDataException_Message" xml:space="preserve">
-    <value>The data is invalid.</value>
+    <value>Data exception was thrown.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_Message" xml:space="preserve">
-    <value>Could not find the specified directory.</value>
+    <value>Attempted to access a path that is not on the disk.</value>
   </data>
   <data name="CodedDirectoryNotFoundException_MessageDirectory" xml:space="preserve">
     <value>Could not find directory '{0}'.</value>
@@ -204,6 +240,9 @@
   <data name="ctor_NotAssemblyIdentifier" xml:space="preserve">
     <value>Serialized data does not contain an object of type AssemblyIdentifier.</value>
   </data>
+  <data name="Exception_WasThrown" xml:space="preserve">
+    <value>Exception of type '{0}' was thrown.</value>
+  </data>
   <data name="FacilityId_OutOfRange" xml:space="preserve">
     <value>Facility id must range between 0 and 2047.</value>
   </data>
@@ -212,6 +251,9 @@
   </data>
   <data name="FromXml_IsEnabledInvalid" xml:space="preserve">
     <value>IsEnabled setting of assembly '{0}' is invalid.</value>
+  </data>
+  <data name="GenericInvalidData" xml:space="preserve">
+    <value>Found invalid data while decoding.</value>
   </data>
   <data name="Global_DirectoryName" xml:space="preserve">
     <value>Directory name: '{0}'</value>
@@ -228,6 +270,9 @@
   <data name="InsufficientStorageSpaceException_MessagePath" xml:space="preserve">
     <value>Not enough free space in data storage '{0}'.</value>
   </data>
+  <data name="IO_FileNotFound" xml:space="preserve">
+    <value>Unable to find the specified file.</value>
+  </data>
   <data name="Load_AssemblyNameInvalid" xml:space="preserve">
     <value>Assembly name '{0}' is invalid.</value>
   </data>
@@ -239,5 +284,14 @@
   </data>
   <data name="Load_StreamNoRead" xml:space="preserve">
     <value>Stream does not support reading.</value>
+  </data>
+  <data name="ObjectDisposed_Generic" xml:space="preserve">
+    <value>Cannot access a disposed object.</value>
+  </data>
+  <data name="SerializationException" xml:space="preserve">
+    <value>Serialization error.</value>
+  </data>
+  <data name="Xml_DefaultException" xml:space="preserve">
+    <value>An XML error has occurred.</value>
   </data>
 </root>

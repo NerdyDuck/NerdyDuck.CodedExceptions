@@ -22,7 +22,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Could not find the specified file." This message takes into account the current system culture.
 	/// </remarks>
 	public CodedFileNotFoundException()
-		: base()
+		: base(SR.IO_FileNotFound)
 	{
 	}
 
@@ -78,7 +78,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedFileNotFoundException(int hresult)
-		: base() => HResult = hresult;
+		: base(SR.IO_FileNotFound) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedFileNotFoundException"/> class with a specified HRESULT value and error message.
@@ -150,7 +150,7 @@ public class CodedFileNotFoundException : System.IO.FileNotFoundException
 		string? customText = null;
 		if (!string.IsNullOrEmpty(FileName))
 		{
-			customText = string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Global_FileName), FileName);
+			customText = CompositeFormatCache.Default.Format(nameof(SR.Global_FileName), FileName);
 		}
 
 		return HResultHelper.CreateToString(this, customText);

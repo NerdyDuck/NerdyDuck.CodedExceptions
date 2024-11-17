@@ -152,7 +152,7 @@ public class InsufficientStorageSpaceException : System.IO.IOException
 		string? customText = null;
 		if (!string.IsNullOrEmpty(StoragePath))
 		{
-			customText = string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Global_FileName), StoragePath);
+			customText = CompositeFormatCache.Default.Format(nameof(SR.Global_FileName), StoragePath);
 		}
 
 		return HResultHelper.CreateToString(this, customText);
@@ -189,5 +189,5 @@ public class InsufficientStorageSpaceException : System.IO.IOException
 	/// <returns>Either message, if it is not null; or a string stating that the file already exists, with the file name, if it is not null.</returns>
 	private static string CreateMessage(string? message, string? fileName) => message ?? (fileName == null
 			? SR.InsufficientStorageSpaceException_Message
-			: string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.InsufficientStorageSpaceException_MessagePath), fileName));
+			: CompositeFormatCache.Default.Format(nameof(SR.InsufficientStorageSpaceException_MessagePath), fileName));
 }

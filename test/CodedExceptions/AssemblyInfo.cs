@@ -15,4 +15,3 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(true)]
 [assembly: AssemblyTrademark("Covered by MIT License")]
 [assembly: AssemblyFacilityIdentifier(0x002a)]
-[assembly: Parallelize(Workers = 4, Scope = ExecutionScope.MethodLevel)]

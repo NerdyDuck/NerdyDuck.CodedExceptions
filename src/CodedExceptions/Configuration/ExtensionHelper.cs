@@ -53,7 +53,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
 		{
-			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_OpenFileFailed), path), ex);
+			throw new IOException(CompositeFormatCache.Default.Format(nameof(SR.Load_OpenFileFailed), path), ex);
 		}
 
 		try
@@ -249,7 +249,7 @@ internal static class ExtensionHelper
 				assemblyString = reader.GetAttribute(GlobalStrings.AssemblyNameKey);
 				if (assemblyString == null)
 				{
-					throw new XmlException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.FromXml_AttributeMissing), reader.Name, GlobalStrings.AssemblyNameKey));
+					throw new XmlException(CompositeFormatCache.Default.Format(nameof(SR.FromXml_AttributeMissing), reader.Name, GlobalStrings.AssemblyNameKey));
 				}
 
 				try
@@ -258,7 +258,7 @@ internal static class ExtensionHelper
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_AssemblyNameInvalid), assemblyString), ex);
+					throw new FormatException(CompositeFormatCache.Default.Format(nameof(SR.Load_AssemblyNameInvalid), assemblyString), ex);
 				}
 
 				valueString = reader.GetAttribute(valueKey);

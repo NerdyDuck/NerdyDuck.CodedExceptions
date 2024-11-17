@@ -6,7 +6,6 @@ global using System;
 global using System.Collections.Generic;
 global using System.ComponentModel;
 global using System.Configuration;
-global using System.Globalization;
 
 using System.Reflection;
 using System.Runtime.CompilerServices;

@@ -176,7 +176,7 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 		string? customText = null;
 		if (!string.IsNullOrEmpty(DirectoryName))
 		{
-			customText = string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Global_DirectoryName), DirectoryName);
+			customText = CompositeFormatCache.Default.Format(nameof(SR.Global_DirectoryName), DirectoryName);
 		}
 
 		return HResultHelper.CreateToString(this, customText);
@@ -213,5 +213,5 @@ public class CodedDirectoryNotFoundException : System.IO.DirectoryNotFoundExcept
 	/// <returns>Either message, if it is not null; or a string stating that the directory cannot be found, with the directory name, if it is not null.</returns>
 	private static string CreateMessage(string? message, string? directoryName) => message ?? (directoryName == null
 			? SR.CodedDirectoryNotFoundException_Message
-			: string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.CodedDirectoryNotFoundException_MessageDirectory), directoryName));
+			: CompositeFormatCache.Default.Format(nameof(SR.CodedDirectoryNotFoundException_MessageDirectory), directoryName));
 }

@@ -21,7 +21,7 @@ public class CodedInvalidCastException : InvalidCastException
 	/// </summary>
 	/// <remarks>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "Cannot cast from source type to destination type." This message takes into account the current system culture.</remarks>
 	public CodedInvalidCastException()
-		: base()
+		: base(SR.Arg_InvalidCastException)
 	{
 	}
 
@@ -68,7 +68,7 @@ public class CodedInvalidCastException : InvalidCastException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedInvalidCastException(int hresult)
-		: base() => HResult = hresult;
+		: base(SR.Arg_InvalidCastException) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedInvalidCastException"/> class with a specified HRESULT value and error message.

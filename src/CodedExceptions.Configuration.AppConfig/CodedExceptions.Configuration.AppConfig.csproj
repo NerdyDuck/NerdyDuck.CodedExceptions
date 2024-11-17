@@ -14,7 +14,7 @@
       - Configuration reworked and split from base library.
       - Supports ConfigurationManager (app.config)
     </PackageReleaseNotes>
-    <PackageTags>Exception HRESULT Configuration</PackageTags>
+    <PackageTags>Exception HRESULT Configuration app.config</PackageTags>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
     <Reference Include="System.Configuration" />

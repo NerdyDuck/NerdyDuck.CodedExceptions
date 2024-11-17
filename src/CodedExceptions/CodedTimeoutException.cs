@@ -19,7 +19,7 @@ public class CodedTimeoutException : TimeoutException
 	/// </summary>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "The operation has timed out." This message takes into account the current system culture.</remarks>
 	public CodedTimeoutException()
-		: base()
+		: base(SR.Arg_TimeoutException)
 	{
 	}
 
@@ -66,7 +66,7 @@ public class CodedTimeoutException : TimeoutException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedTimeoutException(int hresult)
-		: base() => HResult = hresult;
+		: base(SR.Arg_TimeoutException) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedTimeoutException"/> class with a specified HRESULT value and error message.

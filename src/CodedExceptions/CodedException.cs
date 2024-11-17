@@ -14,6 +14,14 @@ namespace NerdyDuck.CodedExceptions;
 [CodedException]
 public class CodedException : Exception
 {
+	private readonly string? _message;
+
+	/// <summary>
+	/// Gets a message that describes the current exception.
+	/// </summary>
+	/// <value>The error message that explains the reason for the exception, or an empty string ("").</value>
+	public override string Message => _message ?? CompositeFormatCache.Default.Format(nameof(SR.Exception_WasThrown), GetType().ToString());
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedException"/> class.
 	/// </summary>
@@ -27,9 +35,7 @@ public class CodedException : Exception
 	/// </summary>
 	/// <param name="message">The message that describes the error.</param>
 	public CodedException(string? message)
-		: base(message)
-	{
-	}
+		: base(message) => _message = message;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
@@ -37,9 +43,7 @@ public class CodedException : Exception
 	/// <param name="message">The error message that explains the reason for the exception.</param>
 	/// <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/> if no inner exception is specified.</param>
 	public CodedException(string? message, Exception? innerException)
-		: base(message, innerException)
-	{
-	}
+		: base(message, innerException) => _message = message;
 
 #if !NET5_0_OR_GREATER
 	/// <summary>
@@ -50,8 +54,17 @@ public class CodedException : Exception
 	/// <exception cref="ArgumentNullException">The <paramref name="info"/> argument is <see langword="null"/>.</exception>
 	/// <exception cref="SerializationException">The exception could not be deserialized correctly.</exception>
 	protected CodedException(SerializationInfo info, StreamingContext context)
-		: base(info, context)
+		: base(info, context) => _message = info.GetString(nameof(_message));
+
+	/// <summary>
+	/// Sets the <see cref="SerializationInfo"/> with information about the exception.
+	/// </summary>
+	/// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+	/// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(_message), _message);
 	}
 #endif
 
@@ -72,7 +85,11 @@ public class CodedException : Exception
 	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedException(int hresult, string? message)
-		: base(message) => HResult = hresult;
+		: base(message)
+	{
+		HResult = hresult;
+		_message = message;
+	}
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedException"/> class with a specified HRESULT value, error message and a reference to the inner exception that is the cause of this exception.
@@ -83,7 +100,11 @@ public class CodedException : Exception
 	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedException(int hresult, string? message, Exception? innerException)
-		: base(message, innerException) => HResult = hresult;
+		: base(message, innerException)
+	{
+		HResult = hresult;
+		_message = message;
+	}
 
 	/// <summary>
 	/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.

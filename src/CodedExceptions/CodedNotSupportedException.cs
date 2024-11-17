@@ -19,7 +19,7 @@ public class CodedNotSupportedException : NotSupportedException
 	/// </summary>
 	/// <remarks>This constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "Specified method is not supported." This message takes into account the current system culture.</remarks>
 	public CodedNotSupportedException()
-		: base()
+		: base(SR.Arg_NotSupportedException)
 	{
 	}
 
@@ -66,7 +66,7 @@ public class CodedNotSupportedException : NotSupportedException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedNotSupportedException(int hresult)
-		: base() => HResult = hresult;
+		: base(SR.Arg_NotSupportedException) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedNotSupportedException"/> class with a specified HRESULT value and error message.

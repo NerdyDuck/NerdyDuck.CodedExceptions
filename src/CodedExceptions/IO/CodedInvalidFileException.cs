@@ -151,7 +151,7 @@ public class CodedInvalidFileException : System.IO.IOException
 		string? customText = null;
 		if (!string.IsNullOrEmpty(FileName))
 		{
-			customText = string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Global_FileName), FileName);
+			customText = CompositeFormatCache.Default.Format(nameof(SR.Global_FileName), FileName);
 		}
 
 		return HResultHelper.CreateToString(this, customText);
@@ -188,5 +188,5 @@ public class CodedInvalidFileException : System.IO.IOException
 	/// <returns>Either message, if it is not null; or a string stating that the file already exists, with the file name, if it is not null.</returns>
 	private static string CreateMessage(string? message, string? fileName) => message ?? (fileName == null
 			? SR.CodedInvalidFileException_Message
-			: string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.CodedInvalidFileException_MessageFile), fileName));
+			: CompositeFormatCache.Default.Format(nameof(SR.CodedInvalidFileException_MessageFile), fileName));
 }

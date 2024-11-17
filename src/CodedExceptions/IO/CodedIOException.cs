@@ -21,7 +21,7 @@ public class CodedIOException : System.IO.IOException
 	/// The constructor initializes the <see cref="Exception.Message"/> property of the new instance to a system-supplied message that describes the error, such as "An I/O error occurred while performing the requested operation." This message takes into account the current system culture.
 	/// </remarks>
 	public CodedIOException()
-		: base()
+		: base(SR.Arg_IOException)
 	{
 	}
 
@@ -67,7 +67,7 @@ public class CodedIOException : System.IO.IOException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedIOException(int hresult)
-		: base() => HResult = hresult;
+		: base(SR.Arg_IOException) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedIOException"/> class with a specified HRESULT value and error message.

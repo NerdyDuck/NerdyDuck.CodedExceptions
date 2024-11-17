@@ -251,6 +251,6 @@ public static class HResultHelper
 		'd' or 'D' => 13,
 		'e' or 'E' => 14,
 		'f' or 'F' => 15,
-		_ => throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.HexToInt_InvalidChar), value)),
+		_ => throw new FormatException(CompositeFormatCache.Default.Format(nameof(SR.HexToInt_InvalidChar), value)),
 	};
 }

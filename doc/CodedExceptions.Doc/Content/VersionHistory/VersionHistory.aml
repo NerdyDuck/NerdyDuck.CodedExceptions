@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="b3615815-e598-4585-8e45-83c1ba19bf01" revisionNumber="1">
+<topic id="9e29480c-423b-4df0-b7f4-10547ac66013" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
 			<para>The topics in this section describe the various changes made to the NerdyDuck.CodedExceptions library over the life of the project.</para>
@@ -63,7 +63,7 @@
 			</content>
 		</section>
 		<relatedTopics>
-			<link xlink:href="c8b04c1b-1b57-4701-a2fc-5a589193c22a" />
+			<link xlink:href="12a7c02b-8d6b-4417-b864-9a329d463151" />
 		</relatedTopics>
 	</developerConceptualDocument>
 </topic>

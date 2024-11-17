@@ -187,10 +187,30 @@ public class CodedArgumentNullExceptionsTests
 	}
 
 	[TestMethod]
-	public void ThrowIfNullOrEmpty_Success()
+	public void ThrowIfNull_Success()
 	{
 		CodedArgumentNullException.ThrowIfNull(new object());
+		CodedArgumentNullException.ThrowIfNull(new object(), Globals.CustomHResult);
 		CodedArgumentNullException.ThrowIfNull(new object(), "arg");
+		CodedArgumentNullException.ThrowIfNull(new object(), Globals.CustomHResult, "arg");
+
+		int[] i = { 0 };
+		unsafe
+		{
+			fixed (int* p = &i[0])
+			{
+				CodedArgumentNullException.ThrowIfNull(p);
+				CodedArgumentNullException.ThrowIfNull(p, Globals.CustomHResult);
+				CodedArgumentNullException.ThrowIfNull(p, "arg");
+				CodedArgumentNullException.ThrowIfNull(p, Globals.CustomHResult, "arg");
+			}
+		}
+
+		IntPtr ptr = new IntPtr(1);
+		CodedArgumentNullException.ThrowIfNull(ptr);
+		CodedArgumentNullException.ThrowIfNull(ptr, Globals.CustomHResult);
+		CodedArgumentNullException.ThrowIfNull(ptr, "arg");
+		CodedArgumentNullException.ThrowIfNull(ptr, Globals.CustomHResult, "arg");
 	}
 
 	[TestMethod]
@@ -203,6 +223,32 @@ public class CodedArgumentNullExceptionsTests
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
 	}
+
+	[TestMethod]
+	public void ThrowIfNull_VoidNull_Fail()
+	{
+		unsafe
+		{
+			void* p = null;
+			CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p));
+			Assert.AreEqual(Globals.COR_E_NULLREFERENCE, ex.HResult);
+#if NET5_0_OR_GREATER
+			Assert.AreEqual(nameof(p), ex.ParamName);
+#endif
+		}
+	}
+
+	[TestMethod]
+	public void ThrowIfNull_IntPtrNull_Fail()
+	{
+		IntPtr p = IntPtr.Zero;
+		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p));
+		Assert.AreEqual(Globals.COR_E_NULLREFERENCE, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(p), ex.ParamName);
+#endif
+	}
+
 
 	[TestMethod]
 	public void ThrowIfNull_StringString_Fail()
@@ -224,6 +270,32 @@ public class CodedArgumentNullExceptionsTests
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
 	}
+
+	[TestMethod]
+	public void ThrowIfNull_VoidIntNull_Fail()
+	{
+		unsafe
+		{
+			void* p = null;
+			CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p, Globals.CustomHResult));
+			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+#if NET5_0_OR_GREATER
+			Assert.AreEqual(nameof(p), ex.ParamName);
+#endif
+		}
+	}
+
+	[TestMethod]
+	public void ThrowIfNull_IntPtrIntNull_Fail()
+	{
+		IntPtr p = IntPtr.Zero;
+		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p, Globals.CustomHResult));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+#if NET5_0_OR_GREATER
+		Assert.AreEqual(nameof(p), ex.ParamName);
+#endif
+	}
+
 
 	[TestMethod]
 	public void ThrowIfNull_StringIntString_Fail()

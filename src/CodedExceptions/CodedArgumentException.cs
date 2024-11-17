@@ -25,7 +25,7 @@ public class CodedArgumentException : ArgumentException
 	/// </summary>
 	/// <remarks>This constructor initializes the Message property of the new instance to a system-supplied message that describes the error, such as "An invalid argument was specified." This message takes into account the current system culture.</remarks>
 	public CodedArgumentException()
-		: base()
+		: base(SR.ArgumentException_Message)
 	{
 	}
 
@@ -98,7 +98,7 @@ public class CodedArgumentException : ArgumentException
 	/// <para>See the MSDN for more information about the definition of HRESULT values.</para></remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedArgumentException(int hresult)
-		: base() => HResult = hresult;
+		: base(SR.ArgumentException_Message) => HResult = hresult;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with a specified HRESULT value and an error message.
@@ -221,12 +221,12 @@ public class CodedArgumentException : ArgumentException
 			if (hresult is null)
 			{
 				CodedArgumentNullException.ThrowIfNull(argument, paramName);
-				throw new CodedArgumentException(SR.CodedArgumentException_EmptyMessage, paramName);
+				throw new CodedArgumentException(SR.Argument_EmptyString, paramName);
 			}
 			else
 			{
 				CodedArgumentNullException.ThrowIfNull(argument, hresult.Value, paramName);
-				throw new CodedArgumentException(hresult.Value, SR.CodedArgumentException_EmptyMessage, paramName);
+				throw new CodedArgumentException(hresult.Value, SR.Argument_EmptyString, paramName);
 			}
 		}
 	}
@@ -238,12 +238,12 @@ public class CodedArgumentException : ArgumentException
 			if (hresult is null)
 			{
 				CodedArgumentNullException.ThrowIfNull(argument, paramName);
-				throw new CodedArgumentException(SR.CodedArgumentException_WhitespaceMessage, paramName);
+				throw new CodedArgumentException(SR.Argument_EmptyOrWhiteSpaceString, paramName);
 			}
 			else
 			{
 				CodedArgumentNullException.ThrowIfNull(argument, hresult.Value, paramName);
-				throw new CodedArgumentException(hresult.Value, SR.CodedArgumentException_WhitespaceMessage, paramName);
+				throw new CodedArgumentException(hresult.Value, SR.Argument_EmptyOrWhiteSpaceString, paramName);
 			}
 		}
 	}

@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Globalization;
 using System.Linq;
 using System.Security;
 
@@ -46,7 +45,7 @@ internal static class ExtensionHelper
 		}
 		catch (Exception ex) when (ex is IOException or ArgumentException or NotSupportedException or SecurityException or UnauthorizedAccessException)
 		{
-			throw new IOException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_OpenFileFailed), path), ex);
+			throw new IOException(CompositeFormatCache.Default.Format(nameof(SR.Load_OpenFileFailed), path), ex);
 		}
 
 		try
@@ -284,7 +283,7 @@ internal static class ExtensionHelper
 			}
 			catch (FormatException ex)
 			{
-				throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.FromJson_AssemblyNameInvalid), jsonProperty.Name), ex);
+				throw new FormatException(CompositeFormatCache.Default.Format(nameof(SR.FromJson_AssemblyNameInvalid), jsonProperty.Name), ex);
 			}
 
 			convertedValue = converter(jsonProperty);

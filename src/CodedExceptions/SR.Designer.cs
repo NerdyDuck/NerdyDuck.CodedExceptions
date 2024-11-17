@@ -61,6 +61,123 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One or more errors occurred..
+        /// </summary>
+        internal static string AggregateException_Message {
+            get {
+                return ResourceManager.GetString("AggregateException_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specified argument was out of the range of valid values..
+        /// </summary>
+        internal static string Arg_ArgumentOutOfRangeException {
+            get {
+                return ResourceManager.GetString("Arg_ArgumentOutOfRangeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One of the identified items was in an invalid format..
+        /// </summary>
+        internal static string Arg_FormatException {
+            get {
+                return ResourceManager.GetString("Arg_FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specified cast is not valid..
+        /// </summary>
+        internal static string Arg_InvalidCastException {
+            get {
+                return ResourceManager.GetString("Arg_InvalidCastException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation is not valid due to the current state of the object..
+        /// </summary>
+        internal static string Arg_InvalidOperationException {
+            get {
+                return ResourceManager.GetString("Arg_InvalidOperationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I/O error occurred..
+        /// </summary>
+        internal static string Arg_IOException {
+            get {
+                return ResourceManager.GetString("Arg_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specified method is not supported..
+        /// </summary>
+        internal static string Arg_NotSupportedException {
+            get {
+                return ResourceManager.GetString("Arg_NotSupportedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The operation has timed out..
+        /// </summary>
+        internal static string Arg_TimeoutException {
+            get {
+                return ResourceManager.GetString("Arg_TimeoutException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failure has occurred while loading a type..
+        /// </summary>
+        internal static string Arg_TypeLoadException {
+            get {
+                return ResourceManager.GetString("Arg_TypeLoadException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value cannot be an empty string or composed entirely of whitespace..
+        /// </summary>
+        internal static string Argument_EmptyOrWhiteSpaceString {
+            get {
+                return ResourceManager.GetString("Argument_EmptyOrWhiteSpaceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value cannot be an empty string..
+        /// </summary>
+        internal static string Argument_EmptyString {
+            get {
+                return ResourceManager.GetString("Argument_EmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value does not fall within the expected range..
+        /// </summary>
+        internal static string ArgumentException_Message {
+            get {
+                return ResourceManager.GetString("ArgumentException_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot be null..
+        /// </summary>
+        internal static string ArgumentNull_Generic {
+            get {
+                return ResourceManager.GetString("ArgumentNull_Generic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} (&apos;{1}&apos;) must be equal to &apos;{2}&apos;..
         /// </summary>
         internal static string ArgumentOutOfRange_MustBeEqual {
@@ -196,25 +313,7 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value cannot be an empty string..
-        /// </summary>
-        internal static string CodedArgumentException_EmptyMessage {
-            get {
-                return ResourceManager.GetString("CodedArgumentException_EmptyMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The value cannot be an empty string or composed entirely of whitespace..
-        /// </summary>
-        internal static string CodedArgumentException_WhitespaceMessage {
-            get {
-                return ResourceManager.GetString("CodedArgumentException_WhitespaceMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argument cannot be null or an empty string..
+        ///   Looks up a localized string similar to The value cannot be null or an empty string..
         /// </summary>
         internal static string CodedArgumentNullOrEmptyException_Message {
             get {
@@ -223,7 +322,7 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Argument cannot be null or empty, or contains only white-space characters..
+        ///   Looks up a localized string similar to The value cannot be null or an empty string, or composed entirely of whitespace..
         /// </summary>
         internal static string CodedArgumentNullOrWhiteSpaceException_Message {
             get {
@@ -232,7 +331,16 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The data is invalid..
+        ///   Looks up a localized string similar to Communication exception was thrown..
+        /// </summary>
+        internal static string CodedCommunicationException_Message {
+            get {
+                return ResourceManager.GetString("CodedCommunicationException_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data exception was thrown..
         /// </summary>
         internal static string CodedDataException_Message {
             get {
@@ -241,7 +349,7 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find the specified directory..
+        ///   Looks up a localized string similar to Attempted to access a path that is not on the disk..
         /// </summary>
         internal static string CodedDirectoryNotFoundException_Message {
             get {
@@ -322,6 +430,15 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception of type &apos;{0}&apos; was thrown..
+        /// </summary>
+        internal static string Exception_WasThrown {
+            get {
+                return ResourceManager.GetString("Exception_WasThrown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Facility id must range between 0 and 2047..
         /// </summary>
         internal static string FacilityId_OutOfRange {
@@ -345,6 +462,15 @@ namespace NerdyDuck.CodedExceptions {
         internal static string FromXml_IsEnabledInvalid {
             get {
                 return ResourceManager.GetString("FromXml_IsEnabledInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found invalid data while decoding..
+        /// </summary>
+        internal static string GenericInvalidData {
+            get {
+                return ResourceManager.GetString("GenericInvalidData", resourceCulture);
             }
         }
         
@@ -394,6 +520,15 @@ namespace NerdyDuck.CodedExceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find the specified file..
+        /// </summary>
+        internal static string IO_FileNotFound {
+            get {
+                return ResourceManager.GetString("IO_FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assembly name &apos;{0}&apos; is invalid..
         /// </summary>
         internal static string Load_AssemblyNameInvalid {
@@ -426,6 +561,33 @@ namespace NerdyDuck.CodedExceptions {
         internal static string Load_StreamNoRead {
             get {
                 return ResourceManager.GetString("Load_StreamNoRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot access a disposed object..
+        /// </summary>
+        internal static string ObjectDisposed_Generic {
+            get {
+                return ResourceManager.GetString("ObjectDisposed_Generic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serialization error..
+        /// </summary>
+        internal static string SerializationException {
+            get {
+                return ResourceManager.GetString("SerializationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An XML error has occurred..
+        /// </summary>
+        internal static string Xml_DefaultException {
+            get {
+                return ResourceManager.GetString("Xml_DefaultException", resourceCulture);
             }
         }
     }

@@ -200,7 +200,7 @@ public class CodedSocketException : CodedException
 	/// Returns the fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.
 	/// </summary>
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.</returns>
-	public override string ToString() => HResultHelper.CreateToString(this, string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.CodedSocketException_ToString_SocketErrorCode), SocketErrorCode));
+	public override string ToString() => HResultHelper.CreateToString(this, CompositeFormatCache.Default.Format(nameof(SR.CodedSocketException_ToString_SocketErrorCode), SocketErrorCode));
 
 #if !NET5_0_OR_GREATER
 	/// <summary>

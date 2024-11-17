@@ -190,13 +190,17 @@ public class CodedObjectsDisposedExceptionTests
 	public void ThrowIf_Success()
 	{
 		CodedObjectDisposedException.ThrowIf(false, Globals.ParamName);
-		CodedObjectDisposedException.ThrowIf(false, Globals.CustomHResult, Globals.ParamName);
 		CodedObjectDisposedException.ThrowIf(false, new object());
+		CodedObjectDisposedException.ThrowIf(false, typeof(string));
+		CodedObjectDisposedException.ThrowIf(false, Globals.CustomHResult, Globals.ParamName);
 		CodedObjectDisposedException.ThrowIf(false, Globals.CustomHResult, new object());
+		CodedObjectDisposedException.ThrowIf(false, Globals.CustomHResult, typeof(string));
 		CodedObjectDisposedException.ThrowIf(0, Globals.ParamName);
-		CodedObjectDisposedException.ThrowIf(0, Globals.CustomHResult, Globals.ParamName);
 		CodedObjectDisposedException.ThrowIf(0, new object());
+		CodedObjectDisposedException.ThrowIf(0, typeof(string));
+		CodedObjectDisposedException.ThrowIf(0, Globals.CustomHResult, Globals.ParamName);
 		CodedObjectDisposedException.ThrowIf(0, Globals.CustomHResult, new object());
+		CodedObjectDisposedException.ThrowIf(0, Globals.CustomHResult, typeof(string));
 	}
 
 	[TestMethod]
@@ -224,6 +228,14 @@ public class CodedObjectsDisposedExceptionTests
 	}
 
 	[TestMethod]
+	public void ThrowIf_BoolType_Fail()
+	{
+		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(true, typeof(string)));
+		Assert.AreEqual(Globals.COR_E_OBJECTDISPOSED, ex.HResult);
+		Assert.AreEqual("String", ex.ObjectName);
+	}
+
+	[TestMethod]
 	public void ThrowIf_BoolIntNull_Fail()
 	{
 		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(true, Globals.CustomHResult, null));
@@ -245,6 +257,14 @@ public class CodedObjectsDisposedExceptionTests
 		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(true, Globals.CustomHResult, CultureInfo.InvariantCulture));
 		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
 		Assert.AreEqual(nameof(CultureInfo), ex.ObjectName);
+	}
+
+	[TestMethod]
+	public void ThrowIf_BoolIntType_Fail()
+	{
+		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(true, Globals.CustomHResult, typeof(string)));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		Assert.AreEqual("String", ex.ObjectName);
 	}
 
 	[TestMethod]
@@ -272,6 +292,14 @@ public class CodedObjectsDisposedExceptionTests
 	}
 
 	[TestMethod]
+	public void ThrowIf_IntType_Fail()
+	{
+		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(1, typeof(string)));
+		Assert.AreEqual(Globals.COR_E_OBJECTDISPOSED, ex.HResult);
+		Assert.AreEqual("String", ex.ObjectName);
+	}
+
+	[TestMethod]
 	public void ThrowIf_IntIntNull_Fail()
 	{
 		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(1, Globals.CustomHResult, null));
@@ -293,5 +321,13 @@ public class CodedObjectsDisposedExceptionTests
 		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(1, Globals.CustomHResult, CultureInfo.InvariantCulture));
 		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
 		Assert.AreEqual(nameof(CultureInfo), ex.ObjectName);
+	}
+
+	[TestMethod]
+	public void ThrowIf_IntIntType_Fail()
+	{
+		CodedObjectDisposedException ex = Assert.ThrowsException<CodedObjectDisposedException>(() => CodedObjectDisposedException.ThrowIf(1, Globals.CustomHResult, typeof(string)));
+		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		Assert.AreEqual("String", ex.ObjectName);
 	}
 }

@@ -75,7 +75,7 @@ internal class AssemblyDebugModeElement : ConfigurationElement
 		}
 		catch (Exception ex) when (ex is ArgumentException or FormatException)
 		{
-			throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.ToOverride_Invalid), AssemblyName), ex);
+			throw new FormatException(CompositeFormatCache.Default.Format(nameof(SR.ToOverride_Invalid), AssemblyName), ex);
 		}
 	}
 }

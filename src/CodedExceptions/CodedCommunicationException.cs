@@ -19,7 +19,7 @@ public class CodedCommunicationException : CodedException
 	/// Initializes a new instance of the <see cref="CodedCommunicationException"/> class.
 	/// </summary>
 	public CodedCommunicationException()
-		: base()
+		: base(SR.CodedCommunicationException_Message)
 	{
 	}
 
@@ -63,7 +63,7 @@ public class CodedCommunicationException : CodedException
 	/// <remarks>See the MSDN for more information about the definition of HRESULT values.</remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a">HRESULT definition at MSDN</seealso>
 	public CodedCommunicationException(int hresult)
-		: base(hresult)
+		: base(hresult, SR.CodedCommunicationException_Message)
 	{
 	}
 

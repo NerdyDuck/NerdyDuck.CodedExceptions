@@ -23,7 +23,7 @@ internal static class ExtensionHelper
 			}
 			catch (FormatException ex)
 			{
-				throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_AssemblyNameInvalid), pair.Key), ex);
+				throw new FormatException(CompositeFormatCache.Default.Format(nameof(SR.Load_AssemblyNameInvalid), pair.Key), ex);
 			}
 
 			if (string.IsNullOrWhiteSpace(pair.Value))
@@ -38,7 +38,7 @@ internal static class ExtensionHelper
 				}
 				catch (FormatException ex)
 				{
-					throw new FormatException(string.Format(CultureInfo.CurrentCulture, CompositeFormatCache.Default.Get(SR.Load_IdentifierInvalid), pair.Key), ex);
+					throw new FormatException(CompositeFormatCache.Default.Format(nameof(SR.Load_IdentifierInvalid), pair.Key), ex);
 				}
 			}
 
