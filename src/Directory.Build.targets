@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Target Name="SignOutputAssemblies" AfterTargets="Build" DependsOnTargets="Build" Condition=" '$(SignAssembliesAndPackage)' == 'true' And '$(IsCrossTargetingBuild)' != 'true' ">
+  <Target Name="SignOutputAssemblies" AfterTargets="Build" DependsOnTargets="Build" Condition=" '$(SigningEnabled)' == 'true' And '$(SignAssembliesAndPackage)' == 'true' And '$(IsCrossTargetingBuild)' != 'true' ">
     <CreateItem Include="$(OutputPath)**\$(AssemblyName)*.exe;$(OutputPath)**\$(TargetName)*.dll" Condition="'$(OutputType)' != 'Library'">
       <Output TaskParameter="Include" ItemName="FilesToSign"/>
     </CreateItem>
@@ -10,12 +10,14 @@
     <SignFile CertificateThumbprint="$(CertificateThumbPrint)" SigningTarget="%(FilesToSign.Identity)" TimestampUrl="$(TimestampUrl)" TargetFrameworkVersion="v4.5" />
     <Message Importance="high" Text="Files signed: @(FilesToSign)" />
   </Target>
-  <Target Name="SignPackage" AfterTargets="Pack" DependsOnTargets="Pack" Condition=" '$(SignAssembliesAndPackage)' == 'true' ">
-    <DownloadFile SourceUrl="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" DestinationFolder="$(BaseIntermediateOutputPath)" SkipUnchangedFiles="true" Condition="!Exists('$(BaseIntermediateOutputPath)nuget.exe')" />
+  <Target Name="SignPackage" AfterTargets="Pack" DependsOnTargets="Pack" Condition=" '$(SigningEnabled)' == 'true' And '$(SignAssembliesAndPackage)' == 'true' ">
     <CreateItem Include="$(PackageOutputPath)$(PackageId)*.nupkg">
       <Output TaskParameter="Include" ItemName="PackageToSign"/>
     </CreateItem>
-    <Exec Command="&quot;$(BaseIntermediateOutputPath)nuget.exe&quot; sign &quot;%(PackageToSign.Identity)&quot; -CertificateFingerprint $(CertificateThumbPrint) -Timestamper $(TimestampUrl) -NonInteractive -Verbosity quiet" />
+    <CreateItem Include="$(PackageOutputPath)$(PackageId)*.snupkg">
+      <Output TaskParameter="Include" ItemName="PackageToSign"/>
+    </CreateItem>
+    <Exec Command="dotnet nuget sign &quot;%(PackageToSign.Identity)&quot; --certificate-fingerprint $(CertificateThumbPrint) --timestamper $(TimestampUrl)" />
     <Message Importance="high" Text="Packages signed: @(PackageToSign)" />
   </Target>
   <Target Name="CreateGitHubZip" BeforeTargets="Pack" Condition=" '$(CreateGitHubZip)' == 'true' ">

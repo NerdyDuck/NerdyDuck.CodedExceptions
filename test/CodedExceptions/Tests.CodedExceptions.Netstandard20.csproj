@@ -5,6 +5,7 @@
     <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
     <DefineConstants>$(DefineConstants);NETSTANDARD20TEST</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Description>Unit test for NerdyDuck.CodedExceptions library</Description>

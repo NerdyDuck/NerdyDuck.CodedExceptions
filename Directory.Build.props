@@ -8,10 +8,11 @@
     <LangVersion>latest</LangVersion>
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <ArtifactsPath>$(MSBuildThisFileDirectory).artifacts</ArtifactsPath>
+    <SigningEnabled>false</SigningEnabled>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Company>NerdyDuck</Company>
-    <Copyright>Copyright (c) 2018-2024 Daniel Kopp</Copyright>
+    <Copyright>Copyright (c) 2018-2025 Daniel Kopp</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Product>NerdyDuck Libraries</Product>
   </PropertyGroup>

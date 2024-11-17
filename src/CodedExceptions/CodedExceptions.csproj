@@ -4,13 +4,11 @@
     <TargetFrameworks>netstandard2.0;net472;net6.0;net8.0;net9.0</TargetFrameworks>
     <RootNamespace>NerdyDuck.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <AssemblyTitle>NerdyDuck CodedExceptions</AssemblyTitle>
     <Description>Exceptions with custom HRESULTs to identify the origins of errors.</Description>
-  </PropertyGroup>
-  <PropertyGroup Label="Code analysis">
-    <!--<NoWarn>NU5118</NoWarn>-->
   </PropertyGroup>
   <PropertyGroup Label="NuGet package settings">
     <PackageReleaseNotes>
@@ -23,6 +21,7 @@
       - Added new exceptions and throw helper methods.
     </PackageReleaseNotes>
     <PackageTags>Exception HRESULT</PackageTags>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="contentFiles/**/*">

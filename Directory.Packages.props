@@ -6,9 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
-    <PackageVersion Include="NuGet.Build.Tasks.Pack" Version="6.11.1" />
+    <PackageVersion Include="NuGet.Build.Tasks.Pack" Version="6.12.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-    <PackageVersion Include="MSTest" Version="3.6.1"/>
+    <PackageVersion Include="MSTest" Version="3.6.3"/>
   </ItemGroup>
   <!-- Newtonsoft.Json and System.Text.Json versions are set explicitely for testing, because the versions resolved by default have security issues. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
@@ -40,10 +40,10 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-    <PackageVersion Include="System.Text.Json" Version="9.0.0-rc.2.24473.5" />
-    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.0-rc.2.24473.5" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0-rc.2.24473.5" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.0-rc.2.24473.5" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0-rc.2.24473.5" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.0" />
+    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
   </ItemGroup>
 </Project>

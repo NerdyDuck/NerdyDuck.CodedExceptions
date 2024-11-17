@@ -16,17 +16,18 @@
   </PropertyGroup>
   <PropertyGroup Label="Assembly Signing">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
+    <NoWarn>NU3043</NoWarn>
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../'))" Condition="$([MSBuild]::GetPathOfFileAbove('signing.props', '$(MSBuildThisFileDirectory)../')) != ''" />
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <CreateGitHubZip>true</CreateGitHubZip>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <CreateGitHubZip>false</CreateGitHubZip>
     <DefineDebug>true</DefineDebug>
     <DebugType>Full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <SignAssembliesAndPackage>false</SignAssembliesAndPackage>
+    <SignAssembliesAndPackage>true</SignAssembliesAndPackage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <CreateGitHubZip>true</CreateGitHubZip>
     <DefineDebug>false</DefineDebug>

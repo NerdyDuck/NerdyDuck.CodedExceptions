@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Description>Unit test for NerdyDuck.CodedExceptions library</Description>
