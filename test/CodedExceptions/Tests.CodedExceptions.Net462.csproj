@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Compilation">
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net462</TargetFramework>
     <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -19,7 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\*.*">

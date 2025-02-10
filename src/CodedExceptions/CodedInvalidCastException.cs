@@ -10,7 +10,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown for invalid casting or explicit conversion.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -46,7 +46,7 @@ public class CodedInvalidCastException : InvalidCastException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedInvalidCastException"/> class with serialized data.
 	/// </summary>

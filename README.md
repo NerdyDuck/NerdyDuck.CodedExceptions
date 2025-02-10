@@ -5,8 +5,9 @@ This project provides a library of classes derived from [`System.Exception`](htt
 It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
 
 #### Platforms
-- .NET 6/7/8 (`net6.0`, `net7.0`, `net8.0`) and later
-- .NET Framework 4.7.2 (`net472`) and later
+- .NET 8/9 (`net8.0`, `net9.0`) and later
+- .NET Framework 4.6.2 (`net462`) and later
+- .NET Standard 2.0/2.1 (`netstandard2.0`, `netstandard2.1`)
 
 #### Languages
 The neutral resource language for all texts is English (en-US). Currently, the only localization available is German (de-DE). If you like to add other languages, feel free to send a pull request with the translated resources!
@@ -22,15 +23,15 @@ The neutral resource language for all texts is English (en-US). Currently, the o
 - You can clone the repository and compile the libraries yourself (see the [Documentation](https://nerdyduck.github.io/CodedExceptions/index.html) for requirements).
 
 #### More information
-:exclamation: The documentation at the [Wiki](../../wiki/) is currently outdated. :exclamation:
+The complete documentation can be found at [nerdyduck.github.io](https://nerdyduck.github.io/CodedExceptions).
 
 #### License
 The project is licensed under the [MIT License](LICENSE).
 
 #### History
 ##### TBD / 2.0.0 / DAK
-- Complete change of target platforms to .NET 6/7/8+ and .NET Framework 4.7.2+
-- Removed `[SerializableAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.serializableattribute)`, `[ISerializable](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iserializable)` and corresponding constructors and methods for all platforms except `net472`, as this kind of serialization will be deprecated.
+- Complete change of target platforms to .NET 8/9+, .NET Standard 2.0/2.1 and .NET Framework 4.6.2+
+- Removed `[SerializableAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.serializableattribute)`, `[ISerializable](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iserializable)` and corresponding constructors and methods for all platforms except `net462` and `netstandard2.0`/`netstandard2.1`, as this kind of serialization will be deprecated.
 - Split `Configuration` namespace into three libraries, one for each type of configuration source:
   - `NerdyDuck.CodedExceptions.Configuration.AppConfig`, for configurations in the app.config file, with additional platform .NET Framework 4.7.2 .
   - `NerdyDuck.CodedExceptions.Configuration.ConfigSection`, for `[Microsoft.Extensions.Configuration.IConfigurationSection](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationsection)` support.

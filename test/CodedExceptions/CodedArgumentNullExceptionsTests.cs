@@ -194,7 +194,7 @@ public class CodedArgumentNullExceptionsTests
 		CodedArgumentNullException.ThrowIfNull(new object(), "arg");
 		CodedArgumentNullException.ThrowIfNull(new object(), Globals.CustomHResult, "arg");
 
-		int[] i = { 0 };
+		int[] i = [0];
 		unsafe
 		{
 			fixed (int* p = &i[0])
@@ -206,7 +206,7 @@ public class CodedArgumentNullExceptionsTests
 			}
 		}
 
-		IntPtr ptr = new IntPtr(1);
+		IntPtr ptr = new(1);
 		CodedArgumentNullException.ThrowIfNull(ptr);
 		CodedArgumentNullException.ThrowIfNull(ptr, Globals.CustomHResult);
 		CodedArgumentNullException.ThrowIfNull(ptr, "arg");
@@ -219,7 +219,7 @@ public class CodedArgumentNullExceptionsTests
 		string text = null;
 		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(text));
 		Assert.AreEqual(Globals.COR_E_NULLREFERENCE, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
 	}
@@ -232,7 +232,7 @@ public class CodedArgumentNullExceptionsTests
 			void* p = null;
 			CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p));
 			Assert.AreEqual(Globals.COR_E_NULLREFERENCE, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 			Assert.AreEqual(nameof(p), ex.ParamName);
 #endif
 		}
@@ -244,11 +244,10 @@ public class CodedArgumentNullExceptionsTests
 		IntPtr p = IntPtr.Zero;
 		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p));
 		Assert.AreEqual(Globals.COR_E_NULLREFERENCE, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(p), ex.ParamName);
 #endif
 	}
-
 
 	[TestMethod]
 	public void ThrowIfNull_StringString_Fail()
@@ -266,7 +265,7 @@ public class CodedArgumentNullExceptionsTests
 		string text = null;
 		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(text, Globals.CustomHResult));
 		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
 	}
@@ -279,7 +278,7 @@ public class CodedArgumentNullExceptionsTests
 			void* p = null;
 			CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p, Globals.CustomHResult));
 			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 			Assert.AreEqual(nameof(p), ex.ParamName);
 #endif
 		}
@@ -291,11 +290,10 @@ public class CodedArgumentNullExceptionsTests
 		IntPtr p = IntPtr.Zero;
 		CodedArgumentNullException ex = Assert.ThrowsException<CodedArgumentNullException>(() => CodedArgumentNullException.ThrowIfNull(p, Globals.CustomHResult));
 		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(p), ex.ParamName);
 #endif
 	}
-
 
 	[TestMethod]
 	public void ThrowIfNull_StringIntString_Fail()

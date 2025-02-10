@@ -12,7 +12,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Company>NerdyDuck</Company>
-    <Copyright>Copyright (c) 2018-2025 Daniel Kopp</Copyright>
+    <Copyright>Copyright (c) 2015-2025 Daniel Kopp</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Product>NerdyDuck Libraries</Product>
   </PropertyGroup>
@@ -21,13 +21,13 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
-    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <CheckEolTargetFramework>true</CheckEolTargetFramework>
   </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)Versions.props"/>
   <PropertyGroup Label="Versions">
     <FileVersion>$(Version).0</FileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net472'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net462'">
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 </Project>

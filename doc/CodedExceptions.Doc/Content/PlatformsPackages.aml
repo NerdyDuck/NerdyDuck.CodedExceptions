@@ -43,22 +43,44 @@
 			<title>Packages</title>
 			<content>
 				<para>
-					The project creates several NuGet packages that can be found on nuget.org.
-					For debugging purposes, the packages support the SourceLink standard to access the sources on GitHub, but symbol packages (.snupkg) are also available on nuget.org
+					The project creates several NuGet packages that can be found on <externalLink>
+						<linkText>nuget.org</linkText>
+						<linkUri>https://www.nuget.org</linkUri>
+					</externalLink>
+					For debugging purposes, the packages support the SourceLink standard to access the sources on GitHub, but symbol packages (.snupkg) are also available on nuget.org.
 				</para>
-				<para>Download the binaries from the Releases page.</para>
+				<para>You can also download the binaries from the <externalLink>
+					<linkText>Releases</linkText>
+					<linkUri>https://github.com/NerdyDuck/NerdyDuck.CodedExceptions/releases</linkUri>
+				</externalLink> page.</para>
 				<list class="bullet">
 					<listItem>
-						<para>NerdyDuck.CodedExceptions is the central package and library containing the exceptions and accompanying helper classes, and configuration options (for facility identifier overrides and the debug mode) via XML files.</para>
+						<para>
+							<externalLink>
+								<linkText>NerdyDuck.CodedExceptions</linkText>
+								<linkUri>https://www.nuget.org/packages/NerdyDuck.CodedExceptions</linkUri>
+							</externalLink> is the central package and library containing the exceptions and accompanying helper classes, and configuration options (for facility identifier overrides and the debug mode) via XML files.</para>
 					</listItem>
 					<listItem>
-						<para>NerdyDuck.CodedExceptions.Configuration.AppConfig expands the configuration options to classic app.config/web.config files.</para>
+						<para>
+							<externalLink>
+								<linkText>NerdyDuck.CodedExceptions.Configuration.AppConfig</linkText>
+								<linkUri>https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.AppConfig</linkUri>
+							</externalLink> expands the configuration options to classic app.config/web.config files.</para>
 					</listItem>
 					<listItem>
-						<para>NerdyDuck.CodedExceptions.Configuration.ConfigSection expands the configuration options to support IConfiguration (Microsoft.Extensions.Configuration).</para>
+						<para>
+							<externalLink>
+								<linkText>NerdyDuck.CodedExceptions.Configuration.ConfigSection</linkText>
+								<linkUri>https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.ConfigSection</linkUri>
+							</externalLink> expands the configuration options to support IConfiguration (Microsoft.Extensions.Configuration).</para>
 					</listItem>
 					<listItem>
-						<para>NerdyDuck.CodedExceptions.Configuration.Json expands the configuration options to simple JSON files.</para>
+						<para>
+							<externalLink>
+								<linkText>NerdyDuck.CodedExceptions.Configuration.Json</linkText>
+								<linkUri>https://www.nuget.org/packages/NerdyDuck.CodedExceptions.Configuration.Json</linkUri>
+							</externalLink>NerdyDuck.CodedExceptions.Configuration.Json expands the configuration options to simple JSON files.</para>
 					</listItem>
 				</list>
 				<para>

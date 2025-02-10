@@ -10,7 +10,7 @@ namespace NerdyDuck.CodedExceptions.IO;
 /// The exception that is thrown when an attempt to create a file fails because the free storage space on the target data store is insufficient.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -158,7 +158,7 @@ public class InsufficientStorageSpaceException : System.IO.IOException
 		return HResultHelper.CreateToString(this, customText);
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="InsufficientStorageSpaceException"/> class with serialized data.
 	/// </summary>

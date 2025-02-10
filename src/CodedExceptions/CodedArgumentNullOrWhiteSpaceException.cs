@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-#if NET5_0_OR_GREATER
+#if NET
 using System.Runtime.CompilerServices;
 #endif
 
@@ -12,7 +12,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when one of the string arguments provided to a method is <see langword="null"/> (<b>Nothing</b> in Visual Basic), empty, or contains only white-space characters. This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
 /// <remarks>This is the companion exception for <see cref="string.IsNullOrEmpty(string)"/>.</remarks>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -61,7 +61,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentNullOrWhiteSpaceException"/> class with serialized data.
 	/// </summary>
@@ -137,7 +137,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <param name="argument">The string argument to validate.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullOrWhiteSpaceException"><paramref name="argument"/> is <see langword="null"/>, empty or consists only of white-space characters.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfNullOrWhiteSpace(string? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
 #else
 	public static void ThrowIfNullOrWhiteSpace(string? argument, string? paramName = default)
@@ -157,7 +157,7 @@ public class CodedArgumentNullOrWhiteSpaceException : ArgumentException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullOrWhiteSpaceException"><paramref name="argument"/> is <see langword="null"/>, empty or consists only of white-space characters.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
 #else
 	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, string? paramName = default)

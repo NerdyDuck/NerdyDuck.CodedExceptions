@@ -21,7 +21,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, string path, Action<T, JsonElement> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 #else
 		if (cache == null)
@@ -29,7 +29,7 @@ internal static class ExtensionHelper
 			throw new ArgumentNullException(nameof(cache));
 		}
 #endif
-#if NET7_0_OR_GREATER
+#if NET
 		ArgumentException.ThrowIfNullOrEmpty(path);
 #else
 		if (string.IsNullOrEmpty(path))
@@ -69,7 +69,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, Stream stream, Action<T, JsonElement> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 		ArgumentNullException.ThrowIfNull(stream);
 #else
@@ -77,6 +77,7 @@ internal static class ExtensionHelper
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
+
 		if (stream == null)
 		{
 			throw new ArgumentNullException(nameof(stream));
@@ -118,7 +119,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, TextReader reader, Action<T, JsonElement> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 		ArgumentNullException.ThrowIfNull(reader);
 #else
@@ -155,7 +156,7 @@ internal static class ExtensionHelper
 		return cache;
 	}
 
-#if NET5_0_OR_GREATER
+#if NET || NETSTANDARD2_1
 	/// <summary>
 	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
 	/// </summary>
@@ -165,7 +166,14 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T LoadJson<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, JsonElement> parser) where T : class
 	{
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
 
 		JsonDocument jsonDocument;
 		try
@@ -208,27 +216,22 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the JSON data and adds the configuration data to the cache.</param>
 	internal static T ParseJson<T>(T cache, string content, Action<T, JsonElement> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentException.ThrowIfNullOrEmpty(content);
 #else
 		if (cache == null)
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
-#endif
-#if NET7_0_OR_GREATER
-		ArgumentException.ThrowIfNullOrEmpty(content);
-#else
+
 		if (string.IsNullOrEmpty(content))
 		{
-#if NET5_0_OR_GREATER
-			ArgumentNullException.ThrowIfNull(content);
-#else
 			if (content == null)
 			{
 				throw new ArgumentNullException(nameof(content));
 			}
-#endif
+
 			throw new ArgumentException(SR.LoadJson_NullOrEmpty, nameof(content));
 		}
 #endif

@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when the time allotted for a process or operation has expired.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -44,7 +44,7 @@ public class CodedTimeoutException : TimeoutException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedTimeoutException"/> class with serialized data.
 	/// </summary>

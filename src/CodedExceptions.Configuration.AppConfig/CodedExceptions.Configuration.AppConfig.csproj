@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Compilation">
-    <TargetFrameworks>netstandard2.0;net472;net6.0;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net462;net8.0;net9.0</TargetFrameworks>
     <RootNamespace>NerdyDuck.CodedExceptions.Configuration</RootNamespace>
     <AssemblyName>$(RootNamespace).AppConfig</AssemblyName>
   </PropertyGroup>
@@ -16,10 +16,10 @@
     </PackageReleaseNotes>
     <PackageTags>Exception HRESULT Configuration app.config</PackageTags>
   </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <Reference Include="System.Configuration" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'net472'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
     <PackageReference Include="System.Configuration.ConfigurationManager" />
   </ItemGroup>
   <ItemGroup>

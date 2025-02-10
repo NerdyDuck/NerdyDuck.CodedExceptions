@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-#if NET5_0_OR_GREATER
+#if NET
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 #endif
@@ -13,7 +13,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when a <see langword="null"/> reference (<b>Nothing</b> in Visual Basic) is passed to a method that does not accept it as a valid argument.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -62,7 +62,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentNullException"/> class with serialized data.
 	/// </summary>
@@ -138,7 +138,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <param name="argument">The reference type argument to validate as non-null.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfNull([NotNull] object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
 #else
 	public static new void ThrowIfNull(object? argument, string? paramName = default)
@@ -157,7 +157,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfNull([NotNull] object? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default)
 #else
 	public static void ThrowIfNull(object? argument, int hresult, string? paramName = default)
@@ -176,7 +176,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 	[CLSCompliant(false)]
-#if NET5_0_OR_GREATER
+#if NET
 	public static new unsafe void ThrowIfNull([NotNull] void* argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
 #else
 	public static new unsafe void ThrowIfNull(void* argument, string? paramName = null)
@@ -196,7 +196,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 	[CLSCompliant(false)]
-#if NET5_0_OR_GREATER
+#if NET
 	public static new unsafe void ThrowIfNull([NotNull] void* argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
 #else
 	public static new unsafe void ThrowIfNull(void* argument, int hresult, string? paramName = null)
@@ -214,7 +214,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <param name="argument">The pointer argument to validate as non-null.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static unsafe void ThrowIfNull(IntPtr argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
 #else
 	public static unsafe void ThrowIfNull(IntPtr argument, string? paramName = null)
@@ -233,7 +233,7 @@ public class CodedArgumentNullException : ArgumentNullException
 	/// <param name="hresult">The HRESULT that describes the error.</param>
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static unsafe void ThrowIfNull(IntPtr argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
 #else
 	public static unsafe void ThrowIfNull(IntPtr argument, int hresult, string? paramName = null)

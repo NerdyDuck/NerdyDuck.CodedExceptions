@@ -1,16 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Compilation">
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
+    <DefineConstants>$(DefineConstants);NETSTANDARD2_1</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Description>Unit test for NerdyDuck.CodedExceptions library</Description>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj" />
+   <!-- Force dependency resolving to use the netstandard2.0 library instead of the net9.0 one. -->
+   <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj">
+      <SetTargetFramework>TargetFramework=netstandard2.1</SetTargetFramework>
+    </ProjectReference>
     <ProjectReference Include="..\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>
@@ -19,7 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest" />
-    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\*.*">

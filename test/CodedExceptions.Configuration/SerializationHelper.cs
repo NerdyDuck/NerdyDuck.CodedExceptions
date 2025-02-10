@@ -16,7 +16,7 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 public static class SerializationHelper
 {
 #pragma warning disable IDE0079 // that next suppression is not unnecessary!
-#if NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0 || NETSTANDARD2_1
 #pragma warning disable SYSLIB0011 // the only simple way for serialization is still binary
 	/// <summary>
 	/// Serializes an object.

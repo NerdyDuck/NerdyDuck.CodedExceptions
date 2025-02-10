@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// Represents the exception that is thrown when errors are generated using ADO.NET components.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -46,7 +46,7 @@ public class CodedDataException : System.Data.DataException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedDataException"/> class with serialized data.
 	/// </summary>

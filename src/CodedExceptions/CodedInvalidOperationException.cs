@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when a method call is invalid for the object's current state.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -44,7 +44,7 @@ public class CodedInvalidOperationException : InvalidOperationException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedInvalidOperationException"/> class with serialized data.
 	/// </summary>

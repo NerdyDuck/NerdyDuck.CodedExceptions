@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
-#if NET5_0_OR_GREATER
+#if NET
 using System.Runtime.CompilerServices;
 #endif
 
@@ -13,7 +13,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when the value of an argument is outside the allowable range of values as defined by the invoked method.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -78,7 +78,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentOutOfRangeException"/> class with serialized data.
 	/// </summary>
@@ -169,7 +169,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
 #else
 	public static new void ThrowIfEqual<T>(T value, T other, string? paramName = default) where T : IEquatable<T>
@@ -190,7 +190,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
 #else
 	public static void ThrowIfEqual<T>(T value, T other, int hresult, string? paramName = default) where T : IEquatable<T>
@@ -210,7 +210,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfGreaterThan<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static new void ThrowIfGreaterThan<T>(T value, T other, string? paramName = default) where T : IComparable<T>
@@ -231,7 +231,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfGreaterThan<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static void ThrowIfGreaterThan<T>(T value, T other, int hresult, string? paramName = default) where T : IComparable<T>
@@ -251,7 +251,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than or equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfGreaterThanOrEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static new void ThrowIfGreaterThanOrEqual<T>(T value, T other, string? paramName = default) where T : IComparable<T>
@@ -272,7 +272,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is greater than or equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfGreaterThanOrEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static void ThrowIfGreaterThanOrEqual<T>(T value, T other, int hresult, string? paramName = default) where T : IComparable<T>
@@ -293,7 +293,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="minimum"/> or greater than <paramref name="maximum"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfLessOrGreaterThan<T>(T value, T minimum, T maximum, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static new void ThrowIfLessOrGreaterThan<T>(T value, T minimum, T maximum, string? paramName = default) where T : IComparable<T>
@@ -315,7 +315,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="minimum"/> or greater than <paramref name="maximum"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfLessOrGreaterThan<T>(T value, T minimum, T maximum, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static void ThrowIfLessOrGreaterThan<T>(T value, T minimum, T maximum, int hresult, string? paramName = default) where T : IComparable<T>
@@ -335,7 +335,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfLessThan<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static new void ThrowIfLessThan<T>(T value, T other, string? paramName = default) where T : IComparable<T>
@@ -356,7 +356,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfLessThan<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static void ThrowIfLessThan<T>(T value, T other, int hresult, string? paramName = default) where T : IComparable<T>
@@ -376,7 +376,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfLessThanOrEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static new void ThrowIfLessThanOrEqual<T>(T value, T other, string? paramName = default) where T : IComparable<T>
@@ -397,7 +397,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfLessThanOrEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IComparable<T>
 #else
 	public static void ThrowIfLessThanOrEqual<T>(T value, T other, int hresult, string? paramName = default) where T : IComparable<T>
@@ -417,7 +417,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is not equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfNotEqual<T>(T value, T other, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
 #else
 	public static new void ThrowIfNotEqual<T>(T value, T other, string? paramName = default) where T : IEquatable<T>
@@ -438,7 +438,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 	/// <param name="paramName">The name of the parameter with which <paramref name="value"/> corresponds.</param>
 	/// <typeparam name="T">The type of the objects to validate.</typeparam>
 	/// <exception cref="CodedArgumentOutOfRangeException"><paramref name="value"/> is not equal to <paramref name="other"/>.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfNotEqual<T>(T value, T other, int hresult, [CallerArgumentExpression(nameof(value))] string? paramName = default) where T : IEquatable<T>
 #else
 	public static void ThrowIfNotEqual<T>(T value, T other, int hresult, string? paramName = default) where T : IEquatable<T>
@@ -450,7 +450,7 @@ public class CodedArgumentOutOfRangeException : ArgumentOutOfRangeException
 		}
 	}
 
-#if NET7_0_OR_GREATER
+#if NET
 	/// <summary>
 	/// Throws a <see cref="CodedArgumentOutOfRangeException"/> if <paramref name="value"/> is negative.
 	/// </summary>

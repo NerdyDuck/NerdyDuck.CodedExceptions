@@ -12,7 +12,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception that is thrown when one of the arguments provided to a method is not valid.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -75,7 +75,7 @@ public class CodedArgumentException : ArgumentException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedArgumentException"/> class with serialized data.
 	/// </summary>
@@ -165,7 +165,7 @@ public class CodedArgumentException : ArgumentException
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfNullOrEmpty(string? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrEmptyException(argument, null, paramName);
 #else
 	public static new void ThrowIfNullOrEmpty(string? argument, string? paramName = default) => ThrowNullOrEmptyException(argument, null, paramName);
@@ -179,7 +179,7 @@ public class CodedArgumentException : ArgumentException
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfNullOrEmpty(string? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrEmptyException(argument, hresult, paramName);
 #else
 	public static void ThrowIfNullOrEmpty(string? argument, int hresult, string? paramName = default) => ThrowNullOrEmptyException(argument, hresult, paramName);
@@ -192,7 +192,7 @@ public class CodedArgumentException : ArgumentException
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty or consists only of white-space characters.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static new void ThrowIfNullOrWhiteSpace(string? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, null, paramName);
 #else
 	public static new void ThrowIfNullOrWhiteSpace(string? argument, string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, null, paramName);
@@ -206,7 +206,7 @@ public class CodedArgumentException : ArgumentException
 	/// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
 	/// <exception cref="CodedArgumentNullException"><paramref name="argument"/> is <see langword="null"/>.</exception>
 	/// <exception cref="CodedArgumentException"><paramref name="argument"/> is empty or consists only of white-space characters.</exception>
-#if NET5_0_OR_GREATER
+#if NET
 	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, [CallerArgumentExpression(nameof(argument))] string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, hresult, paramName);
 #else
 	public static void ThrowIfNullOrWhiteSpace(string? argument, int hresult, string? paramName = default) => ThrowNullOrWhiteSpaceException(argument, hresult, paramName);

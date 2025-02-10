@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-// Ignore Spelling: hresult
-
 using System.Net.Sockets;
 
 namespace NerdyDuck.CodedExceptions;
@@ -13,7 +11,7 @@ namespace NerdyDuck.CodedExceptions;
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
 /// <remarks>This exception is not derived from <see cref="SocketException"/>, because that class provides only a minimum of constructors.</remarks>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -202,7 +200,7 @@ public class CodedSocketException : CodedException
 	/// <returns>The fully qualified name of this exception, the <see cref="Exception.HResult"/> and possibly the error message, the name of the inner exception, and the stack trace.</returns>
 	public override string ToString() => HResultHelper.CreateToString(this, CompositeFormatCache.Default.Format(nameof(SR.CodedSocketException_ToString_SocketErrorCode), SocketErrorCode));
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedSocketException"/> class with serialized data.
 	/// </summary>

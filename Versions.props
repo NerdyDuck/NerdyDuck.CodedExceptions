@@ -3,6 +3,6 @@
   <PropertyGroup Label="Versions">
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <Version>2.0.0</Version>
-    <PrereleaseVersion>-rc.1</PrereleaseVersion>
+    <PrereleaseVersion></PrereleaseVersion>
   </PropertyGroup>
 </Project>

@@ -4,7 +4,7 @@
 
 global using System.Globalization;
 global using NerdyDuck.CodedExceptions;
-#if !NETFRAMEWORK
+#if NET || NETSTANDARD2_1
 global using System.Buffers;
 #endif
 

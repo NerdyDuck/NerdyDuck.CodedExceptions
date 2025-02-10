@@ -54,7 +54,7 @@ public static class AssemblyDebugModeCacheJsonExtensions
 	/// <exception cref="IOException">The stream data could not be read.</exception>
 	public static AssemblyDebugModeCache LoadJson(this AssemblyDebugModeCache cache, TextReader reader) => ExtensionHelper.LoadJson(cache, reader ?? throw new ArgumentNullException(nameof(reader)), (cache, jsonElement) => FromJson(cache, jsonElement));
 
-#if NET5_0_OR_GREATER
+#if NET || NETSTANDARD2_1
 	/// <summary>
 	/// Loads a list of assembly debug mode settings from the specified sequence of bytes containing JSON data, and adds them to the cache.
 	/// </summary>
@@ -97,7 +97,7 @@ public static class AssemblyDebugModeCacheJsonExtensions
 	/// <exception cref="FormatException">The JSON data is invalid.</exception>
 	public static AssemblyDebugModeCache FromJson(this AssemblyDebugModeCache cache, JsonElement jsonElement)
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 #else
 		if (cache == null)

@@ -187,7 +187,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		Assert.AreEqual(1, cache.Count);
 	}
 
-#if !NETFRAMEWORK
+#if NET || NETSTANDARD2_1
 	[TestMethod]
 	public void LoadXml_ReadOnlySequence_Success()
 	{

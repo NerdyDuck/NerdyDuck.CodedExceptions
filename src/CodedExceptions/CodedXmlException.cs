@@ -2,15 +2,13 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-// Ignore Spelling: hresult
-
 namespace NerdyDuck.CodedExceptions;
 
 /// <summary>
 /// The exception thrown when an error occurs while handling an XML document or stream.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -60,7 +58,7 @@ public class CodedXmlException : System.Xml.XmlException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedXmlException"/> class with serialized data.
 	/// </summary>

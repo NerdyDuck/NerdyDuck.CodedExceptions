@@ -86,17 +86,15 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="assembly"/> is <see langword="null"/>.</exception>
 	public bool IsDebugModeEnabled(Assembly assembly)
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+		ArgumentNullException.ThrowIfNull(assembly);
 #else
 		if (_isDisposed == 1)
 		{
 			throw new ObjectDisposedException(GetType().Name);
 		}
-#endif
-#if NET5_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(assembly);
-#else
+
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
@@ -127,7 +125,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="type"/> is <see langword="null"/>.</exception>
 	public bool IsDebugModeEnabled(Type type)
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
 #else
 		if (_isDisposed == 1)
@@ -147,17 +145,15 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="debugMode"/> is <see langword="null"/>.</exception>
 	public void Add(AssemblyDebugMode debugMode)
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+		ArgumentNullException.ThrowIfNull(debugMode);
 #else
 		if (_isDisposed == 1)
 		{
 			throw new ObjectDisposedException(GetType().Name);
 		}
-#endif
-#if NET5_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(debugMode);
-#else
+
 		if (debugMode == null)
 		{
 			throw new ArgumentNullException(nameof(debugMode));
@@ -258,7 +254,7 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ObjectDisposedException">The current object is already disposed.</exception>
 	public void Clear()
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
 #else
 		if (_isDisposed == 1)
@@ -287,18 +283,15 @@ public sealed class AssemblyDebugModeCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="identity"/> is <see langword="null"/>.</exception>
 	public void Remove(AssemblyIdentity identity)
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+		ArgumentNullException.ThrowIfNull(identity, nameof(identity));
 #else
 		if (_isDisposed == 1)
 		{
 			throw new ObjectDisposedException(GetType().Name);
 		}
-#endif
 
-#if NET5_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(identity, nameof(identity));
-#else
 		if (identity == null)
 		{
 			throw new ArgumentNullException(nameof(identity));

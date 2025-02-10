@@ -4,10 +4,10 @@
 
 using System.Collections.Generic;
 using System.IO;
+#if !NETFRAMEWORK && !NETSTANDARD2_0
 using System.Buffers;
-#if !NETFRAMEWORK
-using Microsoft.Extensions.Configuration;
 #endif
+using Microsoft.Extensions.Configuration;
 
 namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 
@@ -252,8 +252,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		Assert.AreEqual(7, cache.Count);
 	}
 
-#if !NETFRAMEWORK
-#if !NETSTANDARD20TEST
+#if !NETFRAMEWORK && !NETSTANDARD2_0
 	[TestMethod]
 	public void LoadJson_ReadOnlySequence_Success()
 	{
@@ -291,6 +290,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms2));
 	}
 #endif
+
 	[TestMethod]
 	public void FromConfigurationSection_Success()
 	{
@@ -354,5 +354,4 @@ public class AssemblyDebugModeCacheExtensionsTests
 			  _ = cache.LoadConfigurationSection(config.GetSection("debugModes"));
 		  });
 	}
-#endif
 }

@@ -237,8 +237,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		Assert.AreEqual(7, cache.Count);
 	}
 
-#if !NETFRAMEWORK
-#if !NETSTANDARD20TEST
+#if !NETFRAMEWORK && !NETSTANDARD2_0
 	[TestMethod]
 	public void LoadJson_ReadOnlySequence_Success()
 	{
@@ -323,5 +322,4 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 			  _ = cache.LoadConfigurationSection(config.GetSection("facilityIdentifierOverrides"));
 		  });
 	}
-#endif
 }

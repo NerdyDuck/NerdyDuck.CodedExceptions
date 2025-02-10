@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// Represents errors that occur during application execution.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -45,7 +45,7 @@ public class CodedException : Exception
 	public CodedException(string? message, Exception? innerException)
 		: base(message, innerException) => _message = message;
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedException"/> class with serialized data.
 	/// </summary>

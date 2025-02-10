@@ -20,7 +20,7 @@ public static class AssemblyFacilityOverrideCacheConfigSectionExtensions
 	[CLSCompliant(false)]
 	public static AssemblyFacilityOverrideCache LoadConfigurationSection(this AssemblyFacilityOverrideCache cache, IConfiguration configuration)
 	{
-#if NET6_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 		ArgumentNullException.ThrowIfNull(configuration);
 #else

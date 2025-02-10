@@ -8,7 +8,7 @@ namespace NerdyDuck.CodedExceptions;
 /// The exception thrown when an error occurs during serialization or deserialization.
 /// This exception provides constructors to set custom <see cref="Exception.HResult"/> values.
 /// </summary>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [CodedException]
@@ -44,7 +44,7 @@ public class CodedSerializationException : SerializationException
 	{
 	}
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CodedSerializationException"/> class with serialized data.
 	/// </summary>

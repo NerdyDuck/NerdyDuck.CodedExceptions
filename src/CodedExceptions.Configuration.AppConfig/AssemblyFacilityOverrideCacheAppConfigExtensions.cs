@@ -18,7 +18,7 @@ public static class AssemblyFacilityOverrideCacheAppConfigExtensions
 	/// <remarks>The overrides are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
 	public static AssemblyFacilityOverrideCache LoadApplicationConfiguration(this AssemblyFacilityOverrideCache cache)
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 #else
 		if (cache == null)
@@ -43,17 +43,14 @@ public static class AssemblyFacilityOverrideCacheAppConfigExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the overrides specified in the specified configuration section.</returns>
 	public static AssemblyFacilityOverrideCache LoadApplicationConfiguration(this AssemblyFacilityOverrideCache cache, string sectionName)
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentException.ThrowIfNullOrEmpty(sectionName);
 #else
 		if (cache == null)
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
-#endif
-#if NET7_0_OR_GREATER
-		ArgumentException.ThrowIfNullOrEmpty(sectionName);
-#else
 		if (string.IsNullOrWhiteSpace(sectionName))
 		{
 			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(sectionName));

@@ -3,9 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 global using System;
-#if NET5_0_OR_GREATER
 global using System.Buffers;
-#endif
 global using System.Collections.Generic;
 global using System.ComponentModel;
 global using System.IO;

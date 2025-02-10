@@ -20,7 +20,7 @@ public static class AssemblyDebugModeCacheConfigSectionExtensions
 	[CLSCompliant(false)]
 	public static AssemblyDebugModeCache LoadConfigurationSection(this AssemblyDebugModeCache cache, IConfiguration configuration)
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 		ArgumentNullException.ThrowIfNull(configuration);
 #else

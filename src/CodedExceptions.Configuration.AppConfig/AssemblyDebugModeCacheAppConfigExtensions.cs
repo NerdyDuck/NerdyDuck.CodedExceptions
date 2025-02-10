@@ -18,7 +18,7 @@ public static class AssemblyDebugModeCacheAppConfigExtensions
 	/// <remarks>The settings are loaded from the default section 'nerdyDuck/codedExceptions'.</remarks>
 	public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache)
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 #else
 		if (cache == null)
@@ -43,17 +43,14 @@ public static class AssemblyDebugModeCacheAppConfigExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the debug mode settings specified in the specified configuration section.</returns>
 	public static AssemblyDebugModeCache LoadApplicationConfiguration(this AssemblyDebugModeCache cache, string sectionName)
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentException.ThrowIfNullOrWhiteSpace(sectionName);
 #else
 		if (cache == null)
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
-#endif
-#if NET7_0_OR_GREATER
-		ArgumentException.ThrowIfNullOrEmpty(sectionName);
-#else
 		if (string.IsNullOrWhiteSpace(sectionName))
 		{
 			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(sectionName));

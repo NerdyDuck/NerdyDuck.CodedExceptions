@@ -11,21 +11,21 @@ namespace NerdyDuck.CodedExceptions.Configuration;
 /// Specifies the identity of an assembly.
 /// </summary>
 /// <remarks>This class can contain a fully qualified assembly name, or parts of it.</remarks>
-#if !NET5_0_OR_GREATER
+#if !NET
 [Serializable]
 #endif
 [ComVisible(false)]
 public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
-#if !NET5_0_OR_GREATER
+#if !NET
 	, ISerializable
 #endif
 {
-#if !NET5_0_OR_GREATER
+#if !NET
 	private const string PublicKeyTokenName = "PublicKeyToken";
 #endif
 	private const string NeutralLanguage = "neutral";
 
-#if NET7_0_OR_GREATER
+#if NET
 	[GeneratedRegex("^(?<name>[^,]*)(, Version=(?<version>[^,]*))?(, Culture=(?<culture>[^,]*))?(, PublicKeyToken=(?<pkt>[^,]*))?(, Type=(?<type>[^,]*))?")]
 	private static partial Regex CreateAssemblyIdentityRegex();
 	private static readonly Lazy<Regex> s_assemblyIdentityRegex = new(CreateAssemblyIdentityRegex);
@@ -106,7 +106,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	public AssemblyIdentity(Assembly assembly, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
 #else
 		if (assembly == null)
@@ -128,7 +128,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	public AssemblyIdentity(AssemblyName assemblyName, AssemblyNameElements assemblyNameElements)
 		: this()
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(assemblyName);
 #else
 		if (assemblyName == null)
@@ -218,7 +218,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	/// </summary>
 	/// <returns>A hash code for the current object.</returns>
 	public override int GetHashCode() =>
-#if NET5_0_OR_GREATER
+#if NET || NETSTANDARD2_1_OR_GREATER
 			ToString().GetHashCode(StringComparison.Ordinal);
 #else
 			ToString().GetHashCode();
@@ -516,7 +516,7 @@ public sealed partial class AssemblyIdentity : IEquatable<AssemblyIdentity>
 	/// <returns><see langword="true"/>, if <paramref name="identity1"/> and <paramref name="identity2"/> do not represent the same byte array; otherwise, <see langword="false"/>.</returns>
 	public static bool operator !=(AssemblyIdentity? identity1, AssemblyIdentity? identity2) => identity1 is null ? identity2 is not null : !identity1.Equals(identity2);
 
-#if !NET5_0_OR_GREATER
+#if !NET
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AssemblyIdentity"/> class with serialized data.
 	/// </summary>

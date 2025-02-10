@@ -7,7 +7,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Xml;
-#if NET5_0_OR_GREATER
+#if NET || NETSTANDARD2_1
 using System.Buffers;
 #endif
 
@@ -53,7 +53,7 @@ public static class AssemblyFacilityOverrideCacheExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the overrides specified in the XML data of the <paramref name="reader"/>.</returns>
 	public static AssemblyFacilityOverrideCache LoadXml(this AssemblyFacilityOverrideCache cache, TextReader reader) => ExtensionHelper.LoadXml(cache, reader, FromXmlInternal);
 
-#if NET5_0_OR_GREATER
+#if NET || NETSTANDARD2_1
 	/// <summary>
 	/// Loads a list of facility identifier overrides from the specified sequence of bytes containing XML data, and adds them to the cache.
 	/// </summary>
@@ -87,7 +87,7 @@ public static class AssemblyFacilityOverrideCacheExtensions
 	/// <returns>The specified <paramref name="cache"/> object, containing the overrides specified in the XML data of the <paramref name="reader"/>.</returns>
 	public static AssemblyFacilityOverrideCache FromXml(this AssemblyFacilityOverrideCache cache, XmlReader reader)
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 		ArgumentNullException.ThrowIfNull(reader);
 #else

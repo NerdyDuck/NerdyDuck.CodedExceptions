@@ -201,7 +201,7 @@ public class CodedArgumentNullOrEmptyExceptionTests
 		string text = string.Empty;
 		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text));
 		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
 	}
@@ -222,7 +222,7 @@ public class CodedArgumentNullOrEmptyExceptionTests
 		string text = string.Empty;
 		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, Globals.CustomHResult));
 		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
-#if NET5_0_OR_GREATER
+#if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
 	}

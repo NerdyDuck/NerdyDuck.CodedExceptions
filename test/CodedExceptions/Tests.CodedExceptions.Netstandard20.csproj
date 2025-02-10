@@ -4,14 +4,15 @@
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>NerdyDuck.Tests.CodedExceptions</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
-    <DefineConstants>$(DefineConstants);NETSTANDARD20TEST</DefineConstants>
+    <DefineConstants>$(DefineConstants);NETSTANDARD2_0</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Label="Assembly info">
     <Description>Unit test for NerdyDuck.CodedExceptions library</Description>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj">
+   <!-- Force dependency resolving to use the netstandard2.0 library instead of the net472 one. -->
+   <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj">
       <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
     </ProjectReference>
     <ProjectReference Include="..\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj">
@@ -22,7 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest" />
-    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\*.*">

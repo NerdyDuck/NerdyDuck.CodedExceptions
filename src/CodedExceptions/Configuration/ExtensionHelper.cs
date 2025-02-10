@@ -7,7 +7,7 @@ using System.IO;
 using System.Security;
 using System.Xml;
 
-#if NET5_0_OR_GREATER
+#if NET || NETSTANDARD2_1
 using System.Buffers;
 #endif
 
@@ -29,17 +29,15 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, string path, Action<T, XmlReader> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentException.ThrowIfNullOrWhiteSpace(path, nameof(path));
 #else
 		if (cache == null)
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
-#endif
-#if NET7_0_OR_GREATER
-		ArgumentException.ThrowIfNullOrWhiteSpace(path, nameof(path));
-#else
+
 		if (string.IsNullOrWhiteSpace(path))
 		{
 			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(path));
@@ -77,7 +75,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, Stream stream, Action<T, XmlReader> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 		ArgumentNullException.ThrowIfNull(stream);
 #else
@@ -110,7 +108,7 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, TextReader reader, Action<T, XmlReader> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
 		ArgumentNullException.ThrowIfNull(reader);
 #else
@@ -130,7 +128,7 @@ internal static class ExtensionHelper
 		return cache;
 	}
 
-#if NET5_0_OR_GREATER
+#if NET || NETSTANDARD2_1
 	/// <summary>
 	/// Loads configuration data into a cache from the specified sequence of bytes, using the specified method.
 	/// </summary>
@@ -140,7 +138,14 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, ReadOnlySequence<byte> utf8Json, Action<T, XmlReader> parser) where T : class
 	{
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
 
 		using MemoryStream stream = new(utf8Json.ToArray());
 		using XmlReader xmlReader = XmlReader.Create(stream, s_secureSettings);
@@ -157,7 +162,14 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T LoadXml<T>(T cache, ReadOnlyMemory<byte> utf8Json, Action<T, XmlReader> parser) where T : class
 	{
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+#else
+		if (cache == null)
+		{
+			throw new ArgumentNullException(nameof(cache));
+		}
+#endif
 
 		using MemoryStream stream = new(utf8Json.ToArray());
 		using XmlReader xmlReader = XmlReader.Create(stream, s_secureSettings);
@@ -175,27 +187,22 @@ internal static class ExtensionHelper
 	/// <param name="parser">The method that parses the XML data and adds the configuration data to the cache.</param>
 	internal static T ParseXml<T>(T cache, string content, Action<T, XmlReader> parser) where T : class
 	{
-#if NET5_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(cache);
+		ArgumentException.ThrowIfNullOrEmpty(content);
 #else
 		if (cache == null)
 		{
 			throw new ArgumentNullException(nameof(cache));
 		}
-#endif
-#if NET7_0_OR_GREATER
-		ArgumentException.ThrowIfNullOrEmpty(content);
-#else
+
 		if (string.IsNullOrEmpty(content))
 		{
-#if NET5_0_OR_GREATER
-			ArgumentNullException.ThrowIfNull(content);
-#else
 			if (content == null)
 			{
 				throw new ArgumentNullException(nameof(content));
 			}
-#endif
+
 			throw new ArgumentException(SR.Load_NullOrEmpty, nameof(content));
 		}
 #endif

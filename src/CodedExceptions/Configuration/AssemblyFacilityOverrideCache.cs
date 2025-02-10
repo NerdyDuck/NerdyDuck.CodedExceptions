@@ -60,17 +60,15 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	public bool TryGetOverride(Assembly assembly, out int identifier)
 	{
 		identifier = 0;
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+		ArgumentNullException.ThrowIfNull(assembly);
 #else
 		if (_isDisposed == 1)
 		{
 			throw new ObjectDisposedException(GetType().Name);
 		}
-#endif
-#if NET5_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(assembly);
-#else
+
 		if (assembly == null)
 		{
 			throw new ArgumentNullException(nameof(assembly));
@@ -102,7 +100,7 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="type"/> is <see langword="null"/>.</exception>
 	public bool TryGetOverride(Type type, out int identifier)
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
 #else
 		if (_isDisposed == 1)
@@ -122,18 +120,15 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ArgumentNullException"><paramref name="facilityOverride"/> is <see langword="null"/>.</exception>
 	public void Add(AssemblyFacilityOverride facilityOverride)
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
+		ArgumentNullException.ThrowIfNull(facilityOverride);
 #else
 		if (_isDisposed == 1)
 		{
 			throw new ObjectDisposedException(GetType().Name);
 		}
-#endif
 
-#if NET5_0_OR_GREATER
-		ArgumentNullException.ThrowIfNull(facilityOverride);
-#else
 		if (facilityOverride == null)
 		{
 			throw new ArgumentNullException(nameof(facilityOverride));
@@ -178,7 +173,7 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ObjectDisposedException">The current object is already disposed.</exception>
 	public void AddRange(IEnumerable<AssemblyFacilityOverride> facilityOverrides)
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
 #else
 		if (_isDisposed == 1)
@@ -226,7 +221,7 @@ public sealed class AssemblyFacilityOverrideCache : IDisposable
 	/// <exception cref="ObjectDisposedException">The current object is already disposed.</exception>
 	public void Clear()
 	{
-#if NET7_0_OR_GREATER
+#if NET
 		ObjectDisposedException.ThrowIf(_isDisposed == 1, this);
 #else
 		if (_isDisposed == 1)

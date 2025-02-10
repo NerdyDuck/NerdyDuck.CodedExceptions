@@ -126,7 +126,7 @@ public static class HResultHelper
 	/// <exception cref="ArgumentNullException">ex is null.</exception>
 	public static string CreateToString(Exception ex, string? customText)
 	{
-#if NET6_0_OR_GREATER
+#if NET
 		ArgumentNullException.ThrowIfNull(ex, nameof(ex));
 #else
 		if (ex == null)
