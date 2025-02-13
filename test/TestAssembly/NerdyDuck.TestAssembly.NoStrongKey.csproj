@@ -5,7 +5,15 @@
     <RootNamespace>NerdyDuck.TestAssembly</RootNamespace>
     <AssemblyName>TestAssembly</AssemblyName>
     <SignAssembly>false</SignAssembly>
+    <OutputType>Library</OutputType>
+    <EnableMSTestRunner>false</EnableMSTestRunner>
+    <TestingPlatformDotnetTestSupport>false</TestingPlatformDotnetTestSupport>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Remove="MSTest" />
+    <PackageReference Remove="coverlet.collector" />
+  </ItemGroup>
   <ItemGroup>
     <Using Remove="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>

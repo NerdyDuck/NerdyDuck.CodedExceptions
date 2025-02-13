@@ -18,9 +18,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MSTest" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="TestFiles\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

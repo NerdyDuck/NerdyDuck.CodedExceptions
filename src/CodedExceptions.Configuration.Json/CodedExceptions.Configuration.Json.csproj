@@ -14,38 +14,15 @@
       - Configuration reworked and split from base library.
       - Supports JSON files
     </PackageReleaseNotes>
-    <PackageTags>Exception HRESULT Configuration</PackageTags>
+    <PackageTags>Exception HRESULT Configuration JSON</PackageTags>
   </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
-    <PackageReference Include="System.Text.Json" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Text.Json" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="System.Text.Json" />
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' Or '$(TargetFrameworkIdentifier)' == '.NETStandard'">
+    <PackageReference Include="System.Text.Json" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodedExceptions\CodedExceptions.csproj">
       <Private>false</Private>
+      <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="SR.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SR.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="SR.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SR.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
-    <ItemGroup>
-      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
-    </ItemGroup>
-  </Target>
 </Project>

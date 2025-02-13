@@ -11,8 +11,8 @@
     <Description>Unit test for NerdyDuck.CodedExceptions library</Description>
   </PropertyGroup>
   <ItemGroup>
-   <!-- Force dependency resolving to use the netstandard2.0 library instead of the net472 one. -->
-   <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj">
+    <!-- Force dependency resolving to use the netstandard2.0 library instead of the net472 one. -->
+    <ProjectReference Include="..\..\src\CodedExceptions\CodedExceptions.csproj">
       <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
     </ProjectReference>
     <ProjectReference Include="..\TestAssembly\NerdyDuck.TestAssembly.NoStrongKey.csproj">
@@ -20,9 +20,6 @@
       <OutputItemType>Content</OutputItemType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="MSTest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\*.*">

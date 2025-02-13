@@ -2,8 +2,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
   <PropertyGroup Label="Compilation">
-    <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
+    <OutputType>Exe</OutputType>
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>    <IsTestProject>true</IsTestProject>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <DefineTrace>true</DefineTrace>
     <ArtifactsBinOutputName>bin\test</ArtifactsBinOutputName>
@@ -23,6 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="MSTest" />
   </ItemGroup>
   <ItemGroup>
     <Using Include="System" />

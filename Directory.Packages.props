@@ -4,17 +4,17 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <NuGetAudit>true</NuGetAudit>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Label="Default packages for all projects">
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
-    <PackageVersion Include="NuGet.Build.Tasks.Pack" Version="6.12.1" />
+    <PackageVersion Include="NuGet.Build.Tasks.Pack" Version="6.13.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-    <PackageVersion Include="MSTest" Version="3.7.1"/>
-    <PackageVersion Include="System.Text.Json" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
+    <PackageVersion Include="MSTest" Version="3.8.0"/>
+  </ItemGroup>
+  <ItemGroup Label="Project specific packages">
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.0"/>
-    <!--<PackageVersion Include="Newtonsoft.Json" Version="[13.0.3,)" />-->
+    <PackageVersion Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
-  <!-- Newtonsoft.Json versions are set explicitely for testing, because the versions resolved by default have security issues. -->
 </Project>

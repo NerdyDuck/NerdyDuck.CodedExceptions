@@ -67,9 +67,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedExceptions.Configuration.Json", "src\CodedExceptions.Configuration.Json\CodedExceptions.Configuration.Json.csproj", "{C742BC22-1B13-426C-9D6E-F4E945B7CAC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodedExceptions", "CodedExceptions", "{0EF57DD0-8E78-4F51-B5CA-F1FE662201AF}"
-	ProjectSection(SolutionItems) = preProject
-		test\CodedExceptions\Directory.Build.targets = test\CodedExceptions\Directory.Build.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Net80", "test\CodedExceptions\Tests.CodedExceptions.Net80.csproj", "{79EE6F01-D9F1-4F7C-85F0-29300625D5CA}"
 EndProject
@@ -78,9 +75,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Netstandard20", "test\CodedExceptions\Tests.CodedExceptions.Netstandard20.csproj", "{6AFE35E7-3D24-4CA6-8E9D-4EF60207DE1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodedExceptions.Configuration", "CodedExceptions.Configuration", "{378B31BE-4F84-40D4-854B-FA535D135353}"
-	ProjectSection(SolutionItems) = preProject
-		test\CodedExceptions.Configuration\Directory.Build.targets = test\CodedExceptions.Configuration\Directory.Build.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CodedExceptions.Configuration.Net80", "test\CodedExceptions.Configuration\Tests.CodedExceptions.Configuration.Net80.csproj", "{F9EA6564-AF20-44CE-945F-1753CF42AB3E}"
 EndProject
