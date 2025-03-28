@@ -4,7 +4,7 @@
 This project provides a library of classes derived from [`System.Exception`](https://docs.microsoft.com/en-us/dotnet/api/system.exception) that offer constructors to set the `HResult` property with a custom value.
 It also includes helper classes to create standardized HRESULT values compliant to Microsoft's usage of HRESULT. See [here](https://msdn.microsoft.com/en-us/library/cc231198.aspx) for more information.
 
-#### Platforms
+#### Target Frameworks
 - .NET 8/9 (`net8.0`, `net9.0`) and later
 - .NET Framework 4.6.2 (`net462`) and later
 - .NET Standard 2.0/2.1 (`netstandard2.0`, `netstandard2.1`)
@@ -33,12 +33,13 @@ The project is licensed under the [MIT License](LICENSE).
 - Complete change of target platforms to .NET 8/9+, .NET Standard 2.0/2.1 and .NET Framework 4.6.2+
 - Removed `[SerializableAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.serializableattribute)`, `[ISerializable](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iserializable)` and corresponding constructors and methods for all platforms except `net462` and `netstandard2.0`/`netstandard2.1`, as this kind of serialization will be deprecated.
 - Split `Configuration` namespace into three libraries, one for each type of configuration source:
-  - `NerdyDuck.CodedExceptions.Configuration.AppConfig`, for configurations in the app.config file, with additional platform .NET Framework 4.7.2 .
+  - `NerdyDuck.CodedExceptions.Configuration.AppConfig`, for configurations in the app.config/web.config file.
   - `NerdyDuck.CodedExceptions.Configuration.ConfigSection`, for `[Microsoft.Extensions.Configuration.IConfigurationSection](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationsection)` support.
   - `NerdyDuck.CodedExceptions.Configuration.Json`, for JSON file support.
   - `NerdyDuck.CodedExceptions` still offers support for XML files, as it is available on all platforms without additional dependencies.
 - Changed German resources from de-DE to just de.
 - Restructured repository, using Directory.Build.props/.targets and Directory.Packages.props for common configuration.
+- New SLNX solution file format.
 - Switched release branch from `master` to `main`.
 - Switched license from Apache 2.0 to MIT.
 
