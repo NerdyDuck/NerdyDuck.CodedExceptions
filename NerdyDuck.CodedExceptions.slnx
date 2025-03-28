@@ -1,0 +1,66 @@
+<Solution>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/" Id="e7a3c856-6834-d657-f2f0-05592df2dde9">
+    <File Path=".github/workflows/dotnet.yml" />
+  </Folder>
+  <Folder Name="/doc/">
+    <Project Path="doc/CodedExceptions.Doc/CodedExceptions.Doc.shfbproj" Type="7cf6df6d-3b04-46f8-a40b-537d21bca0b4" Id="a7dbe07d-6d8f-4450-8cb8-6bc197d964aa" />
+  </Folder>
+  <Folder Name="/doc/Examples/" Id="95de6556-66bd-f3ea-de89-4edaedb505ab">
+    <File Path="doc/Examples/AssemblyFacilityIdentifierAttribute.cs" />
+    <File Path="doc/Examples/CodedExceptionAttribute.cs" />
+  </Folder>
+  <Folder Name="/media/">
+    <File Path="media/NerdyDuck.CodedExceptions-128x128.png" />
+    <File Path="media/NerdyDuck.CodedExceptions-64x64.png" />
+    <File Path="media/NerdyDuck.CodedExceptions.svg" />
+  </Folder>
+  <Folder Name="/shared/">
+    <File Path="shared/NerdyDuck.CodedExceptions.snk" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="exclusion.dic" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="nuget.config" />
+    <File Path="README.md" />
+    <File Path="THIRD-PARTY-NOTICES.TXT" />
+    <File Path="Versions.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Directory.Build.targets" />
+    <Project Path="src/CodedExceptions.Configuration.AppConfig/CodedExceptions.Configuration.AppConfig.csproj" />
+    <Project Path="src/CodedExceptions.Configuration.ConfigSection/CodedExceptions.Configuration.ConfigSection.csproj" />
+    <Project Path="src/CodedExceptions.Configuration.Json/CodedExceptions.Configuration.Json.csproj" />
+    <Project Path="src/CodedExceptions/CodedExceptions.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/" Id="c8e42992-5e42-0c2b-dbfe-aa848d06431c">
+    <File Path="src/shared/CompositeFormatCache.cs" />
+    <File Path="src/shared/GlobalStrings.cs" />
+  </Folder>
+  <Folder Name="/test/">
+    <File Path="test/.editorconfig" />
+    <File Path="test/Directory.Build.props" />
+    <Project Path="test/TestAssembly/NerdyDuck.TestAssembly.NoStrongKey.csproj" />
+  </Folder>
+  <Folder Name="/test/CodedExceptions.Configuration/" Id="c49c7df9-0821-8edf-d082-f5cddb250b07">
+    <Project Path="test/CodedExceptions.Configuration/Tests.CodedExceptions.Configuration.Net462.csproj" />
+    <Project Path="test/CodedExceptions.Configuration/Tests.CodedExceptions.Configuration.Net80.csproj" />
+    <Project Path="test/CodedExceptions.Configuration/Tests.CodedExceptions.Configuration.Net90.csproj" />
+    <Project Path="test/CodedExceptions.Configuration/Tests.CodedExceptions.Configuration.Netstandard20.csproj" />
+    <Project Path="test/CodedExceptions.Configuration/Tests.CodedExceptions.Configuration.Netstandard21.csproj" />
+  </Folder>
+  <Folder Name="/test/CodedExceptions/" Id="d65c143a-e3a4-10c7-e88c-ab4d8e42d8e7">
+    <Project Path="test/CodedExceptions/Tests.CodedExceptions.Net462.csproj" />
+    <Project Path="test/CodedExceptions/Tests.CodedExceptions.Net80.csproj" />
+    <Project Path="test/CodedExceptions/Tests.CodedExceptions.Net90.csproj" />
+    <Project Path="test/CodedExceptions/Tests.CodedExceptions.Netstandard20.csproj" />
+    <Project Path="test/CodedExceptions/Tests.CodedExceptions.Netstandard21.csproj" />
+  </Folder>
+</Solution>
