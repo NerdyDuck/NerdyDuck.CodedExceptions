@@ -19,7 +19,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void AssertCache_Void_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyFacilityOverrideCacheAppConfigExtensions.LoadApplicationConfiguration(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => AssemblyFacilityOverrideCacheAppConfigExtensions.LoadApplicationConfiguration(null));
 	}
 
 	[TestMethod]
@@ -41,7 +41,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadApplicationConfiguration_StringEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadApplicationConfiguration(string.Empty);
@@ -77,7 +77,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StringEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson(string.Empty);
@@ -87,7 +87,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StringInvalid_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson("NoFileHere.json");
@@ -109,7 +109,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StreamNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson((Stream)null);
@@ -119,7 +119,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StreamNoRead_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson(new NoReadStream());
@@ -142,7 +142,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_TextReaderNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson((TextReader)null);
@@ -152,7 +152,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_TextReaderInvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  using FileStream stream = new(@"TestFiles\FacilityIdentifierOverridesInvIdentifier.json", FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -164,7 +164,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_InvAssemblyName_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson(@"TestFiles\FacilityIdentifierOverridesInvAssemblyName.json");
@@ -174,7 +174,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_InvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson(@"TestFiles\FacilityIdentifierOverridesInvIdentifier.json");
@@ -192,7 +192,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_NotBool_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadJson(@"TestFiles\FacilityIdentifierOverridesNotInt.json");
@@ -211,7 +211,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void ParseJson_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.ParseJson(null);
@@ -221,7 +221,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void ParseJson_InvAssemblyName_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  string json = File.ReadAllText(@"TestFiles\FacilityIdentifierOverridesInvAssemblyName.json");
@@ -271,7 +271,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadConfigurationSection_Null_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadConfigurationSection(null);
@@ -281,7 +281,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadConfigurationSection_AssemblyNameInv_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  Dictionary<string, string> modes = new()
@@ -296,7 +296,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadConfigurationSection_IsEnabledInv_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  Dictionary<string, string> modes = new()
@@ -311,7 +311,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadConfigurationSection_IsEnabledEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  Dictionary<string, string> modes = new()

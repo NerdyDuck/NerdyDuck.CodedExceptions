@@ -21,7 +21,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void AssertCacheAppConfig_Void_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyDebugModeCacheAppConfigExtensions.LoadApplicationConfiguration(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => AssemblyDebugModeCacheAppConfigExtensions.LoadApplicationConfiguration(null));
 	}
 
 	[TestMethod]
@@ -43,7 +43,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadApplicationConfiguration_StringEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadApplicationConfiguration(string.Empty);
@@ -53,7 +53,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void AssertCacheJson_string_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyDebugModeCacheJsonExtensions.ParseJson(null, string.Empty));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => AssemblyDebugModeCacheJsonExtensions.ParseJson(null, string.Empty));
 	}
 
 	[TestMethod]
@@ -70,7 +70,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	public void LoadJson_NoTextReader_Throw()
 	{
 		using AssemblyDebugModeCache cache = new();
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.LoadJson((TextReader)null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.LoadJson((TextReader)null));
 	}
 
 	[TestMethod]
@@ -92,7 +92,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StringEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson(string.Empty);
@@ -102,7 +102,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StringInvalid_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson("NoFileHere.json");
@@ -124,7 +124,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StreamNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson((Stream)null);
@@ -134,7 +134,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_StreamNoRead_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson(new NoReadStream());
@@ -157,7 +157,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_TextReaderNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson((TextReader)null);
@@ -167,7 +167,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_TextReaderInvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  using FileStream stream = new(@"TestFiles\AssemblyDebugModesInvIsEnabled.json", FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -179,7 +179,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_InvAssemblyName_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson(@"TestFiles\AssemblyDebugModesInvAssemblyName.json");
@@ -189,7 +189,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_InvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson(@"TestFiles\AssemblyDebugModesInvIsEnabled.json");
@@ -207,7 +207,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadJson_NotBool_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadJson(@"TestFiles\AssemblyDebugModesNotBool.json");
@@ -226,7 +226,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void ParseJson_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.ParseJson(null);
@@ -236,7 +236,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void ParseJson_StringInvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  string json = File.ReadAllText(@"TestFiles\AssemblyDebugModesInvIsEnabled.json");
@@ -278,7 +278,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	{
 		using AssemblyDebugModeCache cache = new();
 		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
-		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms));
+		_ = Assert.ThrowsExactly<IOException>(() => cache.LoadJson(ms));
 	}
 
 	[TestMethod]
@@ -287,7 +287,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 		using AssemblyDebugModeCache cache = new();
 		Memory<byte> ms = new("{|}"u8.ToArray()); // = {|}
 		ReadOnlySequence<byte> ms2 = new(ms);
-		_ = Assert.ThrowsException<IOException>(() => cache.LoadJson(ms2));
+		_ = Assert.ThrowsExactly<IOException>(() => cache.LoadJson(ms2));
 	}
 #endif
 
@@ -303,7 +303,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void FromConfigurationSection_Null_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadConfigurationSection(null);
@@ -313,7 +313,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void FromConfigurationSection_AssemblyNameInv_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  Dictionary<string, string> modes = new()
@@ -328,7 +328,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void FromConfigurationSection_IsEnabledInv_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  Dictionary<string, string> modes = new()
@@ -343,7 +343,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void FromConfigurationSection_IsEnabledEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  Dictionary<string, string> modes = new()
