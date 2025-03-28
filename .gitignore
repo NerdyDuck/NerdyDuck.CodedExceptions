@@ -210,4 +210,5 @@ test/coverlet.integration.determisticbuild/runsettings
 
 # Project-specific
 signing.props
+signing.targets
 NerdyDuck.snk

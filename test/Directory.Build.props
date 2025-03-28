@@ -4,8 +4,9 @@
   <PropertyGroup Label="Compilation">
     <IsTestProject>true</IsTestProject>
     <OutputType>Exe</OutputType>
+    <MSTestAnalysisMode>Recommended</MSTestAnalysisMode>
     <EnableMSTestRunner>true</EnableMSTestRunner>
-    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>    <IsTestProject>true</IsTestProject>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <DefineTrace>true</DefineTrace>
     <ArtifactsBinOutputName>bin\test</ArtifactsBinOutputName>
