@@ -15,14 +15,16 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 [TestClass]
 public class AssemblyFacilityOverrideCacheTests
 {
-	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(Globals.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
-	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(Globals.OtherAssembly, AssemblyIdentity.AssemblyNameElements.All);
+	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(GlobalConstants.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
+	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(GlobalConstants.OtherAssembly, AssemblyIdentity.AssemblyNameElements.All);
 	private static readonly Assembly s_thirdAssembly = typeof(System.Exception).Assembly;
 
 	[TestMethod]
 	public void Global_Success()
 	{
+#pragma warning disable MSTEST0032 // Assertion condition is always true
 		Assert.IsNotNull(AssemblyFacilityOverrideCache.Global);
+#pragma warning restore MSTEST0032 // Assertion condition is always true
 	}
 
 	[TestMethod]
@@ -35,6 +37,7 @@ public class AssemblyFacilityOverrideCacheTests
 	[TestMethod]
 	public void Finalizer_Success()
 	{
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
 		WeakReference<AssemblyFacilityOverrideCache> weak = null;
 
 		void dispose()
@@ -46,6 +49,7 @@ public class AssemblyFacilityOverrideCacheTests
 		dispose();
 		GC.Collect(0, GCCollectionMode.Forced);
 		GC.WaitForPendingFinalizers();
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
 	}
 
 	[TestMethod]
@@ -55,9 +59,9 @@ public class AssemblyFacilityOverrideCacheTests
 		cache.Add(new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42));
 		cache.Add(new AssemblyFacilityOverride(s_otherAssemblyIdentity, 17));
 
-		Assert.IsTrue(cache.TryGetOverride(Globals.ThisAssembly, out int i1));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.ThisAssembly, out int i1));
 		Assert.AreEqual(42, i1);
-		Assert.IsTrue(cache.TryGetOverride(Globals.OtherAssembly, out int i2));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.OtherAssembly, out int i2));
 		Assert.AreEqual(17, i2);
 		Assert.IsFalse(cache.TryGetOverride(s_thirdAssembly, out int i3));
 		Assert.AreEqual(0, i3);
@@ -76,9 +80,9 @@ public class AssemblyFacilityOverrideCacheTests
 		cache.Add(new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42));
 		cache.Add(new AssemblyFacilityOverride(s_otherAssemblyIdentity, 17));
 
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.TryGetOverride((Assembly)null, out int i1));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.TryGetOverride((Assembly)null, out int i1));
 
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.TryGetOverride((Type)null, out int i2));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.TryGetOverride((Type)null, out int i2));
 	}
 
 	[TestMethod]
@@ -88,14 +92,14 @@ public class AssemblyFacilityOverrideCacheTests
 		cache.Add(new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42));
 		cache.Add(new AssemblyFacilityOverride(s_otherAssemblyIdentity, 17));
 
-		Assert.IsTrue(cache.TryGetOverride(Globals.ThisAssembly, out int i1));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.ThisAssembly, out int i1));
 		Assert.AreEqual(42, i1);
-		Assert.IsTrue(cache.TryGetOverride(Globals.OtherAssembly, out int i2));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.OtherAssembly, out int i2));
 		Assert.AreEqual(17, i2);
 
 		cache.Add(s_otherAssemblyIdentity, 10);
 
-		Assert.IsTrue(cache.TryGetOverride(Globals.OtherAssembly, out int i3));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.OtherAssembly, out int i3));
 		Assert.AreEqual(10, i3);
 	}
 
@@ -103,7 +107,7 @@ public class AssemblyFacilityOverrideCacheTests
 	public void Add_Null_Throw()
 	{
 		using AssemblyFacilityOverrideCache cache = new();
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.Add(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.Add(null));
 	}
 
 	[TestMethod]
@@ -118,12 +122,12 @@ public class AssemblyFacilityOverrideCacheTests
 
 		using AssemblyFacilityOverrideCache cache = new();
 		cache.AddRange(null);
-		Assert.IsFalse(cache.TryGetOverride(Globals.ThisAssembly, out int i1), "empty");
+		Assert.IsFalse(cache.TryGetOverride(GlobalConstants.ThisAssembly, out int i1), "empty");
 
 		cache.AddRange(overrides);
-		Assert.IsTrue(cache.TryGetOverride(Globals.ThisAssembly, out int i2));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.ThisAssembly, out int i2));
 		Assert.AreEqual(42, i2);
-		Assert.IsTrue(cache.TryGetOverride(Globals.OtherAssembly, out int i3));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.OtherAssembly, out int i3));
 		Assert.AreEqual(10, i3);
 	}
 
@@ -132,11 +136,11 @@ public class AssemblyFacilityOverrideCacheTests
 	{
 		using AssemblyFacilityOverrideCache cache = new();
 		cache.Add(new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42));
-		Assert.IsTrue(cache.TryGetOverride(Globals.ThisAssembly, out int i1));
+		Assert.IsTrue(cache.TryGetOverride(GlobalConstants.ThisAssembly, out int i1));
 		Assert.AreEqual(42, i1);
 
 		cache.Clear();
-		Assert.IsFalse(cache.TryGetOverride(Globals.ThisAssembly, out int i2));
+		Assert.IsFalse(cache.TryGetOverride(GlobalConstants.ThisAssembly, out int i2));
 	}
 
 	[TestMethod]
@@ -146,10 +150,10 @@ public class AssemblyFacilityOverrideCacheTests
 		cache.Dispose();
 		cache.Dispose();
 
-		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.TryGetOverride(Globals.ThisAssembly, out int i1));
+		_ = Assert.ThrowsExactly<ObjectDisposedException>(() => cache.TryGetOverride(GlobalConstants.ThisAssembly, out int i1));
 
-		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.Add(new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42)));
+		_ = Assert.ThrowsExactly<ObjectDisposedException>(() => cache.Add(new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42)));
 
-		_ = Assert.ThrowsException<ObjectDisposedException>(cache.Clear);
+		_ = Assert.ThrowsExactly<ObjectDisposedException>(cache.Clear);
 	}
 }

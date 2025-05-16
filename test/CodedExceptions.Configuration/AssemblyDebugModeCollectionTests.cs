@@ -41,7 +41,9 @@ public class AssemblyDebugModeCollectionTests
 
 		Assert.IsNotNull(debugModeCollection[Globals.ThisAssemblyNameString]);
 		debugModeCollection.Remove(Globals.ThisAssemblyNameString);
+#pragma warning disable MSTEST0025 // Use 'Assert.Fail' instead of an always-failing assert
 		Assert.IsNull(debugModeCollection[Globals.ThisAssemblyNameString]);
+#pragma warning restore MSTEST0025 // Use 'Assert.Fail' instead of an always-failing assert
 	}
 
 	[TestMethod]

@@ -20,7 +20,7 @@ public class CodedExceptionTests
 		}
 		catch (CodedException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			StringAssert.Contains(ex.Message, typeof(CodedException).FullName);
 		}
@@ -31,13 +31,13 @@ public class CodedExceptionTests
 	{
 		try
 		{
-			throw new CodedException(Globals.TestMessage);
+			throw new CodedException(GlobalConstants.TestMessage);
 		}
 		catch (CodedException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -52,14 +52,14 @@ public class CodedExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedException(Globals.TestMessage, ex);
+				throw new CodedException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -68,11 +68,11 @@ public class CodedExceptionTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult);
+			throw new CodedException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			StringAssert.Contains(ex.Message, typeof(CodedException).FullName);
 		}
@@ -83,13 +83,13 @@ public class CodedExceptionTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -104,14 +104,14 @@ public class CodedExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class CodedExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedException ex)
@@ -135,9 +135,9 @@ public class CodedExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedException ex2 = SerializationHelper.Deserialize<CodedException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -147,12 +147,12 @@ public class CodedExceptionTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

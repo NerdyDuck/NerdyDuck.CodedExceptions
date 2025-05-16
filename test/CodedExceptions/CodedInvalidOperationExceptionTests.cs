@@ -20,7 +20,7 @@ public class CodedInvalidOperationExceptionTests
 		}
 		catch (CodedInvalidOperationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDOPERATION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedInvalidOperationExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidOperationException(Globals.TestMessage);
+			throw new CodedInvalidOperationException(GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidOperationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDOPERATION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedInvalidOperationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidOperationException(Globals.TestMessage, ex);
+				throw new CodedInvalidOperationException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidOperationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDOPERATION, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedInvalidOperationExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidOperationException(Globals.CustomHResult);
+			throw new CodedInvalidOperationException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedInvalidOperationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedInvalidOperationExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidOperationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedInvalidOperationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidOperationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedInvalidOperationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidOperationException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedInvalidOperationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidOperationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedInvalidOperationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidOperationException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedInvalidOperationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidOperationException ex)
@@ -133,9 +133,9 @@ public class CodedInvalidOperationExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedInvalidOperationException ex2 = SerializationHelper.Deserialize<CodedInvalidOperationException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedInvalidOperationExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidOperationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedInvalidOperationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidOperationException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedInvalidOperationException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedInvalidOperationException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

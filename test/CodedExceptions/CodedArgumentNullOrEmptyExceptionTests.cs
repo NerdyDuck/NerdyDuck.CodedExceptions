@@ -20,7 +20,7 @@ public class CodedArgumentNullOrEmptyExceptionTests
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ParamName);
 		}
@@ -31,13 +31,13 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrEmptyException(Globals.ParamName);
+			throw new CodedArgumentNullOrEmptyException(GlobalConstants.ParamName);
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -52,14 +52,14 @@ public class CodedArgumentNullOrEmptyExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedArgumentNullOrEmptyException(Globals.TestMessage, ex);
+				throw new CodedArgumentNullOrEmptyException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.ParamName);
 		}
 	}
@@ -69,14 +69,14 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrEmptyException(Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrEmptyException(GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -85,11 +85,11 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrEmptyException(Globals.CustomHResult);
+			throw new CodedArgumentNullOrEmptyException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ParamName);
 		}
@@ -100,13 +100,13 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrEmptyException(Globals.CustomHResult, Globals.ParamName);
+			throw new CodedArgumentNullOrEmptyException(GlobalConstants.CustomHResult, GlobalConstants.ParamName);
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -121,14 +121,14 @@ public class CodedArgumentNullOrEmptyExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedArgumentNullOrEmptyException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedArgumentNullOrEmptyException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.ParamName);
 		}
 	}
@@ -138,14 +138,14 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrEmptyException(Globals.CustomHResult, Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrEmptyException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -155,16 +155,16 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrEmptyException(Globals.CustomHResult, Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrEmptyException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedArgumentNullOrEmptyException ex2 = SerializationHelper.Deserialize<CodedArgumentNullOrEmptyException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
-			StringAssert.StartsWith(ex2.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex2.ParamName);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
+			StringAssert.StartsWith(ex2.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex2.ParamName);
 		}
 	}
 #endif
@@ -174,14 +174,14 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrEmptyException(Globals.CustomHResult, Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrEmptyException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrEmptyException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedArgumentNullOrEmptyException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedArgumentNullOrEmptyException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
-			StringAssert.Contains(str, Globals.ParamName);
+			StringAssert.Contains(str, GlobalConstants.ParamName);
 		}
 	}
 
@@ -190,7 +190,7 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		string text = "Hi!";
 		CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text);
-		CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, Globals.CustomHResult);
+		CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, GlobalConstants.CustomHResult);
 		text = "   ";
 		CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text);
 	}
@@ -199,8 +199,8 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	public void ThrowIfNullOrEmpty_StringNull_Fail()
 	{
 		string text = string.Empty;
-		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text));
-		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsExactly<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
@@ -211,8 +211,8 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		string argName = "myArg";
 		string text = string.Empty;
-		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsExactly<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
 
@@ -220,8 +220,8 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	public void ThrowIfNullOrEmpty_StringIntNull_Fail()
 	{
 		string text = string.Empty;
-		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsExactly<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
@@ -232,8 +232,8 @@ public class CodedArgumentNullOrEmptyExceptionTests
 	{
 		string argName = "myArg";
 		string text = string.Empty;
-		CodedArgumentNullOrEmptyException ex = Assert.ThrowsException<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentNullOrEmptyException ex = Assert.ThrowsExactly<CodedArgumentNullOrEmptyException>(() => CodedArgumentNullOrEmptyException.ThrowIfNullOrEmpty(text, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
 }

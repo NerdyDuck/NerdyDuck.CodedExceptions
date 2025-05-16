@@ -22,7 +22,7 @@ public class CodedAggregateExceptionTests
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.AreEqual(0, ex.InnerExceptions.Count);
 		}
 	}
@@ -51,7 +51,7 @@ public class CodedAggregateExceptionTests
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
 		}
 	}
@@ -79,7 +79,7 @@ public class CodedAggregateExceptionTests
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
 		}
 	}
@@ -89,13 +89,13 @@ public class CodedAggregateExceptionTests
 	{
 		try
 		{
-			throw new CodedAggregateException(Globals.TestMessage);
+			throw new CodedAggregateException(GlobalConstants.TestMessage);
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.AreEqual(0, ex.InnerExceptions.Count);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -110,14 +110,14 @@ public class CodedAggregateExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedAggregateException(Globals.TestMessage, ex);
+				throw new CodedAggregateException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.AreEqual(1, ex.InnerExceptions.Count);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
 		}
 	}
 
@@ -139,15 +139,15 @@ public class CodedAggregateExceptionTests
 				catch (Exception ex2)
 				{
 					List<Exception> exs = [ex, ex2];
-					throw new CodedAggregateException(Globals.TestMessage, exs);
+					throw new CodedAggregateException(GlobalConstants.TestMessage, exs);
 				}
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
 		}
 	}
 
@@ -168,15 +168,15 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					throw new CodedAggregateException(Globals.TestMessage, ex, ex2);
+					throw new CodedAggregateException(GlobalConstants.TestMessage, ex, ex2);
 				}
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
 		}
 	}
 
@@ -185,11 +185,11 @@ public class CodedAggregateExceptionTests
 	{
 		try
 		{
-			throw new CodedAggregateException(Globals.CustomHResult);
+			throw new CodedAggregateException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.AreEqual(0, ex.InnerExceptions.Count);
 		}
 	}
@@ -212,13 +212,13 @@ public class CodedAggregateExceptionTests
 				catch (Exception ex2)
 				{
 					List<Exception> exs = [ex, ex2];
-					throw new CodedAggregateException(Globals.CustomHResult, exs);
+					throw new CodedAggregateException(GlobalConstants.CustomHResult, exs);
 				}
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
 		}
 	}
@@ -240,13 +240,13 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					throw new CodedAggregateException(Globals.CustomHResult, ex, ex2);
+					throw new CodedAggregateException(GlobalConstants.CustomHResult, ex, ex2);
 				}
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
 		}
 	}
@@ -256,13 +256,13 @@ public class CodedAggregateExceptionTests
 	{
 		try
 		{
-			throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedAggregateException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.AreEqual(0, ex.InnerExceptions.Count);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -277,14 +277,14 @@ public class CodedAggregateExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedAggregateException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.AreEqual(1, ex.InnerExceptions.Count);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
 		}
 	}
 
@@ -306,15 +306,15 @@ public class CodedAggregateExceptionTests
 				catch (Exception ex2)
 				{
 					List<Exception> exs = [ex, ex2];
-					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, exs);
+					throw new CodedAggregateException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, exs);
 				}
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
 		}
 	}
 
@@ -335,15 +335,15 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex, ex2);
+					throw new CodedAggregateException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex, ex2);
 				}
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.AreEqual(2, ex.InnerExceptions.Count);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
 		}
 	}
 
@@ -359,7 +359,7 @@ public class CodedAggregateExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedAggregateException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedAggregateException ex)
@@ -367,9 +367,9 @@ public class CodedAggregateExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedAggregateException ex2 = SerializationHelper.Deserialize<CodedAggregateException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.AreEqual(1, ex2.InnerExceptions.Count);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -391,14 +391,14 @@ public class CodedAggregateExceptionTests
 				}
 				catch (Exception ex2)
 				{
-					throw new CodedAggregateException(Globals.CustomHResult, Globals.TestMessage, ex, ex2);
+					throw new CodedAggregateException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex, ex2);
 				}
 			}
 		}
 		catch (CodedAggregateException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedAggregateException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedAggregateException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 			StringAssert.Contains(str, typeof(FormatException).FullName);
 			StringAssert.Contains(str, typeof(NotSupportedException).FullName);

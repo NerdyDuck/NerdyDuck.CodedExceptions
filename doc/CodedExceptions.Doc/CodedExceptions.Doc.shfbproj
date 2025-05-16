@@ -16,6 +16,8 @@
     <AssemblyName>CodedExceptions.Doc</AssemblyName>
     <RootNamespace>CodedExceptions.Doc</RootNamespace>
     <Name>CodedExceptions.Doc</Name>
+    <!-- Manual addon-->
+    <PublishableProject>false</PublishableProject>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
     <OutputPath>$(ArtifactsPath)\Help\</OutputPath>
@@ -117,6 +119,10 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EWSoftware.SHFB" />
+    <PackageReference Include="EWSoftware.SHFB.NET" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="Content" />
     <Folder Include="Content\VersionHistory" />

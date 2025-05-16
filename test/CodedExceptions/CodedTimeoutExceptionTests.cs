@@ -20,7 +20,7 @@ public class CodedTimeoutExceptionTests
 		}
 		catch (CodedTimeoutException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_TIMEOUT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_TIMEOUT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedTimeoutExceptionTests
 	{
 		try
 		{
-			throw new CodedTimeoutException(Globals.TestMessage);
+			throw new CodedTimeoutException(GlobalConstants.TestMessage);
 		}
 		catch (CodedTimeoutException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_TIMEOUT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_TIMEOUT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedTimeoutExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedTimeoutException(Globals.TestMessage, ex);
+				throw new CodedTimeoutException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedTimeoutException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_TIMEOUT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_TIMEOUT, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedTimeoutExceptionTests
 	{
 		try
 		{
-			throw new CodedTimeoutException(Globals.CustomHResult);
+			throw new CodedTimeoutException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedTimeoutException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedTimeoutExceptionTests
 	{
 		try
 		{
-			throw new CodedTimeoutException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedTimeoutException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedTimeoutException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedTimeoutExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedTimeoutException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedTimeoutException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedTimeoutException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedTimeoutExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedTimeoutException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedTimeoutException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedTimeoutException ex)
@@ -133,9 +133,9 @@ public class CodedTimeoutExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedTimeoutException ex2 = SerializationHelper.Deserialize<CodedTimeoutException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedTimeoutExceptionTests
 	{
 		try
 		{
-			throw new CodedTimeoutException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedTimeoutException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedTimeoutException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedTimeoutException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedTimeoutException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

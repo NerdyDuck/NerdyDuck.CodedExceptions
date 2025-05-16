@@ -20,7 +20,7 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ParamName);
 		}
@@ -31,13 +31,13 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrWhiteSpaceException(Globals.ParamName);
+			throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.ParamName);
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -52,14 +52,14 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedArgumentNullOrWhiteSpaceException(Globals.TestMessage, ex);
+				throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.ParamName);
 		}
 	}
@@ -69,14 +69,14 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrWhiteSpaceException(Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -85,11 +85,11 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrWhiteSpaceException(Globals.CustomHResult);
+			throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ParamName);
 		}
@@ -100,13 +100,13 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrWhiteSpaceException(Globals.CustomHResult, Globals.ParamName);
+			throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.CustomHResult, GlobalConstants.ParamName);
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -121,14 +121,14 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedArgumentNullOrWhiteSpaceException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.ParamName);
 		}
 	}
@@ -138,14 +138,14 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrWhiteSpaceException(Globals.CustomHResult, Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -155,16 +155,16 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrWhiteSpaceException(Globals.CustomHResult, Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedArgumentNullOrWhiteSpaceException ex2 = SerializationHelper.Deserialize<CodedArgumentNullOrWhiteSpaceException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
-			StringAssert.StartsWith(ex2.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex2.ParamName);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
+			StringAssert.StartsWith(ex2.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex2.ParamName);
 		}
 	}
 #endif
@@ -174,14 +174,14 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentNullOrWhiteSpaceException(Globals.CustomHResult, Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentNullOrWhiteSpaceException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentNullOrWhiteSpaceException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedArgumentNullOrWhiteSpaceException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedArgumentNullOrWhiteSpaceException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
-			StringAssert.Contains(str, Globals.ParamName);
+			StringAssert.Contains(str, GlobalConstants.ParamName);
 		}
 	}
 
@@ -190,15 +190,15 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		string text = "Hi!";
 		CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text);
-		CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, Globals.CustomHResult);
+		CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, GlobalConstants.CustomHResult);
 	}
 
 	[TestMethod]
 	public void ThrowIfNullOrWhitespace_StringNull_FailNull()
 	{
 		string text = null;
-		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
-		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsExactly<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
@@ -208,8 +208,8 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	public void ThrowIfNullOrWhitespace_StringNull_FailEmpty()
 	{
 		string text = string.Empty;
-		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
-		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsExactly<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
@@ -219,8 +219,8 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	public void ThrowIfNullOrWhitespace_StringNull_FailWhite()
 	{
 		string text = "   ";
-		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
-		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsExactly<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
@@ -231,8 +231,8 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		string argName = "myArg";
 		string text = string.Empty;
-		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENT, ex.HResult);
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsExactly<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENT, ex.HResult);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
 
@@ -240,8 +240,8 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	public void ThrowIfNullOrWhitespace_StringIntNull_FailNull()
 	{
 		string text = null;
-		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsExactly<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(text), ex.ParamName);
 #endif
@@ -252,8 +252,8 @@ public class CodedArgumentNullOrWhiteSpaceExceptionTests
 	{
 		string argName = "myArg";
 		string text = null;
-		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsException<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentNullOrWhiteSpaceException ex = Assert.ThrowsExactly<CodedArgumentNullOrWhiteSpaceException>(() => CodedArgumentNullOrWhiteSpaceException.ThrowIfNullOrWhiteSpace(text, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
 }

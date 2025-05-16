@@ -35,7 +35,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_StringEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml(string.Empty);
@@ -45,7 +45,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_StringInvalid_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml("NoFileHere.xml");
@@ -67,7 +67,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_StreamNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml((Stream)null);
@@ -77,7 +77,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_StreamNoRead_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml(new NoReadStream());
@@ -100,7 +100,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_TextReaderNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml((TextReader)null);
@@ -132,7 +132,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void FromXml_XmlReaderNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.FromXml((XmlReader)null);
@@ -142,7 +142,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void ParseXml_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.ParseXml(null);
@@ -152,7 +152,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_InvAssemblyName_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\AssemblyDebugModesInvAssemblyName.xml");
@@ -162,7 +162,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_InvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\AssemblyDebugModesInvIsEnabled.xml");
@@ -172,7 +172,7 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_MissingAssemblyName_Throw()
 	{
-		_ = Assert.ThrowsException<XmlException>(() =>
+		_ = Assert.ThrowsExactly<XmlException>(() =>
 		  {
 			  using AssemblyDebugModeCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\AssemblyDebugModesMissingAssemblyName.xml");

@@ -9,13 +9,24 @@
 			<content>
 				<list class="bullet">
 					<listItem>
-						<para>Upgraded platform to and .NET 7, .NET 8 and .NET Framework 4.7.2</para>
+						<para>Upgraded platform to and .NET 8/9, .NET Standard 2.0/2.1, and .NET Framework 4.6.2</para>
+					</listItem>
+					<listItem>
+						<para>Added new exception classes: <codeEntityReference autoUpgrade="true" qualifyHint="false">T:NerdyDuck.CodedExceptions.CodedObjectDisposedException</codeEntityReference></para>
+					</listItem>
+					<listItem>
+						<para>Added <codeInline>ThrowIf...</codeInline> methods to some exceptions.</para>					
+					</listItem>
+					<listItem>
+						<para>Added <codeEntityReference autoUpgrade="true" qualifyHint="false">T:NerdyDuck.CodedExceptions.Configuration.AssemblyDebugModeCache</codeEntityReference>
+							and <codeEntityReference autoUpgrade="true" qualifyHint="false">T:NerdyDuck.CodedExceptions.Configuration.AssemblyFacilityIdentifierOverrideCache</codeEntityReference>
+							to support more ways to configure DebugMode and FacilityIdentifierOverrides, including manual configuration.</para>
 					</listItem>
 					<listItem>
 						<para>Split `Configuration` namespace into three libraries, one for each type of configuration source:</para>
 						<list class="bullet">
 							<listItem>
-								<para><application>NerdyDuck.CodedExceptions.Configuration.AppConfig</application>, for configurations in the <localUri>app.config</localUri> file, with additional platform .NET Framework 4.7.2 .</para>
+								<para><application>NerdyDuck.CodedExceptions.Configuration.AppConfig</application>, for configurations in the <localUri>app.config/web.config</localUri> file</para>
 							</listItem>
 							<listItem>
 								<para><application>NerdyDuck.CodedExceptions.Configuration.ConfigSection</application>, for <externalLink>
@@ -35,13 +46,20 @@
 						<para>Removed separate binaries for UWP (use .NET Standard 2.0 instead).</para>
 					</listItem>
 					<listItem>
-						<para>`SerializableAttribute`, `ISerializable` and corresponding constructors and methods are only available for net472 version.</para>
+						<para>`SerializableAttribute`, `ISerializable` and corresponding constructors and methods are only available for .NET Framework and Standard versions.</para>
 					</listItem>
 					<listItem>
 						<para>Changed German resources from <literal>de-DE</literal> to just <literal>de</literal>.</para>
 					</listItem>
 					<listItem>
-						<para>Restructured repository, using <localUri>Directory.Build.props</localUri>/<localUri>.targets</localUri> for common configuration.</para>
+						<para>
+							Restructured repository, using <localUri>Directory.Build.props</localUri>/<localUri>.targets</localUri> for common configuration.
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							New SLNX solution file format.
+						</para>
 					</listItem>
 					<listItem>
 						<para>Renamed central branch from <literal>master</literal> to <literal>main</literal>.</para>

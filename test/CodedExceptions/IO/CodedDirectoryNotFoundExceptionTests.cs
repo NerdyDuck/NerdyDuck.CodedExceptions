@@ -22,7 +22,7 @@ public class CodedDirectoryNotFoundExceptionTests
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_DIRECTORYNOTFOUND, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_DIRECTORYNOTFOUND, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.DirectoryName);
 		}
@@ -33,13 +33,13 @@ public class CodedDirectoryNotFoundExceptionTests
 	{
 		try
 		{
-			throw new CodedDirectoryNotFoundException(Globals.TestMessage);
+			throw new CodedDirectoryNotFoundException(GlobalConstants.TestMessage);
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_DIRECTORYNOTFOUND, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_DIRECTORYNOTFOUND, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.DirectoryName);
 		}
 	}
@@ -55,14 +55,14 @@ public class CodedDirectoryNotFoundExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDirectoryNotFoundException(Globals.TestMessage, ex);
+				throw new CodedDirectoryNotFoundException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_DIRECTORYNOTFOUND, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_DIRECTORYNOTFOUND, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.DirectoryName);
 		}
 	}
@@ -72,14 +72,14 @@ public class CodedDirectoryNotFoundExceptionTests
 	{
 		try
 		{
-			throw new CodedDirectoryNotFoundException(Globals.TestMessage, Globals.DirectoryName);
+			throw new CodedDirectoryNotFoundException(GlobalConstants.TestMessage, GlobalConstants.DirectoryName);
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_DIRECTORYNOTFOUND, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_DIRECTORYNOTFOUND, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.DirectoryName, ex.DirectoryName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.DirectoryName, ex.DirectoryName);
 		}
 	}
 
@@ -94,15 +94,15 @@ public class CodedDirectoryNotFoundExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDirectoryNotFoundException(Globals.TestMessage, Globals.DirectoryName, ex);
+				throw new CodedDirectoryNotFoundException(GlobalConstants.TestMessage, GlobalConstants.DirectoryName, ex);
 			}
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_DIRECTORYNOTFOUND, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_DIRECTORYNOTFOUND, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.DirectoryName, ex.DirectoryName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.DirectoryName, ex.DirectoryName);
 		}
 	}
 
@@ -111,11 +111,11 @@ public class CodedDirectoryNotFoundExceptionTests
 	{
 		try
 		{
-			throw new CodedDirectoryNotFoundException(Globals.CustomHResult);
+			throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.DirectoryName);
 		}
@@ -126,13 +126,13 @@ public class CodedDirectoryNotFoundExceptionTests
 	{
 		try
 		{
-			throw new CodedDirectoryNotFoundException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.DirectoryName);
 		}
 	}
@@ -148,14 +148,14 @@ public class CodedDirectoryNotFoundExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDirectoryNotFoundException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.DirectoryName);
 		}
 	}
@@ -165,14 +165,14 @@ public class CodedDirectoryNotFoundExceptionTests
 	{
 		try
 		{
-			throw new CodedDirectoryNotFoundException(Globals.CustomHResult, Globals.TestMessage, Globals.DirectoryName);
+			throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.DirectoryName);
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.DirectoryName, ex.DirectoryName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.DirectoryName, ex.DirectoryName);
 		}
 	}
 
@@ -181,14 +181,14 @@ public class CodedDirectoryNotFoundExceptionTests
 	{
 		try
 		{
-			throw new CodedDirectoryNotFoundException(Globals.CustomHResult, null, Globals.DirectoryName);
+			throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult, null, GlobalConstants.DirectoryName);
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNotNull(ex.Message);
-			Assert.AreEqual(Globals.DirectoryName, ex.DirectoryName);
+			Assert.AreEqual(GlobalConstants.DirectoryName, ex.DirectoryName);
 		}
 	}
 
@@ -203,15 +203,15 @@ public class CodedDirectoryNotFoundExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDirectoryNotFoundException(Globals.CustomHResult, Globals.TestMessage, Globals.DirectoryName, ex);
+				throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.DirectoryName, ex);
 			}
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.DirectoryName, ex.DirectoryName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.DirectoryName, ex.DirectoryName);
 		}
 	}
 
@@ -227,7 +227,7 @@ public class CodedDirectoryNotFoundExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDirectoryNotFoundException(Globals.CustomHResult, Globals.TestMessage, Globals.DirectoryName, ex);
+				throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.DirectoryName, ex);
 			}
 		}
 		catch (CodedDirectoryNotFoundException ex)
@@ -235,10 +235,10 @@ public class CodedDirectoryNotFoundExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedDirectoryNotFoundException ex2 = SerializationHelper.Deserialize<CodedDirectoryNotFoundException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
-			Assert.AreEqual(Globals.DirectoryName, ex2.DirectoryName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.DirectoryName, ex2.DirectoryName);
 		}
 	}
 #endif
@@ -248,12 +248,12 @@ public class CodedDirectoryNotFoundExceptionTests
 	{
 		try
 		{
-			throw new CodedDirectoryNotFoundException(Globals.CustomHResult, Globals.TestMessage, Globals.DirectoryName);
+			throw new CodedDirectoryNotFoundException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.DirectoryName);
 		}
 		catch (CodedDirectoryNotFoundException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedDirectoryNotFoundException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedDirectoryNotFoundException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 			StringAssert.Contains(str, ex.DirectoryName);
 		}

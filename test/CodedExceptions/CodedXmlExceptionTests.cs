@@ -20,7 +20,7 @@ public class CodedXmlExceptionTests
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.XmlHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.XmlHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(0, ex.LineNumber);
 			Assert.AreEqual(0, ex.LinePosition);
@@ -32,13 +32,13 @@ public class CodedXmlExceptionTests
 	{
 		try
 		{
-			throw new CodedXmlException(Globals.TestMessage);
+			throw new CodedXmlException(GlobalConstants.TestMessage);
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.XmlHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.XmlHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(0, ex.LineNumber);
 			Assert.AreEqual(0, ex.LinePosition);
 		}
@@ -55,14 +55,14 @@ public class CodedXmlExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedXmlException(Globals.TestMessage, ex);
+				throw new CodedXmlException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.XmlHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.XmlHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(0, ex.LineNumber);
 			Assert.AreEqual(0, ex.LinePosition);
 		}
@@ -79,14 +79,14 @@ public class CodedXmlExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedXmlException(Globals.TestMessage, ex, 2710, 42);
+				throw new CodedXmlException(GlobalConstants.TestMessage, ex, 2710, 42);
 			}
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.XmlHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.XmlHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			StringAssert.Contains(ex.Message, Globals.TestMessage);
+			StringAssert.Contains(ex.Message, GlobalConstants.TestMessage);
 			Assert.AreEqual(2710, ex.LineNumber);
 			Assert.AreEqual(42, ex.LinePosition);
 		}
@@ -97,11 +97,11 @@ public class CodedXmlExceptionTests
 	{
 		try
 		{
-			throw new CodedXmlException(Globals.CustomHResult);
+			throw new CodedXmlException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(0, ex.LineNumber);
 			Assert.AreEqual(0, ex.LinePosition);
@@ -113,13 +113,13 @@ public class CodedXmlExceptionTests
 	{
 		try
 		{
-			throw new CodedXmlException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedXmlException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(0, ex.LineNumber);
 			Assert.AreEqual(0, ex.LinePosition);
 		}
@@ -136,14 +136,14 @@ public class CodedXmlExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedXmlException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedXmlException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(0, ex.LineNumber);
 			Assert.AreEqual(0, ex.LinePosition);
 		}
@@ -160,14 +160,14 @@ public class CodedXmlExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedXmlException(Globals.CustomHResult, Globals.TestMessage, ex, 2710, 42);
+				throw new CodedXmlException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex, 2710, 42);
 			}
 		}
 		catch (CodedXmlException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			StringAssert.Contains(ex.Message, Globals.TestMessage);
+			StringAssert.Contains(ex.Message, GlobalConstants.TestMessage);
 			Assert.AreEqual(2710, ex.LineNumber);
 			Assert.AreEqual(42, ex.LinePosition);
 		}
@@ -185,7 +185,7 @@ public class CodedXmlExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedXmlException(Globals.CustomHResult, Globals.TestMessage, ex, 2710, 42);
+				throw new CodedXmlException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex, 2710, 42);
 			}
 		}
 		catch (CodedXmlException ex)
@@ -193,9 +193,9 @@ public class CodedXmlExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedXmlException ex2 = SerializationHelper.Deserialize<CodedXmlException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			StringAssert.StartsWith(ex2.Message, Globals.TestMessage);
+			StringAssert.StartsWith(ex2.Message, GlobalConstants.TestMessage);
 			Assert.AreEqual(2710, ex2.LineNumber);
 			Assert.AreEqual(42, ex2.LinePosition);
 		}
@@ -207,12 +207,12 @@ public class CodedXmlExceptionTests
 	{
 		try
 		{
-			throw new CodedXmlException(Globals.CustomHResult, Globals.TestMessage, null, 2710, 42);
+			throw new CodedXmlException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, null, 2710, 42);
 		}
 		catch (CodedXmlException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedXmlException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedXmlException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 			StringAssert.Contains(str, "2710");
 			StringAssert.Contains(str, "42");

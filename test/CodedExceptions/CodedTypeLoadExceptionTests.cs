@@ -20,7 +20,7 @@ public class CodedTypeLoadExceptionTests
 		}
 		catch (CodedTypeLoadException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_TYPELOAD, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_TYPELOAD, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedTypeLoadExceptionTests
 	{
 		try
 		{
-			throw new CodedTypeLoadException(Globals.TestMessage);
+			throw new CodedTypeLoadException(GlobalConstants.TestMessage);
 		}
 		catch (CodedTypeLoadException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_TYPELOAD, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_TYPELOAD, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedTypeLoadExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedTypeLoadException(Globals.TestMessage, ex);
+				throw new CodedTypeLoadException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedTypeLoadException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_TYPELOAD, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_TYPELOAD, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedTypeLoadExceptionTests
 	{
 		try
 		{
-			throw new CodedTypeLoadException(Globals.CustomHResult);
+			throw new CodedTypeLoadException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedTypeLoadException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedTypeLoadExceptionTests
 	{
 		try
 		{
-			throw new CodedTypeLoadException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedTypeLoadException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedTypeLoadException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedTypeLoadExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedTypeLoadException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedTypeLoadException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedTypeLoadException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedTypeLoadExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedTypeLoadException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedTypeLoadException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedTypeLoadException ex)
@@ -133,9 +133,9 @@ public class CodedTypeLoadExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedTypeLoadException ex2 = SerializationHelper.Deserialize<CodedTypeLoadException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedTypeLoadExceptionTests
 	{
 		try
 		{
-			throw new CodedTypeLoadException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedTypeLoadException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedTypeLoadException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedTypeLoadException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedTypeLoadException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

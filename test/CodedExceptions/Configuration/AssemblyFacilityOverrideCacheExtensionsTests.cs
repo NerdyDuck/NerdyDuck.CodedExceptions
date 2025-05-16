@@ -34,7 +34,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_StringEmpty_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml(string.Empty);
@@ -44,7 +44,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_StringInvalid_Throw()
 	{
-		_ = Assert.ThrowsException<IOException>(() =>
+		_ = Assert.ThrowsExactly<IOException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml("NoFileHere.xml");
@@ -59,13 +59,14 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		{
 			_ = cache.LoadXml(stream);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
 	[TestMethod]
 	public void LoadXml_StreamNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml((Stream)null);
@@ -75,7 +76,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_StreamNoRead_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml(new NoReadStream());
@@ -91,13 +92,14 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		{
 			_ = cache.LoadXml(reader);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
 	[TestMethod]
 	public void LoadXml_TextReaderNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml((TextReader)null);
@@ -113,13 +115,14 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 		{
 			_ = cache.FromXml(reader);
 		}
+
 		Assert.AreEqual(7, cache.Count);
 	}
 
 	[TestMethod]
 	public void FromXml_XmlReaderNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.FromXml((XmlReader)null);
@@ -138,7 +141,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void ParseXml_StringNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.ParseXml(null);
@@ -148,7 +151,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_InvAssemblyName_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesInvAssemblyName.xml");
@@ -158,7 +161,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_InvIsEnabled_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesInvIdentifier.xml");
@@ -168,7 +171,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_MissingAssemblyName_Throw()
 	{
-		_ = Assert.ThrowsException<XmlException>(() =>
+		_ = Assert.ThrowsExactly<XmlException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesMissingAssemblyName.xml");
@@ -178,7 +181,7 @@ public class AssemblyFacilityOverrideCacheExtensionsTests
 	[TestMethod]
 	public void LoadXml_MissingIdentifier_Throw()
 	{
-		_ = Assert.ThrowsException<XmlException>(() =>
+		_ = Assert.ThrowsExactly<XmlException>(() =>
 		  {
 			  using AssemblyFacilityOverrideCache cache = new();
 			  _ = cache.LoadXml(@"TestFiles\FacilityIdentifierOverridesNoIdentifier.xml");

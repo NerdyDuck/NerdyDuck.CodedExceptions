@@ -19,7 +19,9 @@ public class CodedExceptionsSectionTests
 		CodedExceptionsSection section = new();
 		Assert.IsNotNull(section.FacilityOverrides);
 		Assert.AreEqual(0, section.FacilityOverrides.Count);
+#pragma warning disable MSTEST0032 // Assertion condition is always true
 		Assert.IsNotNull(section.DebugModes);
+#pragma warning restore MSTEST0032 // Assertion condition is always true
 		Assert.AreEqual(0, section.DebugModes.Count);
 	}
 
@@ -45,8 +47,8 @@ public class CodedExceptionsSectionTests
 			Identifier = 17
 		});
 
-		List<AssemblyFacilityOverride> ovrds = section.CreateFacilityOverrides();
-		Assert.AreEqual(2, ovrds.Count);
+		List<AssemblyFacilityOverride> overrides = section.CreateFacilityOverrides();
+		Assert.AreEqual(2, overrides.Count);
 	}
 
 	[TestMethod]
@@ -54,8 +56,8 @@ public class CodedExceptionsSectionTests
 	{
 		CodedExceptionsSection section = new();
 
-		List<AssemblyFacilityOverride> ovrds = section.CreateFacilityOverrides();
-		Assert.IsNull(ovrds);
+		List<AssemblyFacilityOverride> overrides = section.CreateFacilityOverrides();
+		Assert.IsNull(overrides);
 	}
 
 	[TestMethod]
@@ -73,8 +75,8 @@ public class CodedExceptionsSectionTests
 			IsEnabled = false
 		});
 
-		List<AssemblyDebugMode> dbgmds = section.CreateDebugModes();
-		Assert.AreEqual(2, dbgmds.Count);
+		List<AssemblyDebugMode> debugModes = section.CreateDebugModes();
+		Assert.AreEqual(2, debugModes.Count);
 	}
 
 	[TestMethod]
@@ -82,8 +84,8 @@ public class CodedExceptionsSectionTests
 	{
 		CodedExceptionsSection section = new();
 
-		List<AssemblyDebugMode> dbgmds = section.CreateDebugModes();
-		Assert.IsNull(dbgmds);
+		List<AssemblyDebugMode> debugModes = section.CreateDebugModes();
+		Assert.IsNull(debugModes);
 	}
 
 	[TestMethod]
@@ -101,23 +103,23 @@ public class CodedExceptionsSectionTests
 	[TestMethod]
 	public void GetFacilityOverrides_String_Success()
 	{
-		List<AssemblyFacilityOverride> ovrds = CodedExceptionsSection.GetFacilityOverrides("testSections/goodOverrides");
-		Assert.IsNotNull(ovrds);
-		Assert.AreEqual(7, ovrds.Count);
+		List<AssemblyFacilityOverride> overrides = CodedExceptionsSection.GetFacilityOverrides("testSections/goodOverrides");
+		Assert.IsNotNull(overrides);
+		Assert.AreEqual(7, overrides.Count);
 	}
 
 	[TestMethod]
 	public void GetFacilityOverrides_StringNoName_Success()
 	{
-		List<AssemblyFacilityOverride> ovrds = CodedExceptionsSection.GetFacilityOverrides("testSections/noAssemblyOverrides");
-		Assert.IsNotNull(ovrds);
-		Assert.AreEqual(1, ovrds.Count);
+		List<AssemblyFacilityOverride> overrides = CodedExceptionsSection.GetFacilityOverrides("testSections/noAssemblyOverrides");
+		Assert.IsNotNull(overrides);
+		Assert.AreEqual(1, overrides.Count);
 	}
 
 	[TestMethod]
 	public void GetFacilityOverrides_StringBadIdentifier_Throw()
 	{
-		_ = Assert.ThrowsException<System.Configuration.ConfigurationErrorsException>(() => CodedExceptionsSection.GetFacilityOverrides("testSections/badOverrides"));
+		_ = Assert.ThrowsExactly<System.Configuration.ConfigurationErrorsException>(() => CodedExceptionsSection.GetFacilityOverrides("testSections/badOverrides"));
 	}
 
 	[TestMethod]
@@ -135,22 +137,22 @@ public class CodedExceptionsSectionTests
 	[TestMethod]
 	public void GetDebugModes_String_Success()
 	{
-		List<AssemblyDebugMode> dbgmds = CodedExceptionsSection.GetDebugModes("testSections/goodOverrides");
-		Assert.IsNotNull(dbgmds);
-		Assert.AreEqual(7, dbgmds.Count);
+		List<AssemblyDebugMode> debugModes = CodedExceptionsSection.GetDebugModes("testSections/goodOverrides");
+		Assert.IsNotNull(debugModes);
+		Assert.AreEqual(7, debugModes.Count);
 	}
 
 	[TestMethod]
 	public void GetDebugModes_StringEmptyName_Success()
 	{
-		List<AssemblyDebugMode> dbgmds = CodedExceptionsSection.GetDebugModes("testSections/noAssemblyOverrides");
-		Assert.IsNotNull(dbgmds);
-		Assert.AreEqual(1, dbgmds.Count);
+		List<AssemblyDebugMode> debugModes = CodedExceptionsSection.GetDebugModes("testSections/noAssemblyOverrides");
+		Assert.IsNotNull(debugModes);
+		Assert.AreEqual(1, debugModes.Count);
 	}
 
 	[TestMethod]
 	public void GetDebugModes_StringBadName_Throw()
 	{
-		_ = Assert.ThrowsException<System.Configuration.ConfigurationErrorsException>(() => CodedExceptionsSection.GetDebugModes("testSections/badOverrides"));
+		_ = Assert.ThrowsExactly<System.Configuration.ConfigurationErrorsException>(() => CodedExceptionsSection.GetDebugModes("testSections/badOverrides"));
 	}
 }

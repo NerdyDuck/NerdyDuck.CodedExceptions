@@ -9,10 +9,12 @@
     <ItemGroup>
       <SourceFiles Include="$(OutputPath)TestFiles/FacilityIdentifierOverrides.json" />
       <SourceFiles Include="$(OutputPath)TestFiles/AssemblyDebugModes.json" />
+      <SourceFiles Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'" Include="$(OutputPath)NerdyDuck.Tests.CodedExceptions.Configuration.dll.config" />
     </ItemGroup>
     <ItemGroup>
       <TargetFiles Include="$(OutputPath)FacilityIdentifierOverrides.json" />
       <TargetFiles Include="$(OutputPath)AssemblyDebugModes.json" />
+      <TargetFiles Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'" Include="$(OutputPath)testhost.dll.config" />
     </ItemGroup>
     <!-- Copy default config files into the working directory for the tests, so they can be found by the default 'Load' methods. -->
     <Copy SourceFiles="@(SourceFiles)" DestinationFiles="@(TargetFiles)" />

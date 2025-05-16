@@ -23,13 +23,13 @@ public class AssemblyFacilityIdentifierAttributeTests
 	[TestMethod]
 	public void Ctor_IdLessThan0_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = new AssemblyFacilityIdentifierAttribute(-1));
+		_ = Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => _ = new AssemblyFacilityIdentifierAttribute(-1));
 	}
 
 	[TestMethod]
 	public void Ctor_IdGreaterThan2047_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = new AssemblyFacilityIdentifierAttribute(2048));
+		_ = Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => _ = new AssemblyFacilityIdentifierAttribute(2048));
 	}
 
 	[TestMethod]
@@ -44,7 +44,7 @@ public class AssemblyFacilityIdentifierAttributeTests
 	[TestMethod]
 	public void FromAssembly_AssemblyNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyFacilityIdentifierAttribute.FromAssembly(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => AssemblyFacilityIdentifierAttribute.FromAssembly(null));
 	}
 
 	[TestMethod]
@@ -59,6 +59,6 @@ public class AssemblyFacilityIdentifierAttributeTests
 	[TestMethod]
 	public void FromType_AssemblyNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => AssemblyFacilityIdentifierAttribute.FromType(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => AssemblyFacilityIdentifierAttribute.FromType(null));
 	}
 }

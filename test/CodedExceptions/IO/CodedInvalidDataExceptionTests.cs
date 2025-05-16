@@ -22,7 +22,7 @@ public class CodedInvalidDataExceptionTests
 		}
 		catch (CodedInvalidDataException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -32,13 +32,13 @@ public class CodedInvalidDataExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidDataException(Globals.TestMessage);
+			throw new CodedInvalidDataException(GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidDataException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -53,14 +53,14 @@ public class CodedInvalidDataExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidDataException(Globals.TestMessage, ex);
+				throw new CodedInvalidDataException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidDataException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -69,11 +69,11 @@ public class CodedInvalidDataExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidDataException(Globals.CustomHResult);
+			throw new CodedInvalidDataException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedInvalidDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -83,13 +83,13 @@ public class CodedInvalidDataExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidDataException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedInvalidDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -104,14 +104,14 @@ public class CodedInvalidDataExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidDataException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedInvalidDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class CodedInvalidDataExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidDataException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedInvalidDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidDataException ex)
@@ -135,9 +135,9 @@ public class CodedInvalidDataExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedInvalidDataException ex2 = SerializationHelper.Deserialize<CodedInvalidDataException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -147,12 +147,12 @@ public class CodedInvalidDataExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidDataException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedInvalidDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidDataException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedInvalidDataException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedInvalidDataException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

@@ -20,7 +20,7 @@ public class CodedFormatExceptionTests
 		}
 		catch (CodedFormatException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_FORMAT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_FORMAT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedFormatExceptionTests
 	{
 		try
 		{
-			throw new CodedFormatException(Globals.TestMessage);
+			throw new CodedFormatException(GlobalConstants.TestMessage);
 		}
 		catch (CodedFormatException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_FORMAT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_FORMAT, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedFormatExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFormatException(Globals.TestMessage, ex);
+				throw new CodedFormatException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedFormatException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_FORMAT, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_FORMAT, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedFormatExceptionTests
 	{
 		try
 		{
-			throw new CodedFormatException(Globals.CustomHResult);
+			throw new CodedFormatException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedFormatException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedFormatExceptionTests
 	{
 		try
 		{
-			throw new CodedFormatException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedFormatException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedFormatException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedFormatExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFormatException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedFormatException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedFormatException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedFormatExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFormatException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedFormatException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedFormatException ex)
@@ -133,9 +133,9 @@ public class CodedFormatExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedFormatException ex2 = SerializationHelper.Deserialize<CodedFormatException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedFormatExceptionTests
 	{
 		try
 		{
-			throw new CodedFormatException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedFormatException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedFormatException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedFormatException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedFormatException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

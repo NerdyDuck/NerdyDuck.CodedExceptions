@@ -20,7 +20,7 @@ public class CodedCommunicationExceptionTests
 		}
 		catch (CodedCommunicationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedCommunicationExceptionTests
 	{
 		try
 		{
-			throw new CodedCommunicationException(Globals.TestMessage);
+			throw new CodedCommunicationException(GlobalConstants.TestMessage);
 		}
 		catch (CodedCommunicationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedCommunicationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedCommunicationException(Globals.TestMessage, ex);
+				throw new CodedCommunicationException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedCommunicationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_EXCEPTION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_EXCEPTION, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedCommunicationExceptionTests
 	{
 		try
 		{
-			throw new CodedCommunicationException(Globals.CustomHResult);
+			throw new CodedCommunicationException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedCommunicationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedCommunicationExceptionTests
 	{
 		try
 		{
-			throw new CodedCommunicationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedCommunicationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedCommunicationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedCommunicationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedCommunicationException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedCommunicationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedCommunicationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedCommunicationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedCommunicationException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedCommunicationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedCommunicationException ex)
@@ -133,9 +133,9 @@ public class CodedCommunicationExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedCommunicationException ex2 = SerializationHelper.Deserialize<CodedCommunicationException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedCommunicationExceptionTests
 	{
 		try
 		{
-			throw new CodedCommunicationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedCommunicationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedCommunicationException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedCommunicationException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedCommunicationException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

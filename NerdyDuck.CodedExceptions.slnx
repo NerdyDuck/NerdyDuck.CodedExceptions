@@ -4,7 +4,9 @@
     <File Path=".github/workflows/dotnet.yml" />
   </Folder>
   <Folder Name="/doc/">
-    <Project Path="doc/CodedExceptions.Doc/CodedExceptions.Doc.shfbproj" Type="7cf6df6d-3b04-46f8-a40b-537d21bca0b4" Id="a7dbe07d-6d8f-4450-8cb8-6bc197d964aa" />
+    <Project Path="doc/CodedExceptions.Doc/CodedExceptions.Doc.shfbproj" Type="7cf6df6d-3b04-46f8-a40b-537d21bca0b4" Id="a7dbe07d-6d8f-4450-8cb8-6bc197d964aa">
+      <Build Solution="Debug|*" Project="false" />
+    </Project>
   </Folder>
   <Folder Name="/doc/Examples/" Id="95de6556-66bd-f3ea-de89-4edaedb505ab">
     <File Path="doc/Examples/AssemblyFacilityIdentifierAttribute.cs" />

@@ -14,14 +14,16 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 [TestClass]
 public class AssemblyDebugModeCacheTests
 {
-	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(Globals.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
-	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(Globals.OtherAssembly, AssemblyIdentity.AssemblyNameElements.All);
+	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(GlobalConstants.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
+	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(GlobalConstants.OtherAssembly, AssemblyIdentity.AssemblyNameElements.All);
 	private static readonly Assembly s_thirdAssembly = typeof(System.Exception).Assembly;
 
 	[TestMethod]
 	public void Global_Success()
 	{
+#pragma warning disable MSTEST0032 // Assertion condition is always true
 		Assert.IsNotNull(AssemblyDebugModeCache.Global);
+#pragma warning restore MSTEST0032 // Assertion condition is always true
 	}
 
 	[TestMethod]
@@ -34,6 +36,7 @@ public class AssemblyDebugModeCacheTests
 	[TestMethod]
 	public void Finalizer_Success()
 	{
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
 		WeakReference<AssemblyDebugModeCache> weak = null;
 
 		void dispose()
@@ -45,6 +48,7 @@ public class AssemblyDebugModeCacheTests
 		dispose();
 		GC.Collect(0, GCCollectionMode.Forced);
 		GC.WaitForPendingFinalizers();
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
 	}
 
 	[TestMethod]
@@ -54,8 +58,8 @@ public class AssemblyDebugModeCacheTests
 		cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
 		cache.Add(new AssemblyDebugMode(s_otherAssemblyIdentity, false));
 
-		Assert.IsTrue(cache.IsDebugModeEnabled(Globals.ThisAssembly));
-		Assert.IsFalse(cache.IsDebugModeEnabled(Globals.OtherAssembly));
+		Assert.IsTrue(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly));
+		Assert.IsFalse(cache.IsDebugModeEnabled(GlobalConstants.OtherAssembly));
 		Assert.IsFalse(cache.IsDebugModeEnabled(s_thirdAssembly));
 
 		Assert.IsTrue(cache.IsDebugModeEnabled(typeof(AssemblyDebugModeCacheTests)));
@@ -70,8 +74,8 @@ public class AssemblyDebugModeCacheTests
 		cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
 		cache.Add(new AssemblyDebugMode(s_otherAssemblyIdentity, false));
 
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.IsDebugModeEnabled((Assembly)null));
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.IsDebugModeEnabled((Type)null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.IsDebugModeEnabled((Assembly)null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.IsDebugModeEnabled((Type)null));
 	}
 
 	[TestMethod]
@@ -112,19 +116,19 @@ public class AssemblyDebugModeCacheTests
 		cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
 		cache.Add(new AssemblyDebugMode(s_otherAssemblyIdentity, false));
 
-		Assert.IsTrue(cache.IsDebugModeEnabled(Globals.ThisAssembly), "this");
-		Assert.IsFalse(cache.IsDebugModeEnabled(Globals.OtherAssembly), "other");
+		Assert.IsTrue(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly), "this");
+		Assert.IsFalse(cache.IsDebugModeEnabled(GlobalConstants.OtherAssembly), "other");
 
 		cache.Add(s_otherAssemblyIdentity, true);
 
-		Assert.IsTrue(cache.IsDebugModeEnabled(Globals.OtherAssembly), "other updated");
+		Assert.IsTrue(cache.IsDebugModeEnabled(GlobalConstants.OtherAssembly), "other updated");
 	}
 
 	[TestMethod]
 	public void Add_Null_Throw()
 	{
 		using AssemblyDebugModeCache cache = new();
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.Add(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.Add(null));
 	}
 
 	[TestMethod]
@@ -139,11 +143,11 @@ public class AssemblyDebugModeCacheTests
 
 		using AssemblyDebugModeCache cache = new();
 		cache.AddRange(null);
-		Assert.IsFalse(cache.IsDebugModeEnabled(Globals.ThisAssembly), "empty");
+		Assert.IsFalse(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly), "empty");
 
 		cache.AddRange(modes);
-		Assert.IsTrue(cache.IsDebugModeEnabled(Globals.ThisAssembly), "this");
-		Assert.IsTrue(cache.IsDebugModeEnabled(Globals.OtherAssembly), "other");
+		Assert.IsTrue(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly), "this");
+		Assert.IsTrue(cache.IsDebugModeEnabled(GlobalConstants.OtherAssembly), "other");
 		Assert.IsFalse(cache.IsDebugModeEnabled(s_thirdAssembly), "third");
 	}
 
@@ -152,10 +156,10 @@ public class AssemblyDebugModeCacheTests
 	{
 		using AssemblyDebugModeCache cache = new();
 		cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
-		Assert.IsTrue(cache.IsDebugModeEnabled(Globals.ThisAssembly), "this");
+		Assert.IsTrue(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly), "this");
 
 		cache.Clear();
-		Assert.IsFalse(cache.IsDebugModeEnabled(Globals.ThisAssembly), "this cleared");
+		Assert.IsFalse(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly), "this cleared");
 	}
 
 	[TestMethod]
@@ -164,9 +168,9 @@ public class AssemblyDebugModeCacheTests
 		using AssemblyDebugModeCache cache = new();
 		cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
 
-		Assert.IsTrue(cache.IsDebugModeEnabled(Globals.ThisAssembly));
+		Assert.IsTrue(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly));
 		cache.Remove(s_thisAssemblyIdentity);
-		Assert.IsFalse(cache.IsDebugModeEnabled(Globals.ThisAssembly));
+		Assert.IsFalse(cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly));
 	}
 
 	[TestMethod]
@@ -176,7 +180,7 @@ public class AssemblyDebugModeCacheTests
 		cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true));
 		cache.Add(new AssemblyDebugMode(s_otherAssemblyIdentity, false));
 
-		_ = Assert.ThrowsException<ArgumentNullException>(() => cache.Remove(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => cache.Remove(null));
 	}
 
 	[TestMethod]
@@ -186,8 +190,8 @@ public class AssemblyDebugModeCacheTests
 		cache.Dispose();
 		cache.Dispose();
 
-		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.IsDebugModeEnabled(Globals.ThisAssembly));
-		_ = Assert.ThrowsException<ObjectDisposedException>(() => cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true)));
-		_ = Assert.ThrowsException<ObjectDisposedException>(cache.Clear);
+		_ = Assert.ThrowsExactly<ObjectDisposedException>(() => cache.IsDebugModeEnabled(GlobalConstants.ThisAssembly));
+		_ = Assert.ThrowsExactly<ObjectDisposedException>(() => cache.Add(new AssemblyDebugMode(s_thisAssemblyIdentity, true)));
+		_ = Assert.ThrowsExactly<ObjectDisposedException>(cache.Clear);
 	}
 }

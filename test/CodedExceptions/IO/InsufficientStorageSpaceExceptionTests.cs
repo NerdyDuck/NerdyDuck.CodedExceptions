@@ -22,7 +22,7 @@ public class InsufficientStorageSpaceExceptionTests
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.StoragePath);
 		}
@@ -33,13 +33,13 @@ public class InsufficientStorageSpaceExceptionTests
 	{
 		try
 		{
-			throw new InsufficientStorageSpaceException(Globals.TestMessage);
+			throw new InsufficientStorageSpaceException(GlobalConstants.TestMessage);
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.StoragePath);
 		}
 	}
@@ -55,14 +55,14 @@ public class InsufficientStorageSpaceExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new InsufficientStorageSpaceException(Globals.TestMessage, ex);
+				throw new InsufficientStorageSpaceException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.StoragePath);
 		}
 	}
@@ -72,14 +72,14 @@ public class InsufficientStorageSpaceExceptionTests
 	{
 		try
 		{
-			throw new InsufficientStorageSpaceException(Globals.TestMessage, Globals.FileName);
+			throw new InsufficientStorageSpaceException(GlobalConstants.TestMessage, GlobalConstants.FileName);
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.StoragePath);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.StoragePath);
 		}
 	}
 
@@ -94,15 +94,15 @@ public class InsufficientStorageSpaceExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new InsufficientStorageSpaceException(Globals.TestMessage, Globals.FileName, ex);
+				throw new InsufficientStorageSpaceException(GlobalConstants.TestMessage, GlobalConstants.FileName, ex);
 			}
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.StoragePath);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.StoragePath);
 		}
 	}
 
@@ -111,11 +111,11 @@ public class InsufficientStorageSpaceExceptionTests
 	{
 		try
 		{
-			throw new InsufficientStorageSpaceException(Globals.CustomHResult);
+			throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult);
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.StoragePath);
 		}
@@ -126,13 +126,13 @@ public class InsufficientStorageSpaceExceptionTests
 	{
 		try
 		{
-			throw new InsufficientStorageSpaceException(Globals.CustomHResult, Globals.TestMessage);
+			throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.StoragePath);
 		}
 	}
@@ -148,14 +148,14 @@ public class InsufficientStorageSpaceExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new InsufficientStorageSpaceException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.StoragePath);
 		}
 	}
@@ -165,14 +165,14 @@ public class InsufficientStorageSpaceExceptionTests
 	{
 		try
 		{
-			throw new InsufficientStorageSpaceException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName);
+			throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName);
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.StoragePath);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.StoragePath);
 		}
 	}
 
@@ -181,14 +181,14 @@ public class InsufficientStorageSpaceExceptionTests
 	{
 		try
 		{
-			throw new InsufficientStorageSpaceException(Globals.CustomHResult, null, Globals.FileName);
+			throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult, null, GlobalConstants.FileName);
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			StringAssert.Contains(ex.Message, Globals.FileName);
-			Assert.AreEqual(Globals.FileName, ex.StoragePath);
+			StringAssert.Contains(ex.Message, GlobalConstants.FileName);
+			Assert.AreEqual(GlobalConstants.FileName, ex.StoragePath);
 		}
 	}
 
@@ -203,15 +203,15 @@ public class InsufficientStorageSpaceExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new InsufficientStorageSpaceException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName, ex);
+				throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName, ex);
 			}
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.StoragePath);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.StoragePath);
 		}
 	}
 
@@ -227,7 +227,7 @@ public class InsufficientStorageSpaceExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new InsufficientStorageSpaceException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName, ex);
+				throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName, ex);
 			}
 		}
 		catch (InsufficientStorageSpaceException ex)
@@ -235,10 +235,10 @@ public class InsufficientStorageSpaceExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			InsufficientStorageSpaceException ex2 = SerializationHelper.Deserialize<InsufficientStorageSpaceException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
-			Assert.AreEqual(Globals.FileName, ex2.StoragePath);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex2.StoragePath);
 		}
 	}
 #endif
@@ -248,12 +248,12 @@ public class InsufficientStorageSpaceExceptionTests
 	{
 		try
 		{
-			throw new InsufficientStorageSpaceException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName);
+			throw new InsufficientStorageSpaceException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName);
 		}
 		catch (InsufficientStorageSpaceException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(InsufficientStorageSpaceException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(InsufficientStorageSpaceException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 			StringAssert.Contains(str, ex.StoragePath);
 		}

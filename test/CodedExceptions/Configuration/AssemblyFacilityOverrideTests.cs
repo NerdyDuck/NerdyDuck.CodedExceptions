@@ -13,8 +13,8 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 [TestClass]
 public class AssemblyFacilityOverrideTests
 {
-	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(Globals.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
-	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(Globals.OtherAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
+	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(GlobalConstants.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
+	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(GlobalConstants.OtherAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
 
 	[TestMethod]
 	public void Ctor_AssemblyIdentityInt_Success()
@@ -28,14 +28,14 @@ public class AssemblyFacilityOverrideTests
 	[TestMethod]
 	public void Ctor_AssemblyIdentityNullInt_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => new AssemblyFacilityOverride((AssemblyIdentity)null, 42));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => _ = new AssemblyFacilityOverride((AssemblyIdentity)null, 42));
 	}
 
 	[TestMethod]
 	public void Ctor_AssemblyIdentityIntOOR_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentOutOfRangeException>(() => new AssemblyFacilityOverride(s_thisAssemblyIdentity, -1), "i<0");
-		_ = Assert.ThrowsException<ArgumentOutOfRangeException>(() => new AssemblyFacilityOverride(s_thisAssemblyIdentity, 7711), "i>2047");
+		_ = Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => _ = new AssemblyFacilityOverride(s_thisAssemblyIdentity, -1), "i<0");
+		_ = Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => _ = new AssemblyFacilityOverride(s_thisAssemblyIdentity, 7711), "i>2047");
 	}
 
 	[TestMethod]
@@ -61,13 +61,13 @@ public class AssemblyFacilityOverrideTests
 	[TestMethod]
 	public void Ctor_SerializationInfoNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => SerializationHelper.InvokeSerializationConstructorWithNullContext(typeof(AssemblyFacilityOverride)));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => SerializationHelper.InvokeSerializationConstructorWithNullContext(typeof(AssemblyFacilityOverride)));
 	}
 
 	[TestMethod]
 	public void GetObjectData_SerializationInfoNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  System.Runtime.Serialization.ISerializable assemblyFacilityOverride = new AssemblyFacilityOverride(s_thisAssemblyIdentity, 42);
 			  assemblyFacilityOverride.GetObjectData(null, new System.Runtime.Serialization.StreamingContext());
@@ -92,7 +92,7 @@ public class AssemblyFacilityOverrideTests
 		AssemblyFacilityOverride assemblyFacilityOverride2 = new(s_otherAssemblyIdentity, 17);
 
 		Assert.IsFalse(assemblyFacilityOverride1a.Equals((AssemblyFacilityOverride)null), "1a=null");
-		Assert.IsFalse(assemblyFacilityOverride1a.Equals((object)null), "1a=objnull");
+		Assert.IsFalse(assemblyFacilityOverride1a.Equals((object)null), "1a=(object)null");
 		Assert.IsFalse(assemblyFacilityOverride1a.Equals(new object()), "1a=obj");
 		Assert.IsTrue(assemblyFacilityOverride1a.Equals((object)assemblyFacilityOverride1a), "1a=obj1a");
 

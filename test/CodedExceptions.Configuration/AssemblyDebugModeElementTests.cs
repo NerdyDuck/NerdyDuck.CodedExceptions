@@ -34,7 +34,7 @@ public class AssemblyDebugModeElementTests
 	[TestMethod]
 	public void ToOverride_IdentifierInvalid_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  AssemblyDebugModeElement debugModeElement = new()
 			  {

@@ -16,14 +16,14 @@ public class HResultHelperTests
 	[TestMethod]
 	public void GetFacilityId_Success()
 	{
-		int i = HResultHelper.GetFacilityId(Globals.CustomHResult);
+		int i = HResultHelper.GetFacilityId(GlobalConstants.CustomHResult);
 		Assert.AreEqual(2047, i);
 	}
 
 	[TestMethod]
 	public void GetErrorId_Success()
 	{
-		int i = HResultHelper.GetErrorId(Globals.CustomHResult);
+		int i = HResultHelper.GetErrorId(GlobalConstants.CustomHResult);
 		Assert.AreEqual(0x1234, i);
 	}
 
@@ -44,13 +44,13 @@ public class HResultHelperTests
 	[TestMethod]
 	public void IsCustomHResult_True()
 	{
-		Assert.IsTrue(HResultHelper.IsCustomHResult(Globals.CustomHResult));
+		Assert.IsTrue(HResultHelper.IsCustomHResult(GlobalConstants.CustomHResult));
 	}
 
 	[TestMethod]
 	public void IsCustomHResult_False()
 	{
-		Assert.IsFalse(HResultHelper.IsCustomHResult(Globals.MicrosoftHResult));
+		Assert.IsFalse(HResultHelper.IsCustomHResult(GlobalConstants.MicrosoftHResult));
 	}
 
 	[TestMethod]
@@ -74,7 +74,7 @@ public class HResultHelperTests
 	[TestMethod]
 	public void EnumToInt32_Null_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => HResultHelper.EnumToInt32(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => HResultHelper.EnumToInt32(null));
 	}
 
 	[TestMethod]
@@ -96,34 +96,34 @@ public class HResultHelperTests
 	[TestMethod]
 	public void HexStringToByteArray_MultiByte_Success()
 	{
-		byte[] buffer = HResultHelper.HexStringToByteArray("2a2a2a");
+		byte[] buffer = HResultHelper.HexStringToByteArray("102afe");
 		Assert.IsNotNull(buffer);
 		Assert.AreEqual(3, buffer.Length);
-		CollectionAssert.AreEqual(new byte[] { 42, 42, 42 }, buffer);
+		CollectionAssert.AreEqual(new byte[] { 16, 42, 254 }, buffer);
 	}
 
 	[TestMethod]
 	public void HexStringToByteArray_MultiBytePrefix_Success()
 	{
-		byte[] buffer = HResultHelper.HexStringToByteArray("0x2a2a2a");
+		byte[] buffer = HResultHelper.HexStringToByteArray("0x102afe");
 		Assert.IsNotNull(buffer);
 		Assert.AreEqual(3, buffer.Length);
-		CollectionAssert.AreEqual(new byte[] { 42, 42, 42 }, buffer);
+		CollectionAssert.AreEqual(new byte[] { 16, 42, 254 }, buffer);
 	}
 
 	[TestMethod]
 	public void HexStringToByteArray_MultiBytePrefixCased_Success()
 	{
-		byte[] buffer = HResultHelper.HexStringToByteArray("0X2A2A2A");
+		byte[] buffer = HResultHelper.HexStringToByteArray("0X102AFE");
 		Assert.IsNotNull(buffer);
 		Assert.AreEqual(3, buffer.Length);
-		CollectionAssert.AreEqual(new byte[] { 42, 42, 42 }, buffer);
+		CollectionAssert.AreEqual(new byte[] { 16, 42, 254 }, buffer);
 	}
 
 	[TestMethod]
 	public void HexStringToByteArray_InvalidString_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  byte[] buffer = HResultHelper.HexStringToByteArray("Not hex");
 		  });
@@ -134,12 +134,12 @@ public class HResultHelperTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedException ex)
 		{
 			string str = HResultHelper.CreateToString(ex, null);
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(CreateToString_SimpleException_Success));
 		}
 	}
@@ -149,12 +149,12 @@ public class HResultHelperTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedException ex)
 		{
 			string str = HResultHelper.CreateToString(ex, "[ExtendedMessage]");
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(CreateToString_ExtendedMessage_Success));
 			StringAssert.Contains(str, Environment.NewLine + "[ExtendedMessage]");
 		}
@@ -170,13 +170,13 @@ public class HResultHelperTests
 			}
 			catch (InvalidOperationException ex)
 			{
-				throw new CodedException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedException ex)
 		{
 			string str = HResultHelper.CreateToString(ex, null);
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(CreateToString_InnerException_Success));
 			StringAssert.Contains(str, "System.InvalidOperationException");
 		}
@@ -185,6 +185,6 @@ public class HResultHelperTests
 	[TestMethod]
 	public void CreateToString_ExceptionNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => HResultHelper.CreateToString(null, null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => HResultHelper.CreateToString(null, null));
 	}
 }

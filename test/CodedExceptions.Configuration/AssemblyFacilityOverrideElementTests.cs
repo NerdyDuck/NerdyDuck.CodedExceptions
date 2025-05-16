@@ -35,7 +35,7 @@ public class AssemblyFacilityOverrideElementTests
 	[TestMethod]
 	public void ToOverride_IdentifierInvalid_Throw()
 	{
-		_ = Assert.ThrowsException<FormatException>(() =>
+		_ = Assert.ThrowsExactly<FormatException>(() =>
 		  {
 			  AssemblyFacilityOverrideElement overrideElement = new()
 			  {

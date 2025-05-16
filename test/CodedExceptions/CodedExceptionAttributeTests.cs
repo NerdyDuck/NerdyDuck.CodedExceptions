@@ -32,6 +32,6 @@ public class CodedExceptionAttributeTests
 	[TestMethod]
 	public void IsCodedException_ExceptionNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => CodedExceptionAttribute.IsCodedException(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => CodedExceptionAttribute.IsCodedException(null));
 	}
 }

@@ -41,7 +41,9 @@ public class AssemblyFacilityOverrideCollectionTests
 
 		Assert.IsNotNull(overrideCollection[Globals.ThisAssemblyNameString]);
 		overrideCollection.Remove(Globals.ThisAssemblyNameString);
+#pragma warning disable MSTEST0025 // Use 'Assert.Fail' instead of an always-failing assert
 		Assert.IsNull(overrideCollection[Globals.ThisAssemblyNameString]);
+#pragma warning restore MSTEST0025 // Use 'Assert.Fail' instead of an always-failing assert
 	}
 
 	[TestMethod]

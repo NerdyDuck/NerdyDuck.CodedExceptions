@@ -20,7 +20,7 @@ public class CodedInvalidCastExceptionTests
 		}
 		catch (CodedInvalidCastException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDCAST, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDCAST, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedInvalidCastExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidCastException(Globals.TestMessage);
+			throw new CodedInvalidCastException(GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidCastException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDCAST, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDCAST, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedInvalidCastExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidCastException(Globals.TestMessage, ex);
+				throw new CodedInvalidCastException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidCastException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDCAST, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDCAST, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedInvalidCastExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidCastException(Globals.CustomHResult);
+			throw new CodedInvalidCastException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedInvalidCastException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedInvalidCastExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidCastException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedInvalidCastException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidCastException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedInvalidCastExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidCastException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedInvalidCastException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidCastException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedInvalidCastExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedInvalidCastException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedInvalidCastException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedInvalidCastException ex)
@@ -133,9 +133,9 @@ public class CodedInvalidCastExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedInvalidCastException ex2 = SerializationHelper.Deserialize<CodedInvalidCastException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedInvalidCastExceptionTests
 	{
 		try
 		{
-			throw new CodedInvalidCastException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedInvalidCastException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedInvalidCastException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedInvalidCastException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedInvalidCastException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

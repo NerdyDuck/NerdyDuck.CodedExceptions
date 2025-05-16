@@ -10,7 +10,7 @@ namespace NerdyDuck.Tests.CodedExceptions;
 /// Global test values.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public static class Globals
+public static class GlobalConstants
 {
 	public const int COR_E_EXCEPTION = unchecked((int)0x80131500);
 	public const int COR_E_ARGUMENT = unchecked((int)0x80070057);
@@ -40,7 +40,7 @@ public static class Globals
 	public const string FileName = @"c:\temp\test.dat";
 	public const string DefaultToStringFormat = "{0}: ({1}) {2}";
 
-	public static readonly Assembly ThisAssembly = typeof(Globals).Assembly;
+	public static readonly Assembly ThisAssembly = typeof(GlobalConstants).Assembly;
 	public static readonly AssemblyName ThisAssemblyName = ThisAssembly.GetName();
 	public static readonly string ThisAssemblyNameString = ThisAssembly.FullName;
 	public static readonly Assembly OtherAssembly = typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly;

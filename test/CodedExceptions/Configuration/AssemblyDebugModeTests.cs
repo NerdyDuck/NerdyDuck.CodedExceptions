@@ -13,8 +13,8 @@ namespace NerdyDuck.Tests.CodedExceptions.Configuration;
 [TestClass]
 public class AssemblyDebugModeTests
 {
-	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(Globals.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
-	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(Globals.OtherAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
+	private static readonly AssemblyIdentity s_thisAssemblyIdentity = new(GlobalConstants.ThisAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
+	private static readonly AssemblyIdentity s_otherAssemblyIdentity = new(GlobalConstants.OtherAssembly, AssemblyIdentity.AssemblyNameElements.NoVersion);
 
 	[TestMethod]
 	public void Ctor_AssemblyIdentityBool_Success()
@@ -31,7 +31,7 @@ public class AssemblyDebugModeTests
 	[TestMethod]
 	public void Ctor_AssemblyIdentityNullBool_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => new AssemblyDebugMode((AssemblyIdentity)null, true));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => _ = new AssemblyDebugMode((AssemblyIdentity)null, true));
 	}
 
 	[TestMethod]
@@ -57,13 +57,13 @@ public class AssemblyDebugModeTests
 	[TestMethod]
 	public void Ctor_SerializationInfoNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => SerializationHelper.InvokeSerializationConstructorWithNullContext(typeof(AssemblyDebugMode)));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => SerializationHelper.InvokeSerializationConstructorWithNullContext(typeof(AssemblyDebugMode)));
 	}
 
 	[TestMethod]
 	public void GetObjectData_SerializationInfoNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() =>
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() =>
 		  {
 			  System.Runtime.Serialization.ISerializable assemblyDebugMode = new AssemblyDebugMode(s_thisAssemblyIdentity, true);
 			  assemblyDebugMode.GetObjectData(null, new System.Runtime.Serialization.StreamingContext());
@@ -88,8 +88,8 @@ public class AssemblyDebugModeTests
 		AssemblyDebugMode assemblyDebugMode2 = new(s_otherAssemblyIdentity, true);
 
 		Assert.IsFalse(assemblyDebugMode1a.Equals((AssemblyDebugMode)null), "1a=null");
-		Assert.IsFalse(assemblyDebugMode1a.Equals((object)null), "1a=objnull");
-		Assert.IsFalse(assemblyDebugMode1a.Equals(new object()), "1a=obj");
+		Assert.IsFalse(assemblyDebugMode1a.Equals((object)null), "1a=(object)null");
+		Assert.IsFalse(assemblyDebugMode1a.Equals(new object()), "1a=object");
 		Assert.IsTrue(assemblyDebugMode1a.Equals((object)assemblyDebugMode1a), "1a=obj1a");
 
 		Assert.IsTrue(assemblyDebugMode1a.Equals(assemblyDebugMode1a), "1a=1a");

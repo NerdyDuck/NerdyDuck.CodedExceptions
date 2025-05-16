@@ -35,9 +35,10 @@ public class AssemblyDebugModeCacheExtensionsTests
 	[TestMethod]
 	public void LoadApplicationConfiguration_String_Success()
 	{
+		string str = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None).FilePath;
 		using AssemblyDebugModeCache cache = new();
 		_ = cache.LoadApplicationConfiguration("testSections/goodOverrides");
-		Assert.AreEqual(7, cache.Count);
+		Assert.AreEqual(7, cache.Count, str);
 	}
 
 	[TestMethod]

@@ -11,6 +11,7 @@ global using System.Buffers;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+[assembly: Parallelize(Scope = ExecutionScope.ClassLevel)]
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(true)]
 [assembly: AssemblyTrademark("Covered by MIT License")]

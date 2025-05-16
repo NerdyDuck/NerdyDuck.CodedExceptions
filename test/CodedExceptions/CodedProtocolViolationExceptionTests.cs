@@ -20,7 +20,7 @@ public class CodedProtocolViolationExceptionTests
 		}
 		catch (CodedProtocolViolationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDOPERATION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedProtocolViolationExceptionTests
 	{
 		try
 		{
-			throw new CodedProtocolViolationException(Globals.TestMessage);
+			throw new CodedProtocolViolationException(GlobalConstants.TestMessage);
 		}
 		catch (CodedProtocolViolationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_INVALIDOPERATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_INVALIDOPERATION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -45,11 +45,11 @@ public class CodedProtocolViolationExceptionTests
 	{
 		try
 		{
-			throw new CodedProtocolViolationException(Globals.CustomHResult);
+			throw new CodedProtocolViolationException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedProtocolViolationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -59,13 +59,13 @@ public class CodedProtocolViolationExceptionTests
 	{
 		try
 		{
-			throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedProtocolViolationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedProtocolViolationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -75,16 +75,16 @@ public class CodedProtocolViolationExceptionTests
 	{
 		try
 		{
-			throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedProtocolViolationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedProtocolViolationException ex)
 		{
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedProtocolViolationException ex2 = SerializationHelper.Deserialize<CodedProtocolViolationException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -94,12 +94,12 @@ public class CodedProtocolViolationExceptionTests
 	{
 		try
 		{
-			throw new CodedProtocolViolationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedProtocolViolationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedProtocolViolationException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedProtocolViolationException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedProtocolViolationException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

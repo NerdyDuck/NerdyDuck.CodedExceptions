@@ -22,7 +22,7 @@ public class CodedFileExistsExceptionTests
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.FileName);
 		}
@@ -33,13 +33,13 @@ public class CodedFileExistsExceptionTests
 	{
 		try
 		{
-			throw new CodedFileExistsException(Globals.TestMessage);
+			throw new CodedFileExistsException(GlobalConstants.TestMessage);
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.FileName);
 		}
 	}
@@ -55,14 +55,14 @@ public class CodedFileExistsExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFileExistsException(Globals.TestMessage, ex);
+				throw new CodedFileExistsException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.FileName);
 		}
 	}
@@ -72,14 +72,14 @@ public class CodedFileExistsExceptionTests
 	{
 		try
 		{
-			throw new CodedFileExistsException(Globals.TestMessage, Globals.FileName);
+			throw new CodedFileExistsException(GlobalConstants.TestMessage, GlobalConstants.FileName);
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.FileName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.FileName);
 		}
 	}
 
@@ -94,15 +94,15 @@ public class CodedFileExistsExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFileExistsException(Globals.TestMessage, Globals.FileName, ex);
+				throw new CodedFileExistsException(GlobalConstants.TestMessage, GlobalConstants.FileName, ex);
 			}
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.FileName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.FileName);
 		}
 	}
 
@@ -111,11 +111,11 @@ public class CodedFileExistsExceptionTests
 	{
 		try
 		{
-			throw new CodedFileExistsException(Globals.CustomHResult);
+			throw new CodedFileExistsException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.FileName);
 		}
@@ -126,13 +126,13 @@ public class CodedFileExistsExceptionTests
 	{
 		try
 		{
-			throw new CodedFileExistsException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedFileExistsException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.FileName);
 		}
 	}
@@ -148,14 +148,14 @@ public class CodedFileExistsExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFileExistsException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedFileExistsException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.FileName);
 		}
 	}
@@ -165,14 +165,14 @@ public class CodedFileExistsExceptionTests
 	{
 		try
 		{
-			throw new CodedFileExistsException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName);
+			throw new CodedFileExistsException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName);
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.FileName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.FileName);
 		}
 	}
 
@@ -181,14 +181,14 @@ public class CodedFileExistsExceptionTests
 	{
 		try
 		{
-			throw new CodedFileExistsException(Globals.CustomHResult, null, Globals.FileName);
+			throw new CodedFileExistsException(GlobalConstants.CustomHResult, null, GlobalConstants.FileName);
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			StringAssert.Contains(ex.Message, Globals.FileName);
-			Assert.AreEqual(Globals.FileName, ex.FileName);
+			StringAssert.Contains(ex.Message, GlobalConstants.FileName);
+			Assert.AreEqual(GlobalConstants.FileName, ex.FileName);
 		}
 	}
 
@@ -203,15 +203,15 @@ public class CodedFileExistsExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFileExistsException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName, ex);
+				throw new CodedFileExistsException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName, ex);
 			}
 		}
 		catch (CodedFileExistsException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
-			Assert.AreEqual(Globals.FileName, ex.FileName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex.FileName);
 		}
 	}
 
@@ -227,7 +227,7 @@ public class CodedFileExistsExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedFileExistsException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName, ex);
+				throw new CodedFileExistsException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName, ex);
 			}
 		}
 		catch (CodedFileExistsException ex)
@@ -235,10 +235,10 @@ public class CodedFileExistsExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedFileExistsException ex2 = SerializationHelper.Deserialize<CodedFileExistsException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
-			Assert.AreEqual(Globals.FileName, ex2.FileName);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.FileName, ex2.FileName);
 		}
 	}
 #endif
@@ -248,12 +248,12 @@ public class CodedFileExistsExceptionTests
 	{
 		try
 		{
-			throw new CodedFileExistsException(Globals.CustomHResult, Globals.TestMessage, Globals.FileName);
+			throw new CodedFileExistsException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, GlobalConstants.FileName);
 		}
 		catch (CodedFileExistsException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedFileExistsException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedFileExistsException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 			StringAssert.Contains(str, ex.FileName);
 		}

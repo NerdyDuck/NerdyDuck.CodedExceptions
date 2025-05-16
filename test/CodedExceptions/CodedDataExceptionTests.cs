@@ -20,7 +20,7 @@ public class CodedDataExceptionTests
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.DataHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.DataHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedDataExceptionTests
 	{
 		try
 		{
-			throw new CodedDataException(Globals.TestMessage);
+			throw new CodedDataException(GlobalConstants.TestMessage);
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.DataHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.DataHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class CodedDataExceptionTests
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.DataHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.DataHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNotNull(ex.Message);
 		}
@@ -66,14 +66,14 @@ public class CodedDataExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDataException(Globals.TestMessage, ex);
+				throw new CodedDataException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_SYSTEM, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_SYSTEM, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class CodedDataExceptionTests
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_SYSTEM, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_SYSTEM, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
 			Assert.IsNotNull(ex.Message);
 		}
@@ -104,11 +104,11 @@ public class CodedDataExceptionTests
 	{
 		try
 		{
-			throw new CodedDataException(Globals.CustomHResult);
+			throw new CodedDataException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -118,13 +118,13 @@ public class CodedDataExceptionTests
 	{
 		try
 		{
-			throw new CodedDataException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -133,11 +133,11 @@ public class CodedDataExceptionTests
 	{
 		try
 		{
-			throw new CodedDataException(Globals.CustomHResult, null);
+			throw new CodedDataException(GlobalConstants.CustomHResult, null);
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNotNull(ex.Message);
 		}
@@ -154,14 +154,14 @@ public class CodedDataExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDataException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 	[TestMethod]
@@ -175,12 +175,12 @@ public class CodedDataExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDataException(Globals.CustomHResult, null, ex);
+				throw new CodedDataException(GlobalConstants.CustomHResult, null, ex);
 			}
 		}
 		catch (CodedDataException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
 			Assert.IsNotNull(ex.Message);
 		}
@@ -198,7 +198,7 @@ public class CodedDataExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedDataException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedDataException ex)
@@ -206,9 +206,9 @@ public class CodedDataExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedDataException ex2 = SerializationHelper.Deserialize<CodedDataException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -218,12 +218,12 @@ public class CodedDataExceptionTests
 	{
 		try
 		{
-			throw new CodedDataException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedDataException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedDataException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedDataException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedDataException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

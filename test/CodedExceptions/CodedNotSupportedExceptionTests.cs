@@ -20,7 +20,7 @@ public class CodedNotSupportedExceptionTests
 		}
 		catch (CodedNotSupportedException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_NOTSUPPORTED, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_NOTSUPPORTED, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedNotSupportedExceptionTests
 	{
 		try
 		{
-			throw new CodedNotSupportedException(Globals.TestMessage);
+			throw new CodedNotSupportedException(GlobalConstants.TestMessage);
 		}
 		catch (CodedNotSupportedException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_NOTSUPPORTED, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_NOTSUPPORTED, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedNotSupportedExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedNotSupportedException(Globals.TestMessage, ex);
+				throw new CodedNotSupportedException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedNotSupportedException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_NOTSUPPORTED, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_NOTSUPPORTED, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedNotSupportedExceptionTests
 	{
 		try
 		{
-			throw new CodedNotSupportedException(Globals.CustomHResult);
+			throw new CodedNotSupportedException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedNotSupportedException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedNotSupportedExceptionTests
 	{
 		try
 		{
-			throw new CodedNotSupportedException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedNotSupportedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedNotSupportedException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedNotSupportedExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedNotSupportedException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedNotSupportedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedNotSupportedException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedNotSupportedExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedNotSupportedException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedNotSupportedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedNotSupportedException ex)
@@ -133,9 +133,9 @@ public class CodedNotSupportedExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedNotSupportedException ex2 = SerializationHelper.Deserialize<CodedNotSupportedException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedNotSupportedExceptionTests
 	{
 		try
 		{
-			throw new CodedNotSupportedException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedNotSupportedException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedNotSupportedException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, "{0}: ({1}) {2}", typeof(CodedNotSupportedException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, "{0}: ({1}) {2}", typeof(CodedNotSupportedException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

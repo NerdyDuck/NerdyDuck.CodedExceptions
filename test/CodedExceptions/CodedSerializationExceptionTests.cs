@@ -20,7 +20,7 @@ public class CodedSerializationExceptionTests
 		}
 		catch (CodedSerializationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_SERIALIZATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_SERIALIZATION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -30,13 +30,13 @@ public class CodedSerializationExceptionTests
 	{
 		try
 		{
-			throw new CodedSerializationException(Globals.TestMessage);
+			throw new CodedSerializationException(GlobalConstants.TestMessage);
 		}
 		catch (CodedSerializationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_SERIALIZATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_SERIALIZATION, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -51,14 +51,14 @@ public class CodedSerializationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSerializationException(Globals.TestMessage, ex);
+				throw new CodedSerializationException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSerializationException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_SERIALIZATION, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_SERIALIZATION, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -67,11 +67,11 @@ public class CodedSerializationExceptionTests
 	{
 		try
 		{
-			throw new CodedSerializationException(Globals.CustomHResult);
+			throw new CodedSerializationException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedSerializationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -81,13 +81,13 @@ public class CodedSerializationExceptionTests
 	{
 		try
 		{
-			throw new CodedSerializationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedSerializationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedSerializationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -102,14 +102,14 @@ public class CodedSerializationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSerializationException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedSerializationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSerializationException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CodedSerializationExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSerializationException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedSerializationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSerializationException ex)
@@ -133,9 +133,9 @@ public class CodedSerializationExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedSerializationException ex2 = SerializationHelper.Deserialize<CodedSerializationException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -145,12 +145,12 @@ public class CodedSerializationExceptionTests
 	{
 		try
 		{
-			throw new CodedSerializationException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedSerializationException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedSerializationException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedSerializationException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedSerializationException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

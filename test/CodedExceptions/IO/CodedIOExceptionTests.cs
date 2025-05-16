@@ -22,7 +22,7 @@ public class CodedIOExceptionTests
 		}
 		catch (CodedIOException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -32,13 +32,13 @@ public class CodedIOExceptionTests
 	{
 		try
 		{
-			throw new CodedIOException(Globals.TestMessage);
+			throw new CodedIOException(GlobalConstants.TestMessage);
 		}
 		catch (CodedIOException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -53,14 +53,14 @@ public class CodedIOExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedIOException(Globals.TestMessage, ex);
+				throw new CodedIOException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedIOException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_IO, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_IO, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -69,11 +69,11 @@ public class CodedIOExceptionTests
 	{
 		try
 		{
-			throw new CodedIOException(Globals.CustomHResult);
+			throw new CodedIOException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedIOException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 		}
 	}
@@ -83,13 +83,13 @@ public class CodedIOExceptionTests
 	{
 		try
 		{
-			throw new CodedIOException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedIOException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedIOException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -104,14 +104,14 @@ public class CodedIOExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedIOException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedIOException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedIOException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class CodedIOExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedIOException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedIOException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedIOException ex)
@@ -135,9 +135,9 @@ public class CodedIOExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedIOException ex2 = SerializationHelper.Deserialize<CodedIOException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 		}
 	}
 #endif
@@ -147,12 +147,12 @@ public class CodedIOExceptionTests
 	{
 		try
 		{
-			throw new CodedIOException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedIOException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedIOException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedIOException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedIOException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 		}
 	}

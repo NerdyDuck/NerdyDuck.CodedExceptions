@@ -16,7 +16,7 @@ public class ExceptionExtensionsTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult);
+			throw new CodedException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedException ex)
 		{
@@ -27,7 +27,7 @@ public class ExceptionExtensionsTests
 	[TestMethod]
 	public void GetErrorId_ExceptionNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => ExceptionExtensions.GetErrorId(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => ExceptionExtensions.GetErrorId(null));
 	}
 
 	[TestMethod]
@@ -35,7 +35,7 @@ public class ExceptionExtensionsTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult);
+			throw new CodedException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedException ex)
 		{
@@ -46,7 +46,7 @@ public class ExceptionExtensionsTests
 	[TestMethod]
 	public void GetFacilityId_ExceptionNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => ExceptionExtensions.GetFacilityId(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => ExceptionExtensions.GetFacilityId(null));
 	}
 
 	[TestMethod]
@@ -54,7 +54,7 @@ public class ExceptionExtensionsTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult);
+			throw new CodedException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedException ex)
 		{
@@ -78,7 +78,7 @@ public class ExceptionExtensionsTests
 	[TestMethod]
 	public void IsCodedException_ExceptionNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => ExceptionExtensions.IsCodedException(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => ExceptionExtensions.IsCodedException(null));
 	}
 
 	[TestMethod]
@@ -86,7 +86,7 @@ public class ExceptionExtensionsTests
 	{
 		try
 		{
-			throw new CodedException(Globals.CustomHResult);
+			throw new CodedException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedException ex)
 		{
@@ -110,6 +110,6 @@ public class ExceptionExtensionsTests
 	[TestMethod]
 	public void IsCustomHResult_ExceptionNull_Throw()
 	{
-		_ = Assert.ThrowsException<ArgumentNullException>(() => ExceptionExtensions.IsCustomHResult(null));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => ExceptionExtensions.IsCustomHResult(null));
 	}
 }

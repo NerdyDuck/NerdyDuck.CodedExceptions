@@ -22,7 +22,7 @@ public class CodedSocketExceptionTests
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.E_FAIL, ex.HResult);
+			Assert.AreEqual(GlobalConstants.E_FAIL, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(SocketError.SocketError, ex.SocketErrorCode);
 		}
@@ -37,7 +37,7 @@ public class CodedSocketExceptionTests
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.E_FAIL, ex.HResult);
+			Assert.AreEqual(GlobalConstants.E_FAIL, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(SocketError.VersionNotSupported, ex.SocketErrorCode);
 		}
@@ -48,13 +48,13 @@ public class CodedSocketExceptionTests
 	{
 		try
 		{
-			throw new CodedSocketException(Globals.TestMessage);
+			throw new CodedSocketException(GlobalConstants.TestMessage);
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.E_FAIL, ex.HResult);
+			Assert.AreEqual(GlobalConstants.E_FAIL, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.SocketError, ex.SocketErrorCode);
 		}
 	}
@@ -70,14 +70,14 @@ public class CodedSocketExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSocketException(Globals.TestMessage, ex);
+				throw new CodedSocketException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.E_FAIL, ex.HResult);
+			Assert.AreEqual(GlobalConstants.E_FAIL, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.SocketError, ex.SocketErrorCode);
 		}
 	}
@@ -87,13 +87,13 @@ public class CodedSocketExceptionTests
 	{
 		try
 		{
-			throw new CodedSocketException(SocketError.VersionNotSupported, Globals.TestMessage);
+			throw new CodedSocketException(SocketError.VersionNotSupported, GlobalConstants.TestMessage);
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.E_FAIL, ex.HResult);
+			Assert.AreEqual(GlobalConstants.E_FAIL, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.VersionNotSupported, ex.SocketErrorCode);
 		}
 	}
@@ -109,14 +109,14 @@ public class CodedSocketExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSocketException(SocketError.VersionNotSupported, Globals.TestMessage, ex);
+				throw new CodedSocketException(SocketError.VersionNotSupported, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.E_FAIL, ex.HResult);
+			Assert.AreEqual(GlobalConstants.E_FAIL, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.VersionNotSupported, ex.SocketErrorCode);
 		}
 	}
@@ -126,11 +126,11 @@ public class CodedSocketExceptionTests
 	{
 		try
 		{
-			throw new CodedSocketException(Globals.CustomHResult);
+			throw new CodedSocketException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(SocketError.SocketError, ex.SocketErrorCode);
 		}
@@ -141,11 +141,11 @@ public class CodedSocketExceptionTests
 	{
 		try
 		{
-			throw new CodedSocketException(Globals.CustomHResult, SocketError.VersionNotSupported);
+			throw new CodedSocketException(GlobalConstants.CustomHResult, SocketError.VersionNotSupported);
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(SocketError.VersionNotSupported, ex.SocketErrorCode);
 		}
@@ -156,13 +156,13 @@ public class CodedSocketExceptionTests
 	{
 		try
 		{
-			throw new CodedSocketException(Globals.CustomHResult, Globals.TestMessage);
+			throw new CodedSocketException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage);
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.SocketError, ex.SocketErrorCode);
 		}
 	}
@@ -178,14 +178,14 @@ public class CodedSocketExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSocketException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedSocketException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.SocketError, ex.SocketErrorCode);
 		}
 	}
@@ -195,13 +195,13 @@ public class CodedSocketExceptionTests
 	{
 		try
 		{
-			throw new CodedSocketException(Globals.CustomHResult, SocketError.VersionNotSupported, Globals.TestMessage);
+			throw new CodedSocketException(GlobalConstants.CustomHResult, SocketError.VersionNotSupported, GlobalConstants.TestMessage);
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.VersionNotSupported, ex.SocketErrorCode);
 		}
 	}
@@ -217,14 +217,14 @@ public class CodedSocketExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSocketException(Globals.CustomHResult, SocketError.VersionNotSupported, Globals.TestMessage, ex);
+				throw new CodedSocketException(GlobalConstants.CustomHResult, SocketError.VersionNotSupported, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSocketException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.AreEqual(SocketError.VersionNotSupported, ex.SocketErrorCode);
 		}
 	}
@@ -241,7 +241,7 @@ public class CodedSocketExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedSocketException(Globals.CustomHResult, SocketError.VersionNotSupported, Globals.TestMessage, ex);
+				throw new CodedSocketException(GlobalConstants.CustomHResult, SocketError.VersionNotSupported, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedSocketException ex)
@@ -249,9 +249,9 @@ public class CodedSocketExceptionTests
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedSocketException ex2 = SerializationHelper.Deserialize<CodedSocketException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNotNull(ex2.InnerException);
-			Assert.AreEqual(Globals.TestMessage, ex2.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex2.Message);
 			Assert.AreEqual(SocketError.VersionNotSupported, ex2.SocketErrorCode);
 		}
 	}
@@ -262,12 +262,12 @@ public class CodedSocketExceptionTests
 	{
 		try
 		{
-			throw new CodedSocketException(Globals.CustomHResult, SocketError.VersionNotSupported, Globals.TestMessage);
+			throw new CodedSocketException(GlobalConstants.CustomHResult, SocketError.VersionNotSupported, GlobalConstants.TestMessage);
 		}
 		catch (CodedSocketException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedSocketException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedSocketException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, nameof(ToString_Success));
 			StringAssert.Contains(str, ((int)SocketError.VersionNotSupported).ToString(CultureInfo.InvariantCulture));
 		}

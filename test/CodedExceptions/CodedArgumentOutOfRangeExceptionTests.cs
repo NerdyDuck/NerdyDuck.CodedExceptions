@@ -20,7 +20,7 @@ public class CodedArgumentOutOfRangeExceptionTests
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
 			Assert.IsNull(ex.ParamName);
@@ -32,14 +32,14 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.ParamName);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.ParamName);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -54,15 +54,15 @@ public class CodedArgumentOutOfRangeExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedArgumentOutOfRangeException(Globals.TestMessage, ex);
+				throw new CodedArgumentOutOfRangeException(GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.ParamName);
 		}
 	}
@@ -72,15 +72,15 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -89,15 +89,15 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.ParamName, 42, Globals.TestMessage);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.ParamName, 42, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+			Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(42, ex.ActualValue);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -106,11 +106,11 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.CustomHResult);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.CustomHResult);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
 			Assert.IsNull(ex.ParamName);
@@ -122,14 +122,14 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.CustomHResult, Globals.ParamName);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.CustomHResult, GlobalConstants.ParamName);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -144,15 +144,15 @@ public class CodedArgumentOutOfRangeExceptionTests
 			}
 			catch (Exception ex)
 			{
-				throw new CodedArgumentOutOfRangeException(Globals.CustomHResult, Globals.TestMessage, ex);
+				throw new CodedArgumentOutOfRangeException(GlobalConstants.CustomHResult, GlobalConstants.TestMessage, ex);
 			}
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNotNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
-			Assert.AreEqual(Globals.TestMessage, ex.Message);
+			Assert.AreEqual(GlobalConstants.TestMessage, ex.Message);
 			Assert.IsNull(ex.ParamName);
 		}
 	}
@@ -162,15 +162,15 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.CustomHResult, Globals.ParamName, Globals.TestMessage);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.IsNull(ex.ActualValue);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -179,15 +179,15 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.CustomHResult, Globals.ParamName, 42, Globals.TestMessage);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, 42, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
-			Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 			Assert.IsNull(ex.InnerException);
 			Assert.AreEqual(42, ex.ActualValue);
-			StringAssert.StartsWith(ex.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex.ParamName);
+			StringAssert.StartsWith(ex.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex.ParamName);
 		}
 	}
 
@@ -197,18 +197,18 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.CustomHResult, Globals.ParamName, 42, Globals.TestMessage);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, 42, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
 			using System.IO.MemoryStream buffer = SerializationHelper.Serialize(ex);
 			CodedArgumentOutOfRangeException ex2 = SerializationHelper.Deserialize<CodedArgumentOutOfRangeException>(buffer);
 
-			Assert.AreEqual(Globals.CustomHResult, ex2.HResult);
+			Assert.AreEqual(GlobalConstants.CustomHResult, ex2.HResult);
 			Assert.IsNull(ex2.InnerException);
 			Assert.AreEqual(42, ex2.ActualValue);
-			StringAssert.StartsWith(ex2.Message, Globals.TestMessage);
-			Assert.AreEqual(Globals.ParamName, ex2.ParamName);
+			StringAssert.StartsWith(ex2.Message, GlobalConstants.TestMessage);
+			Assert.AreEqual(GlobalConstants.ParamName, ex2.ParamName);
 		}
 	}
 #endif
@@ -218,14 +218,14 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		try
 		{
-			throw new CodedArgumentOutOfRangeException(Globals.CustomHResult, Globals.ParamName, 42, Globals.TestMessage);
+			throw new CodedArgumentOutOfRangeException(GlobalConstants.CustomHResult, GlobalConstants.ParamName, 42, GlobalConstants.TestMessage);
 		}
 		catch (CodedArgumentOutOfRangeException ex)
 		{
 			string str = ex.ToString();
-			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, Globals.DefaultToStringFormat, typeof(CodedArgumentOutOfRangeException).FullName, Globals.CustomHResultString, Globals.TestMessage));
+			StringAssert.StartsWith(str, string.Format(CultureInfo.InvariantCulture, GlobalConstants.DefaultToStringFormat, typeof(CodedArgumentOutOfRangeException).FullName, GlobalConstants.CustomHResultString, GlobalConstants.TestMessage));
 			StringAssert.Contains(str, "ToString_Success");
-			StringAssert.Contains(str, Globals.ParamName);
+			StringAssert.Contains(str, GlobalConstants.ParamName);
 		}
 	}
 
@@ -235,16 +235,16 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		CodedArgumentOutOfRangeException.ThrowIfEqual(arg, 43);
 		CodedArgumentOutOfRangeException.ThrowIfEqual(arg, 43, nameof(arg));
-		CodedArgumentOutOfRangeException.ThrowIfEqual(arg, 43, Globals.CustomHResult);
-		CodedArgumentOutOfRangeException.ThrowIfEqual(arg, 43, Globals.CustomHResult, nameof(arg));
+		CodedArgumentOutOfRangeException.ThrowIfEqual(arg, 43, GlobalConstants.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfEqual(arg, 43, GlobalConstants.CustomHResult, nameof(arg));
 	}
 
 	[TestMethod]
 	public void ThrowIfEqual_IntIntNull_Fail()
 	{
 		int arg = 42;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -256,8 +256,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		string argName = "myArg";
 		int arg = 42;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -266,8 +266,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	public void ThrowIfEqual_IntIntIntNull_Fail()
 	{
 		int arg = 42;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -279,8 +279,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		string argName = "myArg";
 		int arg = 42;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfEqual(arg, arg, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -291,8 +291,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, 43);
 		CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, 43, nameof(arg));
-		CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, 43, Globals.CustomHResult);
-		CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, 43, Globals.CustomHResult, nameof(arg));
+		CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, 43, GlobalConstants.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, 43, GlobalConstants.CustomHResult, nameof(arg));
 	}
 
 	[TestMethod]
@@ -300,8 +300,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -314,8 +314,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -325,8 +325,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -339,8 +339,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThan(arg, compValue, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -351,8 +351,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, 43);
 		CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, 43, nameof(arg));
-		CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, 43, Globals.CustomHResult);
-		CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, 43, Globals.CustomHResult, nameof(arg));
+		CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, 43, GlobalConstants.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, 43, GlobalConstants.CustomHResult, nameof(arg));
 	}
 
 	[TestMethod]
@@ -360,8 +360,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -374,8 +374,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -385,8 +385,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -399,8 +399,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(arg, compValue, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -411,8 +411,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, 41);
 		CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, 41, nameof(arg));
-		CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, 41, Globals.CustomHResult);
-		CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, 41, Globals.CustomHResult, nameof(arg));
+		CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, 41, GlobalConstants.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, 41, GlobalConstants.CustomHResult, nameof(arg));
 	}
 
 	[TestMethod]
@@ -420,8 +420,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -434,8 +434,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -445,8 +445,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -459,8 +459,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThan(arg, compValue, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -471,8 +471,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, 41);
 		CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, 41, nameof(arg));
-		CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, 41, Globals.CustomHResult);
-		CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, 41, Globals.CustomHResult, nameof(arg));
+		CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, 41, GlobalConstants.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, 41, GlobalConstants.CustomHResult, nameof(arg));
 	}
 
 	[TestMethod]
@@ -480,8 +480,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -494,8 +494,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -505,8 +505,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -519,8 +519,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessThanOrEqual(arg, compValue, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -531,8 +531,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, 42);
 		CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, 42, nameof(arg));
-		CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, 42, Globals.CustomHResult);
-		CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, 42, Globals.CustomHResult, nameof(arg));
+		CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, 42, GlobalConstants.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, 42, GlobalConstants.CustomHResult, nameof(arg));
 	}
 
 	[TestMethod]
@@ -540,8 +540,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -554,8 +554,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -565,8 +565,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 	{
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -579,8 +579,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		string argName = "myArg";
 		int arg = 42;
 		int compValue = 43;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotEqual(arg, compValue, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -591,8 +591,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, 41, 43);
 		CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, 42, 43, nameof(arg));
-		CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, 41, 42, Globals.CustomHResult);
-		CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, 41, 43, Globals.CustomHResult, nameof(arg));
+		CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, 41, 42, GlobalConstants.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, 41, 43, GlobalConstants.CustomHResult, nameof(arg));
 	}
 
 	[TestMethod]
@@ -601,8 +601,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		int minValue = 43;
 		int maxValue = 44;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -616,8 +616,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		int minValue = 40;
 		int maxValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -628,8 +628,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		int minValue = 43;
 		int maxValue = 44;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(arg), ex.ParamName);
@@ -643,8 +643,8 @@ public class CodedArgumentOutOfRangeExceptionTests
 		int arg = 42;
 		int minValue = 40;
 		int maxValue = 41;
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfLessOrGreaterThan(arg, minValue, maxValue, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(arg, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -659,17 +659,17 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = 1;
 		double d = 1;
 		CodedArgumentOutOfRangeException.ThrowIfNegative(sb);
-		CodedArgumentOutOfRangeException.ThrowIfNegative(sb, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegative(sb, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegative(s);
-		CodedArgumentOutOfRangeException.ThrowIfNegative(s, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegative(s, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegative(i);
-		CodedArgumentOutOfRangeException.ThrowIfNegative(i, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegative(i, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegative(l);
-		CodedArgumentOutOfRangeException.ThrowIfNegative(l, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegative(l, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegative(f);
-		CodedArgumentOutOfRangeException.ThrowIfNegative(f, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegative(f, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegative(d);
-		CodedArgumentOutOfRangeException.ThrowIfNegative(d, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegative(d, GlobalConstants.CustomHResult);
 	}
 
 	[TestMethod]
@@ -682,43 +682,43 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = -1;
 		double d = -1;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(f), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(d), ex.ParamName);
@@ -736,33 +736,33 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = -1;
 		double d = -1;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 	}
 
@@ -776,43 +776,43 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = -1;
 		double d = -1;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(f), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(d), ex.ParamName);
@@ -830,33 +830,33 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = -1;
 		double d = -1;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(sb, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(s, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(i, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(l, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(f, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegative(d, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 	}
 
@@ -870,17 +870,17 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = 1;
 		double d = 1;
 		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb);
-		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s);
-		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i);
-		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l);
-		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f);
-		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d);
-		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, GlobalConstants.CustomHResult);
 	}
 
 	[TestMethod]
@@ -893,43 +893,43 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = 0;
 		double d = 0;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(f), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(d), ex.ParamName);
@@ -947,33 +947,33 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = -1;
 		double d = -1;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -988,43 +988,43 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = 0;
 		double d = 0;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(f), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(d), ex.ParamName);
@@ -1042,33 +1042,33 @@ public class CodedArgumentOutOfRangeExceptionTests
 		float f = -1;
 		double d = -1;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(sb, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(s, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(i, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(l, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(f, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNegativeOrZero(d, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -1088,27 +1088,27 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 1;
 		char c = 'X';
 		CodedArgumentOutOfRangeException.ThrowIfZero(sb);
-		CodedArgumentOutOfRangeException.ThrowIfZero(sb, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(sb, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(s);
-		CodedArgumentOutOfRangeException.ThrowIfZero(s, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(s, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(i);
-		CodedArgumentOutOfRangeException.ThrowIfZero(i, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(i, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(l);
-		CodedArgumentOutOfRangeException.ThrowIfZero(l, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(l, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(f);
-		CodedArgumentOutOfRangeException.ThrowIfZero(f, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(f, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(d);
-		CodedArgumentOutOfRangeException.ThrowIfZero(d, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(d, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(b);
-		CodedArgumentOutOfRangeException.ThrowIfZero(b, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(b, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(us);
-		CodedArgumentOutOfRangeException.ThrowIfZero(us, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(us, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(ul);
-		CodedArgumentOutOfRangeException.ThrowIfZero(ul, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(ul, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(ui);
-		CodedArgumentOutOfRangeException.ThrowIfZero(ui, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(ui, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfZero(c);
-		CodedArgumentOutOfRangeException.ThrowIfZero(c, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfZero(c, GlobalConstants.CustomHResult);
 	}
 
 	[TestMethod]
@@ -1126,78 +1126,78 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 0;
 		char c = '\0';
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(f), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(d), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(b), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(us), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ui), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ul), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(c));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(c));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(c, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(c), ex.ParamName);
@@ -1220,58 +1220,58 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 0;
 		char c = '\0';
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(c, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(c, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(c, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -1291,78 +1291,78 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 0;
 		char c = '\0';
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(f), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(d), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(b), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(us), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ui), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ul), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(c, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(c, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(c, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(c), ex.ParamName);
@@ -1384,53 +1384,53 @@ public class CodedArgumentOutOfRangeExceptionTests
 		uint ui = 0;
 		ulong ul = 0;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(sb, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(s, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(i, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(l, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(f, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(f, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(d, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(d, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(b, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(us, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ui, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfZero(ul, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -1455,21 +1455,21 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 16;
 		ulong ulm = 4;
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s,sm);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, GlobalConstants.CustomHResult);
 		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim);
-		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, Globals.CustomHResult);
+		CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, GlobalConstants.CustomHResult);
 	}
 
 	[TestMethod]
@@ -1492,57 +1492,57 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 15;
 		ulong ulm = 4;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(b), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(us), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ui), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ul), ex.ParamName);
@@ -1570,43 +1570,43 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 15;
 		ulong ulm = 4;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, argName));
-		Assert.AreEqual(Globals.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, argName));
+		Assert.AreEqual(GlobalConstants.COR_E_ARGUMENTOUTOFRANGE, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
@@ -1631,57 +1631,57 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 15;
 		ulong ulm = 4;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(sb), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(s), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(i), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(l), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(b), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(us), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ui), ex.ParamName);
 #endif
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, Globals.CustomHResult));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, GlobalConstants.CustomHResult));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 #if !NETFRAMEWORK && !NETSTANDARD2_0 && !NETSTANDARD2_1
 		Assert.AreEqual(nameof(ul), ex.ParamName);
@@ -1709,43 +1709,43 @@ public class CodedArgumentOutOfRangeExceptionTests
 		ulong ul = 15;
 		ulong ulm = 4;
 
-		CodedArgumentOutOfRangeException ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		CodedArgumentOutOfRangeException ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(sb, sbm, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(sb, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(s, sm, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(s, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(i, im, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(i, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(l, lm, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(l, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(b, bm, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(b, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(us, usm, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(us, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ui, uim, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ui, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 
-		ex = Assert.ThrowsException<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, Globals.CustomHResult, argName));
-		Assert.AreEqual(Globals.CustomHResult, ex.HResult);
+		ex = Assert.ThrowsExactly<CodedArgumentOutOfRangeException>(() => CodedArgumentOutOfRangeException.ThrowIfNotMultiple(ul, ulm, GlobalConstants.CustomHResult, argName));
+		Assert.AreEqual(GlobalConstants.CustomHResult, ex.HResult);
 		Assert.AreEqual(ul, ex.ActualValue);
 		Assert.AreEqual(argName, ex.ParamName);
 	}
